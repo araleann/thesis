@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<module configVersion="1.2">
+
+	<!-- Module Properties -->
+	<id>radiotest</id>
+	<name>Radio Test Module</name>
+	<version>1.0-SNAPSHOT</version>
+	<package>org.openmrs.module.radiotest</package>
+	<author>Jades</author>
+	<description>
+		Radiology patient form test
+	</description>
+	<updateURL>https://modules.openmrs.org/modules/download/radiotest/update.rdf</updateURL>
+	<require_version>1.8.2</require_version>
+	<!-- / Module Properties -->
+
+	
+	<!-- Module Activator -->
+	<activator>org.openmrs.module.radiotest.RadioTestActivator</activator>
+	
+	
+	<!-- Adds link to admin page -->
+	<extension>
+		<point>org.openmrs.admin.list</point>
+		<class>org.openmrs.module.radiotest.extension.html.AdminList</class>
+	</extension>
+	
+	<!-- Maps hibernate file's, if present -->
+	<mappingFiles>
+				
+		RadioTest.hbm.xml
+		RadioCategory.hbm.xml
+		RadioAlias.hbm.xml
+		RadioPatient.hbm.xml
+		RadioExamType.hbm.xml
+		RadioExam.hbm.xml
+		RadioTransaction.hbm.xml
+		RadioTransExam.hbm.xml
+		RadioNote.hbm.xml
+		
+	</mappingFiles>
+
+	<!-- Internationalization -->
+	<!-- All message codes should start with radiotest. -->
+	<messages>
+		<lang>en</lang>
+		<file>messages.properties</file>
+	</messages>
+	<messages>
+		<lang>fr</lang>
+		<file>messages_fr.properties</file>
+	</messages>
+	<messages>
+		<lang>es</lang>
+		<file>messages_es.properties</file>
+	</messages>
+	<!-- /Internationalization -->
+
+</module>
+

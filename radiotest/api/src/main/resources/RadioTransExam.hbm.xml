@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping package="org.openmrs.module.radiotest">
+
+<!--
+	<class name="RadioTest"
+		table="${project.parent.artifactId}_RadioTest">
+		<id name="id" type="int" column="id" unsaved-value="0">
+			<generator class="native" />
+		</id>
+		<discriminator column="id" insert="false" />
+		<property name="uuid" type="java.lang.String" column="uuid"
+			length="38" unique="true" />
+	</class>
+-->
+
+	<class name="RadioTransExam" table="radio_trans_exam">
+		<id name="id" type="java.lang.Integer" column="id">
+			<generator class="native" />
+		</id>
+		<discriminator column="id" insert="false" />
+		<property name="schedule" type="date" column="schedule"
+			access="field" />
+		<property name="pending" type="boolean" column="pending"
+			access="field" />
+		<property name="positive" type="boolean" column="positive"
+			access="field" />
+		<property name="findings" type="string" column="findings"
+			length="500" access="field" />
+		<property name="voided" type="boolean" column="voided"
+			access="field" />
+			
+		<many-to-one name="patient" column="patient_id" unique="true"
+			class="RadioPatient" />
+		<many-to-one name="transaction" column="trans_id" unique="true"
+			class="RadioTransaction" />
+		<many-to-one name="exam" column="exam_id" unique="true"
+			class="RadioExam" />
+	</class>
+</hibernate-mapping>

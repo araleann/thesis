@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping package="org.openmrs.module.radiotest">
+
+<!--
+	<class name="Test"
+		table="${project.parent.artifactId}_Test">
+		<id name="id" type="int" column="id" unsaved-value="0">
+			<generator class="native" />
+		</id>
+		<discriminator column="id" insert="false" />
+		<property name="uuid" type="java.lang.String" column="uuid"
+			length="38" unique="true" />
+	</class>
+-->
+
+	<class name="RadioPatient" table="radio_patient">
+		<id name="id" type="java.lang.Integer" column="id" unsaved-value="0">
+			<generator class="native" />
+		</id>
+		<discriminator column="id" insert="false" />
+		<property name="patientId" type="java.lang.String" column="patient_id"
+			length="20" access="field" />
+		<property name="firstName" type="java.lang.String" column="first_name"
+			length="20" access="field" />
+		<property name="middleInitial" type="java.lang.String" column="mi"
+			length="20" access="field" />
+		<property name="lastName" type="java.lang.String" column="last_name"
+			length="20" access="field" />
+		<property name="gender" type="java.lang.String" column="gender"
+			length="1" access="field" />
+		<property name="civilStatus" type="java.lang.String" column="civil_status"
+			length="10" access="field" />
+		<property name="birthday" type="java.util.Date" column="birthday"
+			access="field" />
+		<property name="streetAddress" type="java.lang.String" column="street_address"
+			length="150" access="field" />
+		<property name="city" type="java.lang.String" column="city"
+			length="50" access="field" />
+		<property name="barangay" type="java.lang.String" column="barangay"
+			length="50" access="field" />
+		<property name="region" type="java.lang.String" column="region"
+			length="50" access="field" />
+		<property name="contactNo" type="java.lang.String" column="contact_number"
+			length="20" access="field" />
+		<property name="institution" type="java.lang.String" column="institution"
+			length="50" access="field" />
+		<property name="philhealth" type="java.lang.String" column="philhealth"
+			length="50" access="field" />
+		<property name="voided" type="java.lang.Boolean" column="voided"
+			access="field" />
+		
+		<set name="aliases" cascade="all">
+			<key column="patient_id" />
+			<one-to-many class="RadioAlias" />
+		</set>
+	</class>
+
+</hibernate-mapping>
