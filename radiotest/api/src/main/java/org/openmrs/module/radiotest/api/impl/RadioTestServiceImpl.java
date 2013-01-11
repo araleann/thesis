@@ -111,9 +111,33 @@ public class RadioTestServiceImpl extends BaseOpenmrsService implements RadioTes
 	}
 	
 	@Override
+	public List<RadioExam> getAllExams() throws APIException {
+		// TODO Auto-generated method stub
+		return dao.getAllExams();
+	}
+
+	@Override
+	public RadioExam getExam(Integer examId) throws APIException {
+		// TODO Auto-generated method stub
+		return dao.getExam(examId);
+	}
+	
+	@Override
 	public RadioExamType saveExamType(RadioExamType type) throws APIException {
 		// TODO Auto-generated method stub
 		return dao.saveExamType(type);
+	}
+	
+	@Override
+	public List<RadioExamType> getAllExamTypes() throws APIException {
+		// TODO Auto-generated method stub
+		return dao.getAllExamTypes();
+	}
+
+	@Override
+	public RadioExamType getExamType(Integer typeId) throws APIException {
+		// TODO Auto-generated method stub
+		return dao.getExamType(typeId);
 	}
 
 	// TRANSACTION SERVICES
@@ -123,7 +147,5 @@ public class RadioTestServiceImpl extends BaseOpenmrsService implements RadioTes
 		// TODO Auto-generated method stub
 		return dao.saveTransaction(trans);
 	}
-
 	
-
 }

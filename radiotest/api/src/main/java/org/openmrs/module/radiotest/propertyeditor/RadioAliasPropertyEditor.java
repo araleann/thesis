@@ -5,7 +5,7 @@ import java.beans.PropertyEditorSupport;
 import org.openmrs.module.radiotest.RadioAlias;
 import org.springframework.util.StringUtils;
 
-public class AliasPropertyEditor extends PropertyEditorSupport {
+public class RadioAliasPropertyEditor extends PropertyEditorSupport {
 
 	public void setAsText(String text) throws IllegalArgumentException {
 		if (StringUtils.hasText(text)) {

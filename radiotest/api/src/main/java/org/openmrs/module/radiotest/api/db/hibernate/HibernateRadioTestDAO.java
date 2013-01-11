@@ -32,6 +32,7 @@ import org.openmrs.module.radiotest.api.db.RadioTestDAO;
 /**
  * It is a default implementation of  {@link RadioTestDAO}.
  */
+@SuppressWarnings("unchecked")
 public class HibernateRadioTestDAO implements RadioTestDAO {
 	protected final Log log = LogFactory.getLog(this.getClass());
 	
@@ -64,7 +65,6 @@ public class HibernateRadioTestDAO implements RadioTestDAO {
 		return (RadioPatient) sessionFactory.getCurrentSession().get(RadioPatient.class, patientId);
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public List<RadioPatient> getAllPatients(boolean includeVoided)
 			throws DAOException {
@@ -83,7 +83,6 @@ public class HibernateRadioTestDAO implements RadioTestDAO {
 
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public List<RadioCategory> getAllCategories() throws DAOException {
 		// TODO Auto-generated method stub
@@ -119,11 +118,37 @@ public class HibernateRadioTestDAO implements RadioTestDAO {
 	}
 	
 	@Override
+	public List<RadioExam> getAllExams() throws DAOException {
+		// TODO Auto-generated method stub
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(RadioExam.class);
+		return (List<RadioExam>) criteria.list();
+	}
+
+	@Override
+	public RadioExam getExam(Integer examId) throws DAOException {
+		// TODO Auto-generated method stub
+		return (RadioExam) sessionFactory.getCurrentSession().get(RadioExam.class, examId);
+	}
+	
+	@Override
 	public RadioExamType saveExamType(RadioExamType type) throws DAOException {
 		// TODO Auto-generated method stub
 		sessionFactory.getCurrentSession().saveOrUpdate(type);
 		return type;
 	}
+	
+	@Override
+	public List<RadioExamType> getAllExamTypes() throws DAOException {
+		// TODO Auto-generated method stub
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(RadioExamType.class);
+		return (List<RadioExamType>) criteria.list();
+	}
+
+	@Override
+	public RadioExamType getExamType(Integer typeId) throws DAOException {
+		// TODO Auto-generated method stub
+		return (RadioExamType) sessionFactory.getCurrentSession().get(RadioExamType.class, typeId);
+	}	
 
 	// TRANSACTION FUNCTIONS
 	@Override
@@ -133,7 +158,5 @@ public class HibernateRadioTestDAO implements RadioTestDAO {
 		sessionFactory.getCurrentSession().saveOrUpdate(trans);
 		return trans;
 	}
-
-	
 
 }

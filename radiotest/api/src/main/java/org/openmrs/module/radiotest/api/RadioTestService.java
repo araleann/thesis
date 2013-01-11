@@ -61,7 +61,20 @@ public interface RadioTestService extends OpenmrsService {
 	
 	// EXAM SERVICES
 	public RadioExamType saveExamType(RadioExamType type) throws APIException;
+	
+	@Transactional(readOnly = true)
+	public List<RadioExamType> getAllExamTypes() throws APIException;
+	
+	@Transactional(readOnly = true)
+	public RadioExamType getExamType(Integer typeId) throws APIException;
+	
 	public RadioExam saveExam(RadioExam exam) throws APIException;
+	
+	@Transactional(readOnly = true)
+	public List<RadioExam> getAllExams() throws APIException;
+	
+	@Transactional(readOnly = true)
+	public RadioExam getExam(Integer examId) throws APIException;
 	
 	// TRANSACTION SERVICES
 	public RadioTransaction saveTransaction(RadioTransaction trans) throws APIException;

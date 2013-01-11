@@ -8,8 +8,8 @@ import org.openmrs.module.radiotest.RadioCategory;
 import org.openmrs.module.radiotest.RadioPatient;
 import org.openmrs.module.radiotest.api.RadioTestService;
 import org.openmrs.module.radiotest.model.RadioPatientModel;
-import org.openmrs.module.radiotest.propertyeditor.AliasPropertyEditor;
-import org.openmrs.module.radiotest.propertyeditor.CategoryPropertyEditor;
+import org.openmrs.module.radiotest.propertyeditor.RadioAliasPropertyEditor;
+import org.openmrs.module.radiotest.propertyeditor.RadioCategoryPropertyEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -26,8 +26,8 @@ public class RadioPatientFormController {
 	
 	@InitBinder
 	public void initBinder(WebRequest request, WebDataBinder binder){
-		binder.registerCustomEditor(RadioCategory.class, new CategoryPropertyEditor());
-		binder.registerCustomEditor(RadioAlias.class, new AliasPropertyEditor());
+		binder.registerCustomEditor(RadioCategory.class, new RadioCategoryPropertyEditor());
+		binder.registerCustomEditor(RadioAlias.class, new RadioAliasPropertyEditor());
 	}
 	
 	@RequestMapping(value = PATIENT_FORM, method = RequestMethod.GET)
