@@ -13,16 +13,7 @@
  */
 package org.openmrs.module.radiotest.api;
 
-import java.util.List;
-
-import org.openmrs.api.APIException;
 import org.openmrs.api.OpenmrsService;
-import org.openmrs.module.radiotest.RadioAlias;
-import org.openmrs.module.radiotest.RadioCategory;
-import org.openmrs.module.radiotest.RadioExam;
-import org.openmrs.module.radiotest.RadioExamType;
-import org.openmrs.module.radiotest.RadioPatient;
-import org.openmrs.module.radiotest.RadioTransaction;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -38,46 +29,4 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public interface RadioTestService extends OpenmrsService {
     
-	// PATIENT SERVICES
-	public RadioPatient savePatient(RadioPatient patient) throws APIException;
-	
-	@Transactional(readOnly = true)
-	public RadioPatient getPatient(Integer patientId) throws APIException;
-	
-	@Transactional(readOnly = true)
-	public List<RadioPatient> getAllPatients(boolean includeVoided) throws APIException;
-	
-	@Transactional(readOnly = true)
-	public RadioCategory getCategory(Integer categoryId) throws APIException;
-	
-	@Transactional(readOnly = true)
-	public List<RadioCategory> getAllCategories() throws APIException;
-	
-	@Transactional(readOnly = true)
-	public RadioAlias getAlias(Integer aliasId) throws APIException;
-	
-	@Transactional(readOnly = true)
-	public List<RadioAlias> getAliases(Integer patientId, boolean includeVoided) throws APIException;
-	
-	// EXAM SERVICES
-	public RadioExamType saveExamType(RadioExamType type) throws APIException;
-	
-	@Transactional(readOnly = true)
-	public List<RadioExamType> getAllExamTypes() throws APIException;
-	
-	@Transactional(readOnly = true)
-	public RadioExamType getExamType(Integer typeId) throws APIException;
-	
-	public RadioExam saveExam(RadioExam exam) throws APIException;
-	
-	@Transactional(readOnly = true)
-	public List<RadioExam> getAllExams() throws APIException;
-	
-	@Transactional(readOnly = true)
-	public RadioExam getExam(Integer examId) throws APIException;
-	
-	// TRANSACTION SERVICES
-	public RadioTransaction saveTransaction(RadioTransaction trans) throws APIException;
-	
-	
 }
