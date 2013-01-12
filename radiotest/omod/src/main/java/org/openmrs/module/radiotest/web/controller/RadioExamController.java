@@ -1,5 +1,7 @@
 package org.openmrs.module.radiotest.web.controller;
 
+import java.util.List;
+
 import org.openmrs.api.context.Context;
 import org.openmrs.module.radiotest.RadioExam;
 import org.openmrs.module.radiotest.RadioExamType;
@@ -35,6 +37,11 @@ public class RadioExamController {
 	@ModelAttribute("exam")
 	public RadioExam getExam(){
 		return new RadioExam();
+	}
+	
+	@ModelAttribute("types")
+	public List<RadioExamType> getExamTypes() {
+		return Context.getService(RadioExamService.class).getAllExamTypes();
 	}
 	
 	@RequestMapping(value = EXAM_FORM, method = RequestMethod.POST)
