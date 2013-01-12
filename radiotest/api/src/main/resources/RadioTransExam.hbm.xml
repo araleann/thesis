@@ -28,6 +28,10 @@
 			access="field" />
 		<property name="positive" type="boolean" column="positive"
 			access="field" />
+		<property name="examDate" type="date" column="exam_date"
+			access="field" />
+		<property name="examTime" type="time" column="exam_time"
+			access="field" />
 		<property name="findings" type="string" column="findings"
 			length="500" access="field" />
 		<property name="voided" type="boolean" column="voided"

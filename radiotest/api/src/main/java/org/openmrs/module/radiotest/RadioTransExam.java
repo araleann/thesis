@@ -17,6 +17,9 @@ public class RadioTransExam extends BaseOpenmrsData {
 	private boolean pending;
 	private boolean positive;
 	
+	private Date examDate;
+	private Date examTime;
+	
 	private String findings;
 	
 	private Boolean voided;
@@ -80,6 +83,22 @@ public class RadioTransExam extends BaseOpenmrsData {
 
 	public void setPositive(boolean positive) {
 		this.positive = positive;
+	}
+
+	public Date getExamDate() {
+		return examDate;
+	}
+
+	public void setExamDate(Date examDate) {
+		this.examDate = examDate;
+	}
+
+	public Date getExamTime() {
+		return examTime;
+	}
+
+	public void setExamTime(Date examTime) {
+		this.examTime = examTime;
 	}
 
 	public String getFindings() {

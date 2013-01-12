@@ -91,6 +91,8 @@
 				pending BOOLEAN DEFAULT TRUE,
 				positive BOOLEAN DEFAULT FALSE,
 				findings VARCHAR(500) DEFAULT NULL,
+				exam_date DATE DEFAULT NULL,
+				exam_time TIME DEFAULT NULL,
 				voided BOOLEAN DEFAULT FALSE,
 				PRIMARY KEY (id)
 			);
