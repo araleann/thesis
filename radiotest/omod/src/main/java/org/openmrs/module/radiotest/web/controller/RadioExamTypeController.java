@@ -2,7 +2,7 @@ package org.openmrs.module.radiotest.web.controller;
 
 import org.openmrs.api.context.Context;
 import org.openmrs.module.radiotest.RadioExamType;
-import org.openmrs.module.radiotest.api.RadioTestService;
+import org.openmrs.module.radiotest.api.RadioExamService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -27,6 +27,6 @@ public class RadioExamTypeController {
 	
 	@RequestMapping(value = EXAM_TYPE_FORM, method = RequestMethod.POST)
 	public void saveExamType(ModelMap modelMap, @ModelAttribute RadioExamType examType){
-		Context.getService(RadioTestService.class).saveExamType(examType);
+		Context.getService(RadioExamService.class).saveExamType(examType);
 	}
 }

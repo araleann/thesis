@@ -6,7 +6,7 @@ import org.openmrs.api.context.Context;
 import org.openmrs.module.radiotest.RadioAlias;
 import org.openmrs.module.radiotest.RadioCategory;
 import org.openmrs.module.radiotest.RadioPatient;
-import org.openmrs.module.radiotest.api.RadioTestService;
+import org.openmrs.module.radiotest.api.RadioPatientService;
 import org.openmrs.module.radiotest.model.RadioPatientModel;
 import org.openmrs.module.radiotest.propertyeditor.RadioAliasPropertyEditor;
 import org.openmrs.module.radiotest.propertyeditor.RadioCategoryPropertyEditor;
@@ -37,7 +37,7 @@ public class RadioPatientListFormController {
 	
 	@ModelAttribute("patients")
 	public List<RadioPatient> getPatientName(){
-		return Context.getService(RadioTestService.class).getAllPatients(true);
+		return Context.getService(RadioPatientService.class).getAllPatients(true);
 	}
 	
 	@ModelAttribute("patientModel")
@@ -49,7 +49,7 @@ public class RadioPatientListFormController {
 	public ModelAndView getPatientFromForm(@ModelAttribute("patientModel") RadioPatientModel model, WebRequest request){
 		RadioPatient patient = model.getFullPatient();
 		try {
-			Context.getService(RadioTestService.class).savePatient(patient);
+			Context.getService(RadioPatientService.class).savePatient(patient);
 		} catch (Exception ex) {
 			System.out.println("Exception!");
 		}
