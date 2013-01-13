@@ -1,0 +1,1 @@
+<openmrs:htmlInclude file="/moduleResources/radiotest/GeneralUtils.js" />
