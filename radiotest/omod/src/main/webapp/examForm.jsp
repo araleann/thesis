@@ -1,6 +1,25 @@
 <%@ include file="/WEB-INF/template/include.jsp"%>
 <%@ include file="/WEB-INF/template/header.jsp"%>
 
+<%@ include file="template/resources.jsp" %>
+
+<script>
+$j(function(){
+	var input = {
+		name : "Exam Name",
+		studentFee : "Student Fee",
+		employeeFee : "Employee Fee",
+		dependentFee : "Dependent Fee",
+		outsiderFee : "Outsider Fee",
+		readingFee : "Reading Fee",
+		seniorFee : "Fee",
+		senReadingFee : "Reading Fee"
+	}
+	
+	GeneralUtils.addPlaceholderByName(input);
+});
+</script>
+
 <form:form method="post" modelAttribute="exam">
 	<form:label path="type">Exam Type</form:label>
 	<form:select path="type">
