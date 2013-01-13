@@ -31,4 +31,8 @@ public interface RadioPatientService extends OpenmrsService {
 	
 	@Transactional(readOnly = true)
 	public List<RadioAlias> getAliases(Integer patientId, boolean includeVoided) throws APIException;
+	
+	@Transactional(readOnly = true)
+	public List<RadioPatient> search(String text) throws APIException;
+
 }

@@ -12,6 +12,7 @@ public interface RadioPatientDAO {
 	public RadioPatient savePatient(RadioPatient patient) throws DAOException;
 	public RadioPatient getPatient(Integer patientId) throws DAOException;
 	public List<RadioPatient> getAllPatients(boolean includeVoided) throws DAOException;
+	public List<RadioPatient> search(String text) throws DAOException;
 	
 	public RadioCategory getCategory(Integer categoryId) throws DAOException;
 	public List<RadioCategory> getAllCategories() throws DAOException;

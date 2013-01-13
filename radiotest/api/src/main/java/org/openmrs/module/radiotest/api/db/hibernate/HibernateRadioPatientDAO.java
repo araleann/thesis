@@ -6,7 +6,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
-import org.hibernate.criterion.Expression;
+import org.hibernate.criterion.Restrictions;
 import org.openmrs.api.db.DAOException;
 import org.openmrs.module.radiotest.RadioAlias;
 import org.openmrs.module.radiotest.RadioCategory;
@@ -33,6 +33,10 @@ public class HibernateRadioPatientDAO implements RadioPatientDAO {
 	    return sessionFactory;
     }
     
+    private String addWildcards(String text){
+    	return "%" + text + "%";
+    }
+    
 	@Override
 	public RadioPatient savePatient(RadioPatient patient) throws DAOException {
 		// TODO Auto-generated method stub
@@ -53,7 +57,7 @@ public class HibernateRadioPatientDAO implements RadioPatientDAO {
 		// TODO Auto-generated method stub
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(RadioPatient.class);
 		if(!includeVoided){
-			criteria.add(Expression.eq("voided", false));
+			criteria.add(Restrictions.eq("voided", false));
 		}
 		return (List<RadioPatient>) criteria.list();
 	}
@@ -84,11 +88,28 @@ public class HibernateRadioPatientDAO implements RadioPatientDAO {
 			throws DAOException {
 		// TODO Auto-generated method stub
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(RadioAlias.class);
-		criteria.add(Expression.eq("patient_id", patientId));
+		criteria.add(Restrictions.eq("patient_id", patientId));
 		
 		if (!includeVoided){
-			criteria.add(Expression.eq("voided", false));
+			criteria.add(Restrictions.eq("voided", false));
 		}
 		return null;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<RadioPatient> search(String text) throws DAOException {
+		// TODO Auto-generated method stub
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(RadioPatient.class);
+		String searchString = addWildcards(text);
+		
+		List<RadioPatient> list = criteria
+					.createAlias("aliases", "a")
+					.add(Restrictions.disjunction()
+							.add(Restrictions.like("firstName", searchString))
+							.add(Restrictions.like("lastName", searchString))
+							.add(Restrictions.like("a.alias", searchString)))
+					.list();
+		return (List<RadioPatient>) list;
 	}
 }

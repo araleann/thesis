@@ -83,4 +83,11 @@ public class RadioPatientServiceImpl extends BaseOpenmrsService implements Radio
 		return dao.getAliases(patientId, includeVoided);
 	}
 
+	@Override
+	@Transactional(readOnly = true)
+	public List<RadioPatient> search(String text) throws APIException {
+		// TODO Auto-generated method stub
+		return dao.search(text);
+	}
+
 }
