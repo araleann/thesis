@@ -6,13 +6,13 @@
 <form:form method="post" modelAttribute="patientModel">
 	<h3>Basic Information</h3>
 	<div class="info">
-	<p><label for="name">Last Name</label> 
+	<p><label for="name">First Name</label> 
 	<form:input cssClass="patientinput" path="patient.firstName" />
 	</p>
-	<p><label for="name">First Name</label>
+	<p><label for="name">Middle Initial</label>
 	<form:input cssClass="patientinput" path="patient.middleInitial" />
 	</p>
-	<p><label for="name">Middle Name</label>
+	<p><label for="name">Last Name</label>
 	<form:input cssClass="patientinput" path="patient.lastName" />
 	</p>
 	

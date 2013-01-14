@@ -19,7 +19,7 @@ public class RadioPatientModel {
 	}
 
 	public RadioAlias getAlias() {
-		return alias == null? new RadioAlias() : alias;
+		return alias;
 	}
 
 	public void setAlias(RadioAlias alias) {
