@@ -100,16 +100,17 @@ public class HibernateRadioPatientDAO implements RadioPatientDAO {
 	@Override
 	public List<RadioPatient> search(String text) throws DAOException {
 		// TODO Auto-generated method stub
-		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(RadioPatient.class);
 		String searchString = addWildcards(text);
+		List<RadioPatient> list = sessionFactory.getCurrentSession()
+										.createCriteria(RadioPatient.class)
+										.createAlias("aliases", "a")
+										.add(Restrictions.disjunction()
+												.add(Restrictions.like("firstName", searchString))
+												.add(Restrictions.like("lastName", searchString))
+												.add(Restrictions.like("a.alias", searchString)))
+										.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
+										.list();
 		
-		List<RadioPatient> list = criteria
-					.createAlias("aliases", "a")
-					.add(Restrictions.disjunction()
-							.add(Restrictions.like("firstName", searchString))
-							.add(Restrictions.like("lastName", searchString))
-							.add(Restrictions.like("a.alias", searchString)))
-					.list();
 		return (List<RadioPatient>) list;
 	}
 }
