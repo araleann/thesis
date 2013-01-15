@@ -14,4 +14,6 @@ public interface RadioExamDAO {
 	public RadioExam saveExam(RadioExam exam) throws DAOException;
 	public List<RadioExam> getAllExams() throws DAOException;
 	public RadioExam getExam(Integer examId) throws DAOException;
+	public List<RadioExam> getExamByType(RadioExamType type) throws DAOException;
+	
 }

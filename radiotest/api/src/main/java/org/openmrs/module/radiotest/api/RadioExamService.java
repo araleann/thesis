@@ -26,4 +26,8 @@ public interface RadioExamService extends OpenmrsService {
 	
 	@Transactional(readOnly = true)
 	public RadioExam getExam(Integer examId) throws APIException;
+	
+	@Transactional(readOnly = true)
+	public List<RadioExam> getExamByType(RadioExamType type) throws APIException;
+
 }

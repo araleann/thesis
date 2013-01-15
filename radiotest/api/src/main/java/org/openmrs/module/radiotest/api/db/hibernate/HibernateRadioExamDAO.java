@@ -6,6 +6,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.openmrs.api.db.DAOException;
 import org.openmrs.module.radiotest.RadioExam;
 import org.openmrs.module.radiotest.RadioExamType;
@@ -71,5 +72,17 @@ public class HibernateRadioExamDAO implements RadioExamDAO {
 	public RadioExamType getExamType(Integer typeId) throws DAOException {
 		// TODO Auto-generated method stub
 		return (RadioExamType) sessionFactory.getCurrentSession().get(RadioExamType.class, typeId);
-	}	
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<RadioExam> getExamByType(RadioExamType type)
+			throws DAOException {
+		// TODO Auto-generated method stub
+		List<RadioExam> list = sessionFactory.getCurrentSession()
+								.createCriteria(RadioExam.class)
+								.add(Restrictions.eq("type", type))
+								.list();
+		return list;
+	}
 }

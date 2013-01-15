@@ -10,6 +10,7 @@ import org.openmrs.module.radiotest.RadioExam;
 import org.openmrs.module.radiotest.RadioExamType;
 import org.openmrs.module.radiotest.api.RadioExamService;
 import org.openmrs.module.radiotest.api.db.RadioExamDAO;
+import org.springframework.transaction.annotation.Transactional;
 
 public class RadioExamServiceImpl extends BaseOpenmrsService implements RadioExamService {
 
@@ -65,5 +66,12 @@ public class RadioExamServiceImpl extends BaseOpenmrsService implements RadioExa
 	public RadioExamType getExamType(Integer typeId) throws APIException {
 		// TODO Auto-generated method stub
 		return dao.getExamType(typeId);
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public List<RadioExam> getExamByType(RadioExamType type) throws APIException {
+		// TODO Auto-generated method stub
+		return dao.getExamByType(type);
 	}
 }
