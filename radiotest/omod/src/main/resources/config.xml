@@ -38,6 +38,8 @@
 		RadioTransaction.hbm.xml
 		RadioTransExam.hbm.xml
 		RadioNote.hbm.xml
+		RadioNoteType.hbm.xml
+		RadioResult.hbm.xml
 		
 	</mappingFiles>
 

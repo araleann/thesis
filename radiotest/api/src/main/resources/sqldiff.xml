@@ -45,12 +45,6 @@
 				PRIMARY KEY (id)
 			);
 			
-			INSERT INTO radio_category VALUES (default, "Employee");
-			INSERT INTO radio_category VALUES (default, "Dependent");
-			INSERT INTO radio_category VALUES (default, "Student");
-			INSERT INTO radio_category VALUES (default, "Faculty");
-			INSERT INTO radio_category VALUES (default, "Outsider");
-			
 			CREATE TABLE IF NOT EXISTS radio_alias (
 				id INT(11) NOT NULL AUTO_INCREMENT,
 				patient_id INT(11) DEFAULT NULL,
@@ -87,13 +81,20 @@
 				patient_id INT(11) DEFAULT NULL,
 				trans_id INT(11) DEFAULT NULL,
 				exam_id INT(11) DEFAULT NULL,
-				schedule DATE DEFAULT NULL,
 				pending BOOLEAN DEFAULT TRUE,
-				positive BOOLEAN DEFAULT FALSE,
-				findings VARCHAR(500) DEFAULT NULL,
 				exam_date DATE DEFAULT NULL,
 				exam_time TIME DEFAULT NULL,
+				borrowed BOOLEAN DEFAULT NULL,
 				voided BOOLEAN DEFAULT FALSE,
+				PRIMARY KEY (id)
+			);
+			
+			CREATE TABLE IF NOT EXISTS radio_results (
+				id INT(11) NOT NULL AUTO_INCREMENT,
+				trans_exam_id INT(11) DEFAULT NULL,
+				positive BOOLEAN DEFAULT NULL,
+				findings VARCHAR(500) DEFAULT NULL,
+				voided BOOLEAN DEFAULT NULL,
 				PRIMARY KEY (id)
 			);
 			
@@ -108,15 +109,23 @@
 				pending BOOLEAN DEFAULT TRUE,
 				visit_date DATE DEFAULT NULL,
 				visit_time TIME DEFAULT NULL,
+				draft BOOLEAN DEFAULT TRUE,
 				voided BOOLEAN DEFAULT FALSE,
 				PRIMARY KEY (id)
 			);
 			
 			CREATE TABLE IF NOT EXISTS radio_note (
 				id INT(11) NOT NULL AUTO_INCREMENT,
+				type_id INT(11) DEFAULT NULL,
 				trans_id INT(11) DEFAULT NULL,
 				note VARCHAR(500) DEFAULT NULL,
 				note_date DATE DEFAULT NULL,
+				PRIMARY KEY (id)
+			);
+			
+			CREATE TABLE IF NOT EXISTS radio_note_type (
+				id INT(11) NOT NULL AUTO_INCREMENT,
+				name VARCHAR(50) DEFAULT NULL,
 				PRIMARY KEY (id)
 			);
 		</sql>		

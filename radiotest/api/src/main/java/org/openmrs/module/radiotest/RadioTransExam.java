@@ -1,6 +1,7 @@
 package org.openmrs.module.radiotest;
 
 import java.util.Date;
+import java.util.Set;
 
 import org.openmrs.BaseOpenmrsData;
 
@@ -15,13 +16,13 @@ public class RadioTransExam extends BaseOpenmrsData {
 	private Date schedule;
 	
 	private boolean pending;
-	private boolean positive;
+	private boolean borrowed;
 	
 	private Date examDate;
 	private Date examTime;
 	
-	private String findings;
-	
+	private Set<RadioResult> findings;
+		
 	private Boolean voided;
 	
 
@@ -77,12 +78,12 @@ public class RadioTransExam extends BaseOpenmrsData {
 		this.pending = pending;
 	}
 
-	public boolean isPositive() {
-		return positive;
+	public boolean isBorrowed() {
+		return borrowed;
 	}
 
-	public void setPositive(boolean positive) {
-		this.positive = positive;
+	public void setBorrowed(boolean borrowed) {
+		this.borrowed = borrowed;
 	}
 
 	public Date getExamDate() {
@@ -101,11 +102,11 @@ public class RadioTransExam extends BaseOpenmrsData {
 		this.examTime = examTime;
 	}
 
-	public String getFindings() {
+	public Set<RadioResult> getFindings() {
 		return findings;
 	}
 
-	public void setFindings(String findings) {
+	public void setFindings(Set<RadioResult> findings) {
 		this.findings = findings;
 	}
 

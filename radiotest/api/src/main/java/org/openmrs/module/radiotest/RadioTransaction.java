@@ -22,6 +22,7 @@ public class RadioTransaction extends BaseOpenmrsData {
 	private String purpose;
 	private Set<RadioNote> notes;
 	
+	private boolean draft;
 	private Boolean voided;
 	
 	@Override
@@ -114,6 +115,14 @@ public class RadioTransaction extends BaseOpenmrsData {
 
 	public void setNotes(Set<RadioNote> notes) {
 		this.notes = notes;
+	}
+
+	public boolean isDraft() {
+		return draft;
+	}
+
+	public void setDraft(boolean draft) {
+		this.draft = draft;
 	}
 
 	public Boolean isVoided() {

@@ -7,6 +7,8 @@ import org.openmrs.BaseOpenmrsData;
 public class RadioNote extends BaseOpenmrsData {
 
 	private Integer id;
+	private RadioNoteType type;
+	
 	private String note;
 	private Date date;
 	
@@ -20,6 +22,14 @@ public class RadioNote extends BaseOpenmrsData {
 	public void setId(Integer id) {
 		// TODO Auto-generated method stub
 		this.id = id;
+	}
+
+	public RadioNoteType getType() {
+		return type;
+	}
+
+	public void setType(RadioNoteType type) {
+		this.type = type;
 	}
 
 	public String getNote() {
