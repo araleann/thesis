@@ -6,6 +6,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Conjunction;
 import org.hibernate.criterion.Restrictions;
 import org.openmrs.api.db.DAOException;
 import org.openmrs.module.radiotest.RadioAlias;
@@ -33,8 +34,16 @@ public class HibernateRadioPatientDAO implements RadioPatientDAO {
 	    return sessionFactory;
     }
     
-    private String addWildcards(String text){
-    	return "%" + text + "%";
+    private String[] format(String text){
+    	String[] searchText = text.split(" ");
+    	int size = searchText.length;
+    	
+    	String[] search = new String[size];
+    	for(int i=0; i<size; i++){
+    		search[i] = "%" + searchText[i] + "%";
+    	}
+    	
+    	return search;
     }
     
 	@Override
@@ -100,17 +109,29 @@ public class HibernateRadioPatientDAO implements RadioPatientDAO {
 	@Override
 	public List<RadioPatient> search(String text) throws DAOException {
 		// TODO Auto-generated method stub
-		String searchString = addWildcards(text);
-		List<RadioPatient> list = sessionFactory.getCurrentSession()
-										.createCriteria(RadioPatient.class)
-										.createAlias("aliases", "a")
-										.add(Restrictions.disjunction()
-												.add(Restrictions.like("firstName", searchString))
-												.add(Restrictions.like("lastName", searchString))
-												.add(Restrictions.like("a.alias", searchString)))
-										.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
-										.list();
+		String[] searchString = format(text);
+		Criteria criteria = sessionFactory.getCurrentSession()
+								.createCriteria(RadioPatient.class)
+								.createAlias("aliases", "a");
+		Conjunction conj = Restrictions.conjunction();
+		for(String t : searchString){
+			conj.add(Restrictions.disjunction()
+					.add(Restrictions.like("firstName", t))
+					.add(Restrictions.like("lastName", t))
+					.add(Restrictions.like("a.alias", t)));
+		}
+		criteria
+			.add(conj)
+			.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		
-		return (List<RadioPatient>) list;
+		return criteria.list();
+	}
+
+	@Override
+	public RadioCategory saveCategory(RadioCategory category)
+			throws DAOException {
+		// TODO Auto-generated method stub
+		sessionFactory.getCurrentSession().saveOrUpdate(category);
+		return category;
 	}
 }

@@ -90,4 +90,11 @@ public class RadioPatientServiceImpl extends BaseOpenmrsService implements Radio
 		return dao.search(text);
 	}
 
+	@Override
+	public RadioCategory saveCategory(RadioCategory category)
+			throws APIException {
+		// TODO Auto-generated method stub
+		return dao.saveCategory(category);
+	}
+
 }

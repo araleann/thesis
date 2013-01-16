@@ -46,6 +46,7 @@ public class AdminList extends AdministrationSectionExt {
 		LinkedHashMap<String, String> map = new LinkedHashMap<String, String>();
 		map.put("/module/radiotest/manage.form", "radiotest.manage");
 		map.put("/module/radiotest/patientForm.form", "Patient Form");
+		map.put("/module/radiotest/categoryForm.form", "Category Form");
 		map.put("/module/radiotest/examTypeForm.form", "Exam Type Form");
 		map.put("/module/radiotest/examForm.form", "Exam Form");
 		map.put("/module/radiotest/searchPatientForm.form", "Search Patient Form");
