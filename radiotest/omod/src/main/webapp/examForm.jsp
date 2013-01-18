@@ -17,6 +17,7 @@ $j(function(){
 	}
 	
 	GeneralUtils.addPlaceholderByName(input);
+	console.log("flag");
 });
 </script>
 

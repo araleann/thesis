@@ -2,17 +2,19 @@
 <%@ include file="/WEB-INF/template/header.jsp"%>
 
 <script>
+function addExam(){
+	var modulePath = openmrsContextPath + "/module/radiotest";
+	var addExam = modulePath + "/addExam #examType";
+	
+}
+
 $j(function(){
-	$j("#type").select(function(){
-		
-	});
+	
 });
 </script>
 
-<form:form method="post" modelAttribute="transModel">
-	<form:select path="${ type }">
-		<form:options path="${ examTypes }" />
-	</form:select>
+<form:form method="post" modelAttribute="transModel" id="transaction">
+	
 </form:form>
 
 <%@ include file="/WEB-INF/template/footer.jsp"%>
