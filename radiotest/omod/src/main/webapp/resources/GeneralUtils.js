@@ -35,10 +35,10 @@ $j(function(){
 	function addPlaceholderByName(name, text) {
 		if($j.isPlainObject(name)) {
 			for (x in name) {
-				$j("[name='" + x + "']").attr("placeholder", name[x]);
+				$j("[name*='" + x + "']").attr("placeholder", name[x]);
 			}
 		} else {
-			$j("[name='" + name + "']").attr("placeholder", text);
+			$j("[name*='" + name + "']").attr("placeholder", text);
 		}
 	}
 });

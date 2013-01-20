@@ -1,5 +1,7 @@
 package org.openmrs.module.radiotest;
 
+import java.util.Set;
+
 import org.openmrs.BaseOpenmrsData;
 
 public class RadioExam extends BaseOpenmrsData {
@@ -9,14 +11,7 @@ public class RadioExam extends BaseOpenmrsData {
 	private RadioExamType type;
 	private String name;
 	
-	private Double studentFee;
-	private Double employeeFee;
-	private Double dependentFee;
-	private Double outsiderFee;
-	private Double seniorFee;
-	
-	private Double readingFee;
-	private Double senReadingFee;
+	private Set<RadioCategoryExam> categoryFees;
 	
 	@Override
 	public Integer getId() {
@@ -46,60 +41,12 @@ public class RadioExam extends BaseOpenmrsData {
 		this.name = name;
 	}
 
-	public Double getStudentFee() {
-		return studentFee;
+	public Set<RadioCategoryExam> getCategoryFees() {
+		return categoryFees;
 	}
 
-	public void setStudentFee(Double studentFee) {
-		this.studentFee = studentFee;
-	}
-
-	public Double getEmployeeFee() {
-		return employeeFee;
-	}
-
-	public void setEmployeeFee(Double employeeFee) {
-		this.employeeFee = employeeFee;
-	}
-
-	public Double getDependentFee() {
-		return dependentFee;
-	}
-
-	public void setDependentFee(Double dependentFee) {
-		this.dependentFee = dependentFee;
-	}
-
-	public Double getOutsiderFee() {
-		return outsiderFee;
-	}
-
-	public void setOutsiderFee(Double outsiderFee) {
-		this.outsiderFee = outsiderFee;
-	}
-
-	public Double getSeniorFee() {
-		return seniorFee;
-	}
-
-	public void setSeniorFee(Double seniorFee) {
-		this.seniorFee = seniorFee;
-	}
-
-	public Double getReadingFee() {
-		return readingFee;
-	}
-
-	public void setReadingFee(Double readingFee) {
-		this.readingFee = readingFee;
-	}
-
-	public Double getSenReadingFee() {
-		return senReadingFee;
-	}
-
-	public void setSenReadingFee(Double senReadingFee) {
-		this.senReadingFee = senReadingFee;
+	public void setCategoryFees(Set<RadioCategoryExam> categoryFees) {
+		this.categoryFees = categoryFees;
 	}
 
 }

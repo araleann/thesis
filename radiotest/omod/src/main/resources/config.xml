@@ -35,6 +35,7 @@
 		RadioPatient.hbm.xml
 		RadioExamType.hbm.xml
 		RadioExam.hbm.xml
+		RadioCategoryExam.hbm.xml
 		RadioTransaction.hbm.xml
 		RadioTransExam.hbm.xml
 		RadioNote.hbm.xml

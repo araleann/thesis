@@ -17,20 +17,20 @@
 	</class>
 -->
 
-	<class name="RadioExam" table="radio_exam">
+	<class name="RadioCategoryExam" table="radio_category_exam">
 		<id name="id" type="java.lang.Integer" column="id">
 			<generator class="native" />
 		</id>
 		<discriminator column="id" insert="false" />
-		<property name="name" type="string" column="name"
-			length="50" access="field" />
-			
-		<many-to-one name="type" column="type_id" unique="true"
-			class="RadioExamType" />
-		<set name="categoryFees" cascade="all">
-			<key column="exam_id" />
-			<one-to-many class="RadioCategoryExam" />
-		</set>
+		<property name="examFee" type="double" column="exam_fee"
+			access="field" />
+		<property name="readingFee" type="double" column="reading_fee"
+			access="field" />
+		
+		<many-to-one name="exam" column="exam_id" unique="true"
+			class="RadioExam" />
+		<many-to-one name="category" column="category_id" unique="true"
+			class="RadioCategory" />
 	</class>
 
 </hibernate-mapping>

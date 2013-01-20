@@ -66,13 +66,15 @@
 				id INT(11) NOT NULL AUTO_INCREMENT,
 				type_id INT(11) DEFAULT NULL,
 				name VARCHAR(50) DEFAULT NULL,
-				s_fee DOUBLE(13,2) DEFAULT NULL,
-				e_fee DOUBLE(13,2) DEFAULT NULL,
-				d_fee DOUBLE(13,2) DEFAULT NULL,
-				o_fee DOUBLE(13,2) DEFAULT NULL,
-				sc_fee DOUBLE(13,2) DEFAULT NULL,
-				rf DOUBLE(13,2) DEFAULT NULL,
-				sc_rf DOUBLE(13,2) DEFAULT NULL,
+				PRIMARY KEY (id)
+			);
+			
+			CREATE TABLE IF NOT EXISTS radio_category_exam (
+				id INT(11) NOT NULL AUTO_INCREMENT,
+				exam_id INT(11) DEFAULT NULL,
+				category_id INT(11) DEFAULT NULL,
+				exam_fee DOUBLE(13,2) DEFAULT 0,
+				reading_fee DOUBLE(13,2) DEFAULT 0,
 				PRIMARY KEY (id)
 			);
 			
@@ -101,8 +103,8 @@
 			CREATE TABLE IF NOT EXISTS radio_transaction (
 				id INT(11) NOT NULL AUTO_INCREMENT,
 				patient_id INT(11) DEFAULT NULL,
-				rf DOUBLE(13,2) DEFAULT NULL,
-				exam_fee DOUBLE(13,2) DEFAULT NULL,
+				rf DOUBLE(13,2) DEFAULT 0,
+				exam_fee DOUBLE(13,2) DEFAULT 0,
 				notes VARCHAR(500) DEFAULT NULL,
 				purpose VARCHAR(500) DEFAULT NULL,
 				paid BOOLEAN DEFAULT FALSE,
