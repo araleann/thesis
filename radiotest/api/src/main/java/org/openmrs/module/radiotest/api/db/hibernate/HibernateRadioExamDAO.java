@@ -79,10 +79,9 @@ public class HibernateRadioExamDAO implements RadioExamDAO {
 	public List<RadioExam> getExamByType(RadioExamType type)
 			throws DAOException {
 		// TODO Auto-generated method stub
-		List<RadioExam> list = sessionFactory.getCurrentSession()
+		Criteria criteria = sessionFactory.getCurrentSession()
 								.createCriteria(RadioExam.class)
-								.add(Restrictions.eq("type", type))
-								.list();
-		return list;
+								.add(Restrictions.eq("type", type));
+		return (List<RadioExam>) criteria.list();
 	}
 }

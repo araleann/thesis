@@ -1,5 +1,7 @@
 package org.openmrs.module.radiotest.model;
 
+import java.util.LinkedHashSet;
+
 import org.openmrs.module.radiotest.RadioTransExam;
 import org.openmrs.module.radiotest.RadioTransaction;
 import org.springframework.util.AutoPopulatingList;
@@ -25,6 +27,9 @@ public class RadioTransactionModel {
 		this.exams = exams;
 	}
 	
-	
-
+	public RadioTransaction getFullTransaction(){
+		transaction.setExams(new LinkedHashSet<RadioTransExam>(exams));
+		
+		return transaction;
+	}
 }

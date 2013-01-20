@@ -1,6 +1,9 @@
 package org.openmrs.module.radiotest;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 import org.openmrs.BaseOpenmrsData;
@@ -132,5 +135,8 @@ public class RadioTransaction extends BaseOpenmrsData {
 	public void setVoided(Boolean voided) {
 		this.voided = voided;
 	}
-
+	
+	public int getNumberOfExams(){
+		return exams.size();
+	}
 }

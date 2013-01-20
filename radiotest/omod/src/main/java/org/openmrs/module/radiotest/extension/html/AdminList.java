@@ -50,7 +50,7 @@ public class AdminList extends AdministrationSectionExt {
 		map.put("/module/radiotest/examTypeForm.form", "Exam Type Form");
 		map.put("/module/radiotest/examForm.form", "Exam Form");
 		map.put("/module/radiotest/searchPatientForm.form", "Search Patient Form");
-		map.put("/module/radiotest/transactionForm.form", "Transaction Form");
+		map.put("/module/radiotest/transExamForm.form", "Transaction Form");
 		return map;
 	}
 	

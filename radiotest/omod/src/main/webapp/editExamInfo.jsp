@@ -1,25 +1,13 @@
 <%@ include file="/WEB-INF/template/include.jsp" %>
-<%@ include file="/WEB-INF/template/header.jsp"%>
-
-<script type="text/javascript">
-<!--
-$j(function(){
-	var modulePath = openmrsContextPath + "/module/radiotest";
-	var getExams = modulePath + "/getExams #exam";
-	$j("#examType").change(function(){
-		$j(this).after().load(getExams, { type : $j(this).val() });
-	});
-});
-//-->
-</script>
+<%@ include file="/WEB-INF/template/header.jsp" %>
 
 <form:form modelAttribute="transModel">
 	<spring:nestedPath path="exams[${ index }]">
-		<form:select path="exam.type" id="examType">
+		<form:select path="exam.type">
 			<option value="0"></option>
 			<form:options items="${ examTypes }" itemLabel="type" itemValue="id" />
 		</form:select>
-		<form:select path="exam" id="exam">
+		<form:select path="exam">
 			<option value="0"></option>
 			<form:options items="${ exam }" itemLabel="name" itemValue="id" />
 		</form:select>
