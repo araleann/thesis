@@ -70,9 +70,15 @@ public class RadioTransactionController {
 	}
 	
 	@RequestMapping(value = TRANS_EXAM_FORM, method = RequestMethod.POST)
-	public void saveTransaction(@ModelAttribute("transModel") RadioTransactionModel tm, ModelMap model){
+	public ModelAndView saveTransaction(@ModelAttribute("transModel") RadioTransactionModel tm, ModelMap model){
 		RadioTransaction trans = tm.getFullTransaction();
-		System.out.println(trans.getNumberOfExams());
+		model.addAttribute("numOfExams", trans.getNumberOfExams());
+		model.addAttribute("exams", trans.getExams());
+		model.addAttribute("total", trans.computeFees());
+		model.addAttribute("examFee", trans.getExamFee());
+		model.addAttribute("readingFee", trans.getReadingFee());
+		
+		return new ModelAndView("/module/radiotest/transactionForm", model);
 	}
 	
 }

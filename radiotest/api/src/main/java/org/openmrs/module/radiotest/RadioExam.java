@@ -1,5 +1,6 @@
 package org.openmrs.module.radiotest;
 
+import java.util.Iterator;
 import java.util.Set;
 
 import org.openmrs.BaseOpenmrsData;
@@ -49,4 +50,14 @@ public class RadioExam extends BaseOpenmrsData {
 		this.categoryFees = categoryFees;
 	}
 
+	public RadioCategoryExam getFees(RadioCategory category){
+		Iterator<RadioCategoryExam> iter = categoryFees.iterator();
+		while(iter.hasNext()){
+			RadioCategoryExam fee = iter.next();
+			if(category.equals(fee)){
+				return fee;
+			}
+		}
+		return null;
+	}
 }

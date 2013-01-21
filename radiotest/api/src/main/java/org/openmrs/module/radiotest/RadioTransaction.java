@@ -1,9 +1,7 @@
 package org.openmrs.module.radiotest;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Set;
 
 import org.openmrs.BaseOpenmrsData;
@@ -138,5 +136,26 @@ public class RadioTransaction extends BaseOpenmrsData {
 	
 	public int getNumberOfExams(){
 		return exams.size();
+	}
+	
+	public Double computeFees(){
+		Iterator<RadioTransExam> iter = exams.iterator();
+		RadioCategory category = patient.getCategory();
+		double examFee = 0, readingFee = 0;
+		
+		while(iter.hasNext()){
+			RadioTransExam exam = iter.next();
+			RadioCategoryExam fee = exam.getFees(category);
+			examFee = examFee + checkDouble(fee.getExamFee());
+			readingFee = readingFee + checkDouble(fee.getReadingFee());
+		}
+		
+		this.examFee = new Double(examFee);
+		this.readingFee = new Double(readingFee);
+		return new Double(examFee + readingFee);
+	}
+	
+	private double checkDouble(Double d){
+		return d == null? 0 : d.doubleValue();
 	}
 }

@@ -3,6 +3,7 @@ package org.openmrs.module.radiotest;
 import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.Set;
+import java.util.Vector;
 
 import org.openmrs.BaseOpenmrsData;
 
@@ -176,5 +177,14 @@ public class RadioPatient extends BaseOpenmrsData {
 
 	public void setVoided(Boolean voided) {
 		this.voided = voided;
+	}
+	
+	public RadioAlias getAlias(){
+		Vector<RadioAlias> list = new Vector<RadioAlias>(aliases);
+		return list.lastElement();
+	}
+	
+	public RadioCategory getCategory(){
+		return getAlias().getCategory();
 	}
 }

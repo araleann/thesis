@@ -117,5 +117,9 @@ public class RadioTransExam extends BaseOpenmrsData {
 	public void setVoided(Boolean voided) {
 		this.voided = voided;
 	}
+	
+	public RadioCategoryExam getFees(RadioCategory category){
+		return exam.getFees(category);
+	}
 
 }
