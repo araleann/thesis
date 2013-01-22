@@ -35,6 +35,7 @@
 				contact_number VARCHAR(20) DEFAULT NULL,
 				institution VARCHAR(50) DEFAULT NULL,
 				philhealth VARCHAR(50) DEFAULT NULL,
+				update_date DATE DEFAULT NULL,
 				voided BOOLEAN DEFAULT FALSE,
 				PRIMARY KEY (id)
 			);
@@ -96,6 +97,7 @@
 				trans_exam_id INT(11) DEFAULT NULL,
 				positive BOOLEAN DEFAULT NULL,
 				findings VARCHAR(500) DEFAULT NULL,
+				draft BOOLEAN DEFAULT TRUE,
 				voided BOOLEAN DEFAULT NULL,
 				PRIMARY KEY (id)
 			);
@@ -105,8 +107,8 @@
 				patient_id INT(11) DEFAULT NULL,
 				rf DOUBLE(13,2) DEFAULT 0,
 				exam_fee DOUBLE(13,2) DEFAULT 0,
-				notes VARCHAR(500) DEFAULT NULL,
 				purpose VARCHAR(500) DEFAULT NULL,
+				or_number VARCHAR(20) DEFAULT NULL,
 				paid BOOLEAN DEFAULT FALSE,
 				pending BOOLEAN DEFAULT TRUE,
 				visit_date DATE DEFAULT NULL,

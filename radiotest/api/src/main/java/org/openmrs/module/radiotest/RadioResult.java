@@ -8,6 +8,7 @@ public class RadioResult extends BaseOpenmrsData {
 	
 	private boolean positive;
 	private String findings;
+	private boolean draft;
 	
 	private Boolean voided;
 
@@ -37,6 +38,14 @@ public class RadioResult extends BaseOpenmrsData {
 
 	public void setFindings(String findings) {
 		this.findings = findings;
+	}
+
+	public boolean isDraft() {
+		return draft;
+	}
+
+	public void setDraft(boolean draft) {
+		this.draft = draft;
 	}
 
 	public Boolean isVoided() {

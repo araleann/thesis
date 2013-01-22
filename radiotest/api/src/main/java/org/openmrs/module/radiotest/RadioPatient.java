@@ -29,6 +29,8 @@ public class RadioPatient extends BaseOpenmrsData {
 	private String institution;
 	private String philhealth;
 	
+	private Date updateDate;
+	
 	private Set<RadioAlias> aliases = new LinkedHashSet<RadioAlias>();
 	
 	private Boolean voided = Boolean.FALSE;
@@ -159,6 +161,14 @@ public class RadioPatient extends BaseOpenmrsData {
 
 	public void setPhilhealth(String philhealth) {
 		this.philhealth = philhealth;
+	}
+
+	public Date getUpdateDate() {
+		return updateDate;
+	}
+
+	public void setUpdateDate(Date updateDate) {
+		this.updateDate = updateDate;
 	}
 
 	public Set<RadioAlias> getAliases() {

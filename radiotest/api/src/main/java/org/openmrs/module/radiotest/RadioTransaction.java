@@ -26,6 +26,7 @@ public class RadioTransaction extends BaseOpenmrsData {
 	private Double readingFee;
 	private Double examFee;
 	private String purpose;
+	private String orNumber;
 	private Set<RadioNote> notes;
 	
 	private boolean draft;
@@ -116,6 +117,14 @@ public class RadioTransaction extends BaseOpenmrsData {
 
 	public void setPurpose(String purpose) {
 		this.purpose = purpose;
+	}
+
+	public String getOrNumber() {
+		return orNumber;
+	}
+
+	public void setOrNumber(String orNumber) {
+		this.orNumber = orNumber;
 	}
 
 	public Set<RadioNote> getNotes() {

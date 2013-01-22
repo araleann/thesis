@@ -26,6 +26,8 @@
 			access="field" />
 		<property name="findings" type="string" column="findings"
 			length="500" access="field" />
+		<property name="draft" type="boolean" column="draft"
+			access="field" />
 		<property name="voided" type="boolean" column="voided"
 			access="field" />
 	</class>
