@@ -25,6 +25,8 @@ public class RadioTransExam extends BaseOpenmrsData {
 		
 	private Boolean voided;
 	
+	private Double examFee;
+	private Double readingFee;
 
 	@Override
 	public Integer getId() {
@@ -118,8 +120,28 @@ public class RadioTransExam extends BaseOpenmrsData {
 		this.voided = voided;
 	}
 	
+	public Double getExamFee() {
+		return examFee;
+	}
+
+	public void setExamFee(Double examFee) {
+		this.examFee = examFee;
+	}
+
+	public Double getReadingFee() {
+		return readingFee;
+	}
+
+	public void setReadingFee(Double readingFee) {
+		this.readingFee = readingFee;
+	}
+
 	public RadioCategoryExam getFees(RadioCategory category){
-		return exam.getFees(category);
+		RadioCategoryExam fee = exam.getFees(category);
+		this.examFee = fee.getExamFee();
+		this.readingFee = fee.getReadingFee();
+		
+		return fee;
 	}
 
 }

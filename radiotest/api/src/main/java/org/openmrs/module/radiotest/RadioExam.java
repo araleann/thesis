@@ -54,7 +54,7 @@ public class RadioExam extends BaseOpenmrsData {
 		Iterator<RadioCategoryExam> iter = categoryFees.iterator();
 		while(iter.hasNext()){
 			RadioCategoryExam fee = iter.next();
-			if(category.equals(fee)){
+			if(category.equals(fee.getCategory())){
 				return fee;
 			}
 		}

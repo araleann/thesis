@@ -5,6 +5,8 @@ import java.util.Iterator;
 import java.util.Set;
 
 import org.openmrs.BaseOpenmrsData;
+import org.openmrs.api.context.Context;
+import org.openmrs.module.radiotest.api.RadioPatientService;
 
 public class RadioTransaction extends BaseOpenmrsData {
 
@@ -25,6 +27,8 @@ public class RadioTransaction extends BaseOpenmrsData {
 	
 	private boolean draft;
 	private Boolean voided;
+	
+	private Double total;
 	
 	@Override
 	public Integer getId() {
@@ -52,6 +56,7 @@ public class RadioTransaction extends BaseOpenmrsData {
 
 	public void setExams(Set<RadioTransExam> exams) {
 		this.exams = exams;
+		computeFees();
 	}
 
 	public Date getVisitDate() {
@@ -138,7 +143,14 @@ public class RadioTransaction extends BaseOpenmrsData {
 		return exams.size();
 	}
 	
-	public Double computeFees(){
+	public Double getTotal(){
+		return total;
+	}
+	
+	private void computeFees(){
+		// for debugging purposes
+		patient = Context.getService(RadioPatientService.class).getPatient(new Integer(1));
+		
 		Iterator<RadioTransExam> iter = exams.iterator();
 		RadioCategory category = patient.getCategory();
 		double examFee = 0, readingFee = 0;
@@ -152,7 +164,7 @@ public class RadioTransaction extends BaseOpenmrsData {
 		
 		this.examFee = new Double(examFee);
 		this.readingFee = new Double(readingFee);
-		return new Double(examFee + readingFee);
+		this.total = new Double(examFee + readingFee);
 	}
 	
 	private double checkDouble(Double d){

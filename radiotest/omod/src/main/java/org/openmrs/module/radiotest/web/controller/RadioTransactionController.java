@@ -8,6 +8,7 @@ import org.openmrs.module.radiotest.RadioExamType;
 import org.openmrs.module.radiotest.RadioTransExam;
 import org.openmrs.module.radiotest.RadioTransaction;
 import org.openmrs.module.radiotest.api.RadioExamService;
+import org.openmrs.module.radiotest.api.RadioTransactionService;
 import org.openmrs.module.radiotest.model.RadioTransactionModel;
 import org.openmrs.module.radiotest.propertyeditor.RadioExamPropertyEditor;
 import org.openmrs.module.radiotest.propertyeditor.RadioExamTypePropertyEditor;
@@ -74,9 +75,9 @@ public class RadioTransactionController {
 		RadioTransaction trans = tm.getFullTransaction();
 		model.addAttribute("numOfExams", trans.getNumberOfExams());
 		model.addAttribute("exams", trans.getExams());
-		model.addAttribute("total", trans.computeFees());
-		model.addAttribute("examFee", trans.getExamFee());
-		model.addAttribute("readingFee", trans.getReadingFee());
+		model.addAttribute("total", trans.getTotal());
+		
+		Context.getService(RadioTransactionService.class).saveTransaction(trans);
 		
 		return new ModelAndView("/module/radiotest/transactionForm", model);
 	}
