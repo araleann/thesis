@@ -3,8 +3,8 @@ package org.openmrs.module.radiotest.propertyeditor;
 import java.beans.PropertyEditorSupport;
 
 import org.openmrs.api.context.Context;
-import org.openmrs.module.radiotest.RadioCategory;
 import org.openmrs.module.radiotest.api.RadioPatientService;
+import org.openmrs.module.radiotest.type.RadioCategory;
 
 public class RadioCategoryPropertyEditor extends PropertyEditorSupport {
 	

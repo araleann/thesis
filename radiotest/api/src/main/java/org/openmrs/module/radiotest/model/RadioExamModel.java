@@ -2,8 +2,8 @@ package org.openmrs.module.radiotest.model;
 
 import java.util.LinkedHashSet;
 
-import org.openmrs.module.radiotest.RadioCategoryExam;
 import org.openmrs.module.radiotest.RadioExam;
+import org.openmrs.module.radiotest.association.RadioCategoryExam;
 import org.springframework.util.AutoPopulatingList;
 
 public class RadioExamModel {

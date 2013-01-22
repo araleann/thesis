@@ -4,6 +4,9 @@ import java.util.Iterator;
 import java.util.Set;
 
 import org.openmrs.BaseOpenmrsData;
+import org.openmrs.module.radiotest.association.RadioCategoryExam;
+import org.openmrs.module.radiotest.type.RadioCategory;
+import org.openmrs.module.radiotest.type.RadioExamType;
 
 public class RadioExam extends BaseOpenmrsData {
 	

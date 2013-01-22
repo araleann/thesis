@@ -7,9 +7,9 @@ import org.apache.commons.logging.LogFactory;
 import org.openmrs.api.APIException;
 import org.openmrs.api.impl.BaseOpenmrsService;
 import org.openmrs.module.radiotest.RadioExam;
-import org.openmrs.module.radiotest.RadioExamType;
 import org.openmrs.module.radiotest.api.RadioExamService;
 import org.openmrs.module.radiotest.api.db.RadioExamDAO;
+import org.openmrs.module.radiotest.type.RadioExamType;
 import org.springframework.transaction.annotation.Transactional;
 
 public class RadioExamServiceImpl extends BaseOpenmrsService implements RadioExamService {

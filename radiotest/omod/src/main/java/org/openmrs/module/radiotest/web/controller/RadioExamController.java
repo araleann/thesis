@@ -3,15 +3,15 @@ package org.openmrs.module.radiotest.web.controller;
 import java.util.List;
 
 import org.openmrs.api.context.Context;
-import org.openmrs.module.radiotest.RadioCategory;
-import org.openmrs.module.radiotest.RadioCategoryExam;
 import org.openmrs.module.radiotest.RadioExam;
-import org.openmrs.module.radiotest.RadioExamType;
 import org.openmrs.module.radiotest.api.RadioExamService;
 import org.openmrs.module.radiotest.api.RadioPatientService;
+import org.openmrs.module.radiotest.association.RadioCategoryExam;
 import org.openmrs.module.radiotest.model.RadioExamModel;
 import org.openmrs.module.radiotest.propertyeditor.RadioCategoryPropertyEditor;
 import org.openmrs.module.radiotest.propertyeditor.RadioExamTypePropertyEditor;
+import org.openmrs.module.radiotest.type.RadioCategory;
+import org.openmrs.module.radiotest.type.RadioExamType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.AutoPopulatingList;

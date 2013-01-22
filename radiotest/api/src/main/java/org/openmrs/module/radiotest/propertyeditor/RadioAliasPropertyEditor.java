@@ -2,7 +2,7 @@ package org.openmrs.module.radiotest.propertyeditor;
 
 import java.beans.PropertyEditorSupport;
 
-import org.openmrs.module.radiotest.RadioAlias;
+import org.openmrs.module.radiotest.association.RadioAlias;
 import org.springframework.util.StringUtils;
 
 public class RadioAliasPropertyEditor extends PropertyEditorSupport {

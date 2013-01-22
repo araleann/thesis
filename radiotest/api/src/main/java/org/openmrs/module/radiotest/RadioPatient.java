@@ -6,6 +6,8 @@ import java.util.Set;
 import java.util.Vector;
 
 import org.openmrs.BaseOpenmrsData;
+import org.openmrs.module.radiotest.association.RadioAlias;
+import org.openmrs.module.radiotest.type.RadioCategory;
 
 public class RadioPatient extends BaseOpenmrsData {
 	

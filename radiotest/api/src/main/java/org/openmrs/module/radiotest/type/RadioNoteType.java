@@ -1,4 +1,4 @@
-package org.openmrs.module.radiotest;
+package org.openmrs.module.radiotest.type;
 
 import org.openmrs.BaseOpenmrsMetadata;
 

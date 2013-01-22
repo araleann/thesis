@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.openmrs.api.db.DAOException;
 import org.openmrs.module.radiotest.RadioExam;
-import org.openmrs.module.radiotest.RadioExamType;
+import org.openmrs.module.radiotest.type.RadioExamType;
 
 public interface RadioExamDAO {
 

@@ -3,6 +3,7 @@ package org.openmrs.module.radiotest;
 import java.util.Date;
 
 import org.openmrs.BaseOpenmrsData;
+import org.openmrs.module.radiotest.type.RadioNoteType;
 
 public class RadioNote extends BaseOpenmrsData {
 

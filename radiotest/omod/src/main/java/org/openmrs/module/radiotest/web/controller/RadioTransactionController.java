@@ -4,14 +4,14 @@ import java.util.List;
 
 import org.openmrs.api.context.Context;
 import org.openmrs.module.radiotest.RadioExam;
-import org.openmrs.module.radiotest.RadioExamType;
-import org.openmrs.module.radiotest.RadioTransExam;
 import org.openmrs.module.radiotest.RadioTransaction;
 import org.openmrs.module.radiotest.api.RadioExamService;
 import org.openmrs.module.radiotest.api.RadioTransactionService;
+import org.openmrs.module.radiotest.association.RadioTransExam;
 import org.openmrs.module.radiotest.model.RadioTransactionModel;
 import org.openmrs.module.radiotest.propertyeditor.RadioExamPropertyEditor;
 import org.openmrs.module.radiotest.propertyeditor.RadioExamTypePropertyEditor;
+import org.openmrs.module.radiotest.type.RadioExamType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.AutoPopulatingList;

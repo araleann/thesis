@@ -9,10 +9,10 @@ import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Conjunction;
 import org.hibernate.criterion.Restrictions;
 import org.openmrs.api.db.DAOException;
-import org.openmrs.module.radiotest.RadioAlias;
-import org.openmrs.module.radiotest.RadioCategory;
 import org.openmrs.module.radiotest.RadioPatient;
 import org.openmrs.module.radiotest.api.db.RadioPatientDAO;
+import org.openmrs.module.radiotest.association.RadioAlias;
+import org.openmrs.module.radiotest.type.RadioCategory;
 
 public class HibernateRadioPatientDAO implements RadioPatientDAO {
 	

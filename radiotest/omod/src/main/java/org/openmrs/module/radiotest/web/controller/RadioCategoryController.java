@@ -1,8 +1,8 @@
 package org.openmrs.module.radiotest.web.controller;
 
 import org.openmrs.api.context.Context;
-import org.openmrs.module.radiotest.RadioCategory;
 import org.openmrs.module.radiotest.api.RadioPatientService;
+import org.openmrs.module.radiotest.type.RadioCategory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;

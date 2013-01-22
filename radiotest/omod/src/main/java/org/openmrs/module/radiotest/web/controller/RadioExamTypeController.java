@@ -1,8 +1,8 @@
 package org.openmrs.module.radiotest.web.controller;
 
 import org.openmrs.api.context.Context;
-import org.openmrs.module.radiotest.RadioExamType;
 import org.openmrs.module.radiotest.api.RadioExamService;
+import org.openmrs.module.radiotest.type.RadioExamType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;

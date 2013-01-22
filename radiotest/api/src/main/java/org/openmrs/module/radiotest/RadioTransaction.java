@@ -7,6 +7,9 @@ import java.util.Set;
 import org.openmrs.BaseOpenmrsData;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.radiotest.api.RadioPatientService;
+import org.openmrs.module.radiotest.association.RadioCategoryExam;
+import org.openmrs.module.radiotest.association.RadioTransExam;
+import org.openmrs.module.radiotest.type.RadioCategory;
 
 public class RadioTransaction extends BaseOpenmrsData {
 
