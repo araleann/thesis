@@ -1,8 +1,6 @@
-package org.openmrs.module.radiotest.association;
+package org.openmrs.module.radiotest;
 
 import org.openmrs.BaseOpenmrsData;
-import org.openmrs.module.radiotest.RadioExam;
-import org.openmrs.module.radiotest.type.RadioCategory;
 
 public class RadioCategoryExam extends BaseOpenmrsData {
 	

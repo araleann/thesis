@@ -9,8 +9,8 @@ import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.openmrs.api.db.DAOException;
 import org.openmrs.module.radiotest.RadioExam;
+import org.openmrs.module.radiotest.RadioExamType;
 import org.openmrs.module.radiotest.api.db.RadioExamDAO;
-import org.openmrs.module.radiotest.type.RadioExamType;
 
 public class HibernateRadioExamDAO implements RadioExamDAO {
 

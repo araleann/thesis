@@ -6,10 +6,10 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.api.APIException;
 import org.openmrs.api.impl.BaseOpenmrsService;
+import org.openmrs.module.radiotest.RadioNoteType;
 import org.openmrs.module.radiotest.RadioTransaction;
 import org.openmrs.module.radiotest.api.RadioTransactionService;
 import org.openmrs.module.radiotest.api.db.RadioTransactionDAO;
-import org.openmrs.module.radiotest.type.RadioNoteType;
 
 public class RadioTransactionServiceImpl extends BaseOpenmrsService implements RadioTransactionService {
 

@@ -3,9 +3,9 @@ package org.openmrs.module.radiotest.api.db;
 import java.util.List;
 
 import org.openmrs.api.db.DAOException;
+import org.openmrs.module.radiotest.RadioAlias;
+import org.openmrs.module.radiotest.RadioCategory;
 import org.openmrs.module.radiotest.RadioPatient;
-import org.openmrs.module.radiotest.association.RadioAlias;
-import org.openmrs.module.radiotest.type.RadioCategory;
 
 public interface RadioPatientDAO {
 

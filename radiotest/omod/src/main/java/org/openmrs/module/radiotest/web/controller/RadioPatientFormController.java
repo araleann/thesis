@@ -3,11 +3,11 @@ package org.openmrs.module.radiotest.web.controller;
 import java.util.List;
 
 import org.openmrs.api.context.Context;
+import org.openmrs.module.radiotest.RadioCategory;
 import org.openmrs.module.radiotest.RadioPatient;
 import org.openmrs.module.radiotest.api.RadioPatientService;
 import org.openmrs.module.radiotest.model.RadioPatientModel;
 import org.openmrs.module.radiotest.propertyeditor.RadioCategoryPropertyEditor;
-import org.openmrs.module.radiotest.type.RadioCategory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;

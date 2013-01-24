@@ -8,9 +8,9 @@ import org.apache.commons.logging.LogFactory;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.openmrs.api.db.DAOException;
+import org.openmrs.module.radiotest.RadioNoteType;
 import org.openmrs.module.radiotest.RadioTransaction;
 import org.openmrs.module.radiotest.api.db.RadioTransactionDAO;
-import org.openmrs.module.radiotest.type.RadioNoteType;
 
 public class HibernateRadioTransactionDAO implements RadioTransactionDAO {
 

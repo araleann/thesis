@@ -27,5 +27,10 @@ Payment Details
 </c:forEach>
 
 Total Amount Due: ${ total }
+<br>
+<br>
 
+<button type="button">Print Assessment Form</button>
+<br>
+<br>
 <%@ include file="/WEB-INF/template/footer.jsp"%>

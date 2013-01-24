@@ -1,10 +1,8 @@
-package org.openmrs.module.radiotest.association;
+package org.openmrs.module.radiotest;
 
 import java.util.Date;
 
 import org.openmrs.BaseOpenmrsData;
-import org.openmrs.module.radiotest.RadioPatient;
-import org.openmrs.module.radiotest.type.RadioCategory;
 
 public class RadioAlias extends BaseOpenmrsData {
 	

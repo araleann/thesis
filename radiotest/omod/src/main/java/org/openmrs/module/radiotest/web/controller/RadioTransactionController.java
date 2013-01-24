@@ -4,17 +4,14 @@ import java.util.List;
 
 import org.openmrs.api.context.Context;
 import org.openmrs.module.radiotest.RadioExam;
+import org.openmrs.module.radiotest.RadioExamType;
 import org.openmrs.module.radiotest.RadioTransaction;
 import org.openmrs.module.radiotest.api.RadioExamService;
-import org.openmrs.module.radiotest.api.RadioTransactionService;
-import org.openmrs.module.radiotest.association.RadioTransExam;
 import org.openmrs.module.radiotest.model.RadioTransactionModel;
 import org.openmrs.module.radiotest.propertyeditor.RadioExamPropertyEditor;
 import org.openmrs.module.radiotest.propertyeditor.RadioExamTypePropertyEditor;
-import org.openmrs.module.radiotest.type.RadioExamType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.util.AutoPopulatingList;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -43,11 +40,7 @@ public class RadioTransactionController {
 	
 	@ModelAttribute("transModel")
 	public RadioTransactionModel getModel(){
-		RadioTransactionModel model = new RadioTransactionModel();
-		model.setTransaction(new RadioTransaction());
-		model.setExams(new AutoPopulatingList<RadioTransExam>(RadioTransExam.class));
-		
-		return model;
+		return new RadioTransactionModel();
 	}
 	
 	@ModelAttribute("examTypes")
@@ -77,9 +70,8 @@ public class RadioTransactionController {
 		model.addAttribute("exams", trans.getExams());
 		model.addAttribute("total", trans.getTotal());
 		
-		Context.getService(RadioTransactionService.class).saveTransaction(trans);
+//		Context.getService(RadioTransactionService.class).saveTransaction(trans);
 		
 		return new ModelAndView("/module/radiotest/transactionForm", model);
 	}
-	
 }

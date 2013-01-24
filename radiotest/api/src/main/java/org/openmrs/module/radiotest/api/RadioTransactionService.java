@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.openmrs.api.APIException;
 import org.openmrs.api.OpenmrsService;
+import org.openmrs.module.radiotest.RadioNoteType;
 import org.openmrs.module.radiotest.RadioTransaction;
-import org.openmrs.module.radiotest.type.RadioNoteType;
 import org.springframework.transaction.annotation.Transactional;
 
 @Transactional

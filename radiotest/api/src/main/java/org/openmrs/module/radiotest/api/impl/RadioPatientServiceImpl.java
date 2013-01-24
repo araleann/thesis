@@ -6,11 +6,11 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.api.APIException;
 import org.openmrs.api.impl.BaseOpenmrsService;
+import org.openmrs.module.radiotest.RadioAlias;
+import org.openmrs.module.radiotest.RadioCategory;
 import org.openmrs.module.radiotest.RadioPatient;
 import org.openmrs.module.radiotest.api.RadioPatientService;
 import org.openmrs.module.radiotest.api.db.RadioPatientDAO;
-import org.openmrs.module.radiotest.association.RadioAlias;
-import org.openmrs.module.radiotest.type.RadioCategory;
 import org.springframework.transaction.annotation.Transactional;
 
 public class RadioPatientServiceImpl extends BaseOpenmrsService implements RadioPatientService {

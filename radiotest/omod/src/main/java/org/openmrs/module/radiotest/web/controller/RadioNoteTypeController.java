@@ -1,8 +1,8 @@
 package org.openmrs.module.radiotest.web.controller;
 
 import org.openmrs.api.context.Context;
+import org.openmrs.module.radiotest.RadioNoteType;
 import org.openmrs.module.radiotest.api.RadioTransactionService;
-import org.openmrs.module.radiotest.type.RadioNoteType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -21,6 +21,7 @@ public class RadioNoteTypeController {
 	
 	@ModelAttribute("noteType")
 	public RadioNoteType getNoteType(){
+		System.out.println("flag: modelAttribute");
 		return new RadioNoteType();
 	}
 	
@@ -28,6 +29,7 @@ public class RadioNoteTypeController {
 	public void saveNoteType(@ModelAttribute("noteType") RadioNoteType noteType, ModelMap model){
 		// clears input field
 		model.addAttribute("noteType", new RadioNoteType());
-		Context.getService(RadioTransactionService.class).saveNoteType(noteType);
+		System.out.println(noteType.getName());
+//		Context.getService(RadioTransactionService.class).saveNoteType(noteType);
 	}
 }

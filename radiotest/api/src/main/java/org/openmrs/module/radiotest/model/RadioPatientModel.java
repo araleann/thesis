@@ -2,8 +2,8 @@ package org.openmrs.module.radiotest.model;
 
 import java.util.Date;
 
+import org.openmrs.module.radiotest.RadioAlias;
 import org.openmrs.module.radiotest.RadioPatient;
-import org.openmrs.module.radiotest.association.RadioAlias;
 
 
 public class RadioPatientModel {

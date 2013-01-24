@@ -1,14 +1,9 @@
-package org.openmrs.module.radiotest.association;
+package org.openmrs.module.radiotest;
 
 import java.util.Date;
 import java.util.Set;
 
 import org.openmrs.BaseOpenmrsData;
-import org.openmrs.module.radiotest.RadioExam;
-import org.openmrs.module.radiotest.RadioPatient;
-import org.openmrs.module.radiotest.RadioResult;
-import org.openmrs.module.radiotest.RadioTransaction;
-import org.openmrs.module.radiotest.type.RadioCategory;
 
 public class RadioTransExam extends BaseOpenmrsData {
 	

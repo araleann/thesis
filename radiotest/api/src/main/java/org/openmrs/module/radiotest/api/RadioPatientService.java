@@ -4,9 +4,9 @@ import java.util.List;
 
 import org.openmrs.api.APIException;
 import org.openmrs.api.OpenmrsService;
+import org.openmrs.module.radiotest.RadioAlias;
+import org.openmrs.module.radiotest.RadioCategory;
 import org.openmrs.module.radiotest.RadioPatient;
-import org.openmrs.module.radiotest.association.RadioAlias;
-import org.openmrs.module.radiotest.type.RadioCategory;
 import org.springframework.transaction.annotation.Transactional;
 
 @Transactional
