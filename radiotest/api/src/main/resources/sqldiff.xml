@@ -123,6 +123,7 @@
 				trans_id INT(11) DEFAULT NULL,
 				note VARCHAR(500) DEFAULT NULL,
 				note_date DATE DEFAULT NULL,
+				description VARCHAR(50) DEFAULT NULL,
 				PRIMARY KEY (id)
 			);
 			
@@ -131,6 +132,7 @@
 				name VARCHAR(50) DEFAULT NULL,
 				PRIMARY KEY (id)
 			);
+			
 		</sql>		
 	</diff>
 	

@@ -3,7 +3,6 @@ package org.openmrs.module.radiotest;
 import java.util.Date;
 
 import org.openmrs.BaseOpenmrsData;
-import org.openmrs.module.radiotest.type.RadioNoteType;
 
 public class RadioNote extends BaseOpenmrsData {
 
@@ -12,6 +11,8 @@ public class RadioNote extends BaseOpenmrsData {
 	
 	private String note;
 	private Date date;
+	
+	private String description;
 	
 	@Override
 	public Integer getId() {
@@ -47,6 +48,14 @@ public class RadioNote extends BaseOpenmrsData {
 
 	public void setDate(Date date) {
 		this.date = date;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 }
