@@ -114,7 +114,6 @@
 				visit_date DATE DEFAULT NULL,
 				visit_time TIME DEFAULT NULL,
 				draft BOOLEAN DEFAULT TRUE,
-				voided BOOLEAN DEFAULT FALSE,
 				PRIMARY KEY (id)
 			);
 			
