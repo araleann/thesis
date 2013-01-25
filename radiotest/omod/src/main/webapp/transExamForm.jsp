@@ -73,6 +73,9 @@ $j(function(){
 	<button type="button" id="add">Add Exam</button>
 	<button type="button" id="delete" disabled>Delete Exam</button>
 	<button type="submit">Done</button>
+	<spring:bind path="transaction.patient">
+		<input type="hidden" name="${ status.expression }" value="${ id }">
+	</spring:bind>
 	<spring:nestedPath path="exams[0]">
 		<div id="exams0">
 			<div id="type">

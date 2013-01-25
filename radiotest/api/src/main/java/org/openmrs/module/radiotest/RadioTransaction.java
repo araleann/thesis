@@ -5,8 +5,6 @@ import java.util.Iterator;
 import java.util.Set;
 
 import org.openmrs.BaseOpenmrsData;
-import org.openmrs.api.context.Context;
-import org.openmrs.module.radiotest.api.RadioPatientService;
 
 public class RadioTransaction extends BaseOpenmrsData {
 
@@ -147,10 +145,7 @@ public class RadioTransaction extends BaseOpenmrsData {
 		return total;
 	}
 	
-	private void computeFees(){
-		// for debugging purposes
-		patient = Context.getService(RadioPatientService.class).getPatient(new Integer(1));
-		
+	private void computeFees(){		
 		Iterator<RadioTransExam> iter = exams.iterator();
 		RadioCategory category = patient.getCategory();
 		double examFee = 0, readingFee = 0;

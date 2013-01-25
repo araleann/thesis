@@ -36,9 +36,6 @@ public class HibernateRadioTransactionDAO implements RadioTransactionDAO {
 	public RadioTransaction saveTransaction(RadioTransaction trans)
 			throws DAOException {
 		// TODO Auto-generated method stub
-    	Date d = new Date();
-    	trans.setVisitDate(d);
-    	trans.setVisitTime(d);
 		sessionFactory.getCurrentSession().saveOrUpdate(trans);
 		return trans;
 	}

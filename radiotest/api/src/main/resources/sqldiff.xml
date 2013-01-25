@@ -98,7 +98,7 @@
 				positive BOOLEAN DEFAULT NULL,
 				findings VARCHAR(500) DEFAULT NULL,
 				draft BOOLEAN DEFAULT TRUE,
-				voided BOOLEAN DEFAULT NULL,
+				voided BOOLEAN DEFAULT FALSE,
 				PRIMARY KEY (id)
 			);
 			
@@ -113,7 +113,7 @@
 				pending BOOLEAN DEFAULT TRUE,
 				visit_date DATE DEFAULT NULL,
 				visit_time TIME DEFAULT NULL,
-				draft BOOLEAN DEFAULT TRUE,
+				voided BOOLEAN DEFAULT FALSE,
 				PRIMARY KEY (id)
 			);
 			

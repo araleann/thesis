@@ -29,7 +29,6 @@ public class RadioNoteTypeController {
 	public void saveNoteType(@ModelAttribute("noteType") RadioNoteType noteType, ModelMap model){
 		// clears input field
 		model.addAttribute("noteType", new RadioNoteType());
-		System.out.println(noteType.getName());
-//		Context.getService(RadioTransactionService.class).saveNoteType(noteType);
+		Context.getService(RadioTransactionService.class).saveNoteType(noteType);
 	}
 }

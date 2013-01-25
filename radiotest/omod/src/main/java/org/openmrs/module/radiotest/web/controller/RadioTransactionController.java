@@ -5,11 +5,17 @@ import java.util.List;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.radiotest.RadioExam;
 import org.openmrs.module.radiotest.RadioExamType;
+import org.openmrs.module.radiotest.RadioNoteType;
+import org.openmrs.module.radiotest.RadioPatient;
 import org.openmrs.module.radiotest.RadioTransaction;
 import org.openmrs.module.radiotest.api.RadioExamService;
+import org.openmrs.module.radiotest.api.RadioTransactionService;
 import org.openmrs.module.radiotest.model.RadioTransactionModel;
 import org.openmrs.module.radiotest.propertyeditor.RadioExamPropertyEditor;
 import org.openmrs.module.radiotest.propertyeditor.RadioExamTypePropertyEditor;
+import org.openmrs.module.radiotest.propertyeditor.RadioNoteTypePropertyEditor;
+import org.openmrs.module.radiotest.propertyeditor.RadioPatientPropertyEditor;
+import org.openmrs.module.radiotest.propertyeditor.RadioTransactionPropertyEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.WebDataBinder;
@@ -31,11 +37,14 @@ public class RadioTransactionController {
 	public void initBinder(WebRequest request, WebDataBinder binder){
 		binder.registerCustomEditor(RadioExam.class, new RadioExamPropertyEditor());
 		binder.registerCustomEditor(RadioExamType.class, new RadioExamTypePropertyEditor());
+		binder.registerCustomEditor(RadioPatient.class, new RadioPatientPropertyEditor());
+		binder.registerCustomEditor(RadioTransaction.class, new RadioTransactionPropertyEditor());
+		binder.registerCustomEditor(RadioNoteType.class, new RadioNoteTypePropertyEditor());
 	}
 	
 	@RequestMapping(value = TRANS_EXAM_FORM, method = RequestMethod.GET)
-	public void showForm(){
-		
+	public void showForm(ModelMap model){
+		model.addAttribute("id", 1);
 	}
 	
 	@ModelAttribute("transModel")
@@ -48,11 +57,16 @@ public class RadioTransactionController {
 		return Context.getService(RadioExamService.class).getAllExamTypes();
 	}
 	
+	@ModelAttribute("noteTypes")
+	public List<RadioNoteType> getNoteTypes(){
+		return Context.getService(RadioTransactionService.class).getAllNoteTypes();
+	}
+	
 	@RequestMapping(value = "/module/radiotest/addExam", method = RequestMethod.POST)
 	public ModelAndView addExam(@RequestParam("index") Integer index, ModelMap model){
 		model.addAttribute("index", index);
 		
-		return new ModelAndView("/module/radiotest/editExamInfo", model);
+		return new ModelAndView("/module/radiotest/editExam", model);
 	}
 	
 	@RequestMapping(value = "/module/radiotest/getExams", method = RequestMethod.POST)
@@ -60,18 +74,21 @@ public class RadioTransactionController {
 		model.addAttribute("index", request.getParameter("index"));
 		model.addAttribute("exam", Context.getService(RadioExamService.class).getExamByType(type));
 		
-		return new ModelAndView("/module/radiotest/editExamInfo", model);
+		return new ModelAndView("/module/radiotest/editExam", model);
 	}
 	
 	@RequestMapping(value = TRANS_EXAM_FORM, method = RequestMethod.POST)
 	public ModelAndView saveTransaction(@ModelAttribute("transModel") RadioTransactionModel tm, ModelMap model){
 		RadioTransaction trans = tm.getFullTransaction();
-		model.addAttribute("numOfExams", trans.getNumberOfExams());
-		model.addAttribute("exams", trans.getExams());
-		model.addAttribute("total", trans.getTotal());
-		
-//		Context.getService(RadioTransactionService.class).saveTransaction(trans);
-		
+		model.addAttribute("transaction", Context.getService(RadioTransactionService.class).saveTransaction(trans));
 		return new ModelAndView("/module/radiotest/transactionForm", model);
+	}
+	
+	@RequestMapping(value = "/module/radiotest/saveNote", method = RequestMethod.GET)
+	public ModelAndView saveExam(@ModelAttribute("transModel") RadioTransactionModel tm, ModelMap model){
+		RadioTransaction trans = tm.getFullTransaction();
+		System.out.println(trans.getNotes().isEmpty());
+//		Context.getService(RadioTransactionService.class).saveTransaction(trans);
+		return new ModelAndView("/module/radiotest/editNote", model);
 	}
 }
