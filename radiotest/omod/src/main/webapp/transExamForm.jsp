@@ -63,15 +63,13 @@ function updateDeleteButton(){
 }
 
 $j(function(){
-	$j("button#add").click(addNewExam);
-	$j("button#delete").click(deleteExam);
 	$j("select").change(getExamsEvent);
 });
 </script>
 
 <form:form method="post" modelAttribute="transModel" id="transaction">
-	<button type="button" id="add">Add Exam</button>
-	<button type="button" id="delete" disabled>Delete Exam</button>
+	<button type="button" id="add" onclick="addNewExam()">Add Exam</button>
+	<button type="button" id="delete" onclick="deleteExam()" disabled>Delete Exam</button>
 	<button type="submit">Done</button>
 	<spring:bind path="transaction.patient">
 		<input type="hidden" name="${ status.expression }" value="${ id }">

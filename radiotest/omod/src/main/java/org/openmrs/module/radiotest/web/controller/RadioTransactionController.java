@@ -24,10 +24,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
+@SessionAttributes("transaction")
 public class RadioTransactionController {
 
 	private final String TRANS_EXAM_FORM = "/module/radiotest/transExamForm";
@@ -38,7 +41,6 @@ public class RadioTransactionController {
 		binder.registerCustomEditor(RadioExam.class, new RadioExamPropertyEditor());
 		binder.registerCustomEditor(RadioExamType.class, new RadioExamTypePropertyEditor());
 		binder.registerCustomEditor(RadioPatient.class, new RadioPatientPropertyEditor());
-		binder.registerCustomEditor(RadioTransaction.class, new RadioTransactionPropertyEditor());
 		binder.registerCustomEditor(RadioNoteType.class, new RadioNoteTypePropertyEditor());
 	}
 	
@@ -81,14 +83,17 @@ public class RadioTransactionController {
 	public ModelAndView saveTransaction(@ModelAttribute("transModel") RadioTransactionModel tm, ModelMap model){
 		RadioTransaction trans = tm.getFullTransaction();
 		model.addAttribute("transaction", Context.getService(RadioTransactionService.class).saveTransaction(trans));
+		
 		return new ModelAndView("/module/radiotest/transactionForm", model);
 	}
 	
-	@RequestMapping(value = "/module/radiotest/saveNote", method = RequestMethod.GET)
-	public ModelAndView saveExam(@ModelAttribute("transModel") RadioTransactionModel tm, ModelMap model){
+	@RequestMapping(value = "/module/radiotest/saveNote", method = RequestMethod.POST)
+	public ModelAndView saveNote(@ModelAttribute("transModel") RadioTransactionModel tm, ModelMap model){
+		System.out.println("saveNote()");
+		tm.setTransaction((RadioTransaction) model.get("transaction"));
 		RadioTransaction trans = tm.getFullTransaction();
-		System.out.println(trans.getNotes().isEmpty());
-//		Context.getService(RadioTransactionService.class).saveTransaction(trans);
+		Context.getService(RadioTransactionService.class).saveTransaction(trans);
+		
 		return new ModelAndView("/module/radiotest/editNote", model);
 	}
 }

@@ -10,6 +10,7 @@ public class RadioTransactionPropertyEditor extends PropertyEditorSupport {
 	public void setAsText(String text) throws IllegalArgumentException {
 		Integer tid = Integer.valueOf(text);
 		setValue(Context.getService(RadioTransactionService.class).getTransaction(tid));
+		System.out.println(getValue() == null);
 	}
 
 }

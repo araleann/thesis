@@ -4,13 +4,29 @@
 <script type="text/javascript">
 <!--
 var modulePath = openmrsContextPath + "/module/radiotest";
-var saveNotePath = modulePath + "/saveNote.htm #note"
+var saveNotePath = modulePath + "/saveNote.htm"
+var unloadPath = modulePath + "/unload.htm";
 
 function saveNote(){
-	var $noteDiv = $j("<div></div>");
-	$noteDiv.load(saveNotePath, $j("#transaction").serialize(), function(data){
-		console.log($j($noteDiv));	
+	$j.post(saveNotePath, $j("#transaction").serialize(), function(data){
+		var $note = $j("#note", $j(data));
+		$note.unwrap();
+		$j("#notes").prepend($note);
 	});
+}
+
+function noteTypesEvent(){
+	var $desc = $j("#desc");
+	var isHidden = $desc.attr("hidden");
+	var others = $j("#type").val() == 0;
+	
+	if (others == isHidden){
+		if (isHidden){
+			$desc.removeAttr("hidden");
+		} else {
+			$desc.attr("hidden", "hidden");
+		}
+	}
 }
 //-->
 </script>
@@ -52,10 +68,10 @@ Total Amount Due: ${ transaction.total }
 <br>
 <br>
 
-<div id="existingNotes">
+<div id="notes">
 	<c:forEach var="note" items="${ transaction.notes }">
 		<c:choose>
-			<c:when test="${ note.type.id == 0 }">
+			<c:when test="${ empty note.type.id }">
 				${ note.description }
 			</c:when>
 			<c:otherwise>
@@ -73,18 +89,16 @@ Total Amount Due: ${ transaction.total }
 <br>
 
 <form:form method="post" modelAttribute="transModel" id="transaction">
-	<button type="button" id="save" onclick="saveNote()">Save Note</button>
+	<button type="button" onclick="saveNote()">Save Note</button>
 	<br>
-	<spring:bind path="transaction">
-		<input type="hidden" name="${ status.expression }" value="${ transaction.id }">
-	</spring:bind>
 	<spring:nestedPath path="note">
-		<form:select path="type">
-			<form:options items="${ transModel.noteTypes }" itemLabel="name" itemValue="id" />
+		<form:select path="type" onchange="noteTypesEvent()" id="type">
+			<option value=""></option>
+			<form:options items="${ noteTypes }" itemLabel="name" itemValue="id" />
 			<option value="0">Others</option>
 		</form:select>
 		<spring:bind path="description">
-			<input type="text" name="${ status.expression }" hidden>
+			<input type="text" id="desc" name="${ status.expression }" hidden>
 		</spring:bind>
 		<br>
 		<form:textarea path="note" />

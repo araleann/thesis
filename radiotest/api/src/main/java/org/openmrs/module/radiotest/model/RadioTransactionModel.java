@@ -17,7 +17,6 @@ public class RadioTransactionModel {
 	private RadioTransaction transaction;
 	private AutoPopulatingList<RadioTransExam> exams;
 	
-	private List<RadioNoteType> noteTypes;
 	private RadioNote note;
 	
 	public RadioTransactionModel() {
@@ -25,7 +24,6 @@ public class RadioTransactionModel {
 		
 		exams = new AutoPopulatingList<RadioTransExam>(RadioTransExam.class);
 		
-		noteTypes = Context.getService(RadioTransactionService.class).getAllNoteTypes();
 		note = new RadioNote();
 	}
 
@@ -45,14 +43,6 @@ public class RadioTransactionModel {
 		this.exams = exams;
 	}
 
-	public List<RadioNoteType> getNoteTypes() {
-		return noteTypes;
-	}
-
-	public void setNoteTypes(List<RadioNoteType> noteTypes) {
-		this.noteTypes = noteTypes;
-	}
-
 	public RadioNote getNote() {
 		return note;
 	}
@@ -62,16 +52,14 @@ public class RadioTransactionModel {
 	}
 
 	public RadioTransaction getFullTransaction(){
-		if (transaction.getExams() == null){
+		if (!exams.isEmpty()){
 			transaction.setExams(new LinkedHashSet<RadioTransExam>(exams));
+			transaction.computeFees();
 		}
 		
-		if (note.getId() != null){
+		if (note.getType() != null){
 			note.setDate(new Date());
-			if (transaction.getNotes() == null){
-				transaction.setNotes(new LinkedHashSet<RadioNote>());
-			}
-			transaction.getNotes().add(note);
+			transaction.addNote(note);
 		}
 		return transaction;
 	}
