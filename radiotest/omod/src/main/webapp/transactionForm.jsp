@@ -6,9 +6,10 @@
 var modulePath = openmrsContextPath + "/module/radiotest";
 var saveNotePath = modulePath + "/saveNote.htm"
 var unloadPath = modulePath + "/unload.htm";
+var transPath = modulePath + "/transactionForm.htm";
 
 function saveNote(){
-	$j.post(saveNotePath, $j("#transaction").serialize(), function(data){
+	$j.post(saveNotePath, $j("#noteForm").serialize(), function(data){
 		var $note = $j("#note", $j(data));
 		$note.unwrap();
 		$j("#notes").prepend($note);
@@ -27,6 +28,13 @@ function noteTypesEvent(){
 			$desc.attr("hidden", "hidden");
 		}
 	}
+}
+
+function addPayment(){
+	console.log($j("#payment").serialize());
+	$j.post(transPath, $j("#payment").serialize(), function(data){
+		alert("Payment added");
+	});
 }
 //-->
 </script>
@@ -68,6 +76,16 @@ Total Amount Due: ${ transaction.total }
 <br>
 <br>
 
+<form:form method="post" id="payment">
+	<button type="button" onclick="addPayment()">Add Payment</button>
+	<br>
+	OR Number: <input type="text" name="orNumber">
+	<br>
+</form:form>
+<br>
+
+Notes
+<br>
 <div id="notes">
 	<c:forEach var="note" items="${ transaction.notes }">
 		<c:choose>
@@ -86,9 +104,8 @@ Total Amount Due: ${ transaction.total }
 		<br>
 	</c:forEach>
 </div>
-<br>
 
-<form:form method="post" modelAttribute="transModel" id="transaction">
+<form:form method="post" modelAttribute="transModel" id="noteForm">
 	<button type="button" onclick="saveNote()">Save Note</button>
 	<br>
 	<spring:nestedPath path="note">

@@ -2,14 +2,10 @@ package org.openmrs.module.radiotest.model;
 
 import java.util.Date;
 import java.util.LinkedHashSet;
-import java.util.List;
 
-import org.openmrs.api.context.Context;
 import org.openmrs.module.radiotest.RadioNote;
-import org.openmrs.module.radiotest.RadioNoteType;
 import org.openmrs.module.radiotest.RadioTransExam;
 import org.openmrs.module.radiotest.RadioTransaction;
-import org.openmrs.module.radiotest.api.RadioTransactionService;
 import org.springframework.util.AutoPopulatingList;
 
 public class RadioTransactionModel {
