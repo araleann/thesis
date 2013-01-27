@@ -1,8 +1,10 @@
 package org.openmrs.module.radiotest;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.openmrs.BaseOpenmrsData;
@@ -16,8 +18,8 @@ public class RadioTransaction extends BaseOpenmrsData {
 	
 	private Date visitDate;
 	private Date visitTime;
-	private boolean pending;
-	private boolean paid;
+	private boolean pending = true;
+	private boolean paid = false;
 	
 	private Double readingFee;
 	private Double examFee;
@@ -25,8 +27,9 @@ public class RadioTransaction extends BaseOpenmrsData {
 	private String orNumber;
 	private Set<RadioNote> notes;
 	
-	private Boolean voided;
+	private Boolean voided = Boolean.FALSE;
 	
+	// not saved in database
 	private Double total;
 	
 	@Override
@@ -171,5 +174,19 @@ public class RadioTransaction extends BaseOpenmrsData {
 	
 	private double checkDouble(Double d){
 		return d == null? 0 : d.doubleValue();
+	}
+	
+	public int getDoneExams(){
+		int doneExams = 0;
+		Iterator<RadioTransExam> iter = exams.iterator();
+		
+		while(iter.hasNext()){
+			RadioTransExam exam = iter.next();
+			if (!exam.isPending()){
+				doneExams++;
+			}
+		}
+		
+		return doneExams;
 	}
 }

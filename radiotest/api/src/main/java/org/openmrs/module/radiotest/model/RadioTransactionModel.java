@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.LinkedHashSet;
 
 import org.openmrs.module.radiotest.RadioNote;
+import org.openmrs.module.radiotest.RadioPatient;
 import org.openmrs.module.radiotest.RadioTransExam;
 import org.openmrs.module.radiotest.RadioTransaction;
 import org.springframework.util.AutoPopulatingList;
@@ -17,9 +18,7 @@ public class RadioTransactionModel {
 	
 	public RadioTransactionModel() {
 		transaction = new RadioTransaction();
-		
 		exams = new AutoPopulatingList<RadioTransExam>(RadioTransExam.class);
-		
 		note = new RadioNote();
 	}
 
@@ -49,6 +48,7 @@ public class RadioTransactionModel {
 
 	public RadioTransaction getFullTransaction(){
 		if (!exams.isEmpty()){
+			linkExams();
 			transaction.setExams(new LinkedHashSet<RadioTransExam>(exams));
 			transaction.computeFees();
 		}
@@ -58,5 +58,12 @@ public class RadioTransactionModel {
 			transaction.addNote(note);
 		}
 		return transaction;
+	}
+	
+	private void linkExams(){
+		RadioPatient patient = transaction.getPatient();
+		for(RadioTransExam exam : exams){
+			exam.setPatient(patient);
+		}
 	}
 }

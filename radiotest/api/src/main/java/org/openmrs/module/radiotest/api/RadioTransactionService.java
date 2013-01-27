@@ -5,6 +5,7 @@ import java.util.List;
 import org.openmrs.api.APIException;
 import org.openmrs.api.OpenmrsService;
 import org.openmrs.module.radiotest.RadioNoteType;
+import org.openmrs.module.radiotest.RadioPatient;
 import org.openmrs.module.radiotest.RadioTransaction;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,6 +16,9 @@ public interface RadioTransactionService extends OpenmrsService {
 	
 	@Transactional(readOnly = true)
 	public RadioTransaction getTransaction(Integer transId) throws APIException;
+	
+	@Transactional(readOnly = true)
+	public List<RadioTransaction> getTransactions(RadioPatient patient) throws APIException;
 	
 	public RadioNoteType saveNoteType(RadioNoteType noteType) throws APIException;
 	

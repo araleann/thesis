@@ -85,8 +85,8 @@ public class RadioTransactionController {
 		trans.setVisitDate(d);
 		trans.setVisitTime(d);
 		
-//		model.addAttribute("transaction", Context.getService(RadioTransactionService.class).saveTransaction(trans));
-		model.addAttribute("transaction", trans);
+		model.addAttribute("transaction", Context.getService(RadioTransactionService.class).saveTransaction(trans));
+//		model.addAttribute("transaction", trans);
 		
 		return new ModelAndView("/module/radiotest/transactionForm", model);
 	}
@@ -95,7 +95,7 @@ public class RadioTransactionController {
 	public ModelAndView saveNote(@ModelAttribute("transModel") RadioTransactionModel tm, ModelMap model){
 		tm.setTransaction((RadioTransaction) model.get("transaction"));
 		RadioTransaction trans = tm.getFullTransaction();
-//		Context.getService(RadioTransactionService.class).saveTransaction(trans);
+		Context.getService(RadioTransactionService.class).saveTransaction(trans);
 		
 		return new ModelAndView("/module/radiotest/editNote", model);
 	}
@@ -106,6 +106,6 @@ public class RadioTransactionController {
 		trans.setOrNumber(request.getParameter("orNumber"));
 		trans.setPaid(true);
 		
-//		Context.getService(RadioTransactionService.class).saveTransaction(trans);
+		Context.getService(RadioTransactionService.class).saveTransaction(trans);
 	}
 }

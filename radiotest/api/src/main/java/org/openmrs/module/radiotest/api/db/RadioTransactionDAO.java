@@ -4,12 +4,14 @@ import java.util.List;
 
 import org.openmrs.api.db.DAOException;
 import org.openmrs.module.radiotest.RadioNoteType;
+import org.openmrs.module.radiotest.RadioPatient;
 import org.openmrs.module.radiotest.RadioTransaction;
 
 public interface RadioTransactionDAO {
 
 	public RadioTransaction saveTransaction(RadioTransaction trans) throws DAOException;
 	public RadioTransaction getTransaction(Integer transId) throws DAOException;
+	public List<RadioTransaction> getTransactions(RadioPatient patient) throws DAOException;
 	
 	public RadioNoteType saveNoteType(RadioNoteType noteType) throws DAOException;
 	public RadioNoteType getNoteType(Integer typeId) throws DAOException;
