@@ -3,6 +3,8 @@ package org.openmrs.module.radiotest.web.controller;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.openmrs.api.context.Context;
 import org.openmrs.module.radiotest.RadioExam;
 import org.openmrs.module.radiotest.RadioExamType;
@@ -44,8 +46,8 @@ public class RadioTransactionController {
 	}
 	
 	@RequestMapping(value = TRANS_EXAM_FORM, method = RequestMethod.GET)
-	public void showForm(ModelMap model){
-		model.addAttribute("id", 1);
+	public void showForm(){
+		
 	}
 	
 	@ModelAttribute("transModel")

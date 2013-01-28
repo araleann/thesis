@@ -48,7 +48,7 @@ Transactions
 View/Update Results
 <br>
 <br>
-<form id="trans">
+<form id="trans" action="getExams()">
 	Transaction Number: <input type="text" name="transId">
 	<br>
 	<button type="button" onclick="getExams()">View Exams</button>
