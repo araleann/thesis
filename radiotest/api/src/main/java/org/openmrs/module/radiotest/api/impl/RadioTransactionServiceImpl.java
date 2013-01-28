@@ -7,9 +7,11 @@ import org.apache.commons.logging.LogFactory;
 import org.openmrs.api.APIException;
 import org.openmrs.api.impl.BaseOpenmrsService;
 import org.openmrs.module.radiotest.RadioNoteType;
+import org.openmrs.module.radiotest.RadioPatient;
 import org.openmrs.module.radiotest.RadioTransaction;
 import org.openmrs.module.radiotest.api.RadioTransactionService;
 import org.openmrs.module.radiotest.api.db.RadioTransactionDAO;
+import org.springframework.transaction.annotation.Transactional;
 
 public class RadioTransactionServiceImpl extends BaseOpenmrsService implements RadioTransactionService {
 
@@ -41,7 +43,7 @@ public class RadioTransactionServiceImpl extends BaseOpenmrsService implements R
 	@Override
 	public RadioTransaction getTransaction(Integer transId) throws APIException {
 		// TODO Auto-generated method stub
-		return null;
+		return dao.getTransaction(transId);
 	}
 
 	@Override
@@ -61,5 +63,13 @@ public class RadioTransactionServiceImpl extends BaseOpenmrsService implements R
 	public List<RadioNoteType> getAllNoteTypes() throws APIException {
 		// TODO Auto-generated method stub
 		return dao.getAllNoteTypes();
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public List<RadioTransaction> getTransactions(RadioPatient patient)
+			throws APIException {
+		// TODO Auto-generated method stub
+		return dao.getTransactions(patient);
 	}
 }

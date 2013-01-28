@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite failures="0" time="16.26" errors="0" skipped="0" tests="1" name="org.openmrs.module.radiotest.api.RadioTestServiceTest">
+<testsuite failures="0" time="11.506" errors="0" skipped="0" tests="1" name="org.openmrs.module.radiotest.api.RadioTestServiceTest">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jre6\bin"/>
@@ -19,7 +19,7 @@
     <property name="basedir" value="C:\Users\ChelJadesNica\git\thesis\radiotest\api"/>
     <property name="java.endorsed.dirs" value="C:\Program Files\Java\jre6\lib\endorsed"/>
     <property name="os.arch" value="amd64"/>
-    <property name="surefire.real.class.path" value="C:\Users\ChelJadesNica\git\thesis\radiotest\api\target\surefire\surefirebooter2429202284111635182.jar"/>
+    <property name="surefire.real.class.path" value="C:\Users\ChelJadesNica\git\thesis\radiotest\api\target\surefire\surefirebooter7629023168439365384.jar"/>
     <property name="java.io.tmpdir" value="C:\Users\CHELJA~1\AppData\Local\Temp\"/>
     <property name="line.separator" value="
 "/>
@@ -43,7 +43,7 @@
     <property name="java.vm.specification.version" value="1.0"/>
     <property name="sun.arch.data.model" value="64"/>
     <property name="java.home" value="C:\Program Files\Java\jre6"/>
-    <property name="sun.java.command" value="C:\Users\ChelJadesNica\git\thesis\radiotest\api\target\surefire\surefirebooter2429202284111635182.jar C:\Users\ChelJadesNica\git\thesis\radiotest\api\target\surefire\surefire103518892602289547tmp C:\Users\ChelJadesNica\git\thesis\radiotest\api\target\surefire\surefire5130368331095817672tmp"/>
+    <property name="sun.java.command" value="C:\Users\ChelJadesNica\git\thesis\radiotest\api\target\surefire\surefirebooter7629023168439365384.jar C:\Users\ChelJadesNica\git\thesis\radiotest\api\target\surefire\surefire5288074522281826487tmp C:\Users\ChelJadesNica\git\thesis\radiotest\api\target\surefire\surefire1185324154390650807tmp"/>
     <property name="java.specification.vendor" value="Sun Microsystems Inc."/>
     <property name="user.language" value="en"/>
     <property name="awt.toolkit" value="sun.awt.windows.WToolkit"/>
@@ -60,5 +60,5 @@
     <property name="sun.desktop" value="windows"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase time="15.615" classname="org.openmrs.module.radiotest.api.RadioTestServiceTest" name="shouldSetupContext"/>
+  <testcase time="11.093" classname="org.openmrs.module.radiotest.api.RadioTestServiceTest" name="shouldSetupContext"/>
 </testsuite>

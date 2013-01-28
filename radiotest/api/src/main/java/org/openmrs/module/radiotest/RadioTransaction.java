@@ -1,7 +1,10 @@
 package org.openmrs.module.radiotest;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.openmrs.BaseOpenmrsData;
@@ -15,8 +18,8 @@ public class RadioTransaction extends BaseOpenmrsData {
 	
 	private Date visitDate;
 	private Date visitTime;
-	private boolean pending;
-	private boolean paid;
+	private boolean pending = true;
+	private boolean paid = false;
 	
 	private Double readingFee;
 	private Double examFee;
@@ -24,8 +27,9 @@ public class RadioTransaction extends BaseOpenmrsData {
 	private String orNumber;
 	private Set<RadioNote> notes;
 	
-	private Boolean voided;
+	private Boolean voided = Boolean.FALSE;
 	
+	// not saved in database
 	private Double total;
 	
 	@Override
@@ -54,7 +58,6 @@ public class RadioTransaction extends BaseOpenmrsData {
 
 	public void setExams(Set<RadioTransExam> exams) {
 		this.exams = exams;
-		computeFees();
 	}
 
 	public Date getVisitDate() {
@@ -128,6 +131,13 @@ public class RadioTransaction extends BaseOpenmrsData {
 	public void setNotes(Set<RadioNote> notes) {
 		this.notes = notes;
 	}
+	
+	public void addNote(RadioNote note){
+		if (notes == null){
+			notes = new LinkedHashSet<RadioNote>();
+		}
+		notes.add(note);
+	}
 
 	public Boolean isVoided() {
 		return voided;
@@ -145,7 +155,7 @@ public class RadioTransaction extends BaseOpenmrsData {
 		return total;
 	}
 	
-	private void computeFees(){		
+	public void computeFees(){		
 		Iterator<RadioTransExam> iter = exams.iterator();
 		RadioCategory category = patient.getCategory();
 		double examFee = 0, readingFee = 0;
@@ -164,5 +174,19 @@ public class RadioTransaction extends BaseOpenmrsData {
 	
 	private double checkDouble(Double d){
 		return d == null? 0 : d.doubleValue();
+	}
+	
+	public int getDoneExams(){
+		int doneExams = 0;
+		Iterator<RadioTransExam> iter = exams.iterator();
+		
+		while(iter.hasNext()){
+			RadioTransExam exam = iter.next();
+			if (!exam.isPending()){
+				doneExams++;
+			}
+		}
+		
+		return doneExams;
 	}
 }

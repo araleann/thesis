@@ -1,14 +1,15 @@
 package org.openmrs.module.radiotest.api.db.hibernate;
 
-import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.openmrs.api.db.DAOException;
 import org.openmrs.module.radiotest.RadioNoteType;
+import org.openmrs.module.radiotest.RadioPatient;
 import org.openmrs.module.radiotest.RadioTransaction;
 import org.openmrs.module.radiotest.api.db.RadioTransactionDAO;
 
@@ -66,5 +67,16 @@ public class HibernateRadioTransactionDAO implements RadioTransactionDAO {
 		// TODO Auto-generated method stub
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(RadioNoteType.class);
 		return (List<RadioNoteType>) criteria.list();
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<RadioTransaction> getTransactions(RadioPatient patient)
+			throws DAOException {
+		// TODO Auto-generated method stub
+		Criteria criteria = sessionFactory.getCurrentSession()
+								.createCriteria(RadioTransaction.class)
+								.add(Restrictions.eq("patient", patient));
+		return (List<RadioTransaction>) criteria.list();
 	}
 }

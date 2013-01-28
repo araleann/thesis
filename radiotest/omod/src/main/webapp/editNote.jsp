@@ -4,7 +4,7 @@
 <c:set var="n" value="${ transModel.note }" />
 <div id="note">
 	<c:choose>
-		<c:when test="${ n.type.id == 0 }">
+		<c:when test="${ empty n.type.id }">
 			${ n.description }
 		</c:when>
 		<c:otherwise>

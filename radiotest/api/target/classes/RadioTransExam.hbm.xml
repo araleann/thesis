@@ -22,14 +22,14 @@
 			<generator class="native" />
 		</id>
 		<discriminator column="id" insert="false" />
-		<property name="schedule" type="date" column="schedule"
-			access="field" />
 		<property name="pending" type="boolean" column="pending"
 			access="field" />
-		<property name="positive" type="boolean" column="positive"
+		<property name="borrowed" type="boolean" column="borrowed"
 			access="field" />
-		<property name="findings" type="string" column="findings"
-			length="500" access="field" />
+		<property name="examDate" type="date" column="exam_date"
+			access="field" />
+		<property name="examTime" type="time" column="exam_time"
+			access="field" />
 		<property name="voided" type="boolean" column="voided"
 			access="field" />
 			
@@ -39,5 +39,9 @@
 			class="RadioTransaction" />
 		<many-to-one name="exam" column="exam_id" unique="true"
 			class="RadioExam" />
+		<set name="findings" cascade="all">
+			<key column="trans_exam_id" />
+			<one-to-many class="RadioResult" />
+		</set>
 	</class>
 </hibernate-mapping>

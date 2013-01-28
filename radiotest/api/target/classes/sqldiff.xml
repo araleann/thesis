@@ -35,6 +35,7 @@
 				contact_number VARCHAR(20) DEFAULT NULL,
 				institution VARCHAR(50) DEFAULT NULL,
 				philhealth VARCHAR(50) DEFAULT NULL,
+				update_date DATE DEFAULT NULL,
 				voided BOOLEAN DEFAULT FALSE,
 				PRIMARY KEY (id)
 			);
@@ -44,12 +45,6 @@
 				category VARCHAR(20) DEFAULT NULL,
 				PRIMARY KEY (id)
 			);
-			
-			INSERT INTO radio_category VALUES (default, "Employee");
-			INSERT INTO radio_category VALUES (default, "Dependent");
-			INSERT INTO radio_category VALUES (default, "Student");
-			INSERT INTO radio_category VALUES (default, "Faculty");
-			INSERT INTO radio_category VALUES (default, "Outsider");
 			
 			CREATE TABLE IF NOT EXISTS radio_alias (
 				id INT(11) NOT NULL AUTO_INCREMENT,
@@ -72,13 +67,15 @@
 				id INT(11) NOT NULL AUTO_INCREMENT,
 				type_id INT(11) DEFAULT NULL,
 				name VARCHAR(50) DEFAULT NULL,
-				s_fee DOUBLE(13,2) DEFAULT NULL,
-				e_fee DOUBLE(13,2) DEFAULT NULL,
-				d_fee DOUBLE(13,2) DEFAULT NULL,
-				o_fee DOUBLE(13,2) DEFAULT NULL,
-				sc_fee DOUBLE(13,2) DEFAULT NULL,
-				rf DOUBLE(13,2) DEFAULT NULL,
-				sc_rf DOUBLE(13,2) DEFAULT NULL,
+				PRIMARY KEY (id)
+			);
+			
+			CREATE TABLE IF NOT EXISTS radio_category_exam (
+				id INT(11) NOT NULL AUTO_INCREMENT,
+				exam_id INT(11) DEFAULT NULL,
+				category_id INT(11) DEFAULT NULL,
+				exam_fee DOUBLE(13,2) DEFAULT 0,
+				reading_fee DOUBLE(13,2) DEFAULT 0,
 				PRIMARY KEY (id)
 			);
 			
@@ -87,10 +84,20 @@
 				patient_id INT(11) DEFAULT NULL,
 				trans_id INT(11) DEFAULT NULL,
 				exam_id INT(11) DEFAULT NULL,
-				schedule DATE DEFAULT NULL,
 				pending BOOLEAN DEFAULT TRUE,
-				positive BOOLEAN DEFAULT FALSE,
+				exam_date DATE DEFAULT NULL,
+				exam_time TIME DEFAULT NULL,
+				borrowed BOOLEAN DEFAULT NULL,
+				voided BOOLEAN DEFAULT FALSE,
+				PRIMARY KEY (id)
+			);
+			
+			CREATE TABLE IF NOT EXISTS radio_results (
+				id INT(11) NOT NULL AUTO_INCREMENT,
+				trans_exam_id INT(11) DEFAULT NULL,
+				positive BOOLEAN DEFAULT NULL,
 				findings VARCHAR(500) DEFAULT NULL,
+				draft BOOLEAN DEFAULT TRUE,
 				voided BOOLEAN DEFAULT FALSE,
 				PRIMARY KEY (id)
 			);
@@ -98,10 +105,10 @@
 			CREATE TABLE IF NOT EXISTS radio_transaction (
 				id INT(11) NOT NULL AUTO_INCREMENT,
 				patient_id INT(11) DEFAULT NULL,
-				rf DOUBLE(13,2) DEFAULT NULL,
-				exam_fee DOUBLE(13,2) DEFAULT NULL,
-				notes VARCHAR(500) DEFAULT NULL,
+				rf DOUBLE(13,2) DEFAULT 0,
+				exam_fee DOUBLE(13,2) DEFAULT 0,
 				purpose VARCHAR(500) DEFAULT NULL,
+				or_number VARCHAR(20) DEFAULT NULL,
 				paid BOOLEAN DEFAULT FALSE,
 				pending BOOLEAN DEFAULT TRUE,
 				visit_date DATE DEFAULT NULL,
@@ -112,11 +119,20 @@
 			
 			CREATE TABLE IF NOT EXISTS radio_note (
 				id INT(11) NOT NULL AUTO_INCREMENT,
+				type_id INT(11) DEFAULT NULL,
 				trans_id INT(11) DEFAULT NULL,
 				note VARCHAR(500) DEFAULT NULL,
 				note_date DATE DEFAULT NULL,
+				description VARCHAR(50) DEFAULT NULL,
 				PRIMARY KEY (id)
 			);
+			
+			CREATE TABLE IF NOT EXISTS radio_note_type (
+				id INT(11) NOT NULL AUTO_INCREMENT,
+				name VARCHAR(50) DEFAULT NULL,
+				PRIMARY KEY (id)
+			);
+			
 		</sql>		
 	</diff>
 	

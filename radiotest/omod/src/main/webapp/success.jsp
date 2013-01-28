@@ -32,4 +32,8 @@ ${ patient.philhealth }
 
 ${ patient.institution }
 
+<br />
+
+${ patient.birthday }
+
 <%@ include file="/WEB-INF/template/footer.jsp"%>

@@ -18,7 +18,7 @@
 -->
 
 	<class name="RadioTransaction" table="radio_transaction">
-		<id name="id" type="java.lang.Integer" column="id">
+		<id name="id" type="java.lang.Integer" column="id" unsaved-value="0">
 			<generator class="native" />
 		</id>
 		<discriminator column="id" insert="false" />
@@ -36,6 +36,8 @@
 			access="field" />
 		<property name="purpose" type="string" column="purpose"
 			length="500" access="field" />
+		<property name="orNumber" type="string" column="or_number"
+			length="20" access="field" />
 		<property name="voided" type="boolean" column="voided"
 			access="field" />
 		

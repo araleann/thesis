@@ -50,7 +50,8 @@ public class RadioPatientFormController {
 		} catch (Exception ex) {
 			System.out.println("Exception!");
 		}
-		return new ModelAndView("/module/radiotest/success", "patient", patient);
+		
+		return new ModelAndView("/module/radiotest/transExamForm.form");
 	}
 }
  

@@ -2,14 +2,11 @@ package org.openmrs.module.radiotest.model;
 
 import java.util.Date;
 import java.util.LinkedHashSet;
-import java.util.List;
 
-import org.openmrs.api.context.Context;
 import org.openmrs.module.radiotest.RadioNote;
-import org.openmrs.module.radiotest.RadioNoteType;
+import org.openmrs.module.radiotest.RadioPatient;
 import org.openmrs.module.radiotest.RadioTransExam;
 import org.openmrs.module.radiotest.RadioTransaction;
-import org.openmrs.module.radiotest.api.RadioTransactionService;
 import org.springframework.util.AutoPopulatingList;
 
 public class RadioTransactionModel {
@@ -17,15 +14,11 @@ public class RadioTransactionModel {
 	private RadioTransaction transaction;
 	private AutoPopulatingList<RadioTransExam> exams;
 	
-	private List<RadioNoteType> noteTypes;
 	private RadioNote note;
 	
 	public RadioTransactionModel() {
 		transaction = new RadioTransaction();
-		
 		exams = new AutoPopulatingList<RadioTransExam>(RadioTransExam.class);
-		
-		noteTypes = Context.getService(RadioTransactionService.class).getAllNoteTypes();
 		note = new RadioNote();
 	}
 
@@ -45,14 +38,6 @@ public class RadioTransactionModel {
 		this.exams = exams;
 	}
 
-	public List<RadioNoteType> getNoteTypes() {
-		return noteTypes;
-	}
-
-	public void setNoteTypes(List<RadioNoteType> noteTypes) {
-		this.noteTypes = noteTypes;
-	}
-
 	public RadioNote getNote() {
 		return note;
 	}
@@ -62,17 +47,23 @@ public class RadioTransactionModel {
 	}
 
 	public RadioTransaction getFullTransaction(){
-		if (transaction.getExams() == null){
+		if (!exams.isEmpty()){
+			linkExams();
 			transaction.setExams(new LinkedHashSet<RadioTransExam>(exams));
+			transaction.computeFees();
 		}
 		
-		if (note.getId() != null){
+		if (note.getType() != null){
 			note.setDate(new Date());
-			if (transaction.getNotes() == null){
-				transaction.setNotes(new LinkedHashSet<RadioNote>());
-			}
-			transaction.getNotes().add(note);
+			transaction.addNote(note);
 		}
 		return transaction;
+	}
+	
+	private void linkExams(){
+		RadioPatient patient = transaction.getPatient();
+		for(RadioTransExam exam : exams){
+			exam.setPatient(patient);
+		}
 	}
 }

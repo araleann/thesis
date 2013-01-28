@@ -26,5 +26,10 @@
 			length="500" access="field" />
 		<property name="date" type="date" column="note_date"
 			access="field" />
+		<property name="description" type="string" column="description"
+			length="50" access="field" />
+			
+		<many-to-one name="type" column="type_id" unique="true"
+			class="RadioNoteType" />
 	</class>
 </hibernate-mapping>

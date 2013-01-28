@@ -41,4 +41,15 @@ $j(function(){
 			$j("[name*='" + name + "']").attr("placeholder", text);
 		}
 	}
+	
+	function serializeForm(form){
+		// form is a jQuery object
+		var arr = form.serializeArray();
+		var obj = {};
+		
+		$j.each(arr, function(){
+			var t = this.value != null? this.value : '';
+			
+		})
+	}
 });

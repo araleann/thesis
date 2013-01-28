@@ -50,6 +50,8 @@
 			length="50" access="field" />
 		<property name="philhealth" type="java.lang.String" column="philhealth"
 			length="50" access="field" />
+		<property name="updateDate" type="date" column="update_date"
+			access="field" />
 		<property name="voided" type="java.lang.Boolean" column="voided"
 			access="field" />
 		

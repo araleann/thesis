@@ -15,19 +15,19 @@ public class RadioTransExam extends BaseOpenmrsData {
 	
 	private Date schedule;
 	
-	private boolean pending;
-	private boolean borrowed;
+	private boolean pending = true;
+	private boolean borrowed = false;
 	
 	private Date examDate;
 	private Date examTime;
 	
 	private Set<RadioResult> findings;
 		
-	private Boolean voided;
+	private Boolean voided = Boolean.FALSE;
 	
 	private Double examFee;
 	private Double readingFee;
-
+	
 	@Override
 	public Integer getId() {
 		// TODO Auto-generated method stub
