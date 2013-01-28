@@ -2,11 +2,10 @@
 <%@ include file="/WEB-INF/template/header.jsp"%>
 
 <div id="exams">
-	<form id="exam">
-		<input type="hidden" name="examId">
-	</form>
 	<c:forEach var="transExam" items="${ exams }" varStatus="status">
-		Exam Number: ${ status.count }
+		<c:set var="c" value="${ status.count }" />
+		Exam Number: ${ c }
+		<button type="button" onclick="submit(${ transExam.id }, ${ c })"></button>
 		<br>
 		<c:set var="e" value="${ transExam.exam }" />
 		Exam Type: ${ e.type.type }

@@ -10,6 +10,7 @@ import org.hibernate.criterion.Restrictions;
 import org.openmrs.api.db.DAOException;
 import org.openmrs.module.radiotest.RadioNoteType;
 import org.openmrs.module.radiotest.RadioPatient;
+import org.openmrs.module.radiotest.RadioTransExam;
 import org.openmrs.module.radiotest.RadioTransaction;
 import org.openmrs.module.radiotest.api.db.RadioTransactionDAO;
 
@@ -78,5 +79,19 @@ public class HibernateRadioTransactionDAO implements RadioTransactionDAO {
 								.createCriteria(RadioTransaction.class)
 								.add(Restrictions.eq("patient", patient));
 		return (List<RadioTransaction>) criteria.list();
+	}
+
+	@Override
+	public RadioTransExam getTransExam(Integer id) throws DAOException {
+		// TODO Auto-generated method stub
+		return (RadioTransExam) sessionFactory.getCurrentSession().get(RadioTransExam.class, id);
+	}
+
+	@Override
+	public RadioTransExam saveTransExam(RadioTransExam exam)
+			throws DAOException {
+		// TODO Auto-generated method stub
+		sessionFactory.getCurrentSession().saveOrUpdate(exam);
+		return exam;
 	}
 }
