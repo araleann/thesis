@@ -85,8 +85,6 @@
 				trans_id INT(11) DEFAULT NULL,
 				exam_id INT(11) DEFAULT NULL,
 				pending BOOLEAN DEFAULT TRUE,
-				exam_date DATE DEFAULT NULL,
-				exam_time TIME DEFAULT NULL,
 				borrowed BOOLEAN DEFAULT NULL,
 				voided BOOLEAN DEFAULT FALSE,
 				PRIMARY KEY (id)

@@ -18,10 +18,7 @@ public class RadioTransExam extends BaseOpenmrsData {
 	
 	private boolean pending = true;
 	private boolean borrowed = false;
-	
-	private Date examDate;
-	private Date examTime;
-	
+		
 	private Set<RadioResult> findings;
 		
 	private Boolean voided = Boolean.FALSE;
@@ -89,22 +86,6 @@ public class RadioTransExam extends BaseOpenmrsData {
 
 	public void setBorrowed(boolean borrowed) {
 		this.borrowed = borrowed;
-	}
-
-	public Date getExamDate() {
-		return examDate;
-	}
-
-	public void setExamDate(Date examDate) {
-		this.examDate = examDate;
-	}
-
-	public Date getExamTime() {
-		return examTime;
-	}
-
-	public void setExamTime(Date examTime) {
-		this.examTime = examTime;
 	}
 
 	public Set<RadioResult> getFindings() {
