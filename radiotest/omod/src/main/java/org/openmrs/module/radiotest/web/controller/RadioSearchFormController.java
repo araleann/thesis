@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.json.MappingJacksonJsonView;
 
 @Controller
 public class RadioSearchFormController {
@@ -33,21 +34,21 @@ public class RadioSearchFormController {
 		session.removeAttribute("patient");
 	}
 	
-	@RequestMapping(value = PATIENT_FORM, method = RequestMethod.POST)
+	@RequestMapping(value = "/module/radiotest/searchPatient", method = RequestMethod.POST)
 	public ModelAndView searchPatient(@RequestParam("searchText") String searchString, ModelMap model){
 		List<RadioPatient> list = Context.getService(RadioPatientService.class).search(searchString);
-		
-		if(list.isEmpty()){
-			return new ModelAndView("redirect:/module/radiotest/patientForm.htm");
+		if(list.isEmpty() || searchString.isEmpty()){
+			MappingJacksonJsonView view = new MappingJacksonJsonView();
+			view.addStaticAttribute("url", "/module/radiotest/patientForm.htm");
+			return new ModelAndView(view);
 		} else {
 			model.addAttribute("list", list);
 			return new ModelAndView("/module/radiotest/patientList", model);
 		}
 	}
 	
-	@RequestMapping(value = "/module/radiotest/getPatient", method = RequestMethod.POST)
-	public ModelAndView getPatient(@RequestParam("id") RadioPatient patient, HttpSession session){
-		System.out.println("getPatient");
+	@RequestMapping(value = PATIENT_FORM, method = RequestMethod.POST)
+	public ModelAndView getPatient(@RequestParam("patientId") RadioPatient patient, HttpSession session){
 		session.setAttribute("patient", patient);
 		
 		return new ModelAndView("redirect:/module/radiotest/patientForm.htm");

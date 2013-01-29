@@ -4,22 +4,23 @@
 <script type="text/javascript">
 <!--
 var modulePath = openmrsContextPath + "/module/radiotest";
-var searchPath = modulePath + "/searchPatientForm.htm";
-var patientPath = modulePath + "/getPatient.htm"
+var searchPath = modulePath + "/searchPatient.htm";
 
 function search(){
 	$j.post(searchPath, $j("#search").serialize(), function(data){
-		var $list = $j("#patientList", $j(data));
-		$j("#patientList").replaceWith($list);
+		var url = data.url;
+		if(url){
+			window.location = openmrsContextPath + url;
+		} else {
+			var $list = $j("#patientList", $j(data));
+			$j("#patientList").replaceWith($list);	
+		}
 	});
 }
 
 function getPatient(pid){
-	console.log(pid);
-	var obj = { id : pid };
-	$j.post(patientPath, obj, function(data){
-		console.log(data);
-	});
+	$j("#patientId").val(pid);
+	$j("#patient").submit();
 }
 //-->
 </script>
@@ -33,6 +34,10 @@ Search Patient
 </form>
 <br>
 <br>
+
+<form:form method="post" id="patient">
+	<input type="hidden" name="patientId" id="patientId">
+</form:form>
 
 <div id="patientList">
 

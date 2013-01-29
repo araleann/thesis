@@ -33,7 +33,10 @@ public class RadioPatientFormController {
 	
 	@RequestMapping(value = PATIENT_FORM, method = RequestMethod.GET)
 	public void showForm(HttpSession session, ModelMap model){
-		
+		RadioPatient patient = (RadioPatient) session.getAttribute("patient");
+		if (patient != null){
+			model.addAttribute("patientModel", new RadioPatientModel(patient, patient.getAlias()));
+		}
 	}
 	
 	@ModelAttribute("categories")

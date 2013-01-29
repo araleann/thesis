@@ -10,6 +10,15 @@ public class RadioPatientModel {
 	private RadioPatient patient;
 	private RadioAlias alias;
 	
+	public RadioPatientModel(){
+		
+	}
+	
+	public RadioPatientModel(RadioPatient patient, RadioAlias alias){
+		this.patient = patient;
+		this.alias = alias;
+	}
+	
 	public RadioPatient getPatient(){
 		return patient;
 	}

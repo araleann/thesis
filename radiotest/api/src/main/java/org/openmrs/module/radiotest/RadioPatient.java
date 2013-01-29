@@ -3,7 +3,6 @@ package org.openmrs.module.radiotest;
 import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.Set;
-import java.util.Vector;
 
 import org.openmrs.BaseOpenmrsData;
 
