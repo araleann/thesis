@@ -33,6 +33,10 @@ public class RadioPatient extends BaseOpenmrsData {
 	
 	private Boolean voided = Boolean.FALSE;
 	
+	// not saved to the database
+	private RadioAlias alias;
+	private RadioCategory category;
+	
 	public RadioPatient(){
 		
 	}
@@ -79,6 +83,12 @@ public class RadioPatient extends BaseOpenmrsData {
 
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
+	}
+	
+	public String getFullName(){
+		return firstName + " " +
+				middleInitial + " " +
+				lastName;
 	}
 
 	public String getGender() {
@@ -178,6 +188,12 @@ public class RadioPatient extends BaseOpenmrsData {
 	}
 	
 	public void addAlias(RadioAlias alias){
+		for(RadioAlias a : aliases){
+			if (!a.isVoided().booleanValue()){
+				a.setEndDate(new Date());
+				a.setVoided(Boolean.TRUE);
+			}
+		}
 		aliases.add(alias);
 	}
 	
@@ -190,11 +206,20 @@ public class RadioPatient extends BaseOpenmrsData {
 	}
 	
 	public RadioAlias getAlias(){
-		Vector<RadioAlias> list = new Vector<RadioAlias>(aliases);
-		return list.lastElement();
+		for(RadioAlias a : aliases){
+			if (!a.isVoided().booleanValue()){
+				alias = a;
+				category = a.getCategory();
+				break;
+			}
+		}
+		return alias;
 	}
 	
 	public RadioCategory getCategory(){
-		return getAlias().getCategory();
+		if (category == null){
+			getAlias();
+		}
+		return category;
 	}
 }

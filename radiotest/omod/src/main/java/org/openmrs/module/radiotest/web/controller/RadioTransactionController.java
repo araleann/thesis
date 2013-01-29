@@ -3,8 +3,6 @@ package org.openmrs.module.radiotest.web.controller;
 import java.util.Date;
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
 import org.openmrs.api.context.Context;
 import org.openmrs.module.radiotest.RadioExam;
 import org.openmrs.module.radiotest.RadioExamType;

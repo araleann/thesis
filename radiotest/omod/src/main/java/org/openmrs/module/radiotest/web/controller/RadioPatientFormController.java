@@ -10,7 +10,6 @@ import org.openmrs.module.radiotest.RadioCategory;
 import org.openmrs.module.radiotest.RadioPatient;
 import org.openmrs.module.radiotest.api.RadioPatientService;
 import org.openmrs.module.radiotest.model.RadioPatientModel;
-import org.openmrs.module.radiotest.model.RadioTransactionModel;
 import org.openmrs.module.radiotest.propertyeditor.RadioCategoryPropertyEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -33,7 +32,7 @@ public class RadioPatientFormController {
 	}
 	
 	@RequestMapping(value = PATIENT_FORM, method = RequestMethod.GET)
-	public void showForm(){
+	public void showForm(HttpSession session, ModelMap model){
 		
 	}
 	
