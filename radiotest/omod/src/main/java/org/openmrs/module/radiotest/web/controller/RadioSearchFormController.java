@@ -2,29 +2,54 @@ package org.openmrs.module.radiotest.web.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.openmrs.api.context.Context;
 import org.openmrs.module.radiotest.RadioPatient;
 import org.openmrs.module.radiotest.api.RadioPatientService;
+import org.openmrs.module.radiotest.propertyeditor.RadioPatientPropertyEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class RadioSearchFormController {
 
 	private final String PATIENT_FORM = "/module/radiotest/searchPatientForm";
 	
+	@InitBinder
+	public void initBinder(WebRequest request, WebDataBinder binder){
+		binder.registerCustomEditor(RadioPatient.class, new RadioPatientPropertyEditor());
+	}
+	
 	@RequestMapping(value = PATIENT_FORM, method = RequestMethod.GET)
-	public void showPatientForm(){
-		
+	public void showPatientForm(HttpSession session){
+		session.removeAttribute("patient");
 	}
 	
 	@RequestMapping(value = PATIENT_FORM, method = RequestMethod.POST)
-	public void searchPatient(@RequestParam String search, ModelMap model){
-		List<RadioPatient> list = Context.getService(RadioPatientService.class).search(search);
-		System.out.println(list.size());
-		model.addAttribute("result", list);
+	public ModelAndView searchPatient(@RequestParam("searchText") String searchString, ModelMap model){
+		List<RadioPatient> list = Context.getService(RadioPatientService.class).search(searchString);
+		
+		if(list.isEmpty()){
+			return new ModelAndView("redirect:/module/radiotest/patientForm.htm");
+		} else {
+			model.addAttribute("list", list);
+			return new ModelAndView("/module/radiotest/patientList", model);
+		}
+	}
+	
+	@RequestMapping(value = "/module/radiotest/getPatient", method = RequestMethod.POST)
+	public ModelAndView getPatient(@RequestParam("id") RadioPatient patient, HttpSession session){
+		System.out.println("getPatient");
+		session.setAttribute("patient", patient);
+		
+		return new ModelAndView("redirect:/module/radiotest/patientForm.htm");
 	}
 }

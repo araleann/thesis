@@ -6,11 +6,11 @@ public class RadioResult extends BaseOpenmrsData {
 	
 	private Integer id;
 	
-	private boolean positive;
+	private boolean positive = false;
 	private String findings;
-	private boolean draft;
+	private boolean draft = true;
 	
-	private Boolean voided;
+	private Boolean voided = false;
 
 	@Override
 	public Integer getId() {
