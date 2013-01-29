@@ -8,6 +8,7 @@ import org.openmrs.api.APIException;
 import org.openmrs.api.impl.BaseOpenmrsService;
 import org.openmrs.module.radiotest.RadioNoteType;
 import org.openmrs.module.radiotest.RadioPatient;
+import org.openmrs.module.radiotest.RadioTransExam;
 import org.openmrs.module.radiotest.RadioTransaction;
 import org.openmrs.module.radiotest.api.RadioTransactionService;
 import org.openmrs.module.radiotest.api.db.RadioTransactionDAO;
@@ -71,5 +72,19 @@ public class RadioTransactionServiceImpl extends BaseOpenmrsService implements R
 			throws APIException {
 		// TODO Auto-generated method stub
 		return dao.getTransactions(patient);
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public RadioTransExam getTransExam(Integer id) throws APIException {
+		// TODO Auto-generated method stub
+		return dao.getTransExam(id);
+	}
+
+	@Override
+	public RadioTransExam saveTransExam(RadioTransExam exam)
+			throws APIException {
+		// TODO Auto-generated method stub
+		return dao.saveTransExam(exam);
 	}
 }

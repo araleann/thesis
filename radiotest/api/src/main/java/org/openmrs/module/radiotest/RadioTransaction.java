@@ -156,12 +156,10 @@ public class RadioTransaction extends BaseOpenmrsData {
 	}
 	
 	public void computeFees(){		
-		Iterator<RadioTransExam> iter = exams.iterator();
 		RadioCategory category = patient.getCategory();
 		double examFee = 0, readingFee = 0;
 		
-		while(iter.hasNext()){
-			RadioTransExam exam = iter.next();
+		for(RadioTransExam exam : exams){
 			RadioCategoryExam fee = exam.getFees(category);
 			examFee = examFee + checkDouble(fee.getExamFee());
 			readingFee = readingFee + checkDouble(fee.getReadingFee());
@@ -178,15 +176,22 @@ public class RadioTransaction extends BaseOpenmrsData {
 	
 	public int getDoneExams(){
 		int doneExams = 0;
-		Iterator<RadioTransExam> iter = exams.iterator();
-		
-		while(iter.hasNext()){
-			RadioTransExam exam = iter.next();
+		for(RadioTransExam exam : exams){
 			if (!exam.isPending()){
 				doneExams++;
 			}
 		}
 		
 		return doneExams;
+	}
+	
+	public void update(){
+		for(RadioTransExam exam : exams){
+			if (exam.isPending()){
+				pending = true;
+				return;
+			}
+		}
+		pending = false;
 	}
 }

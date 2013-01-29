@@ -5,11 +5,11 @@ import java.beans.PropertyEditorSupport;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.radiotest.api.RadioTransactionService;
 
-public class RadioTransactionPropertyEditor extends PropertyEditorSupport {
+public class RadioTransExamPropertyEditor extends PropertyEditorSupport {
 	
 	public void setAsText(String text) throws IllegalArgumentException {
-		Integer tid = Integer.valueOf(text);
-		setValue(Context.getService(RadioTransactionService.class).getTransaction(tid));
+		Integer id = Integer.valueOf(text);
+		setValue(Context.getService(RadioTransactionService.class).getTransExam(id));
 	}
 
 }

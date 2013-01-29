@@ -12,7 +12,13 @@ function getExams(){
 		var $list = $j("div#exams", $j(data));
 		$j("#exams").replaceWith($list);
 	});
-} 
+}
+
+function submit(id, count){
+	$j("#examId").val(id);
+	$j("#count").val(count);
+	$j("#exam").submit();
+}
 //-->
 </script>
 
@@ -42,12 +48,17 @@ Transactions
 View/Update Results
 <br>
 <br>
-<form id="trans">
+<form id="trans" action="getExams()">
 	Transaction Number: <input type="text" name="transId">
 	<br>
 	<button type="button" onclick="getExams()">View Exams</button>
 </form>
 <br>
+
+<form:form method="post" id="exam">
+	<input type="hidden" id="examId" name="examId">
+	<input type="hidden" id="count" name="count">
+</form:form>
 
 <div id="exams">
 

@@ -44,8 +44,8 @@ public class RadioTransactionController {
 	}
 	
 	@RequestMapping(value = TRANS_EXAM_FORM, method = RequestMethod.GET)
-	public void showForm(ModelMap model){
-		model.addAttribute("id", 1);
+	public void showForm(){
+		
 	}
 	
 	@ModelAttribute("transModel")

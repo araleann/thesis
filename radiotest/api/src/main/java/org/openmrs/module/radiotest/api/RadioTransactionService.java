@@ -6,6 +6,7 @@ import org.openmrs.api.APIException;
 import org.openmrs.api.OpenmrsService;
 import org.openmrs.module.radiotest.RadioNoteType;
 import org.openmrs.module.radiotest.RadioPatient;
+import org.openmrs.module.radiotest.RadioTransExam;
 import org.openmrs.module.radiotest.RadioTransaction;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,4 +28,9 @@ public interface RadioTransactionService extends OpenmrsService {
 	
 	@Transactional(readOnly = true)
 	public List<RadioNoteType> getAllNoteTypes() throws APIException;
+	
+	public RadioTransExam saveTransExam(RadioTransExam exam) throws APIException;
+	
+	@Transactional(readOnly = true)
+	public RadioTransExam getTransExam(Integer id) throws APIException;
 }

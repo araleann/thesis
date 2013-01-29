@@ -1,6 +1,7 @@
 package org.openmrs.module.radiotest;
 
 import java.util.Date;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 import org.openmrs.BaseOpenmrsData;
@@ -25,8 +26,10 @@ public class RadioTransExam extends BaseOpenmrsData {
 		
 	private Boolean voided = Boolean.FALSE;
 	
+	// not saved in database
 	private Double examFee;
 	private Double readingFee;
+	private RadioResult result;
 	
 	@Override
 	public Integer getId() {
@@ -111,7 +114,36 @@ public class RadioTransExam extends BaseOpenmrsData {
 	public void setFindings(Set<RadioResult> findings) {
 		this.findings = findings;
 	}
-
+	
+	public void addFinding(RadioResult res){
+		if (findings == null){
+			findings = new LinkedHashSet<RadioResult>();
+		}
+		for(RadioResult r: findings){
+			r.setVoided(Boolean.TRUE);
+		}
+		findings.add(res);
+	}
+	
+	public boolean hasResult(){
+		boolean r = findings != null && !findings.isEmpty();
+		if (r){
+			for(RadioResult res : findings){
+				if (!res.isVoided().booleanValue()){
+					if (res.isDraft()){
+						findings.remove(res);
+					}
+					result = res;
+				}
+			}
+		}
+		return r;
+	}
+	
+	public RadioResult getResult(){
+		return result;
+	}
+	
 	public Boolean isVoided() {
 		return voided;
 	}

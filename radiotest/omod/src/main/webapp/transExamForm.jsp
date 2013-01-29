@@ -5,6 +5,9 @@
 var modulePath = openmrsContextPath + "/module/radiotest";
 var addExamPath = modulePath + "/addExam.htm select:first-child";
 var getExamsPath = modulePath + "/getExams.htm select:last-child";
+var transExamPath = modulePath + "/transExamForm.htm";
+var saveNotePath = modulePath + "/saveNote.htm"
+var transPath = modulePath + "/transactionForm.htm";
 var examIndex = 0;
 
 function addNewExam(){
@@ -17,7 +20,7 @@ function addNewExam(){
 	$typeDiv.load(addExamPath, postObj, function(data){
 		$typeDiv.children('select').change(getExamsEvent);
 		$typeDiv.appendTo($examDiv);
-		$examDiv.appendTo("#transaction");
+		$examDiv.appendTo("#transExam");
 		updateDeleteButton();
 	});
 }
@@ -62,42 +65,75 @@ function updateDeleteButton(){
 	}
 }
 
+function summarize(){
+	$j.post(transExamPath, $j("#transExam").serialize(), function(data){
+		$trans = $j("#transaction", $j(data));
+		$j("#transaction").replaceWith($trans);
+		$j("#transExam *").attr("disabled", "disabled");
+	});
+}
+
+function saveNote(){
+	$j.post(saveNotePath, $j("#noteForm").serialize(), function(data){
+		var $note = $j("#note", $j(data));
+		$note.unwrap();
+		$j("#notes").prepend($note);
+	});
+}
+
+function noteTypesEvent(){
+	var $desc = $j("#desc");
+	var isHidden = $desc.attr("hidden");
+	var others = $j("#noteType").val() == 0;
+	
+	if (others == isHidden){
+		if (isHidden){
+			$desc.removeAttr("hidden");
+		} else {
+			$desc.attr("hidden", "hidden");
+		}
+	}
+}
+
+function addPayment(){
+	console.log($j("#payment").serialize());
+	$j.post(transPath, $j("#payment").serialize(), function(data){
+		alert("Payment added");
+	});
+}
+
 $j(function(){
 	$j("select").change(getExamsEvent);
 });
 </script>
 
-<br/><br/>
-<div class="colmask leftmenu">
-	<div class="colleft">
-		<div class="col1">
-<form:form method="post" modelAttribute="transModel" id="transaction">
-	<button class="buttondesign" type="button" id="add" onclick="addNewExam()">Add Exam</button>
-	<button class="buttondesign" type="button" id="delete" onclick="deleteExam()" disabled>Delete Exam</button>
-	
-	<br/><br/>
+Transaction
+<br>
+<br>
+
+<form:form method="post" modelAttribute="transModel" id="transExam">
+	<button type="button" id="add" onclick="addNewExam()">Add Exam</button>
+	<button type="button" id="delete" onclick="deleteExam()" disabled>Delete Exam</button>
+	<button type="button" onclick="summarize()">Done</button>
 	<spring:bind path="transaction.patient">
-		<input type="hidden" name="${ status.expression }" value="${ id }">
+		<input type="hidden" name="${ status.expression }" value="${ patient.id }">
 	</spring:bind>
 	<spring:nestedPath path="exams[0]">
 		<div id="exams0">
 			<div id="type">
-				<form:select cssClass="patientinput" path="exam.type">
+				<form:select path="exam.type">
 					<option value="0"></option>
 					<form:options items="${ examTypes }" itemLabel="type" itemValue="id" />
 				</form:select>
 			</div>
 		</div>
 	</spring:nestedPath>
-	<br/><br/>
-	<button class="buttondesign" type="submit">Done</button>
 </form:form>
+<br>
+<br>
+
+<div id="transaction">
 
 </div>
-<div class="col2">
-			<!-- Column 2 start -->
-			<jsp:include page="/WEB-INF/view/sidemenu.jsp"/>
-		</div>
-</div></div>
 
 <%@ include file="/WEB-INF/template/footer.jsp"%>
