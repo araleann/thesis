@@ -92,19 +92,6 @@ public class HibernateRadioPatientDAO implements RadioPatientDAO {
 		return (RadioAlias) sessionFactory.getCurrentSession().get(RadioAlias.class, aliasId);
 	}
 
-	@Override
-	public List<RadioAlias> getAliases(Integer patientId, boolean includeVoided)
-			throws DAOException {
-		// TODO Auto-generated method stub
-		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(RadioAlias.class);
-		criteria.add(Restrictions.eq("patient_id", patientId));
-		
-		if (!includeVoided){
-			criteria.add(Restrictions.eq("voided", false));
-		}
-		return null;
-	}
-
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<RadioPatient> search(String text) throws DAOException {

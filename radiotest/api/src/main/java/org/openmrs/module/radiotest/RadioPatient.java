@@ -187,6 +187,9 @@ public class RadioPatient extends BaseOpenmrsData {
 	}
 	
 	public void addAlias(RadioAlias alias){
+		if (aliases.contains(alias))
+			return;
+		
 		for(RadioAlias a : aliases){
 			if (!a.isVoided().booleanValue()){
 				a.setEndDate(new Date());

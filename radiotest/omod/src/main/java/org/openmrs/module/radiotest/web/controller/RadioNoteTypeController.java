@@ -21,7 +21,6 @@ public class RadioNoteTypeController {
 	
 	@ModelAttribute("noteType")
 	public RadioNoteType getNoteType(){
-		System.out.println("flag: modelAttribute");
 		return new RadioNoteType();
 	}
 	

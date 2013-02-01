@@ -16,6 +16,7 @@ function search(){
 			$j("#patientList").replaceWith($list);	
 		}
 	});
+	return false;
 }
 
 function getPatient(pid){
@@ -28,7 +29,7 @@ function getPatient(pid){
 Search Patient
 <br>
 <br>
-<form method="post" id="search">
+<form method="post" id="search" onsubmit="javascript: return search()">
 	<input type="text" name="searchText">
 	<button type="button" onclick="search()">Search</button>
 </form>

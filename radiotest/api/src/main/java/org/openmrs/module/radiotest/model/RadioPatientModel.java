@@ -14,9 +14,9 @@ public class RadioPatientModel {
 		
 	}
 	
-	public RadioPatientModel(RadioPatient patient, RadioAlias alias){
+	public RadioPatientModel(RadioPatient patient){
 		this.patient = patient;
-		this.alias = alias;
+		this.alias = patient.getAlias();
 	}
 	
 	public RadioPatient getPatient(){

@@ -25,6 +25,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class RadioPatientFormController {
 
 	private final String PATIENT_FORM = "/module/radiotest/patientForm";
+	private final String PATIENT_PROFILE = "/module/radiotest/patientProfile";
 	
 	@InitBinder
 	public void initBinder(WebRequest request, WebDataBinder binder){
@@ -34,8 +35,9 @@ public class RadioPatientFormController {
 	@RequestMapping(value = PATIENT_FORM, method = RequestMethod.GET)
 	public void showForm(HttpSession session, ModelMap model){
 		RadioPatient patient = (RadioPatient) session.getAttribute("patient");
+		
 		if (patient != null){
-			model.addAttribute("patientModel", new RadioPatientModel(patient, patient.getAlias()));
+			model.addAttribute("patientModel", new RadioPatientModel(patient));
 		}
 	}
 	
@@ -47,6 +49,14 @@ public class RadioPatientFormController {
 	@ModelAttribute("patientModel")
 	public RadioPatientModel getPatientModel(){
 		return new RadioPatientModel();
+	}
+	
+	@RequestMapping(value = PATIENT_PROFILE, method = RequestMethod.GET)
+	public void showProfile(HttpSession session, ModelMap model){
+		RadioPatient patient = (RadioPatient) session.getAttribute("patient");
+		patient = Context.getService(RadioPatientService.class).updatePatient(patient);
+		
+		model.addAttribute("patient", patient);
 	}
 	
 	@RequestMapping(value = PATIENT_FORM, method = RequestMethod.POST)

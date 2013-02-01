@@ -19,5 +19,4 @@ public interface RadioPatientDAO {
 	public RadioCategory saveCategory(RadioCategory category) throws DAOException;
 	
 	public RadioAlias getAlias(Integer aliasId) throws DAOException;
-	public List<RadioAlias> getAliases(Integer patientId, boolean includeVoided) throws DAOException;
 }

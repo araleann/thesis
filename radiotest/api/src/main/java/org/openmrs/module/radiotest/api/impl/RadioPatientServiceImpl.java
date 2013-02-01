@@ -1,6 +1,8 @@
 package org.openmrs.module.radiotest.api.impl;
 
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -77,14 +79,6 @@ public class RadioPatientServiceImpl extends BaseOpenmrsService implements Radio
 
 	@Override
 	@Transactional(readOnly = true)
-	public List<RadioAlias> getAliases(Integer patientId, boolean includeVoided)
-			throws APIException {
-		// TODO Auto-generated method stub
-		return dao.getAliases(patientId, includeVoided);
-	}
-
-	@Override
-	@Transactional(readOnly = true)
 	public List<RadioPatient> search(String text) throws APIException {
 		// TODO Auto-generated method stub
 		return dao.search(text);
@@ -95,6 +89,17 @@ public class RadioPatientServiceImpl extends BaseOpenmrsService implements Radio
 			throws APIException {
 		// TODO Auto-generated method stub
 		return dao.saveCategory(category);
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public RadioPatient updatePatient(RadioPatient patient) throws APIException {
+		// TODO Auto-generated method stub
+		patient = dao.getPatient(patient.getId());
+		Set<RadioAlias> aliases = new LinkedHashSet<RadioAlias>(patient.getAliases());
+		
+		patient.setAliases(aliases);
+		return patient;
 	}
 
 }

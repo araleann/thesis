@@ -9,7 +9,6 @@ public class RadioAliasPropertyEditor extends PropertyEditorSupport {
 
 	public void setAsText(String text) throws IllegalArgumentException {
 		if (StringUtils.hasText(text)) {
-			System.out.println(getValue() instanceof RadioAlias);
 			setValue(new RadioAlias(text));
 		} else
 			setValue(null);

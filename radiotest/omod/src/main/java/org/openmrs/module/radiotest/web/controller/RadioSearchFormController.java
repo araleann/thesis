@@ -51,6 +51,6 @@ public class RadioSearchFormController {
 	public ModelAndView getPatient(@RequestParam("patientId") RadioPatient patient, HttpSession session){
 		session.setAttribute("patient", patient);
 		
-		return new ModelAndView("redirect:/module/radiotest/patientForm.htm");
+		return new ModelAndView("redirect:/module/radiotest/patientProfile.htm");
 	}
 }

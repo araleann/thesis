@@ -31,10 +31,4 @@ public class RadioCategory extends BaseOpenmrsMetadata {
 	public void setCategory(String category) {
 		this.category = category;
 	}
-	
-	@Override
-	public boolean equals(Object o){
-		RadioCategory other = (RadioCategory) o;
-		return this.id == other.getId();
-	}
 }
