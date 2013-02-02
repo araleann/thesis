@@ -186,17 +186,18 @@ public class RadioPatient extends BaseOpenmrsData {
 		this.aliases = aliases;
 	}
 	
-	public void addAlias(RadioAlias alias){
+	public boolean addAlias(RadioAlias alias){
 		if (aliases.contains(alias))
-			return;
+			return false;
 		
 		for(RadioAlias a : aliases){
-			if (!a.isVoided().booleanValue()){
+			if (!a.getVoided().booleanValue()){
 				a.setEndDate(new Date());
 				a.setVoided(Boolean.TRUE);
 			}
 		}
 		aliases.add(alias);
+		return true;
 	}
 	
 	public Boolean getVoided() {
@@ -209,7 +210,7 @@ public class RadioPatient extends BaseOpenmrsData {
 	
 	public RadioAlias getAlias(){
 		for(RadioAlias a : aliases){
-			if (!a.isVoided().booleanValue()){
+			if (!a.getVoided().booleanValue()){
 				alias = a;
 				category = a.getCategory();
 				break;

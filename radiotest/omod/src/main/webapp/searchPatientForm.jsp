@@ -23,6 +23,10 @@ function getPatient(pid){
 	$j("#patientId").val(pid);
 	$j("#patient").submit();
 }
+
+function newPatient(){
+	window.location = modulePath + "/patientForm.htm";
+}
 //-->
 </script>
 
