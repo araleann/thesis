@@ -1,11 +1,13 @@
 package org.openmrs.module.radiotest.api.impl;
 
+import java.util.LinkedHashSet;
 import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.api.APIException;
 import org.openmrs.api.impl.BaseOpenmrsService;
+import org.openmrs.module.radiotest.RadioCategoryExam;
 import org.openmrs.module.radiotest.RadioExam;
 import org.openmrs.module.radiotest.RadioExamType;
 import org.openmrs.module.radiotest.api.RadioExamService;
@@ -73,5 +75,15 @@ public class RadioExamServiceImpl extends BaseOpenmrsService implements RadioExa
 	public List<RadioExam> getExamByType(RadioExamType type) throws APIException {
 		// TODO Auto-generated method stub
 		return dao.getExamByType(type);
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public RadioExam updateExam(RadioExam exam) throws APIException {
+		// TODO Auto-generated method stub
+		exam = dao.getExam(exam.getId());
+		exam.setCategoryFees(new LinkedHashSet<RadioCategoryExam>(exam.getCategoryFees()));
+		
+		return exam;
 	}
 }
