@@ -20,4 +20,6 @@ public interface RadioTransactionDAO {
 	
 	public RadioTransExam saveTransExam(RadioTransExam exam) throws DAOException;
 	public RadioTransExam getTransExam(Integer id) throws DAOException;
+	
+	public List<RadioTransaction> getPending(String prop) throws DAOException;
 }

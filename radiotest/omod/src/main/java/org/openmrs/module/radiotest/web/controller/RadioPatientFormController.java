@@ -58,14 +58,6 @@ public class RadioPatientFormController {
 		model.addAttribute("patient", patient);
 	}
 	
-	@RequestMapping(value = EDIT_PATIENT, method = RequestMethod.GET)
-	public ModelAndView editPatient(ModelMap model){
-		RadioPatient patient = (RadioPatient) model.get("patient");
-		model.addAttribute("patientModel", new RadioPatientModel(patient));
-		
-		return new ModelAndView(PATIENT_FORM, model);
-	}
-	
 	@RequestMapping(value = {PATIENT_FORM, EDIT_PATIENT}, method = RequestMethod.POST)
 	public ModelAndView savePatient(@ModelAttribute("patientModel") RadioPatientModel pm, 
 												WebRequest request, HttpSession session, ModelMap model){

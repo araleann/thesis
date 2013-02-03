@@ -1,13 +1,16 @@
 package org.openmrs.module.radiotest.api.impl;
 
+import java.util.LinkedHashSet;
 import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.api.APIException;
 import org.openmrs.api.impl.BaseOpenmrsService;
+import org.openmrs.module.radiotest.RadioNote;
 import org.openmrs.module.radiotest.RadioNoteType;
 import org.openmrs.module.radiotest.RadioPatient;
+import org.openmrs.module.radiotest.RadioResult;
 import org.openmrs.module.radiotest.RadioTransExam;
 import org.openmrs.module.radiotest.RadioTransaction;
 import org.openmrs.module.radiotest.api.RadioTransactionService;
@@ -86,5 +89,35 @@ public class RadioTransactionServiceImpl extends BaseOpenmrsService implements R
 			throws APIException {
 		// TODO Auto-generated method stub
 		return dao.saveTransExam(exam);
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public List<RadioTransaction> getPending(String prop) throws APIException {
+		// TODO Auto-generated method stub
+		return dao.getPending(prop);
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public RadioTransaction updateTransaction(RadioTransaction trans)
+			throws APIException {
+		// TODO Auto-generated method stub
+		trans = dao.getTransaction(trans.getId());
+		trans.setExams(new LinkedHashSet<RadioTransExam>(trans.getExams()));
+		trans.setNotes(new LinkedHashSet<RadioNote>(trans.getNotes()));
+		
+		return trans;
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public RadioTransExam updateTransExam(RadioTransExam exam)
+			throws APIException {
+		// TODO Auto-generated method stub
+		exam = dao.getTransExam(exam.getId());
+		exam.setFindings(new LinkedHashSet<RadioResult>(exam.getFindings()));
+		
+		return exam;
 	}
 }

@@ -21,6 +21,9 @@ public interface RadioTransactionService extends OpenmrsService {
 	@Transactional(readOnly = true)
 	public List<RadioTransaction> getTransactions(RadioPatient patient) throws APIException;
 	
+	@Transactional(readOnly = true)
+	public RadioTransaction updateTransaction(RadioTransaction trans) throws APIException;
+	
 	public RadioNoteType saveNoteType(RadioNoteType noteType) throws APIException;
 	
 	@Transactional(readOnly = true)
@@ -33,4 +36,10 @@ public interface RadioTransactionService extends OpenmrsService {
 	
 	@Transactional(readOnly = true)
 	public RadioTransExam getTransExam(Integer id) throws APIException;
+	
+	@Transactional(readOnly = true)
+	public RadioTransExam updateTransExam(RadioTransExam exam) throws APIException;
+	
+	@Transactional(readOnly = true)
+	public List<RadioTransaction> getPending(String prop) throws APIException;
 }

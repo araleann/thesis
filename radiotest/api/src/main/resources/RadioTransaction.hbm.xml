@@ -38,6 +38,8 @@
 			length="500" access="field" />
 		<property name="orNumber" type="string" column="or_number"
 			length="20" access="field" />
+		<property name="claimed" type="boolean" column="claimed"
+			access="field" />
 		<property name="voided" type="boolean" column="voided"
 			access="field" />
 		

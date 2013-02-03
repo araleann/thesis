@@ -111,6 +111,7 @@
 				pending BOOLEAN DEFAULT TRUE,
 				visit_date DATE DEFAULT NULL,
 				visit_time TIME DEFAULT NULL,
+				claimed BOOLEAN DEFAULT FALSE,
 				voided BOOLEAN DEFAULT FALSE,
 				PRIMARY KEY (id)
 			);

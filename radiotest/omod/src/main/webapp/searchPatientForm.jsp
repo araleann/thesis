@@ -30,7 +30,7 @@ function newPatient(){
 //-->
 </script>
 
-Search Patient
+<h2>Search Patient</h2>
 <br>
 <br>
 <form method="post" id="search" onsubmit="javascript: return search()">

@@ -1,8 +1,46 @@
 <%@ include file="/WEB-INF/template/include.jsp"%>
 <%@ include file="/WEB-INF/template/header.jsp"%>
 
+<script type="text/javascript">
+<!--
+var modulePath = openmrsContextPath + "/module/radiotest";
+var saveNotePath = modulePath + "/saveNote.htm"
+var transPath = modulePath + "/transactionForm.htm";
+
+function saveNote(){
+	$j.post(saveNotePath, $j("#noteForm").serialize(), function(data){
+		var $note = $j("#note", $j(data));
+		$note.unwrap();
+		$j("#notes").prepend($note);
+	});
+}
+
+function noteTypesEvent(){
+	var $desc = $j("#desc");
+	var isHidden = $desc.attr("hidden");
+	var others = $j("#noteType").val() == 0;
+	
+	if (others == isHidden){
+		if (isHidden){
+			$desc.removeAttr("hidden");
+		} else {
+			$desc.attr("hidden", "hidden");
+		}
+	}
+}
+
+function addPayment(){
+	console.log($j("#payment").serialize());
+	$j.post(transPath, $j("#payment").serialize(), function(data){
+		alert("Payment added");
+	});
+}
+//-->
+</script>
+
 <div id="transaction">
-	Transaction Summary
+	<c:set var="id" value="${ transaction.id }" />
+	<h2>Transaction Summary</h2>
 	<br>
 	<br>
 	
@@ -42,6 +80,7 @@
 	<form:form method="post" id="payment">
 		<button type="button" onclick="addPayment()">Add Payment</button>
 		<br>
+		<input type="hidden" name="transId" value="${ id }">
 		OR Number: <input type="text" name="orNumber">
 		<br>
 	</form:form>
@@ -71,6 +110,9 @@
 	<form:form method="post" modelAttribute="transModel" id="noteForm">
 		<button type="button" onclick="saveNote()">Save Note</button>
 		<br>
+		<spring:bind path="transaction">
+			<input type="hidden" name="${ status.expression }" value="${ id }">
+		</spring:bind>
 		<spring:nestedPath path="note">
 			<form:select path="type" onchange="noteTypesEvent()" id="noteType">
 				<option value=" "></option>

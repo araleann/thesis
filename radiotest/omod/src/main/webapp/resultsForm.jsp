@@ -33,7 +33,7 @@ function edit(){
 //-->
 </script>
 
-Exam Result Details
+<h2>Exam Result Details</h2>
 <br>
 <br>
 
