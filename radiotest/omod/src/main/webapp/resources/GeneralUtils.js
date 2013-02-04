@@ -39,8 +39,8 @@ $j(function(){
 		},
 		
 		/**
-		 * @$obj: jQuery object. Object that the datepicker will attach to.
-		 * @options : Object. Custom options for the datepicker. (Optional)
+		 * @param $obj: jQuery object. Object that the datepicker will attach to.
+		 * @param options : Object. Custom options for the datepicker. (Optional)
 		 * 
 		 * Gives default options for the datepicker
 		 */
