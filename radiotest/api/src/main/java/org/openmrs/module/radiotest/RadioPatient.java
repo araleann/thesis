@@ -25,6 +25,7 @@ public class RadioPatient extends BaseOpenmrsData {
 	private String contactNo;
 	private String institution;
 	private String philhealth;
+	private String caseNumber;
 	
 	private Date updateDate;
 	
@@ -82,12 +83,6 @@ public class RadioPatient extends BaseOpenmrsData {
 
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
-	}
-	
-	public String getFullName(){
-		return firstName + " " +
-				middleInitial + " " +
-				lastName;
 	}
 
 	public String getGender() {
@@ -170,6 +165,14 @@ public class RadioPatient extends BaseOpenmrsData {
 		this.philhealth = philhealth;
 	}
 
+	public String getCaseNumber() {
+		return caseNumber;
+	}
+
+	public void setCaseNumber(String caseNumber) {
+		this.caseNumber = caseNumber;
+	}
+
 	public Date getUpdateDate() {
 		return updateDate;
 	}
@@ -186,6 +189,21 @@ public class RadioPatient extends BaseOpenmrsData {
 		this.aliases = aliases;
 	}
 	
+	public Boolean getVoided() {
+		return voided;
+	}
+
+	public void setVoided(Boolean voided) {
+		this.voided = voided;
+	}
+	
+	// CUSTOM FUNCTIONS
+	public String getFullName(){
+		return firstName + " " +
+				middleInitial + " " +
+				lastName;
+	}
+	
 	public boolean addAlias(RadioAlias alias){
 		if (aliases.contains(alias))
 			return false;
@@ -198,14 +216,6 @@ public class RadioPatient extends BaseOpenmrsData {
 		}
 		aliases.add(alias);
 		return true;
-	}
-	
-	public Boolean getVoided() {
-		return voided;
-	}
-
-	public void setVoided(Boolean voided) {
-		this.voided = voided;
 	}
 	
 	public RadioAlias getAlias(){
@@ -224,5 +234,14 @@ public class RadioPatient extends BaseOpenmrsData {
 			getAlias();
 		}
 		return category;
+	}
+	
+	public void updateCaseNumber(){
+		caseNumber = caseNumber == null? "" : caseNumber;
+		RadioCounter c = RadioCounter.getInstance();
+		
+		if(!c.isValid(caseNumber)){
+			caseNumber = c.getNewCaseNumber();
+		}
 	}
 }

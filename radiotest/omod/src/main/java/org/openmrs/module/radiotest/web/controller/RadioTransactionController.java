@@ -112,6 +112,7 @@ public class RadioTransactionController {
 		trans = Context.getService(RadioTransactionService.class).updateTransaction(trans);
 		trans.setOrNumber(request.getParameter("orNumber"));
 		trans.setPaid(true);
+		trans.getPatient().updateCaseNumber();
 		
 		Context.getService(RadioTransactionService.class).saveTransaction(trans);
 	}

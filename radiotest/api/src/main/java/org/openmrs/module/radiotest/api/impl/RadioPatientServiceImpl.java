@@ -10,6 +10,7 @@ import org.openmrs.api.APIException;
 import org.openmrs.api.impl.BaseOpenmrsService;
 import org.openmrs.module.radiotest.RadioAlias;
 import org.openmrs.module.radiotest.RadioCategory;
+import org.openmrs.module.radiotest.RadioCounter;
 import org.openmrs.module.radiotest.RadioPatient;
 import org.openmrs.module.radiotest.api.RadioPatientService;
 import org.openmrs.module.radiotest.api.db.RadioPatientDAO;
@@ -100,6 +101,19 @@ public class RadioPatientServiceImpl extends BaseOpenmrsService implements Radio
 		
 		patient.setAliases(aliases);
 		return patient;
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public RadioCounter getCounter() throws APIException {
+		// TODO Auto-generated method stub
+		return dao.getCounter();
+	}
+
+	@Override
+	public RadioCounter saveCounter(RadioCounter counter) throws APIException {
+		// TODO Auto-generated method stub
+		return dao.saveCounter(counter);
 	}
 
 }

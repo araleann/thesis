@@ -153,6 +153,7 @@ public class RadioTransaction extends BaseOpenmrsData {
 		this.voided = voided;
 	}
 	
+	// CUSTOM FUNCTIONS
 	public int getNumberOfExams(){
 		return exams.size();
 	}

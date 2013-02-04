@@ -35,6 +35,7 @@
 				contact_number VARCHAR(20) DEFAULT NULL,
 				institution VARCHAR(50) DEFAULT NULL,
 				philhealth VARCHAR(50) DEFAULT NULL,
+				case_no VARCHAR(10) DEFAULT NULL,
 				update_date DATE DEFAULT NULL,
 				voided BOOLEAN DEFAULT FALSE,
 				PRIMARY KEY (id)
@@ -132,6 +133,12 @@
 				PRIMARY KEY (id)
 			);
 			
+			CREATE TABLE IF NOT EXISTS radio_counter (
+				id INT NOT NULL AUTO_INCREMENT,
+				next_year TIMESTAMP,
+				count INT(6) DEFAULT NULL,
+				PRIMARY KEY (id)
+			);
 		</sql>		
 	</diff>
 	

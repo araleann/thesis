@@ -41,6 +41,7 @@
 		RadioNote.hbm.xml
 		RadioNoteType.hbm.xml
 		RadioResult.hbm.xml
+		RadioCounter.hbm.xml
 		
 	</mappingFiles>
 
