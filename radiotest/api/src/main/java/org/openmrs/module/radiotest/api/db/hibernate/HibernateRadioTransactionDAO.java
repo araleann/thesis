@@ -64,9 +64,14 @@ public class HibernateRadioTransactionDAO implements RadioTransactionDAO {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<RadioNoteType> getAllNoteTypes() throws DAOException {
+	public List<RadioNoteType> getAllNoteTypes(boolean includeVoided) throws DAOException {
 		// TODO Auto-generated method stub
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(RadioNoteType.class);
+		
+		if (!includeVoided){
+			criteria.add(Restrictions.eq("voided", false));
+		}
+		
 		return (List<RadioNoteType>) criteria.list();
 	}
 
@@ -116,5 +121,11 @@ public class HibernateRadioTransactionDAO implements RadioTransactionDAO {
 		}
 		
 		return (List<RadioTransaction>) criteria.list();
+	}
+
+	@Override
+	public void deleteNoteType(RadioNoteType type) throws DAOException {
+		// TODO Auto-generated method stub
+		sessionFactory.getCurrentSession().delete(type);
 	}
 }

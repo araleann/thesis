@@ -27,6 +27,11 @@ public interface RadioPatientService extends OpenmrsService {
 	@Transactional(readOnly = true)
 	public List<RadioCategory> getAllCategories() throws APIException;
 	
+	@Transactional(readOnly = true)
+	public List<RadioCategory> getAllCategories(boolean includeVoided) throws APIException;
+	
+	public void deleteCategory(RadioCategory category) throws APIException;
+	
 	public RadioCategory saveCategory(RadioCategory category) throws APIException;
 	
 	@Transactional(readOnly = true)

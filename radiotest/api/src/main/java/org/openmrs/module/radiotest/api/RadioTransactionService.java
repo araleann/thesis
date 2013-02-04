@@ -32,6 +32,11 @@ public interface RadioTransactionService extends OpenmrsService {
 	@Transactional(readOnly = true)
 	public List<RadioNoteType> getAllNoteTypes() throws APIException;
 	
+	@Transactional(readOnly = true)
+	public List<RadioNoteType> getAllNoteTypes(boolean includeVoided) throws APIException;
+	
+	public void deleteNoteType(RadioNoteType type) throws APIException;
+	
 	public RadioTransExam saveTransExam(RadioTransExam exam) throws APIException;
 	
 	@Transactional(readOnly = true)

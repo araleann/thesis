@@ -81,9 +81,14 @@ public class HibernateRadioPatientDAO implements RadioPatientDAO {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<RadioCategory> getAllCategories() throws DAOException {
+	public List<RadioCategory> getAllCategories(boolean includeVoided) throws DAOException {
 		// TODO Auto-generated method stub
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(RadioCategory.class);
+		
+		if (!includeVoided){
+			criteria.add(Restrictions.eq("voided", false));
+		}
+		
 		return (List<RadioCategory>) criteria.list();
 	}
 
@@ -134,5 +139,11 @@ public class HibernateRadioPatientDAO implements RadioPatientDAO {
 		// TODO Auto-generated method stub
 		sessionFactory.getCurrentSession().saveOrUpdate(counter);
 		return counter;
+	}
+
+	@Override
+	public void deleteCategory(RadioCategory category) throws DAOException {
+		// TODO Auto-generated method stub
+		sessionFactory.getCurrentSession().delete(category);
 	}
 }

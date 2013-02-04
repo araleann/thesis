@@ -44,6 +44,7 @@
 			CREATE TABLE IF NOT EXISTS radio_category (
 				id INT(11) NOT NULL AUTO_INCREMENT,
 				category VARCHAR(20) DEFAULT NULL,
+				voided BOOLEAN DEFAULT FALSE,
 				PRIMARY KEY (id)
 			);
 			
@@ -61,6 +62,7 @@
 			CREATE TABLE IF NOT EXISTS radio_exam_type (
 				id INT(11) NOT NULL AUTO_INCREMENT,
 				type VARCHAR(20) DEFAULT NULL,
+				voided BOOLEAN DEFAULT FALSE,
 				PRIMARY KEY (id)
 			);
 			
@@ -68,6 +70,7 @@
 				id INT(11) NOT NULL AUTO_INCREMENT,
 				type_id INT(11) DEFAULT NULL,
 				name VARCHAR(50) DEFAULT NULL,
+				voided BOOLEAN DEFAULT FALSE,
 				PRIMARY KEY (id)
 			);
 			
@@ -130,6 +133,7 @@
 			CREATE TABLE IF NOT EXISTS radio_note_type (
 				id INT(11) NOT NULL AUTO_INCREMENT,
 				name VARCHAR(50) DEFAULT NULL,
+				voided BOOLEAN DEFAULT FALSE,
 				PRIMARY KEY (id)
 			);
 			

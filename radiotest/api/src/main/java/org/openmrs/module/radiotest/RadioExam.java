@@ -14,6 +14,8 @@ public class RadioExam extends BaseOpenmrsData {
 	
 	private Set<RadioCategoryExam> categoryFees;
 	
+	private Boolean voided = Boolean.FALSE;
+	
 	@Override
 	public Integer getId() {
 		// TODO Auto-generated method stub
@@ -59,5 +61,13 @@ public class RadioExam extends BaseOpenmrsData {
 			}
 		}
 		return null;
+	}
+
+	public Boolean getVoided() {
+		return voided;
+	}
+
+	public void setVoided(Boolean voided) {
+		this.voided = voided;
 	}
 }

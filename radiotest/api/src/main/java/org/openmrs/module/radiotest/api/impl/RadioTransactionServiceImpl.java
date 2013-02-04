@@ -66,7 +66,7 @@ public class RadioTransactionServiceImpl extends BaseOpenmrsService implements R
 	@Override
 	public List<RadioNoteType> getAllNoteTypes() throws APIException {
 		// TODO Auto-generated method stub
-		return dao.getAllNoteTypes();
+		return dao.getAllNoteTypes(false);
 	}
 
 	@Override
@@ -119,5 +119,19 @@ public class RadioTransactionServiceImpl extends BaseOpenmrsService implements R
 		exam.setFindings(new LinkedHashSet<RadioResult>(exam.getFindings()));
 		
 		return exam;
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public List<RadioNoteType> getAllNoteTypes(boolean includeVoided)
+			throws APIException {
+		// TODO Auto-generated method stub
+		return dao.getAllNoteTypes(includeVoided);
+	}
+
+	@Override
+	public void deleteNoteType(RadioNoteType type) throws APIException {
+		// TODO Auto-generated method stub
+		dao.deleteNoteType(type);
 	}
 }

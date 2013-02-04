@@ -17,12 +17,20 @@ public interface RadioExamService extends OpenmrsService {
 	public List<RadioExamType> getAllExamTypes() throws APIException;
 	
 	@Transactional(readOnly = true)
+	public List<RadioExamType> getAllExamTypes(boolean includeVoided) throws APIException;
+	
+	@Transactional(readOnly = true)
 	public RadioExamType getExamType(Integer typeId) throws APIException;
+	
+	public void deleteExamType(RadioExamType type) throws APIException;
 	
 	public RadioExam saveExam(RadioExam exam) throws APIException;
 	
 	@Transactional(readOnly = true)
 	public List<RadioExam> getAllExams() throws APIException;
+	
+	@Transactional(readOnly = true)
+	public List<RadioExam> getAllExams(boolean includeVoided) throws APIException;
 	
 	@Transactional(readOnly = true)
 	public RadioExam getExam(Integer examId) throws APIException;
@@ -32,5 +40,7 @@ public interface RadioExamService extends OpenmrsService {
 	
 	@Transactional(readOnly = true)
 	public List<RadioExam> getExamByType(RadioExamType type) throws APIException;
+	
+	public void deleteExam(RadioExam exam) throws APIException;
 
 }

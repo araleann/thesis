@@ -41,7 +41,7 @@ public class RadioExamController {
 	
 	@ModelAttribute("exams")
 	public List<RadioExam> getExams(){
-		return Context.getService(RadioExamService.class).getAllExams();
+		return Context.getService(RadioExamService.class).getAllExams(true);
 	}
 	
 	@ModelAttribute("categories")
@@ -77,6 +77,19 @@ public class RadioExamController {
 	
 	@RequestMapping(value = "/module/radiotest/refreshExam", method = RequestMethod.GET)
 	public ModelAndView refreshForm(){
+		return new ModelAndView("redirect:" + EXAM_FORM + ".htm"); 
+	}
+	
+	@RequestMapping(value = "/module/radiotest/nullExam", method = RequestMethod.POST)
+	public ModelAndView nullExam(@RequestParam("eid") RadioExam exam, @RequestParam("action") String action){
+		RadioExamService es = Context.getService(RadioExamService.class);
+		if (action.equalsIgnoreCase("void")){
+			exam.setVoided(!exam.getVoided());
+			es.saveExam(exam);
+		} else if (action.equalsIgnoreCase("delete")){
+			es.deleteExam(exam);
+		}
+		
 		return new ModelAndView("redirect:" + EXAM_FORM + ".htm"); 
 	}
 }

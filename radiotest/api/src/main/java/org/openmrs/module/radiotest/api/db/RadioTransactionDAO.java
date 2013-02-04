@@ -16,7 +16,8 @@ public interface RadioTransactionDAO {
 	
 	public RadioNoteType saveNoteType(RadioNoteType noteType) throws DAOException;
 	public RadioNoteType getNoteType(Integer typeId) throws DAOException;
-	public List<RadioNoteType> getAllNoteTypes() throws DAOException;
+	public List<RadioNoteType> getAllNoteTypes(boolean includeVoided) throws DAOException;
+	public void deleteNoteType(RadioNoteType type) throws DAOException;
 	
 	public RadioTransExam saveTransExam(RadioTransExam exam) throws DAOException;
 	public RadioTransExam getTransExam(Integer id) throws DAOException;

@@ -8,6 +8,7 @@ var modulePath = openmrsContextPath + "/module/radiotest";
 var savePath = modulePath + "/examForm.htm";
 var loadPath = modulePath + "/loadExam.htm";
 var refreshPath = modulePath + "/refreshExam.htm";
+var nullPath = modulePath + "/nullExam.htm";
 
 function loadExam(id){
 	$j.post(loadPath, { examId : id }, function(data){
@@ -35,6 +36,36 @@ function clear(){
 	});
 }
 
+function voidExam(id){
+	var obj = {
+		eid : id,
+		action : "void"
+	}
+	post(id, obj);
+}
+
+function deleteExam(id){
+	var obj = {
+		eid : id,
+		action : "delete"
+	}
+	if(confirm("Are you sure you want to delete?")){
+		post(id, obj);
+	}
+}
+
+function post(id, obj){
+	var examId = "#exam" + id;
+	$j.post(nullPath, obj, function(data){
+		var $exam = $j(examId, $j(data));
+		if($exam.length){
+			$j(examId).replaceWith($exam);
+		} else {
+			$j(examId).remove();
+		}
+	})
+}
+
 $j(function(){
 	addPlaceholders();
 });
@@ -43,9 +74,25 @@ $j(function(){
 <div id="examList">
 	<c:forEach var="exam" items="${ exams }">
 		<br>
-		Type : ${ exam.type.type } <br>
-		Name: ${ exam.name }
-		<button type="button" onclick="loadExam(${ exam.id })"></button>
+		<c:set var="id" value="${ exam.id }" />
+		<div id="exam${ id }">
+			Type : ${ exam.type.type } <br>
+			Name: ${ exam.name }
+			<button type="button" onclick="loadExam(${ id })"></button>
+			<br>
+			Voided:
+			<c:choose>
+				<c:when test="${ exam.voided }">
+					YES
+				</c:when>
+				<c:otherwise>
+					NO
+				</c:otherwise>
+			</c:choose>
+			<button type="button" onclick="voidExam(${ id })"></button>
+			<br>
+			<button type="button" onclick="deleteExam(${ id })">Delete</button>
+		</div>
 		<br> 
 	</c:forEach>
 </div>

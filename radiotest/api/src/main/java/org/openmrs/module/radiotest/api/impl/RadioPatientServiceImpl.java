@@ -68,7 +68,13 @@ public class RadioPatientServiceImpl extends BaseOpenmrsService implements Radio
 	@Transactional(readOnly = true)
 	public List<RadioCategory> getAllCategories() throws APIException {
 		// TODO Auto-generated method stub
-		return dao.getAllCategories();
+		return dao.getAllCategories(false);
+	}
+	
+	@Override
+	@Transactional(readOnly = true)
+	public List<RadioCategory> getAllCategories(boolean includeVoided) throws APIException {
+		return dao.getAllCategories(includeVoided);
 	}
 
 	@Override
@@ -114,6 +120,12 @@ public class RadioPatientServiceImpl extends BaseOpenmrsService implements Radio
 	public RadioCounter saveCounter(RadioCounter counter) throws APIException {
 		// TODO Auto-generated method stub
 		return dao.saveCounter(counter);
+	}
+
+	@Override
+	public void deleteCategory(RadioCategory category) throws APIException {
+		// TODO Auto-generated method stub
+		dao.deleteCategory(category);
 	}
 
 }

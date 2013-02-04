@@ -16,8 +16,9 @@ public interface RadioPatientDAO {
 	public List<RadioPatient> search(String text) throws DAOException;
 	
 	public RadioCategory getCategory(Integer categoryId) throws DAOException;
-	public List<RadioCategory> getAllCategories() throws DAOException;
+	public List<RadioCategory> getAllCategories(boolean includeVoided) throws DAOException;
 	public RadioCategory saveCategory(RadioCategory category) throws DAOException;
+	public void deleteCategory(RadioCategory category) throws DAOException;
 	
 	public RadioAlias getAlias(Integer aliasId) throws DAOException;
 	
