@@ -18,22 +18,27 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-@SessionAttributes("patient")
 public class RadioPatientFormController {
 
 	private final String PATIENT_FORM = "/module/radiotest/patientForm";
 	private final String PATIENT_PROFILE = "/module/radiotest/patientProfile";
-	private final String EDIT_PATIENT = "/module/radiotest/editPatient";
 	
 	@InitBinder
 	public void initBinder(WebRequest request, WebDataBinder binder){
 		binder.registerCustomEditor(RadioCategory.class, new RadioCategoryPropertyEditor());
+	}
+	
+	@RequestMapping(value = PATIENT_FORM, method = RequestMethod.GET)
+	public void showForm(HttpSession session, ModelMap model){
+		RadioPatient patient = (RadioPatient) session.getAttribute("patient");
+		
+		if (patient != null){
+			model.addAttribute("patientModel", new RadioPatientModel(patient));
+		}
 	}
 	
 	@ModelAttribute("categories")
@@ -46,11 +51,6 @@ public class RadioPatientFormController {
 		return new RadioPatientModel();
 	}
 	
-	@RequestMapping(value = PATIENT_FORM, method = RequestMethod.GET)
-	public void showForm(SessionStatus session){
-		session.setComplete();
-	}
-	
 	@RequestMapping(value = PATIENT_PROFILE, method = RequestMethod.GET)
 	public void showProfile(HttpSession session, ModelMap model){
 		RadioPatient patient = (RadioPatient) session.getAttribute("patient");
@@ -59,18 +59,16 @@ public class RadioPatientFormController {
 		model.addAttribute("patient", patient);
 	}
 	
-	@RequestMapping(value = {PATIENT_FORM, EDIT_PATIENT}, method = RequestMethod.POST)
-	public ModelAndView savePatient(@ModelAttribute("patientModel") RadioPatientModel pm, 
+	@RequestMapping(value = PATIENT_FORM, method = RequestMethod.POST)
+	public ModelAndView getPatientFromForm(@ModelAttribute("patientModel") RadioPatientModel pm, 
 												WebRequest request, HttpSession session, ModelMap model){
-		RadioPatient patient = (RadioPatient) model.get("patient");
-		
-		if(patient != null){
-			pm.setPatient(patient);	
+		RadioPatient patient = pm.getFullPatient();
+		try {
+			patient.setUpdateDate(new Date());
+			session.setAttribute("patient", Context.getService(RadioPatientService.class).savePatient(patient));
+		} catch (Exception ex) {
+			System.out.println("Exception!");
 		}
-		
-		patient = pm.getFullPatient();
-		patient.setUpdateDate(new Date());
-		session.setAttribute("patient", Context.getService(RadioPatientService.class).savePatient(patient));
 		
 		return new ModelAndView("redirect:/module/radiotest/transExamForm.htm");
 	}
