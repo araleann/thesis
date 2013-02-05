@@ -1,11 +1,13 @@
 package org.openmrs.module.radiotest.api.impl;
 
+import java.util.LinkedHashSet;
 import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.api.APIException;
 import org.openmrs.api.impl.BaseOpenmrsService;
+import org.openmrs.module.radiotest.RadioCategoryExam;
 import org.openmrs.module.radiotest.RadioExam;
 import org.openmrs.module.radiotest.RadioExamType;
 import org.openmrs.module.radiotest.api.RadioExamService;
@@ -41,7 +43,7 @@ public class RadioExamServiceImpl extends BaseOpenmrsService implements RadioExa
 	@Override
 	public List<RadioExam> getAllExams() throws APIException {
 		// TODO Auto-generated method stub
-		return dao.getAllExams();
+		return dao.getAllExams(false);
 	}
 
 	@Override
@@ -59,7 +61,7 @@ public class RadioExamServiceImpl extends BaseOpenmrsService implements RadioExa
 	@Override
 	public List<RadioExamType> getAllExamTypes() throws APIException {
 		// TODO Auto-generated method stub
-		return dao.getAllExamTypes();
+		return dao.getAllExamTypes(false);
 	}
 
 	@Override
@@ -73,5 +75,43 @@ public class RadioExamServiceImpl extends BaseOpenmrsService implements RadioExa
 	public List<RadioExam> getExamByType(RadioExamType type) throws APIException {
 		// TODO Auto-generated method stub
 		return dao.getExamByType(type);
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public RadioExam updateExam(RadioExam exam) throws APIException {
+		// TODO Auto-generated method stub
+		exam = dao.getExam(exam.getId());
+		exam.setCategoryFees(new LinkedHashSet<RadioCategoryExam>(exam.getCategoryFees()));
+		
+		return exam;
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public List<RadioExamType> getAllExamTypes(boolean includeVoided)
+			throws APIException {
+		// TODO Auto-generated method stub
+		return dao.getAllExamTypes(includeVoided);
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public List<RadioExam> getAllExams(boolean includeVoided)
+			throws APIException {
+		// TODO Auto-generated method stub
+		return dao.getAllExams(includeVoided);
+	}
+
+	@Override
+	public void deleteExamType(RadioExamType type) throws APIException {
+		// TODO Auto-generated method stub
+		dao.deleteExamType(type);
+	}
+
+	@Override
+	public void deleteExam(RadioExam exam) throws APIException {
+		// TODO Auto-generated method stub
+		dao.deleteExam(exam);
 	}
 }

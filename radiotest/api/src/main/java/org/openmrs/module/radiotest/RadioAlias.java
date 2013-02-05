@@ -89,6 +89,7 @@ public class RadioAlias extends BaseOpenmrsData {
 		return voided;
 	}
 
+	@Override
 	public boolean equals(Object obj){
 		if(!this.getClass().equals(obj))
 			return false;
@@ -96,9 +97,4 @@ public class RadioAlias extends BaseOpenmrsData {
 		RadioAlias other = (RadioAlias) obj;
 		return this.getAlias().equals(other.getAlias());
 	}
-	
-	public int hashCode(){
-		return (id + alias).hashCode();
-	}
-
 }

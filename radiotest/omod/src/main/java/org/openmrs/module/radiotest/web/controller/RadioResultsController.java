@@ -1,6 +1,6 @@
 package org.openmrs.module.radiotest.web.controller;
 
-import java.util.List;
+import javax.servlet.http.HttpSession;
 
 import org.openmrs.api.context.Context;
 import org.openmrs.module.radiotest.RadioPatient;
@@ -34,12 +34,18 @@ public class RadioResultsController {
 		binder.registerCustomEditor(RadioTransExam.class, new RadioTransExamPropertyEditor());
 	}
 	
+	@ModelAttribute("result")
+	public RadioResult getResult(){
+		return new RadioResult();
+	}
+	
 	@RequestMapping(value = RESULTS_PAGE, method = RequestMethod.GET)
-	public void showTransactions(ModelMap model){
-		RadioPatient patient = Context.getService(RadioPatientService.class).getPatient(new Integer(1));
-		List<RadioTransaction> transList = Context.getService(RadioTransactionService.class).getTransactions(patient);
-		
-		model.addAttribute("transList", transList);
+	public void showTransactions(HttpSession session, ModelMap model){
+		RadioPatient patient = (RadioPatient) session.getAttribute("patient");
+		if(patient != null){
+			patient = Context.getService(RadioPatientService.class).updatePatient(patient);
+			model.addAttribute("transList", Context.getService(RadioTransactionService.class).getTransactions(patient));
+		} 
 	}
 	
 	@RequestMapping(value = "/module/radiotest/getExamList", method = RequestMethod.POST)
@@ -47,12 +53,7 @@ public class RadioResultsController {
 		model.addAttribute("exams", trans.getExams());
 		
 		return new ModelAndView("/module/radiotest/examList", model);
-	}
-	
-	@ModelAttribute("result")
-	public RadioResult getResult(){
-		return new RadioResult();
-	}
+	}	
 	
 	@RequestMapping(value = RESULTS_PAGE, method = RequestMethod.POST)
 	public ModelAndView editExamResults(@RequestParam("examId") RadioTransExam e, WebRequest request, ModelMap model){
@@ -63,6 +64,20 @@ public class RadioResultsController {
 		}
 		
 		return new ModelAndView("/module/radiotest/resultsForm", model);
+	}
+	
+	@RequestMapping(value = "/module/radiotest/borrowResults", method = RequestMethod.POST)
+	public ModelAndView toggleBorrowed(@RequestParam("examId") RadioTransExam exam, ModelMap model){
+		RadioTransactionService ts = Context.getService(RadioTransactionService.class);
+		
+		exam = ts.updateTransExam(exam);
+		exam.setBorrowed(!exam.isBorrowed());
+		ts.saveTransExam(exam);
+		
+		RadioTransaction trans = exam.getTransaction();
+		model.addAttribute("exams", trans.getExams());
+		
+		return new ModelAndView("/module/radiotest/examList", model);
 	}
 	
 	@RequestMapping(value = RESULTS_FORM, method = RequestMethod.POST)

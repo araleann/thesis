@@ -5,6 +5,7 @@ import java.util.List;
 import org.openmrs.api.db.DAOException;
 import org.openmrs.module.radiotest.RadioAlias;
 import org.openmrs.module.radiotest.RadioCategory;
+import org.openmrs.module.radiotest.RadioCounter;
 import org.openmrs.module.radiotest.RadioPatient;
 
 public interface RadioPatientDAO {
@@ -15,8 +16,12 @@ public interface RadioPatientDAO {
 	public List<RadioPatient> search(String text) throws DAOException;
 	
 	public RadioCategory getCategory(Integer categoryId) throws DAOException;
-	public List<RadioCategory> getAllCategories() throws DAOException;
+	public List<RadioCategory> getAllCategories(boolean includeVoided) throws DAOException;
 	public RadioCategory saveCategory(RadioCategory category) throws DAOException;
+	public void deleteCategory(RadioCategory category) throws DAOException;
 	
 	public RadioAlias getAlias(Integer aliasId) throws DAOException;
+	
+	public RadioCounter getCounter() throws DAOException;
+	public RadioCounter saveCounter(RadioCounter counter) throws DAOException;
 }

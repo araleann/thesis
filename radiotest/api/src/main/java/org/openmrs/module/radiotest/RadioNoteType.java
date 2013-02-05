@@ -6,6 +6,8 @@ public class RadioNoteType extends BaseOpenmrsMetadata {
 	
 	private Integer id;
 	private String name;
+	
+	private Boolean voided = Boolean.FALSE;
 
 	@Override
 	public Integer getId() {
@@ -25,5 +27,13 @@ public class RadioNoteType extends BaseOpenmrsMetadata {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public Boolean getVoided() {
+		return voided;
+	}
+
+	public void setVoided(Boolean voided) {
+		this.voided = voided;
 	}
 }

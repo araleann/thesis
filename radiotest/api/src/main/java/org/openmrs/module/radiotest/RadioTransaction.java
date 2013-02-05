@@ -24,6 +24,7 @@ public class RadioTransaction extends BaseOpenmrsData {
 	private String orNumber;
 	private Set<RadioNote> notes;
 	
+	private boolean claimed = false;
 	private Boolean voided = Boolean.FALSE;
 	
 	// not saved in database
@@ -136,6 +137,14 @@ public class RadioTransaction extends BaseOpenmrsData {
 		notes.add(note);
 	}
 
+	public boolean isClaimed() {
+		return claimed;
+	}
+
+	public void setClaimed(boolean claimed) {
+		this.claimed = claimed;
+	}
+
 	public Boolean isVoided() {
 		return voided;
 	}
@@ -144,6 +153,7 @@ public class RadioTransaction extends BaseOpenmrsData {
 		this.voided = voided;
 	}
 	
+	// CUSTOM FUNCTIONS
 	public int getNumberOfExams(){
 		return exams.size();
 	}
@@ -190,5 +200,14 @@ public class RadioTransaction extends BaseOpenmrsData {
 			}
 		}
 		pending = false;
+	}
+	
+	public boolean isBorrowed(){
+		for(RadioTransExam exam : exams){
+			if(exam.isBorrowed()){
+				return true;
+			}
+		}
+		return false;
 	}
 }

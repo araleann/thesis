@@ -17,14 +17,15 @@
 	</class>
 -->
 
-	<class name="RadioNoteType" table="radio_note_type">
+	<class name="RadioCounter" table="radio_counter">
 		<id name="id" type="java.lang.Integer" column="id" unsaved-value="0">
 			<generator class="native" />
 		</id>
 		<discriminator column="id" insert="false" />
-		<property name="name" type="string" column="name"
-			length="50" access="field" />
-		<property name="voided" type="boolean" column="voided"
+		
+		<property name="count" type="integer" column="count"
+			access="field" />
+		<property name="nextYear" type="calendar" column="next_year"
 			access="field" />
 	</class>
 

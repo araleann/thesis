@@ -23,15 +23,23 @@ function getPatient(pid){
 	$j("#patientId").val(pid);
 	$j("#patient").submit();
 }
+
+function newPatient(){
+	window.location = modulePath + "/patientForm.htm";
+}
 //-->
 </script>
 
-Search Patient
-<br>
+<div class="colmask leftmenu">
+	<div class="colleft">
+		<div class="col1">
+		
+<h2>Search Patient</h2>
 <br>
 <form method="post" id="search" onsubmit="javascript: return search()">
-	<input type="text" name="searchText">
-	<button type="button" onclick="search()">Search</button>
+	<input type="text" class="patientinput" placeholder="Enter Patient Name or ID" name="searchText">
+	<br><br>
+	<button type="button" onclick="search()"class="buttondesign" >Search</button>
 </form>
 <br>
 <br>
@@ -43,5 +51,10 @@ Search Patient
 <div id="patientList">
 
 </div>
-
+</div>
+<div class="col2">
+			<!-- Column 2 start -->
+			<jsp:include page="/WEB-INF/view/sidemenu.jsp"/>
+		</div>
+</div></div>
 <%@ include file="/WEB-INF/template/footer.jsp"%>

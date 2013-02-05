@@ -11,6 +11,7 @@ import org.hibernate.criterion.Restrictions;
 import org.openmrs.api.db.DAOException;
 import org.openmrs.module.radiotest.RadioAlias;
 import org.openmrs.module.radiotest.RadioCategory;
+import org.openmrs.module.radiotest.RadioCounter;
 import org.openmrs.module.radiotest.RadioPatient;
 import org.openmrs.module.radiotest.api.db.RadioPatientDAO;
 
@@ -80,9 +81,14 @@ public class HibernateRadioPatientDAO implements RadioPatientDAO {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<RadioCategory> getAllCategories() throws DAOException {
+	public List<RadioCategory> getAllCategories(boolean includeVoided) throws DAOException {
 		// TODO Auto-generated method stub
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(RadioCategory.class);
+		
+		if (!includeVoided){
+			criteria.add(Restrictions.eq("voided", false));
+		}
+		
 		return (List<RadioCategory>) criteria.list();
 	}
 
@@ -120,5 +126,24 @@ public class HibernateRadioPatientDAO implements RadioPatientDAO {
 		// TODO Auto-generated method stub
 		sessionFactory.getCurrentSession().saveOrUpdate(category);
 		return category;
+	}
+
+	@Override
+	public RadioCounter getCounter() throws DAOException {
+		// TODO Auto-generated method stub
+		return (RadioCounter) sessionFactory.getCurrentSession().get(RadioCounter.class, new Integer(1));
+	}
+
+	@Override
+	public RadioCounter saveCounter(RadioCounter counter) throws DAOException {
+		// TODO Auto-generated method stub
+		sessionFactory.getCurrentSession().saveOrUpdate(counter);
+		return counter;
+	}
+
+	@Override
+	public void deleteCategory(RadioCategory category) throws DAOException {
+		// TODO Auto-generated method stub
+		sessionFactory.getCurrentSession().delete(category);
 	}
 }

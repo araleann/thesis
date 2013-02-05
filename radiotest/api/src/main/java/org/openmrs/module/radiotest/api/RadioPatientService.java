@@ -6,6 +6,7 @@ import org.openmrs.api.APIException;
 import org.openmrs.api.OpenmrsService;
 import org.openmrs.module.radiotest.RadioAlias;
 import org.openmrs.module.radiotest.RadioCategory;
+import org.openmrs.module.radiotest.RadioCounter;
 import org.openmrs.module.radiotest.RadioPatient;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,6 +27,11 @@ public interface RadioPatientService extends OpenmrsService {
 	@Transactional(readOnly = true)
 	public List<RadioCategory> getAllCategories() throws APIException;
 	
+	@Transactional(readOnly = true)
+	public List<RadioCategory> getAllCategories(boolean includeVoided) throws APIException;
+	
+	public void deleteCategory(RadioCategory category) throws APIException;
+	
 	public RadioCategory saveCategory(RadioCategory category) throws APIException;
 	
 	@Transactional(readOnly = true)
@@ -36,5 +42,10 @@ public interface RadioPatientService extends OpenmrsService {
 	
 	@Transactional(readOnly = true)
 	public List<RadioPatient> search(String text) throws APIException;
+	
+	@Transactional(readOnly = true)
+	public RadioCounter getCounter() throws APIException;
+	
+	public RadioCounter saveCounter(RadioCounter counter) throws APIException;
 
 }

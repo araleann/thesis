@@ -41,9 +41,14 @@ public class HibernateRadioExamDAO implements RadioExamDAO {
 	
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<RadioExam> getAllExams() throws DAOException {
+	public List<RadioExam> getAllExams(boolean includeVoided) throws DAOException {
 		// TODO Auto-generated method stub
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(RadioExam.class);
+		
+		if(!includeVoided){
+			criteria.add(Restrictions.eq("voided", false));
+		}
+		
 		return (List<RadioExam>) criteria.list();
 	}
 
@@ -62,9 +67,14 @@ public class HibernateRadioExamDAO implements RadioExamDAO {
 	
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<RadioExamType> getAllExamTypes() throws DAOException {
+	public List<RadioExamType> getAllExamTypes(boolean includeVoided) throws DAOException {
 		// TODO Auto-generated method stub
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(RadioExamType.class);
+		
+		if (!includeVoided){
+			criteria.add(Restrictions.eq("voided", false));
+		}
+		
 		return (List<RadioExamType>) criteria.list();
 	}
 
@@ -83,5 +93,17 @@ public class HibernateRadioExamDAO implements RadioExamDAO {
 								.createCriteria(RadioExam.class)
 								.add(Restrictions.eq("type", type));
 		return (List<RadioExam>) criteria.list();
+	}
+
+	@Override
+	public void deleteExamType(RadioExamType type) throws DAOException {
+		// TODO Auto-generated method stub
+		sessionFactory.getCurrentSession().delete(type);
+	}
+
+	@Override
+	public void deleteExam(RadioExam exam) throws DAOException {
+		// TODO Auto-generated method stub
+		sessionFactory.getCurrentSession().delete(exam);
 	}
 }

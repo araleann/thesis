@@ -25,6 +25,7 @@ public class RadioPatient extends BaseOpenmrsData {
 	private String contactNo;
 	private String institution;
 	private String philhealth;
+	private String caseNumber;
 	
 	private Date updateDate;
 	
@@ -82,12 +83,6 @@ public class RadioPatient extends BaseOpenmrsData {
 
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
-	}
-	
-	public String getFullName(){
-		return firstName + " " +
-				middleInitial + " " +
-				lastName;
 	}
 
 	public String getGender() {
@@ -170,6 +165,14 @@ public class RadioPatient extends BaseOpenmrsData {
 		this.philhealth = philhealth;
 	}
 
+	public String getCaseNumber() {
+		return caseNumber;
+	}
+
+	public void setCaseNumber(String caseNumber) {
+		this.caseNumber = caseNumber;
+	}
+
 	public Date getUpdateDate() {
 		return updateDate;
 	}
@@ -186,19 +189,6 @@ public class RadioPatient extends BaseOpenmrsData {
 		this.aliases = aliases;
 	}
 	
-	public void addAlias(RadioAlias alias){
-		if (aliases.contains(alias))
-			return;
-		
-		for(RadioAlias a : aliases){
-			if (!a.isVoided().booleanValue()){
-				a.setEndDate(new Date());
-				a.setVoided(Boolean.TRUE);
-			}
-		}
-		aliases.add(alias);
-	}
-	
 	public Boolean getVoided() {
 		return voided;
 	}
@@ -207,9 +197,30 @@ public class RadioPatient extends BaseOpenmrsData {
 		this.voided = voided;
 	}
 	
+	// CUSTOM FUNCTIONS
+	public String getFullName(){
+		return firstName + " " +
+				middleInitial + " " +
+				lastName;
+	}
+	
+	public boolean addAlias(RadioAlias alias){
+		if (aliases.contains(alias))
+			return false;
+		
+		for(RadioAlias a : aliases){
+			if (!a.getVoided().booleanValue()){
+				a.setEndDate(new Date());
+				a.setVoided(Boolean.TRUE);
+			}
+		}
+		aliases.add(alias);
+		return true;
+	}
+	
 	public RadioAlias getAlias(){
 		for(RadioAlias a : aliases){
-			if (!a.isVoided().booleanValue()){
+			if (!a.getVoided().booleanValue()){
 				alias = a;
 				category = a.getCategory();
 				break;
@@ -223,5 +234,14 @@ public class RadioPatient extends BaseOpenmrsData {
 			getAlias();
 		}
 		return category;
+	}
+	
+	public void updateCaseNumber(){
+		caseNumber = caseNumber == null? "" : caseNumber;
+		RadioCounter c = RadioCounter.getInstance();
+		
+		if(!c.isValid(caseNumber)){
+			caseNumber = c.getNewCaseNumber();
+		}
 	}
 }

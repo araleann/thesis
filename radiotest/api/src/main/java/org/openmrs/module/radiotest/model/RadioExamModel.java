@@ -11,6 +11,17 @@ public class RadioExamModel {
 	private RadioExam exam;
 	private AutoPopulatingList<RadioCategoryExam> categoryFees;
 	
+	public RadioExamModel(){
+		exam = new RadioExam();
+		categoryFees = new AutoPopulatingList<RadioCategoryExam>(RadioCategoryExam.class);
+	}
+	
+	public RadioExamModel(RadioExam e){
+		this();
+		exam = e;
+		categoryFees.addAll(e.getCategoryFees());
+	}
+	
 	public RadioExam getExam() {
 		return exam;
 	}

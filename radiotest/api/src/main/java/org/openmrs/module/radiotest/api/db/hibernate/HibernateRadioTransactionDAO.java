@@ -64,9 +64,14 @@ public class HibernateRadioTransactionDAO implements RadioTransactionDAO {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<RadioNoteType> getAllNoteTypes() throws DAOException {
+	public List<RadioNoteType> getAllNoteTypes(boolean includeVoided) throws DAOException {
 		// TODO Auto-generated method stub
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(RadioNoteType.class);
+		
+		if (!includeVoided){
+			criteria.add(Restrictions.eq("voided", false));
+		}
+		
 		return (List<RadioNoteType>) criteria.list();
 	}
 
@@ -93,5 +98,34 @@ public class HibernateRadioTransactionDAO implements RadioTransactionDAO {
 		// TODO Auto-generated method stub
 		sessionFactory.getCurrentSession().saveOrUpdate(exam);
 		return exam;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<RadioTransaction> getPending(String prop) throws DAOException {
+		// TODO Auto-generated method stub
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(RadioTransaction.class);
+		
+		if(prop.equalsIgnoreCase("payment")){
+			criteria.add(Restrictions.eq("paid", false));
+		}
+		
+		if(prop.equalsIgnoreCase("results")){
+			criteria.add(Restrictions.eq("pending", true))
+						.add(Restrictions.eq("paid", true));
+		}
+		
+		if(prop.equalsIgnoreCase("claim")){
+			criteria.add(Restrictions.eq("claimed", false))
+						.add(Restrictions.eq("pending", false));
+		}
+		
+		return (List<RadioTransaction>) criteria.list();
+	}
+
+	@Override
+	public void deleteNoteType(RadioNoteType type) throws DAOException {
+		// TODO Auto-generated method stub
+		sessionFactory.getCurrentSession().delete(type);
 	}
 }

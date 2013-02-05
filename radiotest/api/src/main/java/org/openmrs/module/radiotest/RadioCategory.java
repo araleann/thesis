@@ -5,8 +5,9 @@ import org.openmrs.BaseOpenmrsMetadata;
 public class RadioCategory extends BaseOpenmrsMetadata {
 
 	private Integer id;
-	
 	private String category;
+	
+	private Boolean voided = Boolean.FALSE;
 	
 	public RadioCategory(){
 		
@@ -30,5 +31,13 @@ public class RadioCategory extends BaseOpenmrsMetadata {
 
 	public void setCategory(String category) {
 		this.category = category;
+	}
+
+	public Boolean getVoided() {
+		return voided;
+	}
+
+	public void setVoided(Boolean voided) {
+		this.voided = voided;
 	}
 }

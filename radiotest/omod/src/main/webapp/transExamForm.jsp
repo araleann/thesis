@@ -9,11 +9,11 @@ var transExamPath = modulePath + "/transExamForm.htm";
 var saveNotePath = modulePath + "/saveNote.htm"
 var transPath = modulePath + "/transactionForm.htm";
 var examIndex = 0;
-
+var examIndexLabel = 1;
 function addNewExam(){
 	examIndex++;
 	
-	var $examDiv = $j("<div id='exams" + examIndex + "'></div>");
+	var $examDiv = $j("<div id='exams" + examIndex + "'> Exam " + examIndexLabel +"</div>");
 	var $typeDiv = $j("<div id='type'></div>");
 	var postObj = { index : examIndex };
 	
@@ -23,12 +23,14 @@ function addNewExam(){
 		$examDiv.appendTo("#transExam");
 		updateDeleteButton();
 	});
+	
+	examIndexLabel++;
 }
 
 function deleteExam(){
 	$j("div#exams" + examIndex).remove();
 	examIndex--;
-	
+	examIndexLabel--;
 	updateDeleteButton();
 }
 
@@ -43,6 +45,7 @@ function getExamsEvent(){
 	$examDiv.load(getExamsPath, postObj, function(data){
 		var $exam = $j("div#exams" + currIndex);
 		var $existing = $j("div#exam", $exam);
+		$j("select", $examDiv).addClass("patientinput");
 		if($existing.size()){
 			$existing.replaceWith($examDiv);
 		} else {
@@ -107,33 +110,40 @@ $j(function(){
 });
 </script>
 
-Transaction
-<br>
-<br>
-
+<div class="colmask leftmenu">
+	<div class="colleft">
+		<div class="col1">
+<br/><br/>
+<div class="info">
 <form:form method="post" modelAttribute="transModel" id="transExam">
-	<button type="button" id="add" onclick="addNewExam()">Add Exam</button>
-	<button type="button" id="delete" onclick="deleteExam()" disabled>Delete Exam</button>
-	<button type="button" onclick="summarize()">Done</button>
+	<br>
 	<spring:bind path="transaction.patient">
 		<input type="hidden" name="${ status.expression }" value="${ patient.id }">
 	</spring:bind>
 	<spring:nestedPath path="exams[0]">
 		<div id="exams0">
 			<div id="type">
-				<form:select path="exam.type">
+				Category: <form:select cssClass="patientinput" path="exam.type">
 					<option value="0"></option>
 					<form:options items="${ examTypes }" itemLabel="type" itemValue="id" />
 				</form:select>
 			</div>
 		</div>
 	</spring:nestedPath>
+	<br/>
+</div>
+	<br/><br/>
+	<button class="buttondesign" type="button" id="add" onclick="addNewExam()">Add Exam</button>
+	<button class="buttondesign" type="button" id="delete" onclick="deleteExam()" disabled>Delete Exam</button>
+	<button class="buttondesign" type="submit">Done</button>
 </form:form>
-<br>
-<br>
-
-<div id="transaction">
 
 </div>
+<div class="col2">
+			<!-- Column 2 start -->
+			<jsp:include page="/WEB-INF/view/sidemenu.jsp"/>
+		</div>
+</div></div>
+
 
 <%@ include file="/WEB-INF/template/footer.jsp"%>
