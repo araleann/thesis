@@ -9,7 +9,7 @@ var transExamPath = modulePath + "/transExamForm.htm";
 var saveNotePath = modulePath + "/saveNote.htm"
 var transPath = modulePath + "/transactionForm.htm";
 var examIndex = 0;
-var examIndexLabel = 1;
+var examIndexLabel = 2;
 function addNewExam(){
 	examIndex++;
 	
@@ -18,6 +18,7 @@ function addNewExam(){
 	var postObj = { index : examIndex };
 	
 	$typeDiv.load(addExamPath, postObj, function(data){
+		$j("select", $typeDiv).addClass("patientinput");
 		$typeDiv.children('select').change(getExamsEvent);
 		$typeDiv.appendTo($examDiv);
 		$examDiv.appendTo("#transExam");
@@ -122,15 +123,15 @@ $j(function(){
 	</spring:bind>
 	<spring:nestedPath path="exams[0]">
 		<div id="exams0">
+			Exam 1
 			<div id="type">
-				Category: <form:select cssClass="patientinput" path="exam.type">
+				<form:select cssClass="patientinput" path="exam.type">
 					<option value="0"></option>
 					<form:options items="${ examTypes }" itemLabel="type" itemValue="id" />
 				</form:select>
 			</div>
 		</div>
 	</spring:nestedPath>
-	<br/>
 </div>
 	<br/><br/>
 	<button class="buttondesign" type="button" id="add" onclick="addNewExam()">Add Exam</button>

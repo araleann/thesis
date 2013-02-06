@@ -49,10 +49,15 @@ function post(id, obj){
 //-->
 </script>
 
+<div class="colmask leftmenu">
+	<div class="colleft">
+		<div class="col1">
+		
+
 <h2>Add Category</h2>
 <form:form method="post" modelAttribute="category" id="catForm">
-	<form:input path="category" />
-	<button type="button" onclick="loadCategories()">Save</button>
+	<form:input cssClass="patientinput" path="category" />
+	<button class="buttondesign" type="button" onclick="loadCategories()">Save</button>
 </form:form>
 <br>
 
@@ -72,12 +77,19 @@ function post(id, obj){
 					NO
 				</c:otherwise>
 			</c:choose>
-			<button type="button" onclick="voidCategory(${ id })"></button>
+			<button type="button" onclick="voidCategory(${ id })" class="buttondesignvoid">Void</button>
 			<br>
-			<button type="button" onclick="deleteCategory(${ id })">Delete</button>
+			<button type="button" onclick="deleteCategory(${ id })" class="buttondesignsmall">Delete</button>
 		</div>	
 		<br>
 	</c:forEach>
 </div>
+
+</div>
+<div class="col2">
+			<!-- Column 2 start -->
+			<jsp:include page="/WEB-INF/view/sidemenu.jsp"/>
+		</div>
+</div></div>
 
 <%@ include file="/WEB-INF/template/footer.jsp"%>

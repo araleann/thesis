@@ -24,6 +24,8 @@
 		<discriminator column="id" insert="false" />
 		<property name="category" type="java.lang.String" column="category"
 			length="20" access="field" />
+		<property name="voided" type="boolean" column="voided"
+			access="field" />
 	</class>
 
 </hibernate-mapping>

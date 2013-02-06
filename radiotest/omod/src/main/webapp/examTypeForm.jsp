@@ -53,19 +53,23 @@ $j(function(){
 });
 </script>
 
+<div class="colmask leftmenu">
+	<div class="colleft">
+		<div class="col1">
+			<!-- Column 1 start -->
+			<!-- Column 1 end -->
+<br>
 <h2>Add Exam Type</h2>
 <form:form method="post" modelAttribute="examType" id="typeForm">
-	<form:label path="type">Exam Type</form:label>
-	<form:input path="type" />
-	<br>
-	<button type="button" onclick="loadExamTypes()">Save</button>
+	<form:input path="type" cssClass="patientinput" />
+	<br><br>
+	<button type="button" onclick="loadExamTypes()" class="buttondesign">Save</button>
 </form:form>
 <br>
 
 <h2>Exam Types</h2>
 <div id="examTypes">
 	<c:forEach var="type" items="${ examTypes }">
-		<br>
 		<c:set var="id" value="${ type.id }" />
 		<div id="type${ id }">
 			${ type.type } <br>
@@ -78,11 +82,18 @@ $j(function(){
 					NO	
 				</c:otherwise>
 			</c:choose>
-			<button type="button" onclick="voidExamType(${ id })"></button>
+			<button type="button" onclick="voidExamType(${ id })" class="buttondesignvoid">Void</button>
 			<br>
-			<button type="button" onclick="deleteExamType(${ id })">Delete</button>
+			<button type="button" onclick="deleteExamType(${ id })" class="buttondesignsmall">Delete</button>
 		</div>
 		<br>
 	</c:forEach>
 </div>
+</div>
+<div class="col2">
+			<!-- Column 2 start -->
+			<jsp:include page="/WEB-INF/view/sidemenu.jsp"/>
+		</div>
+</div></div>
+
 <%@ include file="/WEB-INF/template/footer.jsp"%>

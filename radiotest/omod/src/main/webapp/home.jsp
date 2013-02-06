@@ -31,6 +31,11 @@ function claim(id){
 }
 //-->
 </script>
+
+<div class="colmask leftmenu">
+	<div class="colleft">
+		<div class="col1">
+<br>
 <form:form id="transaction">
 	<input type="hidden" name="transId" id="transId">
 </form:form>
@@ -100,5 +105,11 @@ function claim(id){
 	</c:forEach>
 	</div>
 </p>
+</div>
+<div class="col2">
+			<!-- Column 2 start -->
+			<jsp:include page="/WEB-INF/view/sidemenu.jsp"/>
+		</div>
+</div></div>
 
 <%@ include file="/WEB-INF/template/footer.jsp"%>
