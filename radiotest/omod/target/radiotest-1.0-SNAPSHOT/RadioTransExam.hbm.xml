@@ -26,10 +26,6 @@
 			access="field" />
 		<property name="borrowed" type="boolean" column="borrowed"
 			access="field" />
-		<property name="examDate" type="date" column="exam_date"
-			access="field" />
-		<property name="examTime" type="time" column="exam_time"
-			access="field" />
 		<property name="voided" type="boolean" column="voided"
 			access="field" />
 			
