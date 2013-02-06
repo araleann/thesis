@@ -1,6 +1,8 @@
 <%@ include file="/WEB-INF/template/include.jsp"%>
 <%@ include file="/WEB-INF/template/header.jsp"%>
 
+<%@ include file="template/resources.jsp" %>
+
 <script type="text/javascript">
 <!--
 var modulePath = openmrsContextPath + "/module/radiotest";
@@ -46,20 +48,29 @@ function post(id, obj){
 		}
 	})
 }
+
+$j(function(){
+	GeneralUtils.addPlaceholderById("notetype", "Enter Note Type");
+});
 //-->
 </script>
 
+<div class="colmask leftmenu">
+	<div class="colleft">
+		<div class="col1">
+			<!-- Column 1 start -->
+			<!-- Column 1 end -->
+<br>
 <h2>Add Note Type</h2>
 <form:form method="post" modelAttribute="noteType" id="typeForm">
-	<form:input path="name" />
-	<button type="button" onclick="loadNoteTypes()">Save</button>
+	<form:input id="notetype" path="name" cssClass="patientinput" />
+	<button type="button" onclick="loadNoteTypes()" class="buttondesign">Save</button>
 </form:form>
 <br>
 
 <h2>Note Types</h2>
 <div id="noteTypes">
 	<c:forEach var="type" items="${ noteTypes }">
-		<br>
 		<c:set var="id" value="${ type.id }" />
 		<div id="note${ id }">
 			${ type.name } <br>
@@ -72,11 +83,17 @@ function post(id, obj){
 					NO
 				</c:otherwise>
 			</c:choose>
-			<button type="button" onclick="voidNoteType(${ id })"></button>
+			<button type="button" onclick="voidNoteType(${ id })" class="buttondesignvoid">Void</button>
 			<br>
-			<button type="button" onclick="deleteNoteType(${ id })">Delete</button>
+			<button type="button" onclick="deleteNoteType(${ id })" class="buttondesignsmall">Delete</button>
 		</div>
 		<br>
 	</c:forEach>
 </div>
+</div>
+<div class="col2">
+			<!-- Column 2 start -->
+			<jsp:include page="/WEB-INF/view/sidemenu.jsp"/>
+		</div>
+</div></div>
 <%@ include file="/WEB-INF/template/footer.jsp"%>
