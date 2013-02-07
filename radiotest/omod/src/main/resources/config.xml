@@ -42,6 +42,9 @@
 		RadioNoteType.hbm.xml
 		RadioResult.hbm.xml
 		RadioCounter.hbm.xml
+		RadioItemType.hbm.xml
+		RadioItem.hbm.xml
+		RadioTransItem.hbm.xml
 		
 	</mappingFiles>
 

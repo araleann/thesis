@@ -143,6 +143,34 @@
 				count INT(6) DEFAULT NULL,
 				PRIMARY KEY (id)
 			);
+			
+			CREATE TABLE IF NOT EXISTS radio_item_type (
+				id INT(11) NULL AUTO_INCREMENT,
+				name VARCHAR(20) DEFAULT NULL,
+				voided BOOLEAN DEFAULT FALSE,
+				PRIMARY KEY (id)
+			);
+			
+			CREATE TABLE IF NOT EXISTS radio_item (
+				id INT(11) NOT NULL AUTO_INCREMENT,
+				type_id INT(11) DEFAULT NULL,
+				name VARCHAR(30) DEFAULT NULL,
+				unit VARCHAR(10) DEFAULT NULL,
+				at_limit BOOLEAN DEFAULT FALSE,
+				qty INT DEFAULT 0,
+				threshold INT DEFAULT 0,
+				voided BOOLEAN DEFAULT FALSE,
+				PRIMARY KEY (id)
+			);
+			
+			CREATE TABLE IF NOT EXISTS radio_trans_item (
+				id INT(11) NOT NULL AUTO_INCREMENT,
+				trans_id INT(11) DEFAULT NULL,
+				item_id INT(11) DEFAULT NULL,
+				qty INT DEFAULT 0,
+				logged BOOLEAN DEFAULT FALSE,
+				PRIMARY KEY (id)
+			);
 		</sql>		
 	</diff>
 	
