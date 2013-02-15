@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.openmrs.api.APIException;
 import org.openmrs.api.OpenmrsService;
+import org.openmrs.module.radiotest.RadioFeeType;
 import org.openmrs.module.radiotest.RadioNoteType;
 import org.openmrs.module.radiotest.RadioPatient;
 import org.openmrs.module.radiotest.RadioTransExam;
@@ -47,4 +48,17 @@ public interface RadioTransactionService extends OpenmrsService {
 	
 	@Transactional(readOnly = true)
 	public List<RadioTransaction> getPending(String prop) throws APIException;
+	
+	public RadioFeeType saveFeeType(RadioFeeType type) throws APIException;
+	
+	@Transactional(readOnly = true)
+	public RadioFeeType getFeeType(Integer typeId) throws APIException;
+	
+	@Transactional(readOnly = true)
+	public List<RadioFeeType> getAllFeeTypes() throws APIException;
+	
+	@Transactional(readOnly = true)
+	public List<RadioFeeType> getAllFeeTypes(boolean includeVoided) throws APIException;
+	
+	public void deleteFeeType(RadioFeeType type) throws APIException;
 }

@@ -1,6 +1,7 @@
 package org.openmrs.module.radiotest;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -29,6 +30,7 @@ public class RadioTransaction extends BaseOpenmrsData {
 	
 	// not saved in database
 	private Double total;
+	private HashMap<String, Double> fees;
 	
 	@Override
 	public Integer getId() {
@@ -164,21 +166,25 @@ public class RadioTransaction extends BaseOpenmrsData {
 	
 	public void computeFees(){		
 		RadioCategory category = patient.getCategory();
-		double examFee = 0, readingFee = 0;
 		
+		initializeMap();
 		for(RadioTransExam exam : exams){
-			RadioCategoryExam fee = exam.getFees(category);
-			examFee = examFee + checkDouble(fee.getExamFee());
-			readingFee = readingFee + checkDouble(fee.getReadingFee());
+			for(RadioFee fee : exam.getFees(category)){
+				String type = fee.getType().getName();
+				Double totalFee = fees.get(type);
+				
+				if (totalFee != null){
+					totalFee = totalFee + fee.getAmount();
+				}
+				fees.put(type, totalFee);
+			}
 		}
-		
-		this.examFee = new Double(examFee);
-		this.readingFee = new Double(readingFee);
-		this.total = new Double(examFee + readingFee);
 	}
 	
-	private double checkDouble(Double d){
-		return d == null? 0 : d.doubleValue();
+	private void initializeMap(){
+		if (fees == null){
+			fees = new HashMap<String, Double>();
+		}
 	}
 	
 	public int getDoneExams(){

@@ -8,6 +8,7 @@ import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.openmrs.api.db.DAOException;
+import org.openmrs.module.radiotest.RadioFeeType;
 import org.openmrs.module.radiotest.RadioNoteType;
 import org.openmrs.module.radiotest.RadioPatient;
 import org.openmrs.module.radiotest.RadioTransExam;
@@ -125,6 +126,39 @@ public class HibernateRadioTransactionDAO implements RadioTransactionDAO {
 
 	@Override
 	public void deleteNoteType(RadioNoteType type) throws DAOException {
+		// TODO Auto-generated method stub
+		sessionFactory.getCurrentSession().delete(type);
+	}
+
+	@Override
+	public RadioFeeType saveFeeType(RadioFeeType feeType) throws DAOException {
+		// TODO Auto-generated method stub
+		sessionFactory.getCurrentSession().saveOrUpdate(feeType);
+		return feeType;
+	}
+
+	@Override
+	public RadioFeeType getFeeType(Integer typeId) throws DAOException {
+		// TODO Auto-generated method stub
+		return (RadioFeeType) sessionFactory.getCurrentSession().get(RadioFeeType.class, typeId);
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<RadioFeeType> getAllFeeTypes(boolean includeVoided)
+			throws DAOException {
+		// TODO Auto-generated method stub
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(RadioFeeType.class);
+		
+		if (!includeVoided){
+			criteria.add(Restrictions.eq("voided", false));
+		}
+		
+		return (List<RadioFeeType>) criteria.list();
+	}
+
+	@Override
+	public void deleteFeeType(RadioFeeType type) throws DAOException {
 		// TODO Auto-generated method stub
 		sessionFactory.getCurrentSession().delete(type);
 	}

@@ -1,6 +1,7 @@
 package org.openmrs.module.radiotest;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -24,9 +25,8 @@ public class RadioTransExam extends BaseOpenmrsData {
 	private Boolean voided = Boolean.FALSE;
 	
 	// not saved in database
-	private Double examFee;
-	private Double readingFee;
 	private RadioResult result;
+	private HashMap<String, Double> fees;
 	
 	@Override
 	public Integer getId() {
@@ -133,28 +133,23 @@ public class RadioTransExam extends BaseOpenmrsData {
 		this.voided = voided;
 	}
 	
-	public Double getExamFee() {
-		return examFee;
-	}
-
-	public void setExamFee(Double examFee) {
-		this.examFee = examFee;
-	}
-
-	public Double getReadingFee() {
-		return readingFee;
-	}
-
-	public void setReadingFee(Double readingFee) {
-		this.readingFee = readingFee;
-	}
-
-	public RadioCategoryExam getFees(RadioCategory category){
-		RadioCategoryExam fee = exam.getFees(category);
-		this.examFee = fee.getExamFee();
-		this.readingFee = fee.getReadingFee();
+	public Set<RadioFee> getFees(RadioCategory category){
+		Set<RadioFee> fees = exam.getFees(category).getFees();
 		
-		return fee;
+		initializeMap();
+		for(RadioFee fee : fees){
+			this.fees.put(fee.getType().getName(), fee.getAmount());
+		}
+		
+		return fees;
 	}
 
+	public HashMap<String, Double> getFeeMap(){
+		return fees;
+	}
+	
+	private void initializeMap(){
+		if (fees == null)
+			fees = new HashMap<String, Double>();
+	}
 }

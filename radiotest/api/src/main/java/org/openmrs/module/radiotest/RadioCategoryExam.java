@@ -1,5 +1,7 @@
 package org.openmrs.module.radiotest;
 
+import java.util.Set;
+
 import org.openmrs.BaseOpenmrsData;
 
 public class RadioCategoryExam extends BaseOpenmrsData {
@@ -8,8 +10,7 @@ public class RadioCategoryExam extends BaseOpenmrsData {
 	private RadioExam exam;
 	private RadioCategory category;
 	
-	private Double examFee;
-	private Double readingFee;
+	private Set<RadioFee> fees;
 
 	@Override
 	public Integer getId() {
@@ -39,20 +40,12 @@ public class RadioCategoryExam extends BaseOpenmrsData {
 		this.category = category;
 	}
 
-	public Double getExamFee() {
-		return examFee;
+	public Set<RadioFee> getFees() {
+		return fees;
 	}
 
-	public void setExamFee(Double examFee) {
-		this.examFee = examFee;
-	}
-
-	public Double getReadingFee() {
-		return readingFee;
-	}
-
-	public void setReadingFee(Double readingFee) {
-		this.readingFee = readingFee;
+	public void setFees(Set<RadioFee> fees) {
+		this.fees = fees;
 	}
 
 }

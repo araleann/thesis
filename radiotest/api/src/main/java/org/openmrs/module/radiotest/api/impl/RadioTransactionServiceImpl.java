@@ -7,6 +7,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.api.APIException;
 import org.openmrs.api.impl.BaseOpenmrsService;
+import org.openmrs.module.radiotest.RadioFeeType;
 import org.openmrs.module.radiotest.RadioNote;
 import org.openmrs.module.radiotest.RadioNoteType;
 import org.openmrs.module.radiotest.RadioPatient;
@@ -133,5 +134,36 @@ public class RadioTransactionServiceImpl extends BaseOpenmrsService implements R
 	public void deleteNoteType(RadioNoteType type) throws APIException {
 		// TODO Auto-generated method stub
 		dao.deleteNoteType(type);
+	}
+
+	@Override
+	public RadioFeeType saveFeeType(RadioFeeType type) throws APIException {
+		// TODO Auto-generated method stub
+		return dao.saveFeeType(type);
+	}
+
+	@Override
+	public RadioFeeType getFeeType(Integer typeId) throws APIException {
+		// TODO Auto-generated method stub
+		return dao.getFeeType(typeId);
+	}
+
+	@Override
+	public List<RadioFeeType> getAllFeeTypes() throws APIException {
+		// TODO Auto-generated method stub
+		return dao.getAllFeeTypes(false);
+	}
+
+	@Override
+	public List<RadioFeeType> getAllFeeTypes(boolean includeVoided)
+			throws APIException {
+		// TODO Auto-generated method stub
+		return dao.getAllFeeTypes(includeVoided);
+	}
+
+	@Override
+	public void deleteFeeType(RadioFeeType type) throws APIException {
+		// TODO Auto-generated method stub
+		dao.deleteFeeType(type);
 	}
 }

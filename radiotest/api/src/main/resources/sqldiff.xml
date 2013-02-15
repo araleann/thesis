@@ -171,6 +171,21 @@
 				logged BOOLEAN DEFAULT FALSE,
 				PRIMARY KEY (id)
 			);
+			
+			CREATE TABLE IF NOT EXISTS radio_fee_type (
+				id INT(11) NOT NULL AUTO_INCREMENT,
+				name VARCHAR(20) DEFAULT NULL,
+				voided BOOLEAN DEFAULT FALSE,
+				PRIMARY KEY (id)
+			);
+			
+			CREATE TABLE IF NOT EXISTS radio_fee (
+				id INT(11) NOT NULL AUTO_INCREMENT,
+				type_id INT(11) DEFAULT NULL,
+				ce_id INT(11) DEFAULT NULL,
+				amount DOUBLE(13,2) DEFAULT 0,
+				PRIMARY KEY (id)
+			);
 		</sql>		
 	</diff>
 	
