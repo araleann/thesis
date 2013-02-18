@@ -22,7 +22,6 @@ public class RadioFeeTypeController {
 
 	private final String FEE_TYPE_FORM = "/module/radiotest/feeTypeForm";
 	private final String REDIRECT_FORM = "redirect:" + FEE_TYPE_FORM + ".htm";
-	private final RadioTransactionService ts = Context.getService(RadioTransactionService.class);
 	
 	@InitBinder
 	public void initBinder(WebRequest request, WebDataBinder binder){
@@ -41,18 +40,19 @@ public class RadioFeeTypeController {
 	
 	@ModelAttribute("feeTypes")
 	public List<RadioFeeType> getAllFeeTypes(){
-		return ts.getAllFeeTypes(true);
+		return Context.getService(RadioTransactionService.class).getAllFeeTypes(true);
 	}
 	
 	@RequestMapping(value = FEE_TYPE_FORM, method = RequestMethod.POST)
 	public ModelAndView saveFeeType(@ModelAttribute("feeType") RadioFeeType type, ModelMap model){
-		ts.saveFeeType(type);
+		Context.getService(RadioTransactionService.class).saveFeeType(type);
 		
 		return new ModelAndView(REDIRECT_FORM);
 	}
 	
 	@RequestMapping(value = "/module/radiotest/nullFeeType", method = RequestMethod.POST)
 	public ModelAndView voidFeeType(@RequestParam("tid") RadioFeeType type, @RequestParam("action") String action){
+		RadioTransactionService ts = Context.getService(RadioTransactionService.class);
 		if (action.equalsIgnoreCase("void")){
 			type.setVoided(!type.getVoided());
 			ts.saveFeeType(type);

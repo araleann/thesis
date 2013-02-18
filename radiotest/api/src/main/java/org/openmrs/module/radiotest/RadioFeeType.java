@@ -7,7 +7,7 @@ public class RadioFeeType extends BaseOpenmrsMetadata {
 	private Integer id;
 	private String name;
 	
-	private Boolean voided;
+	private Boolean voided = false;
 
 	@Override
 	public Integer getId() {

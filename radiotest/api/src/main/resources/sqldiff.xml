@@ -78,8 +78,6 @@
 				id INT(11) NOT NULL AUTO_INCREMENT,
 				exam_id INT(11) DEFAULT NULL,
 				category_id INT(11) DEFAULT NULL,
-				exam_fee DOUBLE(13,2) DEFAULT 0,
-				reading_fee DOUBLE(13,2) DEFAULT 0,
 				PRIMARY KEY (id)
 			);
 			

@@ -88,7 +88,7 @@ function saveNote(){
 function noteTypesEvent(){
 	var $desc = $j("#desc");
 	var isHidden = $desc.attr("hidden");
-	var others = $j("#noteType").val() == 0;
+	var others = $j("#noteType").val() === 0;
 	
 	if (others == isHidden){
 		if (isHidden){

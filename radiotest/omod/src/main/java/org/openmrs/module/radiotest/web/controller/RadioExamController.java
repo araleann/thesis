@@ -6,12 +6,15 @@ import org.openmrs.api.context.Context;
 import org.openmrs.module.radiotest.RadioCategory;
 import org.openmrs.module.radiotest.RadioExam;
 import org.openmrs.module.radiotest.RadioExamType;
+import org.openmrs.module.radiotest.RadioFeeType;
 import org.openmrs.module.radiotest.api.RadioExamService;
 import org.openmrs.module.radiotest.api.RadioPatientService;
+import org.openmrs.module.radiotest.api.RadioTransactionService;
 import org.openmrs.module.radiotest.model.RadioExamModel;
 import org.openmrs.module.radiotest.propertyeditor.RadioCategoryPropertyEditor;
 import org.openmrs.module.radiotest.propertyeditor.RadioExamPropertyEditor;
 import org.openmrs.module.radiotest.propertyeditor.RadioExamTypePropertyEditor;
+import org.openmrs.module.radiotest.propertyeditor.RadioFeeTypePropertyEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.WebDataBinder;
@@ -33,6 +36,7 @@ public class RadioExamController {
 		binder.registerCustomEditor(RadioExamType.class, new RadioExamTypePropertyEditor());
 		binder.registerCustomEditor(RadioCategory.class, new RadioCategoryPropertyEditor());
 		binder.registerCustomEditor(RadioExam.class, new RadioExamPropertyEditor());
+		binder.registerCustomEditor(RadioFeeType.class, new RadioFeeTypePropertyEditor());
 	}
 	
 	@RequestMapping(value = EXAM_FORM, method = RequestMethod.GET)
@@ -52,6 +56,11 @@ public class RadioExamController {
 	@ModelAttribute("types")
 	public List<RadioExamType> getExamTypes() {
 		return Context.getService(RadioExamService.class).getAllExamTypes();
+	}
+	
+	@ModelAttribute("feeTypes")
+	public List<RadioFeeType> getFeeTypes(){
+		return Context.getService(RadioTransactionService.class).getAllFeeTypes();
 	}
 	
 	@ModelAttribute("examModel")

@@ -52,9 +52,7 @@ public class RadioHomeController {
 	
 	@RequestMapping(value = "/module/radiotest/viewTransaction", method = RequestMethod.POST)
 	public ModelAndView viewTransaction(@RequestParam("transId") RadioTransaction trans, ModelMap model){
-		System.out.println("viewTransaction");
 		trans = Context.getService(RadioTransactionService.class).updateTransaction(trans);
-		System.out.println(trans.getId());
 		model.addAttribute("transaction", trans);
 		model.addAttribute("transModel", new RadioTransactionModel());
 		

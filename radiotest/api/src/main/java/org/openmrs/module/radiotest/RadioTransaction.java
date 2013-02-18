@@ -29,7 +29,7 @@ public class RadioTransaction extends BaseOpenmrsData {
 	private Boolean voided = Boolean.FALSE;
 	
 	// not saved in database
-	private Double total;
+	private Double total = 0.0;
 	private HashMap<String, Double> fees;
 	
 	@Override
@@ -171,13 +171,20 @@ public class RadioTransaction extends BaseOpenmrsData {
 		for(RadioTransExam exam : exams){
 			for(RadioFee fee : exam.getFees(category)){
 				String type = fee.getType().getName();
-				Double totalFee = fees.get(type);
+				Double totalFee = fees.get(type); 
 				
 				if (totalFee != null){
 					totalFee = totalFee + fee.getAmount();
+				} else {
+					totalFee = fee.getAmount();
 				}
+				
 				fees.put(type, totalFee);
 			}
+		}
+		
+		for(String key : fees.keySet()){
+			total = total + fees.get(key);
 		}
 	}
 	

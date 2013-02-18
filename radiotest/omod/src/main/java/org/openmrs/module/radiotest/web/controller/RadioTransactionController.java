@@ -81,6 +81,7 @@ public class RadioTransactionController {
 	@RequestMapping(value = TRANS_EXAM_FORM, method = RequestMethod.POST)
 	public ModelAndView saveTransaction(@ModelAttribute("transModel") RadioTransactionModel tm, ModelMap model){
 		RadioTransaction trans = tm.getFullTransaction();
+		
 		Date d = new Date();
 		trans.setVisitDate(d);
 		trans.setVisitTime(d);
@@ -93,6 +94,7 @@ public class RadioTransactionController {
 	@RequestMapping(value = "/module/radiotest/saveNote", method = RequestMethod.POST)
 	public ModelAndView saveNote(@ModelAttribute("transModel") RadioTransactionModel tm, ModelMap model){
 		tm.setTransaction(Context.getService(RadioTransactionService.class).updateTransaction(tm.getTransaction()));
+		
 		RadioTransaction trans = tm.getFullTransaction();
 		Context.getService(RadioTransactionService.class).saveTransaction(trans);
 		
@@ -108,6 +110,7 @@ public class RadioTransactionController {
 	public void savePayment(@RequestParam("transId") RadioTransaction trans, 
 								WebRequest request, ModelMap model){
 		trans = Context.getService(RadioTransactionService.class).updateTransaction(trans);
+		
 		trans.setOrNumber(request.getParameter("orNumber"));
 		trans.setPaid(true);
 		trans.getPatient().updateCaseNumber();

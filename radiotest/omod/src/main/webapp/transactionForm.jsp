@@ -22,11 +22,10 @@
 		Exam Name: ${ transExam.exam.name }
 		<br>
 		
-		Exam Fee: ${ transExam.examFee }
-		<br>
-		
-		Reading Fee: ${ transExam.readingFee }
-		<br>
+		<c:forEach var="fee" items="${ transExam.feeMap }">
+			${ fee.key }: ${ fee.value }
+			<br>
+		</c:forEach>
 		<br>
 	</c:forEach>
 	<br>

@@ -14,13 +14,7 @@ function loadExam(id){
 	$j.post(loadPath, { examId : id }, function(data){
 		var $form = $j("#examForm", $j(data));
 		$j("#examForm").replaceWith($form);
-		addPlaceholders();
 	});
-}
-
-function addPlaceholders(){
-	GeneralUtils.addPlaceholderByName("examFee", "Exam Fee");
-	GeneralUtils.addPlaceholderByName("readingFee", "Reading Fee");
 }
 
 function saveExam(){
@@ -65,10 +59,6 @@ function post(id, obj){
 		}
 	})
 }
-
-$j(function(){
-	addPlaceholders();
-});
 </script>
 <div class="colmask leftmenu">
 	<div class="colleft">
@@ -77,6 +67,10 @@ $j(function(){
 <h2>Exams</h2>
 <div id="examForm">
 	<form:form method="post" modelAttribute="examModel" id="form">
+		<c:set var="numOfFeeTypes" value="${ fn:length(feeTypes) }" />
+		<spring:bind path="numOfFeeTypes">
+			<input type="hidden" name="${ status.expression }" value="${ numOfFeeTypes }">
+		</spring:bind>
 		<spring:nestedPath path="exam">
 			<form:hidden path="id" />
 			<label>Exam Type</label>
@@ -91,16 +85,27 @@ $j(function(){
 			<br>
 		</spring:nestedPath>
 		<c:forEach var="cat" items="${ categories }" varStatus="status">
-			<spring:nestedPath path="categoryFees[${ status.index }]">
+			<c:set var="cind" value="${ status.index }" />
+			<spring:nestedPath path="categoryFees[${ cind }]">
 				<br>
 				<h4>${ cat.category }</h4>
 				<spring:bind path="category">
 					<input type="hidden" name="${ status.expression }" value="${ cat.id }">
 				</spring:bind>
-				<form:input path="examFee" cssClass="patientinput" />
-				<form:input path="readingFee" cssClass="patientinput" />
 				<br>
 			</spring:nestedPath>
+			<c:set var="ftind" value="${ cind * numOfFeeTypes }" />
+			<c:forEach var="feeType" items="${ feeTypes }" varStatus="s">
+				<c:set var="find" value="${ ftind + s.index }" />
+				<spring:nestedPath path="fees[${ find }]">
+					<spring:bind path="type">
+						<input type="hidden" name="${ status.expression }" value="${ feeType.id }">
+					</spring:bind>
+					${ feeType.name }:
+					<form:input path="amount" />
+					<br>
+				</spring:nestedPath>
+			</c:forEach>
 		</c:forEach>
 	</form:form>
 	<br>
