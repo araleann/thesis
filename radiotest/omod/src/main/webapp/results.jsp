@@ -5,6 +5,8 @@
 <!--
 var modulePath = openmrsContextPath + "/module/radiotest";
 var getExamsPath = modulePath + "/getExamList.htm";
+var borrowPath = modulePath + "/borrowResults.htm";
+var resultPath = modulePath + "/results.htm";
 
 function getExams(){
 	console.log($j("#trans").serialize());
@@ -14,52 +16,84 @@ function getExams(){
 	});
 }
 
-function submit(id, count){
+function result(id, count){
 	$j("#examId").val(id);
 	$j("#count").val(count);
-	$j("#exam").submit();
+	$j("#exam")
+		.attr("action", resultPath)
+		.submit();
+}
+
+function borrow(id){
+	var examId = "#exam" + id;
+	$j.post(borrowPath, { examId: id }, function(data){
+		var $updatedDiv = $j(examId, data);
+		$j(examId).replaceWith($updatedDiv);
+	});
 }
 //-->
 </script>
 
-Transactions
-<br>
-<br>
-<c:forEach var="trans" items="${ transList }">
-	Transaction No: ${ trans.id }
-	<br>
-	Date: ${ trans.visitDate }
-	<br>
-	Number of Exams w/ Results: ${ trans.doneExams }/${ trans.numberOfExams }
-	<br>
-	Status:
-	<c:choose>
-		<c:when test="${ trans.pending }">
-			PENDING
-		</c:when>
-		<c:otherwise>
-			DONE
-		</c:otherwise>
-	</c:choose>
-	<br>
-	<br>
-</c:forEach>
-
-View/Update Results
-<br>
-<br>
-<form id="trans" action="getExams()">
-	Transaction Number: <input type="text" name="transId">
-	<br>
-	<button type="button" onclick="getExams()">View Exams</button>
-</form>
-<br>
+<c:choose>
+	<c:when test="${ empty trans }">
+		<h2>Transactions</h2>
+		
+		<c:forEach var="trans" items="${ transList }">
+			Transaction No: ${ trans.id }
+			<br>
+			Date: ${ trans.visitDate }
+			<br>
+			Number of Exams w/ Results: ${ trans.doneExams }/${ trans.numberOfExams }
+			<br>
+			Status:
+			<c:choose>
+				<c:when test="${ trans.pending }">
+					PENDING
+				</c:when>
+				<c:otherwise>
+					DONE
+				</c:otherwise>
+			</c:choose>
+			<br>
+			<br>
+		</c:forEach>
+		
+		View/Update Results
+		<br>
+		<br>
+		<form id="trans" action="javascript:getExams()">
+			Transaction Number: <input type="text" name="transId">
+			<br>
+			<button type="button" onclick="getExams()">View Exams</button>
+		</form>
+		<br>
+	</c:when>
+	<c:otherwise>
+		<script type="text/javascript">
+			$j(function(){
+				getExams();
+			});
+		</script>
+		<h2>Transaction</h2>
+		
+		<c:set var="id" value="${ trans.id }" />
+		Transaction No.: ${ id } <br>
+		Date: ${ trans.visitDate } <br>
+		Number of Exams w/ Results: ${ trans.doneExams }/${ trans.numberOfExams } <br>
+		Status: PENDING
+		
+		<form id="trans">
+			<input type="hidden" name="transId" value="${ id }">
+		</form>
+	</c:otherwise>
+</c:choose>
 
 <form:form method="post" id="exam">
 	<input type="hidden" id="examId" name="examId">
 	<input type="hidden" id="count" name="count">
 </form:form>
 
+<h2>Exam List</h2>
 <div id="exams">
 
 </div>

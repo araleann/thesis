@@ -62,4 +62,11 @@ public class RadioExamTypeController {
 		
 		return new ModelAndView("redirect:" + EXAM_TYPE_FORM + ".htm");
 	}
+	
+	@RequestMapping(value = "/module/radiotest/editExamType", method = RequestMethod.POST)
+	public ModelAndView editExamType(@RequestParam("eid") RadioExamType type, ModelMap model){
+		model.addAttribute("examType", Context.getService(RadioExamService.class).saveExamType(type));
+		
+		return new ModelAndView(EXAM_TYPE_FORM, model);
+	}
 }

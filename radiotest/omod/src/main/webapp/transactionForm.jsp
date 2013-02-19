@@ -1,6 +1,28 @@
 <%@ include file="/WEB-INF/template/include.jsp"%>
 <%@ include file="/WEB-INF/template/header.jsp"%>
 
+<script type="text/javascript">
+<!--
+var modulePath = openmrsContextPath + "/module/radiotest";
+var saveNotePath = modulePath + "/saveNote.htm"
+var transPath = modulePath + "/transactionForm.htm";
+
+function saveNote(){
+	$j.post(saveNotePath, $j("#noteForm").serialize(), function(data){
+		var $note = $j("#note", $j(data));
+		$note.unwrap();
+		$j("#notes").prepend($note);
+	});
+}
+
+function addPayment(){
+	$j.post(transPath, $j("#payment").serialize(), function(data){
+		alert("Payment added");
+	});
+}
+//-->
+</script>
+
 <div id="transaction">
 	Transaction Summary
 	<br>
@@ -39,6 +61,7 @@
 	<br>
 	
 	<form:form method="post" id="payment">
+		<input type="hidden" name="transId" value="${ transaction.id }">
 		<button type="button" onclick="addPayment()">Add Payment</button>
 		<br>
 		OR Number: <input type="text" name="orNumber">

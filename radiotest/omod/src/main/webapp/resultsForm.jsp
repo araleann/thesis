@@ -30,6 +30,10 @@ function edit(){
 		});	
 	}
 }
+
+function writeTemplate(){
+	
+}
 //-->
 </script>
 
