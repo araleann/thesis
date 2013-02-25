@@ -9,7 +9,7 @@ var modulePath = openmrsContextPath + "/module/radiotest";
 var editPatientPath = modulePath + "/editPatient.htm";
 
 function newTransaction(){
-	window.location = modulePath + "/transExamForm.htm";	
+	GeneralUtils.redirect("transExamForm.htm");
 }
 
 function editPatient(){

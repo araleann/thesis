@@ -1,5 +1,7 @@
 package org.openmrs.module.radiotest.api.impl;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.List;
 
@@ -16,6 +18,7 @@ import org.openmrs.module.radiotest.RadioTransExam;
 import org.openmrs.module.radiotest.RadioTransaction;
 import org.openmrs.module.radiotest.api.RadioTransactionService;
 import org.openmrs.module.radiotest.api.db.RadioTransactionDAO;
+import org.openmrs.module.radiotest.propertyeditor.RadioComparator;
 import org.springframework.transaction.annotation.Transactional;
 
 public class RadioTransactionServiceImpl extends BaseOpenmrsService implements RadioTransactionService {
@@ -106,7 +109,10 @@ public class RadioTransactionServiceImpl extends BaseOpenmrsService implements R
 		// TODO Auto-generated method stub
 		trans = dao.getTransaction(trans.getId());
 		trans.setExams(new LinkedHashSet<RadioTransExam>(trans.getExams()));
-		trans.setNotes(new LinkedHashSet<RadioNote>(trans.getNotes()));
+		
+		List<RadioNote> notes = new ArrayList<RadioNote>(trans.getNotes());
+		Collections.sort(notes, Collections.reverseOrder(new RadioComparator()));
+		trans.setNotes(new LinkedHashSet<RadioNote>(notes));
 		
 		return trans;
 	}

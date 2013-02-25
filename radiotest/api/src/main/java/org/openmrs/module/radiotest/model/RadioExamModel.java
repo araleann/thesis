@@ -36,7 +36,6 @@ public class RadioExamModel {
 			}
 		}
 		
-		Collections.sort(categoryFees, new RadioComparator());
 		Collections.sort(fees, new RadioComparator());
 	}
 	

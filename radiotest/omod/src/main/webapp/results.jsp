@@ -34,6 +34,13 @@ function borrow(id){
 //-->
 </script>
 
+<p>
+${ patient.fullName } <br>
+<c:set var ="a" value="${ patient.alias }" />
+${ a.alias } <br>
+${ a.category.category } <br>
+</p>
+
 <c:choose>
 	<c:when test="${ empty trans }">
 		<h2>Transactions</h2>

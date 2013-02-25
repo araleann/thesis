@@ -1,7 +1,7 @@
 <%@ include file="/WEB-INF/template/include.jsp" %>
 <%@ include file="/WEB-INF/template/header.jsp" %>
 
-<c:set var="n" value="${ transModel.note }" />
+<c:set var="n" value="${ note }" />
 <div id="note">
 	<c:choose>
 		<c:when test="${ empty n.type.id }">

@@ -20,6 +20,20 @@ function addPayment(){
 		alert("Payment added");
 	});
 }
+
+function noteTypesEvent(){
+	var $desc = $j("#desc");
+	var isHidden = $desc.attr("hidden");
+	var others = $j("#noteType").val() === "0";
+	
+	if (others == isHidden){
+		if (isHidden){
+			$desc.removeAttr("hidden");
+		} else {
+			$desc.attr("hidden", "hidden");
+		}
+	}
+}
 //-->
 </script>
 
@@ -60,13 +74,20 @@ function addPayment(){
 	<br>
 	<br>
 	
-	<form:form method="post" id="payment">
-		<input type="hidden" name="transId" value="${ transaction.id }">
-		<button type="button" onclick="addPayment()">Add Payment</button>
-		<br>
-		OR Number: <input type="text" name="orNumber">
-		<br>
-	</form:form>
+	<c:choose>
+		<c:when test="${ empty transaction.orNumber }">
+			<form:form method="post" id="payment" modelAttribute="transaction">
+				<input type="hidden" name="transId" value="${ transaction.id }">
+				<button type="button" onclick="addPayment()">Add Payment</button>
+				<br>
+				OR Number: <input type="text" name="orNumber">
+			</form:form>
+		</c:when>
+		<c:otherwise>
+			OR Number: ${ transaction.orNumber }
+		</c:otherwise>
+	</c:choose>
+	<br>
 	<br>
 	
 	Notes
@@ -93,6 +114,7 @@ function addPayment(){
 	<form:form method="post" modelAttribute="transModel" id="noteForm">
 		<button type="button" onclick="saveNote()">Save Note</button>
 		<br>
+		<input type="hidden" name="transId" value="${ transaction.id }">
 		<spring:nestedPath path="note">
 			<form:select path="type" onchange="noteTypesEvent()" id="noteType">
 				<option value=" "></option>

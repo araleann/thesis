@@ -37,6 +37,7 @@ public class RadioPatientFormController {
 		RadioPatient patient = (RadioPatient) session.getAttribute("patient");
 		
 		if (patient != null){
+			patient = Context.getService(RadioPatientService.class).updatePatient(patient);
 			model.addAttribute("patientModel", new RadioPatientModel(patient));
 		}
 	}
@@ -71,6 +72,11 @@ public class RadioPatientFormController {
 		}
 		
 		return new ModelAndView("redirect:/module/radiotest/transExamForm.htm");
+	}
+	
+	@RequestMapping(value = "/module/radiotest/editPatient", method = RequestMethod.GET)
+	public ModelAndView editPatient(){
+		return new ModelAndView("redirect:" + PATIENT_FORM + ".htm");
 	}
 }
  

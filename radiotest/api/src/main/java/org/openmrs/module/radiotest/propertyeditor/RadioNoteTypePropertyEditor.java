@@ -12,8 +12,10 @@ public class RadioNoteTypePropertyEditor extends PropertyEditorSupport{
 		if (text.isEmpty()){
 			setValue(null);
 		} else {
-			if (Integer.parseInt(text) == 0){
-				setValue(new RadioNoteType());
+			if (Integer.valueOf(text) == 0){
+				RadioNoteType type = new RadioNoteType();
+				type.setId(0);
+				setValue(type);
 			} else {
 				Integer tid = Integer.valueOf(text);
 				setValue(Context.getService(RadioTransactionService.class).getNoteType(tid));

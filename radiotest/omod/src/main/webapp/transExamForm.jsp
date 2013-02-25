@@ -88,7 +88,7 @@ function saveNote(){
 function noteTypesEvent(){
 	var $desc = $j("#desc");
 	var isHidden = $desc.attr("hidden");
-	var others = $j("#noteType").val() === 0;
+	var others = $j("#noteType").val() === "0";
 	
 	if (others == isHidden){
 		if (isHidden){
@@ -115,6 +115,14 @@ $j(function(){
 	<div class="colleft">
 		<div class="col1">
 <br/><br/>
+
+<p>
+${ patient.fullName } <br>
+<c:set var ="a" value="${ patient.alias }" />
+${ a.alias } <br>
+${ a.category.category } <br>
+</p>
+
 <div class="info">
 <form:form method="post" modelAttribute="transModel" id="transExam">
 	<br>

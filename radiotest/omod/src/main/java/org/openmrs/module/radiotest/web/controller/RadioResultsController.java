@@ -1,5 +1,7 @@
 package org.openmrs.module.radiotest.web.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.openmrs.api.context.Context;
@@ -27,6 +29,7 @@ public class RadioResultsController {
 	
 	private final String RESULTS_PAGE = "/module/radiotest/results";
 	private final String RESULTS_FORM = "/module/radiotest/resultsForm";
+	private final String TRANSACTION_PAGE = "/module/radiotest/transactions";
 	
 	@InitBinder
 	public void initBinder(WebRequest request, WebDataBinder binder){
@@ -39,13 +42,25 @@ public class RadioResultsController {
 		return new RadioResult();
 	}
 	
-	@RequestMapping(value = RESULTS_PAGE, method = RequestMethod.GET)
+	@ModelAttribute("transList")
+	public List<RadioTransaction> getTransactions(HttpSession session, ModelMap model){
+		RadioPatient patient = (RadioPatient) session.getAttribute("patient");
+		List<RadioTransaction> transList = null;
+		if (patient != null){
+			transList = Context.getService(RadioTransactionService.class).getTransactions(patient);
+		}
+		
+		return transList;
+	}
+	
+	@RequestMapping(value = {RESULTS_PAGE, TRANSACTION_PAGE}, method = RequestMethod.GET)
 	public void showTransactions(HttpSession session, ModelMap model){
 		RadioPatient patient = (RadioPatient) session.getAttribute("patient");
+		
 		if(patient != null){
 			patient = Context.getService(RadioPatientService.class).updatePatient(patient);
-			model.addAttribute("transList", Context.getService(RadioTransactionService.class).getTransactions(patient));
-		} 
+			model.addAttribute("patient", patient);
+		}
 	}
 	
 	@RequestMapping(value = "/module/radiotest/getExamList", method = RequestMethod.POST)

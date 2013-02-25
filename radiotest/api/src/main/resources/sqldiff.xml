@@ -106,8 +106,6 @@
 			CREATE TABLE IF NOT EXISTS radio_transaction (
 				id INT(11) NOT NULL AUTO_INCREMENT,
 				patient_id INT(11) DEFAULT NULL,
-				rf DOUBLE(13,2) DEFAULT 0,
-				exam_fee DOUBLE(13,2) DEFAULT 0,
 				purpose VARCHAR(500) DEFAULT NULL,
 				or_number VARCHAR(20) DEFAULT NULL,
 				paid BOOLEAN DEFAULT FALSE,
@@ -135,7 +133,7 @@
 				voided BOOLEAN DEFAULT FALSE,
 				PRIMARY KEY (id)
 			);
-			
+						
 			CREATE TABLE IF NOT EXISTS radio_counter (
 				id INT NOT NULL AUTO_INCREMENT,
 				next_year TIMESTAMP,

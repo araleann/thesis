@@ -1,15 +1,20 @@
 package org.openmrs.module.radiotest.web.controller;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import javax.servlet.http.HttpSession;
 
 import org.openmrs.api.context.Context;
 import org.openmrs.module.radiotest.RadioExam;
 import org.openmrs.module.radiotest.RadioExamType;
+import org.openmrs.module.radiotest.RadioNote;
 import org.openmrs.module.radiotest.RadioNoteType;
 import org.openmrs.module.radiotest.RadioPatient;
 import org.openmrs.module.radiotest.RadioTransaction;
 import org.openmrs.module.radiotest.api.RadioExamService;
+import org.openmrs.module.radiotest.api.RadioPatientService;
 import org.openmrs.module.radiotest.api.RadioTransactionService;
 import org.openmrs.module.radiotest.model.RadioTransactionModel;
 import org.openmrs.module.radiotest.propertyeditor.RadioExamPropertyEditor;
@@ -43,11 +48,6 @@ public class RadioTransactionController {
 		binder.registerCustomEditor(RadioTransaction.class, new RadioTransactionPropertyEditor());
 	}
 	
-	@RequestMapping(value = TRANS_EXAM_FORM, method = RequestMethod.GET)
-	public void showForm(){
-		
-	}
-	
 	@ModelAttribute("transModel")
 	public RadioTransactionModel getModel(){
 		return new RadioTransactionModel();
@@ -61,6 +61,24 @@ public class RadioTransactionController {
 	@ModelAttribute("noteTypes")
 	public List<RadioNoteType> getNoteTypes(){
 		return Context.getService(RadioTransactionService.class).getAllNoteTypes();
+	}
+	
+	@RequestMapping(value = {TRANSACTION_FORM, TRANS_EXAM_FORM}, method = RequestMethod.GET)
+	public void showTransaction(HttpSession session, ModelMap model){
+		RadioPatient patient = (RadioPatient) session.getAttribute("patient");
+		RadioTransaction trans = (RadioTransaction) session.getAttribute("transaction");
+		
+		if(patient != null){
+			patient = Context.getService(RadioPatientService.class).updatePatient(patient);
+			model.addAttribute("patient", patient);
+		}
+		
+		if(trans != null){
+			trans = Context.getService(RadioTransactionService.class).updateTransaction(trans);
+			trans.computeFees();
+			model.addAttribute("transaction", trans);
+			session.removeAttribute("transaction");
+		}
 	}
 	
 	@RequestMapping(value = "/module/radiotest/addExam", method = RequestMethod.POST)
@@ -92,18 +110,17 @@ public class RadioTransactionController {
 	}
 	
 	@RequestMapping(value = "/module/radiotest/saveNote", method = RequestMethod.POST)
-	public ModelAndView saveNote(@ModelAttribute("transModel") RadioTransactionModel tm, ModelMap model){
-		tm.setTransaction(Context.getService(RadioTransactionService.class).updateTransaction(tm.getTransaction()));
+	public ModelAndView saveNote(@ModelAttribute("transModel") RadioTransactionModel tm, 
+									@RequestParam("transId") RadioTransaction trans, ModelMap model){
+		trans = Context.getService(RadioTransactionService.class).updateTransaction(trans);
+		tm.setTransaction(trans);
 		
-		RadioTransaction trans = tm.getFullTransaction();
-		Context.getService(RadioTransactionService.class).saveTransaction(trans);
+		Context.getService(RadioTransactionService.class).saveTransaction(tm.getFullTransaction());
+		
+		model.addAttribute("note", tm.getNote());
+		tm.setNote(new RadioNote());
 		
 		return new ModelAndView("/module/radiotest/editNote", model);
-	}
-	
-	@RequestMapping(value = TRANSACTION_FORM, method = RequestMethod.GET)
-	public void showTransaction(){
-		
 	}
 	
 	@RequestMapping(value = TRANSACTION_FORM, method = RequestMethod.POST)

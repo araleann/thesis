@@ -1,5 +1,7 @@
 package org.openmrs.module.radiotest.api.impl;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.List;
 
@@ -12,6 +14,7 @@ import org.openmrs.module.radiotest.RadioExam;
 import org.openmrs.module.radiotest.RadioExamType;
 import org.openmrs.module.radiotest.api.RadioExamService;
 import org.openmrs.module.radiotest.api.db.RadioExamDAO;
+import org.openmrs.module.radiotest.propertyeditor.RadioComparator;
 import org.springframework.transaction.annotation.Transactional;
 
 public class RadioExamServiceImpl extends BaseOpenmrsService implements RadioExamService {
@@ -82,7 +85,10 @@ public class RadioExamServiceImpl extends BaseOpenmrsService implements RadioExa
 	public RadioExam updateExam(RadioExam exam) throws APIException {
 		// TODO Auto-generated method stub
 		exam = dao.getExam(exam.getId());
-		exam.setCategoryFees(new LinkedHashSet<RadioCategoryExam>(exam.getCategoryFees()));
+		
+		List<RadioCategoryExam> catFees = new ArrayList<RadioCategoryExam>(exam.getCategoryFees());
+		Collections.sort(catFees, new RadioComparator());
+		exam.setCategoryFees(new LinkedHashSet<RadioCategoryExam>(catFees));
 		
 		return exam;
 	}

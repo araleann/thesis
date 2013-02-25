@@ -7,7 +7,6 @@ import javax.servlet.http.HttpSession;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.radiotest.RadioTransaction;
 import org.openmrs.module.radiotest.api.RadioTransactionService;
-import org.openmrs.module.radiotest.model.RadioTransactionModel;
 import org.openmrs.module.radiotest.propertyeditor.RadioTransactionPropertyEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -51,12 +50,10 @@ public class RadioHomeController {
 	}
 	
 	@RequestMapping(value = "/module/radiotest/viewTransaction", method = RequestMethod.POST)
-	public ModelAndView viewTransaction(@RequestParam("transId") RadioTransaction trans, ModelMap model){
-		trans = Context.getService(RadioTransactionService.class).updateTransaction(trans);
-		model.addAttribute("transaction", trans);
-		model.addAttribute("transModel", new RadioTransactionModel());
+	public ModelAndView viewTransaction(@RequestParam("transId") RadioTransaction trans, HttpSession session, ModelMap model){
+		session.setAttribute("transaction", trans);
 		
-		return new ModelAndView("/module/radiotest/transactionForm", model);
+		return new ModelAndView("redirect:/module/radiotest/transactionForm.htm");
 	}
 	
 	@RequestMapping(value = "/module/radiotest/viewExams", method = RequestMethod.POST)

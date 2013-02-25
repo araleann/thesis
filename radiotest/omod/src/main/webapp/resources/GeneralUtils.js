@@ -56,6 +56,11 @@ $j(function(){
 				};
 			}
 			$obj.datepicker(options);
+		},
+		
+		redirect : function redirect(url){
+			console.log(url);
+			window.location = openmrsContextPath + "/module/radiotest/" + url;
 		}
 	}
 });

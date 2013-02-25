@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.LinkedHashSet;
 
 import org.openmrs.module.radiotest.RadioNote;
+import org.openmrs.module.radiotest.RadioNoteType;
 import org.openmrs.module.radiotest.RadioPatient;
 import org.openmrs.module.radiotest.RadioTransExam;
 import org.openmrs.module.radiotest.RadioTransaction;
@@ -53,7 +54,11 @@ public class RadioTransactionModel {
 			transaction.computeFees();
 		}
 		
-		if (note.getType() != null){
+		RadioNoteType type = note.getType();
+		if (type != null){
+			if (type.getId() == 0){
+				note.setType(null);
+			}
 			note.setDate(new Date());
 			transaction.addNote(note);
 		}

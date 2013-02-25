@@ -30,10 +30,6 @@
 			access="field" />
 		<property name="paid" type="boolean" column="paid"
 			access="field" />
-		<property name="readingFee" type="double" column="rf"
-			access="field" />
-		<property name="examFee" type="double" column="exam_fee"
-			access="field" />
 		<property name="purpose" type="string" column="purpose"
 			length="500" access="field" />
 		<property name="orNumber" type="string" column="or_number"
