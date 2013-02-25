@@ -8,19 +8,9 @@ var modulePath = openmrsContextPath + "/module/radiotest";
 var nullPath = modulePath + "/nullExamType.htm";
 var editPath = modulePath + "/editExamType.htm";
 
-function toggleTemplate(id){
-	$j("#template" + id).toggle("drop", { direction : "up" });
-	var $tbutton = $j("#tbutton" + id);
-	
-	if ($tbutton.text().indexOf("Show") != -1){
-		$tbutton.text("Hide Template");
-	} else {
-		$tbutton.text("Show Template");
-	}
-}
-
 function loadExamTypes(){
-	var $form = $j("#typeForm"); 
+	var $form = $j("#typeForm");
+	
 	$j.post($form.attr("action"), $form.serialize(), function(data){
 		var $types = $j("#examTypes", $j(data));
 		$j("#examTypes").replaceWith($types);
@@ -74,7 +64,6 @@ $j(function(){
 		template : "Template for Negative Results"
 	}
 	GeneralUtils.addPlaceholderByName(placeholders);
-	$j(".template").hide();
 });
 </script>
 
@@ -112,7 +101,6 @@ $j(function(){
 			<button type="button" onclick="voidExamType(${ id })" class="buttondesignvoid">Void</button>
 			<br>
 			<c:if test="${ not empty type.template }">
-				<button type="button" id="tbutton${ id }" onclick="toggleTemplate(${ id })">Show template</button>
 				<div id="template${ id }" class="template">
 					${ type.template }
 				</div>

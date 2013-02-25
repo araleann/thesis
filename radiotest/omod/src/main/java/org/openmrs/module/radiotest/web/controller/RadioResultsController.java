@@ -59,8 +59,11 @@ public class RadioResultsController {
 	public ModelAndView editExamResults(@RequestParam("examId") RadioTransExam e, WebRequest request, ModelMap model){
 		model.addAttribute("transExam", e);
 		model.addAttribute("count", request.getParameter("count"));
+		model.addAttribute("template", escapeNewline(e.getExam().getType().getTemplate(), "\\n"));
 		if(e.hasResult()){
-			model.addAttribute("result", e.getResult());
+			RadioResult result = e.getResult();
+			model.addAttribute("result", result);
+			model.addAttribute("findings", escapeNewline(result.getFindings(), "<br>"));
 		}
 		
 		return new ModelAndView("/module/radiotest/resultsForm", model);
@@ -88,18 +91,23 @@ public class RadioResultsController {
 		}
 		e.addFinding(result);
 		e.getTransaction().update();
-		model.addAttribute("examId", e.getId());
 		
-		Context.getService(RadioTransactionService.class).saveTransExam(e);
+		model.addAttribute("transExam", Context.getService(RadioTransactionService.class).saveTransExam(e));
+		model.addAttribute("result", result);
+		model.addAttribute("findings", escapeNewline(result.getFindings(), "<br>"));
 		
-		return new ModelAndView("/module/radiotest/editResult", model);
+		return new ModelAndView("/module/radiotest/resultsForm", model);
 	}
 	
 	@RequestMapping(value = "/module/radiotest/editResultForm", method = RequestMethod.POST)
-	public ModelAndView editResult(@RequestParam("examId") Integer examId, ModelMap model){
-		model.addAttribute("examId", examId);
+	public ModelAndView editResult(@RequestParam("examId") RadioTransExam exam, ModelMap model){
+		model.addAttribute("transExam", exam);
 		model.addAttribute("result", new RadioResult());
 		
-		return new ModelAndView("/module/radiotest/editResult", model);
+		return new ModelAndView("/module/radiotest/resultsForm", model);
+	}
+	
+	private String escapeNewline(String str, String escapeStr){
+		return str.replace("\n", escapeStr);
 	}
 }

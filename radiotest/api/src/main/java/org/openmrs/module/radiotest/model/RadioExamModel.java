@@ -1,10 +1,12 @@
 package org.openmrs.module.radiotest.model;
 
+import java.util.Collections;
 import java.util.LinkedHashSet;
 
 import org.openmrs.module.radiotest.RadioCategoryExam;
 import org.openmrs.module.radiotest.RadioExam;
 import org.openmrs.module.radiotest.RadioFee;
+import org.openmrs.module.radiotest.propertyeditor.RadioComparator;
 import org.springframework.util.AutoPopulatingList;
 
 public class RadioExamModel {
@@ -26,7 +28,6 @@ public class RadioExamModel {
 		for(RadioCategoryExam catFee : e.getCategoryFees()){
 			if (!catFee.getCategory().getVoided()){
 				categoryFees.add(catFee);
-				
 				for(RadioFee fee : catFee.getFees()){
 					if (!fee.getType().getVoided()){
 						fees.add(fee);
@@ -34,6 +35,9 @@ public class RadioExamModel {
 				}
 			}
 		}
+		
+		Collections.sort(categoryFees, new RadioComparator());
+		Collections.sort(fees, new RadioComparator());
 	}
 	
 	public int getNumOfFeeTypes() {

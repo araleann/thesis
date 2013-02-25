@@ -41,6 +41,7 @@ public class RadioExamController {
 	
 	@RequestMapping(value = EXAM_FORM, method = RequestMethod.GET)
 	public void showExamForm(){
+		
 	}
 	
 	@ModelAttribute("exams")

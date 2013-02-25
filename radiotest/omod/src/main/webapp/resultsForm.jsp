@@ -6,6 +6,7 @@
 var modulePath = openmrsContextPath + "/module/radiotest";
 var savePath = modulePath + "/resultsForm.htm";
 var editPath = modulePath + "/editResultForm.htm";
+var template = "${ template }";
 
 function saveDraft(){
 	$j.post(savePath, $j("#result").serialize(), function(data){
@@ -32,7 +33,14 @@ function edit(){
 }
 
 function writeTemplate(){
+	var isNegative = $j("#positive2").attr("checked");
+	var $findings = $j("#findings");
 	
+	if (isNegative){
+		$findings.val(template);
+	} else {
+		$findings.val("");
+	}
 }
 //-->
 </script>
@@ -58,10 +66,12 @@ Exam Name: ${ exam.name }
 				<form:hidden path="id" />
 				<form:hidden path="draft" id="draft" />
 				Result: 
-				<form:radiobutton path="positive" label="Positive" value="true" />
-				<form:radiobutton path="positive" label="Negative" value="false" />
+				<form:radiobutton path="positive" label="Positive" value="true" onclick="writeTemplate()" />
+				<form:radiobutton path="positive" label="Negative" value="false" onclick="writeTemplate()" />
 				<br>
-				<form:textarea path="findings" />
+				<spring:bind path="findings">
+					<textarea id="findings" name="${ status.expression }">${ exam.type.template }</textarea>
+				</spring:bind>
 				<br>
 				<br>
 				<button type="button" onclick="save()">Save</button>
@@ -82,7 +92,7 @@ Exam Name: ${ exam.name }
 			</c:choose>
 			<br>
 			<br>
-			${ result.findings }
+			${ findings }
 			<br>
 			<br>
 			<button type="button" onclick="edit()">Edit</button>

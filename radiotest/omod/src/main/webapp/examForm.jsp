@@ -23,8 +23,10 @@ function saveExam(){
 		.submit();
 }
 
-function clear(){
+function clearForm(){
+	console.log("clear!");
 	$j.get(refreshPath, function(data){
+		console.log(data);
 		var $form = $j("#examForm", $j(data));
 		$j("#examForm").replaceWith($form);
 	});
@@ -109,7 +111,7 @@ function post(id, obj){
 		</c:forEach>
 	</form:form>
 	<br>
-	<button type="button" onclick="clear()" class="buttondesign">Clear Form</button>
+	<button type="button" onclick="clearForm()" class="buttondesign">Clear Form</button>
 	<button type="button" onclick="saveExam()" class="buttondesign">Save Exam</button>
 </div>
 <br>
