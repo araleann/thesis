@@ -3,8 +3,10 @@ package org.openmrs.module.radiotest.web.controller;
 import java.util.List;
 
 import org.openmrs.api.context.Context;
+import org.openmrs.module.radiotest.RadioItem;
 import org.openmrs.module.radiotest.RadioItemType;
 import org.openmrs.module.radiotest.api.RadioInventoryService;
+import org.openmrs.module.radiotest.propertyeditor.RadioItemPropertyEditor;
 import org.openmrs.module.radiotest.propertyeditor.RadioItemTypePropertyEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.WebDataBinder;
@@ -17,48 +19,53 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-public class RadioItemTypeController {
+public class RadioItemController {
 
-	private final String ITEM_TYPE_FORM = "/module/radiotest/itemTypeForm";
-	private final String REDIRECT = "redirect:" + ITEM_TYPE_FORM + ".htm";
+	private final String ITEM_FORM = "/module/radiotest/itemForm";
+	private final String REDIRECT = "redirect:" + ITEM_FORM + ".htm";
 	
 	@InitBinder
 	public void initBinder(WebRequest request, WebDataBinder binder){
 		binder.registerCustomEditor(RadioItemType.class, new RadioItemTypePropertyEditor());
+		binder.registerCustomEditor(RadioItem.class, new RadioItemPropertyEditor());
 	}
 	
-	@ModelAttribute("itemType")
-	public RadioItemType getItemType(){
-		return new RadioItemType();
+	@ModelAttribute("item")
+	public RadioItem getItem(){
+		return new RadioItem();
 	}
 	
 	@ModelAttribute("itemTypes")
-	public List<RadioItemType> getAllItemTypes(){
-		return Context.getService(RadioInventoryService.class).getAllItemTypes(true);
+	public List<RadioItemType> getAllTypes(){
+		return Context.getService(RadioInventoryService.class).getAllItemTypes();
 	}
 	
-	@RequestMapping(value = ITEM_TYPE_FORM, method = RequestMethod.GET)
+	@ModelAttribute("items")
+	public List<RadioItem> getAllItems(){
+		return Context.getService(RadioInventoryService.class).getAllItems(true);
+	}
+	
+	@RequestMapping(value = ITEM_FORM, method = RequestMethod.GET)
 	public void showForm(){
 		
 	}
 	
-	@RequestMapping(value = ITEM_TYPE_FORM, method = RequestMethod.POST)
-	public ModelAndView saveItemType(@ModelAttribute("itemType") RadioItemType type){
-		Context.getService(RadioInventoryService.class).saveItemType(type);
+	@RequestMapping(value = ITEM_FORM, method = RequestMethod.POST)
+	public ModelAndView saveItem(@ModelAttribute("item") RadioItem item){
+		Context.getService(RadioInventoryService.class).saveItem(item);
 		
 		return new ModelAndView(REDIRECT);
 	}
 	
-	
-	@RequestMapping(value = "/module/radiotest/nullItemType", method = RequestMethod.POST)
-	public ModelAndView nullItemType(@RequestParam("tid") RadioItemType type, @RequestParam("action") String action){
+	@RequestMapping(value = "/module/radiotest/nullItem", method = RequestMethod.POST)
+	public ModelAndView nullItem(@RequestParam("iid") RadioItem item, @RequestParam("action") String action){
 		RadioInventoryService is = Context.getService(RadioInventoryService.class);
+		
 		if (action.equalsIgnoreCase("void")){
-			type.setVoided(!type.getVoided());
-			is.saveItemType(type);
+			item.setVoided(!item.getVoided());
+			is.saveItem(item);
 		} else if (action.equalsIgnoreCase("delete")){
-			System.out.println("DELETE");
-			is.deleteItemType(type);
+			is.deleteItem(item);
 		}
 		
 		return new ModelAndView(REDIRECT);

@@ -13,7 +13,6 @@ import org.openmrs.module.radiotest.RadioItemType;
 import org.openmrs.module.radiotest.RadioTransItem;
 import org.openmrs.module.radiotest.api.db.RadioInventoryDAO;
 
-@SuppressWarnings("unchecked")
 public class HibernateRadioInventoryDAO implements RadioInventoryDAO {
 
 	protected final Log log = LogFactory.getLog(this.getClass());
@@ -47,6 +46,7 @@ public class HibernateRadioInventoryDAO implements RadioInventoryDAO {
 		return (RadioItemType) sessionFactory.getCurrentSession().get(RadioItemType.class, typeId);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<RadioItemType> getAllItemTypes(boolean includeVoided)
 			throws DAOException {
@@ -63,6 +63,7 @@ public class HibernateRadioInventoryDAO implements RadioInventoryDAO {
 	@Override
 	public void deleteItemType(RadioItemType type) throws DAOException {
 		// TODO Auto-generated method stub
+		System.out.println(type.getId());
 		sessionFactory.getCurrentSession().delete(type);
 	}
 
@@ -79,6 +80,7 @@ public class HibernateRadioInventoryDAO implements RadioInventoryDAO {
 		return (RadioItem) sessionFactory.getCurrentSession().get(RadioItem.class, itemId);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<RadioItem> getItemByType(RadioItemType type)
 			throws DAOException {
@@ -90,6 +92,7 @@ public class HibernateRadioInventoryDAO implements RadioInventoryDAO {
 		return (List<RadioItem>) criteria.list();
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<RadioItem> getAllItems(boolean includeVoided)
 			throws DAOException {

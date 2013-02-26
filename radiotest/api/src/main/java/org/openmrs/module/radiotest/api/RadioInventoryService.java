@@ -23,7 +23,6 @@ public interface RadioInventoryService extends OpenmrsService {
 	@Transactional(readOnly = true)
 	public List<RadioItemType> getAllItemTypes(boolean includeVoided) throws APIException;
 	
-	@Transactional(readOnly = true)
 	public void deleteItemType(RadioItemType type) throws APIException;
 	
 	
@@ -40,6 +39,8 @@ public interface RadioInventoryService extends OpenmrsService {
 	
 	@Transactional(readOnly = true)
 	public List<RadioItem> getAllItems(boolean includeVoided) throws APIException;
+	
+	public void deleteItem(RadioItem item) throws APIException;
 	
 	
 	public RadioTransItem saveTransItem(RadioTransItem item) throws APIException;

@@ -119,4 +119,10 @@ public class RadioInventoryServiceImpl extends BaseOpenmrsService implements
 		dao.deleteItemType(type);
 	}
 
+	@Override
+	public void deleteItem(RadioItem item) throws APIException {
+		// TODO Auto-generated method stub
+		dao.deleteItem(item);
+	}
+
 }
