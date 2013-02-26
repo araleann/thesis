@@ -1,5 +1,6 @@
 package org.openmrs.module.radiotest.web.controller;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.openmrs.api.context.Context;
@@ -41,8 +42,16 @@ public class RadioItemController {
 	}
 	
 	@ModelAttribute("items")
-	public List<RadioItem> getAllItems(){
-		return Context.getService(RadioInventoryService.class).getAllItems(true);
+	public HashMap<RadioItemType, List<RadioItem>> getItemsByType(){
+		RadioInventoryService is = Context.getService(RadioInventoryService.class);
+		HashMap<RadioItemType, List<RadioItem>> map = new HashMap<RadioItemType, List<RadioItem>>();
+		
+		List<RadioItemType> itemTypes = is.getAllItemTypes();
+		for(RadioItemType type : itemTypes){
+			map.put(type, is.getItemByType(type));
+		}
+		
+		return map;
 	}
 	
 	@RequestMapping(value = ITEM_FORM, method = RequestMethod.GET)

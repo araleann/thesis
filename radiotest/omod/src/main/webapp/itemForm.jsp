@@ -7,7 +7,6 @@ var modulePath = openmrsContextPath + "/module/radiotest";
 var nullPath = modulePath + "/nullItem.htm";
 
 function post(divId, obj, path, callback){
-	console.log("post!");
 	$j.post(path, obj, function(data){
 		var $divElem = $j(divId);
 		var $updatedDiv = $j(divId, $j(data));
@@ -54,8 +53,14 @@ function deleteItem(id){
 		action : "delete"
 	};
 	
+	function clean(){
+		$j("div h4:only-child")
+			.parent()
+			.remove();
+	}
+	
 	if (confirm("Are you sure you want to delete?")){
-		post(divId, obj, nullPath);
+		post(divId, obj, nullPath, clean);
 	}
 }
 //-->
@@ -95,35 +100,42 @@ function deleteItem(id){
 
 <h2>Existing Items</h2>
 <div id="items">
-	<c:forEach var="i" items="${ items }">
-		<c:set var="id" value="${ i.id }" />
-		<div id="item${ id }">
-			Type : ${ i.type.name } <br>
-			Name : ${ i.name } <br>
-			Unit : ${ i.unit } <br>
-			Threshold:
-			<c:choose>
-				<c:when test="${ i.percentThreshold == 0 }">
-					${ i.threshold } ${ i.unit }
-				</c:when>
-				<c:otherwise>
-					${ i.percentThreshold }%
-				</c:otherwise>
-			</c:choose>
-			<br>
-			Voided:
-			<c:choose>
-				<c:when test="${ i.voided }">
-					YES
-				</c:when>
-				<c:otherwise>
-					NO
-				</c:otherwise>
-			</c:choose>
-			<button type="button" onclick="voidItem(${ id })"></button>
-			<br>
-			<button type="button" onclick="deleteItem(${ id })">Delete</button>
+	<c:forEach var="itemMap" items="${ items }">
+		<c:set var="type" value="${ itemMap.key }" />
+		<c:set var="list" value="${ itemMap.value }" />
+		<div id="type${ type.id }">
+			<h4>${ type.name }</h4>
+			<c:forEach var="i" items="${ list }">
+				<c:set var="id" value="${ i.id }" />
+				<div id="item${ id }">
+					Name: ${ i.name } <br>
+					Unit: ${ i.unit } <br>
+					Threshold:
+					<c:choose>
+						<c:when test="${ i.percentThreshold == 0 }">
+							${ i.threshold } ${ i.unit }
+						</c:when>
+						<c:otherwise>
+							${ i.percentThreshold }%
+						</c:otherwise>
+					</c:choose>
+					<br>
+					Voided:
+					<c:choose>
+						<c:when test="${ i.voided }">
+							YES
+						</c:when>
+						<c:otherwise>
+							NO
+						</c:otherwise>
+					</c:choose>
+					<button type="button" onclick="voidItem(${ id })"></button>
+					<br>
+					<button type="button" onclick="deleteItem(${ id })">Delete</button>
+				</div>
+			</c:forEach>
 		</div>
+		
 	</c:forEach>
 </div>
 
