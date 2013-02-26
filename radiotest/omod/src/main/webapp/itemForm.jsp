@@ -81,6 +81,15 @@ function deleteItem(id){
 	<label>Unit</label>
 	<form:input path="unit" />
 	</p>
+	
+	<p>
+	<label>Threshold</label>
+	<input type="text" name="limit">
+	<select name="limitType">
+		<option value="1">units</option>
+		<option value="2">%</option>
+	</select>
+	</p>
 	<button type="button" onclick="saveItem()">Save</button>
 </form:form>
 
@@ -92,6 +101,16 @@ function deleteItem(id){
 			Type : ${ i.type.name } <br>
 			Name : ${ i.name } <br>
 			Unit : ${ i.unit } <br>
+			Threshold:
+			<c:choose>
+				<c:when test="${ i.percentThreshold == 0 }">
+					${ i.threshold } ${ i.unit }
+				</c:when>
+				<c:otherwise>
+					${ i.percentThreshold }%
+				</c:otherwise>
+			</c:choose>
+			<br>
 			Voided:
 			<c:choose>
 				<c:when test="${ i.voided }">
