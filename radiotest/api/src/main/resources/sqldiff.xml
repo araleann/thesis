@@ -156,6 +156,7 @@
 				at_limit BOOLEAN DEFAULT FALSE,
 				qty INT DEFAULT 0,
 				threshold INT DEFAULT 0,
+				percent INT DEFAULT 0,
 				voided BOOLEAN DEFAULT FALSE,
 				PRIMARY KEY (id)
 			);

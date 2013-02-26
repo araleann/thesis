@@ -31,6 +31,8 @@
 			access="field" />
 		<property name="threshold" type="integer" column="threshold"
 			access="field" />
+		<property name="percentThreshold" type="integer" column="percent"
+			access="field" />
 		<property name="voided" type="boolean" column="voided"
 			access="field" />
 			

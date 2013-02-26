@@ -13,6 +13,7 @@ public class RadioItem extends BaseOpenmrsData {
 	
 	private int quantity;
 	private int threshold;
+	private int percentThreshold;
 	
 	private Boolean voided = false;
 	
@@ -74,6 +75,14 @@ public class RadioItem extends BaseOpenmrsData {
 
 	public void setThreshold(int threshold) {
 		this.threshold = threshold;
+	}
+
+	public int getPercentThreshold() {
+		return percentThreshold;
+	}
+
+	public void setPercentThreshold(int percentThreshold) {
+		this.percentThreshold = percentThreshold;
 	}
 
 	public Boolean getVoided() {

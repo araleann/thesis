@@ -14,6 +14,10 @@ function viewTransaction(id){
 		.attr("action", viewPath)
 		.submit();
 }
+
+function createTransaction(){
+	GeneralUtils.redirect("transExamForm.htm");
+}
 //-->
 </script>
 
@@ -29,6 +33,11 @@ ${ a.category.category } <br>
 </form>
 
 <h2>Transactions</h2>
+
+<p>
+	<button type="button" onclick="createTransaction()">Create New Transaction</button>
+</p>
+
 <c:forEach var="trans" items="${ transList }">
 	<c:set var="id" value="${ trans.id }" />
 	Transaction No: ${ id } 

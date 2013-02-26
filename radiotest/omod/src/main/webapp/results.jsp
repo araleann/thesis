@@ -35,6 +35,9 @@ function borrow(id){
 </script>
 
 <p>
+<c:if test="${ empty patient }">
+	<c:set var="patient" value="${ trans.patient }" />
+</c:if>
 ${ patient.fullName } <br>
 <c:set var ="a" value="${ patient.alias }" />
 ${ a.alias } <br>

@@ -77,6 +77,7 @@ $j(function(){
 <form:form method="post" modelAttribute="examType" id="typeForm">
 	<form:input path="type" cssClass="patientinput" />
 	<br>
+	<br>
 	<form:textarea path="template" />
 	<br>
 	<button type="button" onclick="loadExamTypes()" class="buttondesign">Save</button>
