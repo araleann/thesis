@@ -1,5 +1,6 @@
 <%@ include file="/WEB-INF/template/include.jsp"%>
 <%@ include file="/WEB-INF/template/header.jsp"%>
+<%@ include file="template/resources.jsp" %>
 
 <script type="text/javascript">
 <!--
@@ -59,21 +60,34 @@ function deleteItemType(id){
 		post(divId, obj, nullPath);
 	}
 }
+
+$j(function(){	
+	GeneralUtils.addPlaceholderById("input", "Enter an Item Type");
+});
 //-->
 </script>
 
-<h2>Add Item Type</h2>
-<form:form method="post" modelAttribute="itemType" id="typeForm">
-	<form:input path="name" />
-	<button type="button" onclick="saveItemType()">Save</button>
-</form:form>
+<div class="colmask leftmenu">
+	<div class="colleft">
+		<div class="col1">
+<br>
 
+<h2>Add Item Type</h2>
+<br>
+<form:form method="post" modelAttribute="itemType" id="typeForm">
+	<form:input id="input" cssClass="patientinput" path="name" />
+	<br><br>
+	<button class="buttondesign" type="button" onclick="saveItemType()">Save</button>
+</form:form>
+<br>
+<hr>
+<br>
 <h2>Existing Item Types</h2>
 <div id="itemTypes">
 	<c:forEach var="type" items="${ itemTypes }">
 		<c:set var="id" value="${ type.id }" />
 		<div id="type${ id }">
-			${ type.name } <br>
+			<b><font size=4>${ type.name }</font></b><br>
 			Voided:
 			<c:choose>
 				<c:when test="${ type.voided }">
@@ -83,10 +97,23 @@ function deleteItemType(id){
 					NO
 				</c:otherwise>
 			</c:choose>
-			<button type="button" onclick="voidItemType(${ id })"></button> <br>
-			<button type="button" onclick="deleteItemType(${ id })">Delete</button>
+			<br>
+			<c:choose>
+				<c:when test="${ type.voided }">
+					<button type="button" onclick="voidItemType(${ id })" class="buttondesignvoid">Unvoid</button>
+				</c:when>
+				<c:otherwise>
+					<button type="button" onclick="voidItemType(${ id })" class="buttondesignvoid">Void</button>
+				</c:otherwise>
+			</c:choose>			
+			<button type="button" onclick="deleteItemType(${ id })" class="buttondesignsmall">Delete</button>
 		</div>
 	</c:forEach>
 </div>
-
-<%@ include file="/WEB-INF/template/footer.jsp"%>
+</div>
+<div class="col2">
+			<!-- Column 2 start -->
+			<jsp:include page="/WEB-INF/view/sidemenu.jsp"/>
+		</div>
+</div>
+</div>

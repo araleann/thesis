@@ -20,7 +20,10 @@ function createTransaction(){
 }
 //-->
 </script>
-
+<div class="colmask leftmenu">
+	<div class="colleft">
+		<div class="col1">
+<br>
 <p>
 ${ patient.fullName } <br>
 <c:set var ="a" value="${ patient.alias }" />
@@ -33,11 +36,9 @@ ${ a.category.category } <br>
 </form>
 
 <h2>Transactions</h2>
-
 <p>
-	<button type="button" onclick="createTransaction()">Create New Transaction</button>
+	<button type="button" class="buttondesignlong" onclick="createTransaction()">Create New Transaction</button>
 </p>
-
 <c:forEach var="trans" items="${ transList }">
 	<c:set var="id" value="${ trans.id }" />
 	Transaction No: ${ id } 
@@ -57,5 +58,9 @@ ${ a.category.category } <br>
 	<br>
 	<br>
 </c:forEach>
-
-<%@ include file="/WEB-INF/template/footer.jsp"%>
+</div>
+<div class="col2">
+			<!-- Column 2 start -->
+			<jsp:include page="/WEB-INF/view/sidemenu.jsp"/>
+		</div>
+</div></div>

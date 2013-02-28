@@ -38,10 +38,6 @@
 			<!-- Column 1 end -->
 			
 
-New Patient
-<br>
-<br>
-
 <div id="patient">			
 <form:form method="post" modelAttribute="patientModel">
 	

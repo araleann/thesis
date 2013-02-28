@@ -1,5 +1,6 @@
 <%@ include file="/WEB-INF/template/include.jsp"%>
 <%@ include file="/WEB-INF/template/header.jsp"%>
+<%@ include file="template/resources.jsp" %>
 
 <script type="text/javascript">
 <!--
@@ -46,6 +47,10 @@ function post(id, obj){
 		}
 	})
 }
+
+$j(function(){	
+	GeneralUtils.addPlaceholderById("input", "Enter a category");
+});
 //-->
 </script>
 
@@ -53,21 +58,23 @@ function post(id, obj){
 	<div class="colleft">
 		<div class="col1">
 		
-
+<br>
 <h2>Add Category</h2>
+<br>
 <form:form method="post" modelAttribute="category" id="catForm">
-	<form:input cssClass="patientinput" path="category" />
+	<form:input id="input" cssClass="patientinput" path="category" /><br><br>
 	<button class="buttondesign" type="button" onclick="loadCategories()">Save</button>
 </form:form>
 <br>
-
+<hr>
+<br>
 <h2>Categories</h2>
+<br>
 <div id="categories">
 	<c:forEach var="cat" items="${ categories }">
-		<br>
 		<c:set var="id" value="${ cat.id }" />
 		<div id="category${ id }">
-			${ cat.category } <br>
+			<font size="4"><b>${ cat.category }</b></font> <br>
 			Voided:
 			<c:choose>
 				<c:when test="${ cat.voided }">
@@ -77,8 +84,15 @@ function post(id, obj){
 					NO
 				</c:otherwise>
 			</c:choose>
-			<button type="button" onclick="voidCategory(${ id })" class="buttondesignvoid">Void</button>
 			<br>
+			<c:choose>
+				<c:when test="${ cat.voided }">
+					<button type="button" onclick="voidCategory(${ id })" class="buttondesignvoid">Unvoid</button>
+				</c:when>
+				<c:otherwise>
+					<button type="button" onclick="voidCategory(${ id })" class="buttondesignvoid">Void</button>
+				</c:otherwise>
+			</c:choose>					
 			<button type="button" onclick="deleteCategory(${ id })" class="buttondesignsmall">Delete</button>
 		</div>	
 		<br>
@@ -91,5 +105,3 @@ function post(id, obj){
 			<jsp:include page="/WEB-INF/view/sidemenu.jsp"/>
 		</div>
 </div></div>
-
-<%@ include file="/WEB-INF/template/footer.jsp"%>
