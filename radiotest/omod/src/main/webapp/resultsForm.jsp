@@ -70,7 +70,15 @@ Exam Name: ${ exam.name }
 				<form:radiobutton path="positive" label="Negative" value="false" onclick="writeTemplate()" />
 				<br>
 				<spring:bind path="findings">
-					<textarea id="findings" name="${ status.expression }">${ exam.type.template }</textarea>
+					<c:choose>
+						<c:when test="${ result.positive }">
+							<c:set var="res" value="${ result.findings }" />
+						</c:when>
+						<c:otherwise>
+							<c:set var="res" value="${ exam.type.template }" />
+						</c:otherwise>
+					</c:choose>
+					<textarea id="findings" name="${ status.expression }">${ res }</textarea>
 				</spring:bind>
 				<br>
 				<br>
