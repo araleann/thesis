@@ -78,18 +78,24 @@ $j(function(){
 	<form:input path="type" cssClass="patientinput" />
 	<br>
 	<br>
-	<form:textarea path="template" />
+	<form:textarea cssClass="addressinput" path="template" />
 	<br>
 	<button type="button" onclick="loadExamTypes()" class="buttondesign">Save</button>
 </form:form>
 <br>
-
-<h2>Exam Types</h2>
+<hr>
+<br>
+<h2>Existing Exam Types</h2>
 <div id="examTypes">
 	<c:forEach var="type" items="${ examTypes }">
 		<c:set var="id" value="${ type.id }" />
 		<div id="type${ id }">
 			${ type.type } <br>
+			<c:if test="${ not empty type.template }">
+				<div id="template${ id }" class="template">
+					<i>"${ type.template }"</i>
+				</div>
+			</c:if>
 			Voided:
 			<c:choose>
 				<c:when test="${ type.voided }">
@@ -99,14 +105,16 @@ $j(function(){
 					NO	
 				</c:otherwise>
 			</c:choose>
-			<button type="button" onclick="voidExamType(${ id })" class="buttondesignvoid">Void</button>
 			<br>
-			<c:if test="${ not empty type.template }">
-				<div id="template${ id }" class="template">
-					${ type.template }
-				</div>
-				<br>
-			</c:if>
+			<c:choose>
+				<c:when test="${ type.voided }">
+					<button type="button" onclick="voidExamType(${ id })" class="buttondesignvoid">Unvoid</button>
+				</c:when>
+				<c:otherwise>
+					<button type="button" onclick="voidExamType(${ id })" class="buttondesignvoid">Void</button>
+				</c:otherwise>
+			</c:choose>
+			
 			<button type="button" onclick="deleteExamType(${ id })" class="buttondesignsmall">Delete</button>
 			<button type="button" onclick="editExamType(${ id })" class="buttondesignsmall">Edit</button>
 		</div>
@@ -119,5 +127,3 @@ $j(function(){
 			<jsp:include page="/WEB-INF/view/sidemenu.jsp"/>
 		</div>
 </div></div>
-
-<%@ include file="/WEB-INF/template/footer.jsp"%>

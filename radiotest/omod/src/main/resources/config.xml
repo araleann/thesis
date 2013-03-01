@@ -47,6 +47,7 @@
 		RadioTransItem.hbm.xml
 		RadioFeeType.hbm.xml
 		RadioFee.hbm.xml
+		RadioStockListing.hbm.xml
 		
 	</mappingFiles>
 

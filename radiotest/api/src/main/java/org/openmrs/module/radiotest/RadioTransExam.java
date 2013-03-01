@@ -100,8 +100,13 @@ public class RadioTransExam extends BaseOpenmrsData {
 		if (findings == null){
 			findings = new LinkedHashSet<RadioResult>();
 		}
+		Integer resId = res.getId();
 		for(RadioResult r: findings){
-			r.setVoided(Boolean.TRUE);
+			if(r.equals(resId)){
+				findings.remove(r);
+			} else {
+				r.setVoided(true);
+			}
 		}
 		findings.add(res);
 	}
@@ -111,9 +116,6 @@ public class RadioTransExam extends BaseOpenmrsData {
 		if (r){
 			for(RadioResult res : findings){
 				if (!res.isVoided().booleanValue()){
-					if (res.isDraft()){
-						findings.remove(res);
-					}
 					result = res;
 				}
 			}

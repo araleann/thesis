@@ -184,6 +184,14 @@
 				amount DOUBLE(13,2) DEFAULT 0,
 				PRIMARY KEY (id)
 			);
+			
+			CREATE TABLE IF NOT EXISTS radio_stock_listing (
+				id INT(11) NOT NULL AUTO_INCREMENT,
+				item_id	INT(11) DEFAULT NULL,
+				list_date DATE DEFAULT NULL,
+				qty INT DEFAULT 0,
+				PRIMARY KEY (id)
+			);
 		</sql>		
 	</diff>
 	

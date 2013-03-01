@@ -62,18 +62,22 @@ $j(function(){
 			<!-- Column 1 end -->
 <br>
 <h2>Add Note Type</h2>
+<br>
 <form:form method="post" modelAttribute="noteType" id="typeForm">
 	<form:input id="notetype" path="name" cssClass="patientinput" />
+	<br><br>
 	<button type="button" onclick="loadNoteTypes()" class="buttondesign">Save</button>
 </form:form>
 <br>
-
-<h2>Note Types</h2>
+<hr>
+<br>
+<h2>Existing Note Types</h2>
 <div id="noteTypes">
 	<c:forEach var="type" items="${ noteTypes }">
 		<c:set var="id" value="${ type.id }" />
 		<div id="note${ id }">
-			${ type.name } <br>
+			<font size=4><b>${ type.name }</b></font>
+			<br>
 			Voided:
 			<c:choose>
 				<c:when test="${ type.voided }">
@@ -83,8 +87,15 @@ $j(function(){
 					NO
 				</c:otherwise>
 			</c:choose>
-			<button type="button" onclick="voidNoteType(${ id })" class="buttondesignvoid">Void</button>
 			<br>
+			<c:choose>
+				<c:when test="${ type.voided }">
+					<button type="button" onclick="voidNoteType(${ id })" class="buttondesignvoid">Unvoid</button>			
+				</c:when>
+				<c:otherwise>
+					<button type="button" onclick="voidNoteType(${ id })" class="buttondesignvoid">Void</button>
+				</c:otherwise>
+			</c:choose>
 			<button type="button" onclick="deleteNoteType(${ id })" class="buttondesignsmall">Delete</button>
 		</div>
 		<br>
@@ -96,4 +107,3 @@ $j(function(){
 			<jsp:include page="/WEB-INF/view/sidemenu.jsp"/>
 		</div>
 </div></div>
-<%@ include file="/WEB-INF/template/footer.jsp"%>

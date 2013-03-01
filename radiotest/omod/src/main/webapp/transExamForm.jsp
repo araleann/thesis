@@ -13,7 +13,7 @@ var examIndexLabel = 2;
 function addNewExam(){
 	examIndex++;
 	
-	var $examDiv = $j("<div id='exams" + examIndex + "'> Exam " + examIndexLabel +"</div>");
+	var $examDiv = $j("<div id='exams" + examIndex + "'> Exam " + examIndexLabel +"</div><br>");
 	var $typeDiv = $j("<div id='type'></div>");
 	var postObj = { index : examIndex };
 	
@@ -114,8 +114,7 @@ $j(function(){
 <div class="colmask leftmenu">
 	<div class="colleft">
 		<div class="col1">
-<br/><br/>
-
+<br>
 <p>
 ${ patient.fullName } <br>
 <c:set var ="a" value="${ patient.alias }" />
@@ -123,7 +122,7 @@ ${ a.alias } <br>
 ${ a.category.category } <br>
 </p>
 
-<div class="info">
+<div class="transaction">
 <form:form method="post" modelAttribute="transModel" id="transExam">
 	<br>
 	<spring:bind path="transaction.patient">
@@ -139,9 +138,10 @@ ${ a.category.category } <br>
 				</form:select>
 			</div>
 		</div>
+		<br>
 	</spring:nestedPath>
 </div>
-	<br/><br/>
+	<br>
 	<button class="buttondesign" type="button" id="add" onclick="addNewExam()">Add Exam</button>
 	<button class="buttondesign" type="button" id="delete" onclick="deleteExam()" disabled>Delete Exam</button>
 	<button class="buttondesign" type="submit">Done</button>
@@ -153,6 +153,3 @@ ${ a.category.category } <br>
 			<jsp:include page="/WEB-INF/view/sidemenu.jsp"/>
 		</div>
 </div></div>
-
-
-<%@ include file="/WEB-INF/template/footer.jsp"%>

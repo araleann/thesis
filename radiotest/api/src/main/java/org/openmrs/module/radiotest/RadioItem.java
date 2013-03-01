@@ -1,5 +1,7 @@
 package org.openmrs.module.radiotest;
 
+import java.util.Set;
+
 import org.openmrs.BaseOpenmrsData;
 
 public class RadioItem extends BaseOpenmrsData {
@@ -14,6 +16,8 @@ public class RadioItem extends BaseOpenmrsData {
 	private int quantity;
 	private int threshold;
 	private int percentThreshold;
+	
+	private Set<RadioStockListing> stockListings;
 	
 	private Boolean voided = false;
 	
@@ -83,6 +87,14 @@ public class RadioItem extends BaseOpenmrsData {
 
 	public void setPercentThreshold(int percentThreshold) {
 		this.percentThreshold = percentThreshold;
+	}
+
+	public Set<RadioStockListing> getStockListings() {
+		return stockListings;
+	}
+
+	public void setStockListings(Set<RadioStockListing> stockListings) {
+		this.stockListings = stockListings;
 	}
 
 	public Boolean getVoided() {
