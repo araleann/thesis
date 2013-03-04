@@ -10,6 +10,7 @@ import org.hibernate.criterion.Restrictions;
 import org.openmrs.api.db.DAOException;
 import org.openmrs.module.radiotest.RadioItem;
 import org.openmrs.module.radiotest.RadioItemType;
+import org.openmrs.module.radiotest.RadioStockListing;
 import org.openmrs.module.radiotest.RadioTransItem;
 import org.openmrs.module.radiotest.api.db.RadioInventoryDAO;
 
@@ -124,6 +125,14 @@ public class HibernateRadioInventoryDAO implements RadioInventoryDAO {
 	public RadioTransItem getTransItem(Integer id) throws DAOException {
 		// TODO Auto-generated method stub
 		return (RadioTransItem) sessionFactory.getCurrentSession().get(RadioTransItem.class, id);
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<RadioStockListing> getAllListings() throws DAOException {
+		// TODO Auto-generated method stub
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(RadioStockListing.class);
+		return (List<RadioStockListing>) criteria.list();
 	}
 
 }

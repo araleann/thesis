@@ -8,6 +8,7 @@ import org.openmrs.api.APIException;
 import org.openmrs.api.impl.BaseOpenmrsService;
 import org.openmrs.module.radiotest.RadioItem;
 import org.openmrs.module.radiotest.RadioItemType;
+import org.openmrs.module.radiotest.RadioStockListing;
 import org.openmrs.module.radiotest.RadioTransItem;
 import org.openmrs.module.radiotest.api.RadioInventoryService;
 import org.openmrs.module.radiotest.api.db.RadioInventoryDAO;
@@ -123,6 +124,13 @@ public class RadioInventoryServiceImpl extends BaseOpenmrsService implements
 	public void deleteItem(RadioItem item) throws APIException {
 		// TODO Auto-generated method stub
 		dao.deleteItem(item);
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public List<RadioStockListing> getAllListings() throws APIException {
+		// TODO Auto-generated method stub
+		return dao.getAllListings();
 	}
 
 }

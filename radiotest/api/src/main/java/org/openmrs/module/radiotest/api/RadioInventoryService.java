@@ -6,6 +6,7 @@ import org.openmrs.api.APIException;
 import org.openmrs.api.OpenmrsService;
 import org.openmrs.module.radiotest.RadioItem;
 import org.openmrs.module.radiotest.RadioItemType;
+import org.openmrs.module.radiotest.RadioStockListing;
 import org.openmrs.module.radiotest.RadioTransItem;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -47,5 +48,9 @@ public interface RadioInventoryService extends OpenmrsService {
 	
 	@Transactional(readOnly = true)
 	public RadioTransItem getTransItem(Integer id) throws APIException;
+	
+	
+	@Transactional(readOnly = true)
+	public List<RadioStockListing> getAllListings() throws APIException;
 	
 }

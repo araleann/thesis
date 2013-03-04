@@ -108,9 +108,18 @@ public class RadioItem extends BaseOpenmrsData {
 	// CUSTOM FUNCTIONS
 	public void addStock(int qty){
 		quantity = quantity + qty;
+		update();
 	}
 	
 	public void updateStock(int qty){
 		quantity = quantity - qty;
+		update();
+	}
+	
+	private void update(){
+		if (quantity <= threshold)
+			atLimit = true;
+		else
+			atLimit = false;
 	}
 }
