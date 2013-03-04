@@ -11,6 +11,7 @@ import org.openmrs.module.radiotest.RadioStockListing;
 import org.openmrs.module.radiotest.api.RadioInventoryService;
 import org.openmrs.module.radiotest.model.RadioStockModel;
 import org.openmrs.module.radiotest.propertyeditor.RadioComparator;
+import org.openmrs.module.radiotest.propertyeditor.RadioItemPropertyEditor;
 import org.openmrs.module.radiotest.propertyeditor.RadioItemTypePropertyEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -22,7 +23,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.json.MappingJacksonJsonView;
 
 @Controller
 public class RadioStockController {
@@ -34,6 +34,7 @@ public class RadioStockController {
 	@InitBinder
 	public void initBinder(WebRequest request, WebDataBinder binder){
 		binder.registerCustomEditor(RadioItemType.class, new RadioItemTypePropertyEditor());
+		binder.registerCustomEditor(RadioItem.class, new RadioItemPropertyEditor());
 	}
 	
 	@ModelAttribute("itemTypes")
@@ -74,14 +75,31 @@ public class RadioStockController {
 		
 	}
 	
+	@RequestMapping(value = STOCK_PAGE, method = RequestMethod.POST)
+	public ModelAndView saveListings(@ModelAttribute("stockModel") RadioStockModel sm, ModelMap model){
+		RadioInventoryService is = Context.getService(RadioInventoryService.class);
+
+		List<RadioStockListing> listings = sm.getFullListings();
+		is.saveListings(listings);
+		
+		for(RadioStockListing list : listings){
+			RadioItem item = list.getItem();
+			item.addStock(list.getQuantity());
+			is.saveItem(item);
+		}
+		
+		return new ModelAndView(redirect(INVENTORY_PAGE));
+	}
+	
 	@RequestMapping(value = "/module/radiotest/getItems", method = RequestMethod.POST)
-	public ModelAndView getItemsByType(@RequestParam("tid") RadioItemType type, ModelMap model){
+	public ModelAndView getItemsByType(@RequestParam("type") RadioItemType type, WebRequest request, ModelMap model){
 		List<RadioItem> itemList = Context.getService(RadioInventoryService.class).getItemByType(type);
 		
-		MappingJacksonJsonView json = new MappingJacksonJsonView();
-		json.addStaticAttribute("items", itemList);
+		model.addAttribute("index", request.getParameter("index"));
+		model.addAttribute("items", itemList);
+		model.addAttribute("itemType", type);
 		
-		return new ModelAndView(json);
+		return new ModelAndView("/module/radiotest/ajax/addListing", model);
 	}
 	
 	private String redirect(String url){

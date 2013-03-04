@@ -31,7 +31,7 @@ public interface RadioInventoryService extends OpenmrsService {
 	
 	@Transactional(readOnly = true)
 	public RadioItem getItem(Integer itemId) throws APIException;
-	
+		
 	@Transactional(readOnly = true)
 	public List<RadioItem> getItemByType(RadioItemType type) throws APIException;
 	
@@ -50,7 +50,8 @@ public interface RadioInventoryService extends OpenmrsService {
 	public RadioTransItem getTransItem(Integer id) throws APIException;
 	
 	
+	public List<RadioStockListing> saveListings(List<RadioStockListing> listings) throws APIException;
+	
 	@Transactional(readOnly = true)
 	public List<RadioStockListing> getAllListings() throws APIException;
-	
 }

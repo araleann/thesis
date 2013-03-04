@@ -6,6 +6,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
+import org.hibernate.classic.Session;
 import org.hibernate.criterion.Restrictions;
 import org.openmrs.api.db.DAOException;
 import org.openmrs.module.radiotest.RadioItem;
@@ -133,6 +134,17 @@ public class HibernateRadioInventoryDAO implements RadioInventoryDAO {
 		// TODO Auto-generated method stub
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(RadioStockListing.class);
 		return (List<RadioStockListing>) criteria.list();
+	}
+
+	@Override
+	public List<RadioStockListing> saveListings(List<RadioStockListing> listings)
+			throws DAOException {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		for(RadioStockListing list : listings){
+			session.saveOrUpdate(list);
+		}
+		return listings;
 	}
 
 }

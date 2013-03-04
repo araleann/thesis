@@ -47,5 +47,4 @@ public class RadioStockListing extends BaseOpenmrsMetadata {
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
-
 }

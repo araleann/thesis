@@ -133,4 +133,10 @@ public class RadioInventoryServiceImpl extends BaseOpenmrsService implements
 		return dao.getAllListings();
 	}
 
+	@Override
+	public List<RadioStockListing> saveListings(List<RadioStockListing> listings)
+			throws APIException {
+		// TODO Auto-generated method stub
+		return dao.saveListings(listings);
+	}
 }

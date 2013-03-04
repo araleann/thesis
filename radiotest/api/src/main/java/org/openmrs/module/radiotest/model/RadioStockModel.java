@@ -1,5 +1,10 @@
 package org.openmrs.module.radiotest.model;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import org.openmrs.module.radiotest.RadioItem;
 import org.openmrs.module.radiotest.RadioStockListing;
 import org.springframework.util.AutoPopulatingList;
 
@@ -19,4 +24,13 @@ public class RadioStockModel {
 		this.listings = listings;
 	}
 	
+	public List<RadioStockListing> getFullListings(){
+		Date date = new Date();
+		
+		for(RadioStockListing list : listings){
+			list.setListingDate(date);
+		}
+		
+		return listings;
+	}
 }

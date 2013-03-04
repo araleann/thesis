@@ -24,5 +24,6 @@ public interface RadioInventoryDAO {
 	public RadioTransItem saveTransItem(RadioTransItem item) throws DAOException;
 	public RadioTransItem getTransItem(Integer id) throws DAOException;
 	
+	public List<RadioStockListing> saveListings(List<RadioStockListing> listings) throws DAOException;
 	public List<RadioStockListing> getAllListings() throws DAOException;
 }
