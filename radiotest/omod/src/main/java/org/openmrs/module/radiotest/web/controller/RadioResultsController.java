@@ -67,7 +67,7 @@ public class RadioResultsController {
 	public ModelAndView getExamList(@RequestParam("transId") RadioTransaction trans, ModelMap model){
 		model.addAttribute("exams", trans.getExams());
 		
-		return new ModelAndView("/module/radiotest/examList", model);
+		return new ModelAndView("/module/radiotest/ajax/examList", model);
 	}	
 	
 	@RequestMapping(value = RESULTS_PAGE, method = RequestMethod.POST)
@@ -95,7 +95,7 @@ public class RadioResultsController {
 		RadioTransaction trans = exam.getTransaction();
 		model.addAttribute("exams", trans.getExams());
 		
-		return new ModelAndView("/module/radiotest/examList", model);
+		return new ModelAndView("/module/radiotest/ajax/examList", model);
 	}
 	
 	@RequestMapping(value = RESULTS_FORM, method = RequestMethod.POST)

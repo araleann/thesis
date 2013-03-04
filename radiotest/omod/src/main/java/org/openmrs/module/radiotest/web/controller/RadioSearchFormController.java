@@ -43,7 +43,7 @@ public class RadioSearchFormController {
 			return new ModelAndView(view);
 		} else {
 			model.addAttribute("list", list);
-			return new ModelAndView("/module/radiotest/patientList", model);
+			return new ModelAndView("/module/radiotest/ajax/patientList", model);
 		}
 	}
 	

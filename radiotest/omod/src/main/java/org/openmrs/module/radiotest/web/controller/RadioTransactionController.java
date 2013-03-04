@@ -84,7 +84,7 @@ public class RadioTransactionController {
 	public ModelAndView addExam(@RequestParam("index") Integer index, ModelMap model){
 		model.addAttribute("index", index);
 		
-		return new ModelAndView("/module/radiotest/editExam", model);
+		return new ModelAndView("/module/radiotest/ajax/editExam", model);
 	}
 	
 	@RequestMapping(value = "/module/radiotest/getExams", method = RequestMethod.POST)
@@ -92,7 +92,7 @@ public class RadioTransactionController {
 		model.addAttribute("index", request.getParameter("index"));
 		model.addAttribute("exam", Context.getService(RadioExamService.class).getExamByType(type));
 		
-		return new ModelAndView("/module/radiotest/editExam", model);
+		return new ModelAndView("/module/radiotest/ajax/editExam", model);
 	}
 	
 	@RequestMapping(value = TRANS_EXAM_FORM, method = RequestMethod.POST)
@@ -119,7 +119,7 @@ public class RadioTransactionController {
 		model.addAttribute("note", tm.getNote());
 		tm.setNote(new RadioNote());
 		
-		return new ModelAndView("/module/radiotest/editNote", model);
+		return new ModelAndView("/module/radiotest/ajax/editNote", model);
 	}
 	
 	@RequestMapping(value = TRANSACTION_FORM, method = RequestMethod.POST)
