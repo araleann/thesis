@@ -11,9 +11,11 @@ import org.springframework.util.AutoPopulatingList;
 public class RadioStockModel {
 
 	private AutoPopulatingList<RadioStockListing> listings;
+	private List<RadioItem> items;
 	
 	public RadioStockModel(){
 		listings = new AutoPopulatingList<RadioStockListing>(RadioStockListing.class);
+		items = new ArrayList<RadioItem>();
 	}
 
 	public AutoPopulatingList<RadioStockListing> getListings() {
@@ -24,6 +26,14 @@ public class RadioStockModel {
 		this.listings = listings;
 	}
 	
+	public List<RadioItem> getItems() {
+		return items;
+	}
+
+	public void setItems(List<RadioItem> items) {
+		this.items = items;
+	}
+
 	public List<RadioStockListing> getFullListings(){
 		Date date = new Date();
 		

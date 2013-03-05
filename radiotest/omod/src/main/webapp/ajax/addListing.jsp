@@ -1,24 +1,21 @@
 <%@ include file="/WEB-INF/template/include.jsp"%>
 <%@ include file="/WEB-INF/template/header.jsp"%>
 
-<fieldset class="field">
-	<legend>${ itemType.name }</legend>
-	<button type="button" onclick="deleteType(${ index })">Delete Type</button>
-	<br>
-	<button type="button" onclick="addItem(${ index })">Add Item</button>
-	<br>
-	<br>
-	<div id="type${ index }">
-		<input type="hidden" name="type" value="${ itemType.id }">
+<div class="items">
+	<select size="5">
+		<c:forEach var="item" items="${ items }">
+			<c:set var="id" value="${ item.id }" />
+			<option value="${ id }" ondblclick="addItem(${ id })">${ item.name }</option>
+		</c:forEach>
+	</select>
+</div>
+
+<div class="listings">
+	<c:forEach var="item" items="${ items }">
 		<div class="item">
-			<select>
-				<option value="0"></option>
-				<c:forEach var="item" items="${ items }">
-					<option value="${ item.id }">${ item.name } (${ item.unit })</option>
-				</c:forEach>
-			</select>
-			<input type="text" placeholder="Qty">
+			<input type="hidden" value="${ item.id }">
+			${ item.name } : <input type="text" placeholder="Qty (${ item.unit })">
 			<button type="button" onclick="deleteItem(this)">Delete Item</button>
 		</div>
-	</div>
-</fieldset>
+	</c:forEach>
+</div>

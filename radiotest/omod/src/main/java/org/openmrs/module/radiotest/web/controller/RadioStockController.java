@@ -11,6 +11,7 @@ import org.openmrs.module.radiotest.RadioStockListing;
 import org.openmrs.module.radiotest.api.RadioInventoryService;
 import org.openmrs.module.radiotest.model.RadioStockModel;
 import org.openmrs.module.radiotest.propertyeditor.RadioComparator;
+import org.openmrs.module.radiotest.propertyeditor.RadioItemCollectionEditor;
 import org.openmrs.module.radiotest.propertyeditor.RadioItemPropertyEditor;
 import org.openmrs.module.radiotest.propertyeditor.RadioItemTypePropertyEditor;
 import org.springframework.stereotype.Controller;
@@ -35,6 +36,7 @@ public class RadioStockController {
 	public void initBinder(WebRequest request, WebDataBinder binder){
 		binder.registerCustomEditor(RadioItemType.class, new RadioItemTypePropertyEditor());
 		binder.registerCustomEditor(RadioItem.class, new RadioItemPropertyEditor());
+		binder.registerCustomEditor(List.class, "items", new RadioItemCollectionEditor(List.class));
 	}
 	
 	@ModelAttribute("itemTypes")
@@ -71,8 +73,8 @@ public class RadioStockController {
 	}
 	
 	@RequestMapping(value = STOCK_PAGE, method = RequestMethod.GET)
-	public void showForm(){
-		
+	public void showForm(ModelMap model){
+		model.addAttribute("items", Context.getService(RadioInventoryService.class).getAllItems());
 	}
 	
 	@RequestMapping(value = STOCK_PAGE, method = RequestMethod.POST)
@@ -92,12 +94,17 @@ public class RadioStockController {
 	}
 	
 	@RequestMapping(value = "/module/radiotest/getItems", method = RequestMethod.POST)
-	public ModelAndView getItemsByType(@RequestParam("type") RadioItemType type, WebRequest request, ModelMap model){
+	public ModelAndView getItemsByType(@RequestParam("type") RadioItemType type, ModelMap model){
 		List<RadioItem> itemList = Context.getService(RadioInventoryService.class).getItemByType(type);
 		
-		model.addAttribute("index", request.getParameter("index"));
 		model.addAttribute("items", itemList);
-		model.addAttribute("itemType", type);
+		
+		return new ModelAndView("/module/radiotest/ajax/addListing", model);
+	}
+	
+	@RequestMapping(value = "/module/radiotest/addListing", method = RequestMethod.POST)
+	public ModelAndView addListing(@ModelAttribute("stockModel") RadioStockModel sm, ModelMap model){
+		model.addAttribute("items", sm.getItems());
 		
 		return new ModelAndView("/module/radiotest/ajax/addListing", model);
 	}
