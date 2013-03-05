@@ -27,6 +27,27 @@ function addType(){
 	});
 }
 
+function deleteType(ind){
+	var divId = "#type" + ind;
+	var typeId = $j(divId)
+					.find("input[name=type]")
+					.val();
+	
+	$j("#type")
+		.children("option[value=" + typeId + "]")
+			.attr("disabled", false);
+	
+	$j(divId)
+		.parent()
+			.remove();
+}
+
+function deleteItem(buttonElem){
+	$j(buttonElem)
+		.parent()
+			.remove();
+}
+
 function addItem(ind){
 	var divId = "#type" + ind;
 	var $input = $j(divId)
@@ -63,6 +84,8 @@ function addStock(){
 	<br>
 	<br>
 	<button type="button" onclick="addStock()">Add Stock</button>
+	<br>
+	<br>
 	<div id="listings">
 	
 	</div>

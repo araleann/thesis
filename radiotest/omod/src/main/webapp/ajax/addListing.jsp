@@ -3,7 +3,8 @@
 
 <fieldset class="field">
 	<legend>${ itemType.name }</legend>
-	<button type="button" onclick="deleteType(${ index })">Delete</button>
+	<button type="button" onclick="deleteType(${ index })">Delete Type</button>
+	<br>
 	<button type="button" onclick="addItem(${ index })">Add Item</button>
 	<br>
 	<br>
@@ -17,7 +18,7 @@
 				</c:forEach>
 			</select>
 			<input type="text" placeholder="Qty">
-			<button type="button">Delete Item</button>
+			<button type="button" onclick="deleteItem(this)">Delete Item</button>
 		</div>
 	</div>
 </fieldset>

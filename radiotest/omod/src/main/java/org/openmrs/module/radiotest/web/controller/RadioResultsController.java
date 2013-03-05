@@ -1,5 +1,6 @@
 package org.openmrs.module.radiotest.web.controller;
 
+import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -11,6 +12,7 @@ import org.openmrs.module.radiotest.RadioTransExam;
 import org.openmrs.module.radiotest.RadioTransaction;
 import org.openmrs.module.radiotest.api.RadioPatientService;
 import org.openmrs.module.radiotest.api.RadioTransactionService;
+import org.openmrs.module.radiotest.propertyeditor.RadioComparator;
 import org.openmrs.module.radiotest.propertyeditor.RadioTransExamPropertyEditor;
 import org.openmrs.module.radiotest.propertyeditor.RadioTransactionPropertyEditor;
 import org.springframework.stereotype.Controller;
@@ -48,6 +50,7 @@ public class RadioResultsController {
 		List<RadioTransaction> transList = null;
 		if (patient != null){
 			transList = Context.getService(RadioTransactionService.class).getTransactions(patient);
+			Collections.sort(transList, Collections.reverseOrder(new RadioComparator()));
 		}
 		
 		return transList;
