@@ -104,13 +104,20 @@ public class RadioResultsController {
 	@RequestMapping(value = RESULTS_FORM, method = RequestMethod.POST)
 	public ModelAndView saveResult(@ModelAttribute("result") RadioResult result, @RequestParam("examId") RadioTransExam e, 
 								ModelMap model){
+		RadioTransactionService ts = Context.getService(RadioTransactionService.class);
 		if(!result.isDraft()){
 			e.setPending(false);
 		}
-		e.addFinding(result);
-		e.getTransaction().update();
 		
-		model.addAttribute("transExam", Context.getService(RadioTransactionService.class).saveTransExam(e));
+		if (result.getId() != null){
+			result = ts.saveResult(result);
+		} else {
+			e.addFinding(result);
+			e.getTransaction().update();
+			ts.saveTransExam(e);
+		}
+		
+		model.addAttribute("transExam", ts.updateTransExam(e));
 		model.addAttribute("result", result);
 		model.addAttribute("findings", escapeNewline(result.getFindings(), "<br>"));
 		

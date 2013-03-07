@@ -11,6 +11,7 @@ import org.openmrs.api.db.DAOException;
 import org.openmrs.module.radiotest.RadioFeeType;
 import org.openmrs.module.radiotest.RadioNoteType;
 import org.openmrs.module.radiotest.RadioPatient;
+import org.openmrs.module.radiotest.RadioResult;
 import org.openmrs.module.radiotest.RadioTransExam;
 import org.openmrs.module.radiotest.RadioTransaction;
 import org.openmrs.module.radiotest.api.db.RadioTransactionDAO;
@@ -161,5 +162,12 @@ public class HibernateRadioTransactionDAO implements RadioTransactionDAO {
 	public void deleteFeeType(RadioFeeType type) throws DAOException {
 		// TODO Auto-generated method stub
 		sessionFactory.getCurrentSession().delete(type);
+	}
+
+	@Override
+	public RadioResult saveResult(RadioResult result) throws DAOException {
+		// TODO Auto-generated method stub
+		sessionFactory.getCurrentSession().saveOrUpdate(result);
+		return result;
 	}
 }

@@ -7,6 +7,7 @@ import org.openmrs.api.OpenmrsService;
 import org.openmrs.module.radiotest.RadioFeeType;
 import org.openmrs.module.radiotest.RadioNoteType;
 import org.openmrs.module.radiotest.RadioPatient;
+import org.openmrs.module.radiotest.RadioResult;
 import org.openmrs.module.radiotest.RadioTransExam;
 import org.openmrs.module.radiotest.RadioTransaction;
 import org.springframework.transaction.annotation.Transactional;
@@ -61,4 +62,7 @@ public interface RadioTransactionService extends OpenmrsService {
 	public List<RadioFeeType> getAllFeeTypes(boolean includeVoided) throws APIException;
 	
 	public void deleteFeeType(RadioFeeType type) throws APIException;
+	
+	
+	public RadioResult saveResult(RadioResult result) throws APIException;
 }

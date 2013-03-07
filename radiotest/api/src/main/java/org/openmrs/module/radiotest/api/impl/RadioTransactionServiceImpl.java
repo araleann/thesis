@@ -172,4 +172,10 @@ public class RadioTransactionServiceImpl extends BaseOpenmrsService implements R
 		// TODO Auto-generated method stub
 		dao.deleteFeeType(type);
 	}
+
+	@Override
+	public RadioResult saveResult(RadioResult result) throws APIException {
+		// TODO Auto-generated method stub
+		return dao.saveResult(result);
+	}
 }

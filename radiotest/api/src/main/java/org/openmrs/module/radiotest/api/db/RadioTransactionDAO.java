@@ -6,6 +6,7 @@ import org.openmrs.api.db.DAOException;
 import org.openmrs.module.radiotest.RadioFeeType;
 import org.openmrs.module.radiotest.RadioNoteType;
 import org.openmrs.module.radiotest.RadioPatient;
+import org.openmrs.module.radiotest.RadioResult;
 import org.openmrs.module.radiotest.RadioTransExam;
 import org.openmrs.module.radiotest.RadioTransaction;
 
@@ -29,5 +30,7 @@ public interface RadioTransactionDAO {
 	public RadioFeeType getFeeType(Integer typeId) throws DAOException;
 	public List<RadioFeeType> getAllFeeTypes(boolean includeVoided) throws DAOException;
 	public void deleteFeeType(RadioFeeType type) throws DAOException;
+	
+	public RadioResult saveResult(RadioResult result) throws DAOException;
 	
 }
