@@ -2,10 +2,10 @@
 <%@ include file="/WEB-INF/template/header.jsp"%>
 
 <div class="items">
-	<select size="5">
+	<select id="items" size="5" multiple>
 		<c:forEach var="item" items="${ items }">
 			<c:set var="id" value="${ item.id }" />
-			<option value="${ id }" ondblclick="addItem(${ id })">${ item.name }</option>
+			<option value="${ id }" ondblclick="addItems()">${ item.name }</option>
 		</c:forEach>
 	</select>
 </div>

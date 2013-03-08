@@ -95,7 +95,14 @@ public class RadioStockController {
 	
 	@RequestMapping(value = "/module/radiotest/getItems", method = RequestMethod.POST)
 	public ModelAndView getItemsByType(@RequestParam("type") RadioItemType type, ModelMap model){
-		List<RadioItem> itemList = Context.getService(RadioInventoryService.class).getItemByType(type);
+		RadioInventoryService is = Context.getService(RadioInventoryService.class);
+		List<RadioItem> itemList;
+		
+		if (type == null){
+			itemList = is.getAllItems();
+		} else {
+			itemList = is.getItemByType(type);
+		}
 		
 		model.addAttribute("items", itemList);
 		

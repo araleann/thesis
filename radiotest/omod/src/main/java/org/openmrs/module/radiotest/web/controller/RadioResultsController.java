@@ -10,8 +10,10 @@ import org.openmrs.module.radiotest.RadioPatient;
 import org.openmrs.module.radiotest.RadioResult;
 import org.openmrs.module.radiotest.RadioTransExam;
 import org.openmrs.module.radiotest.RadioTransaction;
+import org.openmrs.module.radiotest.api.RadioInventoryService;
 import org.openmrs.module.radiotest.api.RadioPatientService;
 import org.openmrs.module.radiotest.api.RadioTransactionService;
+import org.openmrs.module.radiotest.model.RadioStockModel;
 import org.openmrs.module.radiotest.propertyeditor.RadioComparator;
 import org.openmrs.module.radiotest.propertyeditor.RadioTransExamPropertyEditor;
 import org.openmrs.module.radiotest.propertyeditor.RadioTransactionPropertyEditor;
@@ -105,8 +107,14 @@ public class RadioResultsController {
 	public ModelAndView saveResult(@ModelAttribute("result") RadioResult result, @RequestParam("examId") RadioTransExam e, 
 								ModelMap model){
 		RadioTransactionService ts = Context.getService(RadioTransactionService.class);
+		RadioInventoryService is = Context.getService(RadioInventoryService.class);
+		
 		if(!result.isDraft()){
 			e.setPending(false);
+			model.addAttribute("itemTypes", is.getAllItemTypes());
+			model.addAttribute("items", is.getAllItems());
+			model.addAttribute("stockModel", new RadioStockModel());
+			model.addAttribute("findings", escapeNewline(result.getFindings(), "<br>"));
 		}
 		
 		if (result.getId() != null){
@@ -119,7 +127,6 @@ public class RadioResultsController {
 		
 		model.addAttribute("transExam", ts.updateTransExam(e));
 		model.addAttribute("result", result);
-		model.addAttribute("findings", escapeNewline(result.getFindings(), "<br>"));
 		
 		return new ModelAndView("/module/radiotest/resultsForm", model);
 	}

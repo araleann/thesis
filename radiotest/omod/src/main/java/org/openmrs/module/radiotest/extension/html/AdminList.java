@@ -60,6 +60,8 @@ public class AdminList extends AdministrationSectionExt {
 		map.put("/module/radiotest/transactions.htm", "Transactions Page");
 		map.put("/module/radiotest/results.htm", "Results Page");
 		map.put("/module/radiotest/home.htm", "Home");
+		map.put("/module/radiotest/inventory.htm", "Inventory");
+		map.put("/module/radiotest/listings.htm", "Stock Listings");
 		
 		return map;
 	}

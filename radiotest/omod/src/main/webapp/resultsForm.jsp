@@ -8,6 +8,9 @@ var savePath = modulePath + "/resultsForm.htm";
 var editPath = modulePath + "/editResultForm.htm";
 var template = "${ template }";
 
+var itemPath = modulePath + "/getItems.htm";
+var stockPath = modulePath + "/addListing.htm";
+
 function saveDraft(){
 	$j.post(savePath, $j("#result").serialize(), function(data){
 		alert("Saved as draft!");
@@ -41,6 +44,28 @@ function writeTemplate(){
 	} else {
 		$findings.val("");
 	}
+}
+
+
+function getItems(){
+	$j.post(itemPath, $j("#type").serialize(), function(data){
+		var $items = $j(".items", data);
+		$j(".items").replaceWith($items);
+	});
+}
+
+function deleteItem(buttonElem){
+	$j(buttonElem)
+		.parent()
+			.remove();
+}
+
+
+function addItems(){
+	$j.post(stockPath, $j("#item").serialize(), function(data){
+		var $listings = $j(".listings", data);
+		$j("#listings").append($listings.children());
+	});
 }
 //-->
 </script>
@@ -82,9 +107,9 @@ Exam Name: ${ exam.name }
 				</spring:bind>
 				<br>
 				<br>
-				<button type="button" onclick="save()">Save</button>
-				<button type="button" onclick="saveDraft()">Save As Draft</button>
 			</form:form>
+			<button type="button" onclick="save()">Save</button>
+			<button type="button" onclick="saveDraft()">Save As Draft</button>
 		</c:when>
 		<c:otherwise>
 			<form id="result">
@@ -102,8 +127,33 @@ Exam Name: ${ exam.name }
 			<br>
 			${ findings }
 			<br>
-			<br>
 			<button type="button" onclick="edit()">Edit</button>
+			<h2>Items Used</h2>
+			<div id="inventory">
+				<div id="select">
+					<select id="type" name="type" onchange="getItems()">
+						<option value="0">All</option>
+						<c:forEach var="type" items="${ itemTypes }">
+							<option value="${ type.id }">${ type.name }</option>
+						</c:forEach>
+					</select>
+					<div class="items">
+						<select id="item" name="items" size="5" multiple>
+							<c:forEach var="item" items="${ items }">
+								<c:set var="id" value="${ item.id }" />
+								<option value="${ id }" ondblclick="addItems()">${ item.name }</option>
+							</c:forEach>
+						</select>
+					</div>
+				</div>
+				<div id="items">
+					<form:form method="post" modelAttribute="stockModel" id="itemForm">
+						<div id="listings">
+							
+						</div>
+					</form:form>
+				</div>
+			</div>
 		</c:otherwise>
 	</c:choose>
 </div>

@@ -58,8 +58,8 @@ function addStock(){
 				<option value="${ id }" ondblclick="addItems()">${ item.name }</option>
 			</c:forEach>
 		</select>
-		<button type="button" onclick="addItems()">Add Item(s)</button>
 	</div>
+	<button type="button" onclick="addItems()">Add Item(s)</button>
 </div>
 
 <div id="listingDiv">

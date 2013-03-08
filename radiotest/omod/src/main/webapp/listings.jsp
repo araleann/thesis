@@ -12,7 +12,7 @@ Last Update: ${ updateDate }
 	Date: ${ listing.listingDate } <br>
 	Item Type: ${ item.type.name } <br>
 	Item Name: ${ item.name } <br>
-	Quantity added: ${ listing.quantity } <br>
+	Quantity added: ${ listing.quantity } ${ item.unit }<br>
 	<br>
 </c:forEach>
 
