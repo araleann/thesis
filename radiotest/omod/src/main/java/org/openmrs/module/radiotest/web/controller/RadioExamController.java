@@ -85,11 +85,6 @@ public class RadioExamController {
 		return new ModelAndView(EXAM_FORM, model);
 	}
 	
-	@RequestMapping(value = "/module/radiotest/refreshExam", method = RequestMethod.GET)
-	public ModelAndView refreshForm(){
-		return new ModelAndView("redirect:" + EXAM_FORM + ".htm"); 
-	}
-	
 	@RequestMapping(value = "/module/radiotest/nullExam", method = RequestMethod.POST)
 	public ModelAndView nullExam(@RequestParam("eid") RadioExam exam, @RequestParam("action") String action){
 		RadioExamService es = Context.getService(RadioExamService.class);

@@ -22,6 +22,35 @@ function loadExamTypes(){
 	});
 }
 
+function clearForm(){
+	$j("#typeForm")
+		.find(":selected, :checked")
+			.each(function(i){
+				var $this = $j(this);
+				if($this.attr("selected")){
+					$this.attr("selected", false);
+				} else {
+					$this.attr("checked", false);
+				}
+			});
+	
+	$j("#typeForm")
+		.find(":input:not(button)")
+			.each(function(i){
+				var $this = $j(this);
+				switch(this.tagName){
+				case "TEXTAREA":
+					$this.text("");
+					break;
+				case "INPUT":
+					var type = $this.attr("type");
+					if(type == "text" || type == "hidden")
+						$this.val("");
+					break;
+				}
+			});
+}
+
 function editExamType(id){
 	$j.post(editPath, { eid : id }, function(data){
 		var formId = "#typeForm";
@@ -76,12 +105,14 @@ $j(function(){
 <br>
 <h2>Add Exam Type</h2>
 <form:form method="post" modelAttribute="examType" id="typeForm">
+	<form:hidden path="id" />
 	<form:input path="type" cssClass="patientinput" />
 	<br>
 	<br>
 	<form:textarea cssClass="addressinput" path="template" />
 	<br>
 	<button type="button" onclick="loadExamTypes()" class="buttondesign">Save</button>
+	<button type="button" onclick="clearForm()" class="buttondesign">Clear</button>
 </form:form>
 <br>
 <hr>

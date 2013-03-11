@@ -28,10 +28,27 @@ function clearForm(){
 	$j("#itemForm")
 		.find(":selected, :checked")
 			.each(function(i){
-				if(this.attr("selected")){
-					this.attr("selected", false);
+				var $this = $j(this);
+				if($this.attr("selected")){
+					$this.attr("selected", false);
 				} else {
-					this.attr("checked", false);
+					$this.attr("checked", false);
+				}
+			});
+	
+	$j("#itemForm")
+		.find(":input:not(button)")
+			.each(function(i){
+				var $this = $j(this);
+				switch(this.tagName){
+				case "TEXTAREA":
+					$this.text("");
+					break;
+				case "INPUT":
+					var type = $this.attr("type");
+					if(type == "text" || type == "hidden")
+						$this.val("");
+					break;
 				}
 			});
 }

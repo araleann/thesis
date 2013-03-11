@@ -7,7 +7,6 @@
 var modulePath = openmrsContextPath + "/module/radiotest";
 var savePath = modulePath + "/examForm.htm";
 var loadPath = modulePath + "/loadExam.htm";
-var refreshPath = modulePath + "/refreshExam.htm";
 var nullPath = modulePath + "/nullExam.htm";
 
 function loadExam(id){
@@ -24,12 +23,32 @@ function saveExam(){
 }
 
 function clearForm(){
-	console.log("clear!");
-	$j.get(refreshPath, function(data){
-		console.log(data);
-		var $form = $j("#examForm", $j(data));
-		$j("#examForm").replaceWith($form);
-	});
+	$j("#form")
+		.find(":selected, :checked")
+			.each(function(i){
+				var $this = $j(this);
+				if($this.attr("selected")){
+					$this.attr("selected", false);
+				} else {
+					$this.attr("checked", false);
+				}
+			});
+	
+	$j("#form")
+		.find(":input:not(button)")
+			.each(function(i){
+				var $this = $j(this);
+				switch(this.tagName){
+				case "TEXTAREA":
+					$this.text("");
+					break;
+				case "INPUT":
+					var type = $this.attr("type");
+					if(type == "text" || type == "hidden")
+						$this.val("");
+					break;
+				}
+			});
 }
 
 function voidExam(id){
