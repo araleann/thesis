@@ -72,7 +72,9 @@ public class HibernateRadioInventoryDAO implements RadioInventoryDAO {
 	@Override
 	public RadioItem saveItem(RadioItem item) throws DAOException {
 		// TODO Auto-generated method stub
-		sessionFactory.getCurrentSession().saveOrUpdate(item);
+		Session session = sessionFactory.getCurrentSession();
+		session.saveOrUpdate(session.merge(item));
+		
 		return item;
 	}
 

@@ -19,5 +19,5 @@ import org.openmrs.module.radiotest.api.RadioTestService;
  *  Database methods for {@link RadioTestService}.
  */
 public interface RadioTestDAO {
-
+	
 }

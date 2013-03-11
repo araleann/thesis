@@ -5,13 +5,14 @@
 
 <script>
 var modulePath = openmrsContextPath + "/module/radiotest";
+var formPath = modulePath + "/examTypeForm.htm";
 var nullPath = modulePath + "/nullExamType.htm";
 var editPath = modulePath + "/editExamType.htm";
 
 function loadExamTypes(){
 	var $form = $j("#typeForm");
 	
-	$j.post($form.attr("action"), $form.serialize(), function(data){
+	$j.post(formPath, $form.serialize(), function(data){
 		var $types = $j("#examTypes", $j(data));
 		$j("#examTypes").replaceWith($types);
 		$j("#template").val("");

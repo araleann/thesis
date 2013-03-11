@@ -1,5 +1,6 @@
 package org.openmrs.module.radiotest.api.impl;
 
+import java.util.LinkedHashSet;
 import java.util.List;
 
 import org.apache.commons.logging.Log;
@@ -131,5 +132,14 @@ public class RadioInventoryServiceImpl extends BaseOpenmrsService implements
 			throws APIException {
 		// TODO Auto-generated method stub
 		return dao.saveExamItems(items);
+	}
+
+	@Override
+	public RadioItem updateItem(RadioItem item) throws APIException {
+		// TODO Auto-generated method stub
+		item = dao.getItem(item.getId());
+		item.setStockListings(new LinkedHashSet<RadioStockListing>(item.getStockListings()));
+		
+		return item;
 	}
 }

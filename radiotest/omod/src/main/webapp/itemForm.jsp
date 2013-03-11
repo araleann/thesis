@@ -24,13 +24,24 @@ function post(divId, obj, path, callback){
 	});
 }
 
+function clearForm(){
+	$j("#itemForm")
+		.find(":selected, :checked")
+			.each(function(i){
+				if(this.attr("selected")){
+					this.attr("selected", false);
+				} else {
+					this.attr("checked", false);
+				}
+			});
+}
+
 function saveItem(){
 	var divId = "#items";
 	var $form = $j("#itemForm");
 	var obj = $form.serialize();
-	var path = $form.attr("action", formPath);
-		
-	post(divId, obj, path, focus);
+	
+	post(divId, obj, formPath, clearForm);
 }
 
 function voidItem(id){
@@ -115,6 +126,7 @@ $j(function(){
 	</select>
 	</p>
 	<button class="buttondesign" type="button" onclick="saveItem()">Save</button>
+	<button class="buttondesign" type="button" onclick="clearForm()">Clear</button>
 </form:form>
 <br>
 <hr>

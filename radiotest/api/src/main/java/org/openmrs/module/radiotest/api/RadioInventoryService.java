@@ -42,6 +42,8 @@ public interface RadioInventoryService extends OpenmrsService {
 	public List<RadioItem> getAllItems(boolean includeVoided) throws APIException;
 	
 	public void deleteItem(RadioItem item) throws APIException;
+	
+	public RadioItem updateItem(RadioItem item) throws APIException;
 		
 	
 	public List<RadioStockListing> saveListings(List<RadioStockListing> listings) throws APIException;

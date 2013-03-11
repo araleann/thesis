@@ -62,23 +62,24 @@ public class RadioItemController {
 	
 	@RequestMapping(value = ITEM_FORM, method = RequestMethod.POST)
 	public ModelAndView saveItem(@ModelAttribute("item") RadioItem item, WebRequest request){
-		
+		RadioInventoryService is = Context.getService(RadioInventoryService.class);
 		Integer threshold = Integer.valueOf(request.getParameter("limit"));
 		Integer type = Integer.valueOf(request.getParameter("limitType"));
 		
 		switch (type){
 		case 1:
 			item.setThreshold(threshold);
+			item.setPercentThreshold(0);
 			break;
 		case 2:
-			item.setPercentThreshold(threshold);
 			item.setThreshold(0);
+			item.setPercentThreshold(threshold);
 			break;
 		default:
 			System.out.println("Threshold not set!");
 		}
 		
-		Context.getService(RadioInventoryService.class).saveItem(item);
+		is.saveItem(item);
 		
 		return new ModelAndView(REDIRECT);
 	}
@@ -99,8 +100,6 @@ public class RadioItemController {
 	
 	@RequestMapping(value = "/module/radiotest/editItem", method = RequestMethod.POST)
 	public ModelAndView editItem(@RequestParam("iid") RadioItem item, ModelMap model){
-		
-		model.addAttribute("itemTypes", Context.getService(RadioInventoryService.class).getAllItemTypes());
 		model.addAttribute("item", item);
 		
 		return new ModelAndView(ITEM_FORM, model);
