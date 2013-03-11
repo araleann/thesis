@@ -3,10 +3,10 @@ package org.openmrs.module.radiotest.api.db;
 import java.util.List;
 
 import org.openmrs.api.db.DAOException;
+import org.openmrs.module.radiotest.RadioExamItem;
 import org.openmrs.module.radiotest.RadioItem;
 import org.openmrs.module.radiotest.RadioItemType;
 import org.openmrs.module.radiotest.RadioStockListing;
-import org.openmrs.module.radiotest.RadioTransItem;
 
 public interface RadioInventoryDAO {
 
@@ -21,9 +21,8 @@ public interface RadioInventoryDAO {
 	public List<RadioItem> getAllItems(boolean includeVoided) throws DAOException;
 	public void deleteItem(RadioItem item) throws DAOException;
 	
-	public RadioTransItem saveTransItem(RadioTransItem item) throws DAOException;
-	public RadioTransItem getTransItem(Integer id) throws DAOException;
-	
 	public List<RadioStockListing> saveListings(List<RadioStockListing> listings) throws DAOException;
 	public List<RadioStockListing> getAllListings() throws DAOException;
+	
+	public List<RadioExamItem> saveExamItems(List<RadioExamItem> items) throws DAOException;
 }

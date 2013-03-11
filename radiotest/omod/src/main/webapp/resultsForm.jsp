@@ -10,6 +10,7 @@ var template = "${ template }";
 
 var itemPath = modulePath + "/getItems.htm";
 var stockPath = modulePath + "/addListing.htm";
+var updatePath = modulePath + "/updateStock.htm";
 
 function saveDraft(){
 	$j.post(savePath, $j("#result").serialize(), function(data){
@@ -64,7 +65,26 @@ function deleteItem(buttonElem){
 function addItems(){
 	$j.post(stockPath, $j("#item").serialize(), function(data){
 		var $listings = $j(".listings", data);
+		$listings
+			.find("input:text")
+				.val("1");
 		$j("#listings").append($listings.children());
+	});
+}
+
+function updateStock(){
+	$j("#listings .item").each(function(i){
+		var item = "examItems[" + i + "]";
+		$j("input:hidden", this)
+			.attr("name", item + ".item");
+		$j("input:text", this)
+			.attr("name", item + ".quantity");
+	});
+	
+	$j.post(updatePath, $j("#itemForm").serialize(), function(data){
+		console.log(data);
+		var $inventory = $j("#inventory", data);
+		$j("#inventory").replaceWith($inventory);
 	});
 }
 //-->
@@ -130,29 +150,41 @@ Exam Name: ${ exam.name }
 			<button type="button" onclick="edit()">Edit</button>
 			<h2>Items Used</h2>
 			<div id="inventory">
-				<div id="select">
-					<select id="type" name="type" onchange="getItems()">
-						<option value="0">All</option>
-						<c:forEach var="type" items="${ itemTypes }">
-							<option value="${ type.id }">${ type.name }</option>
-						</c:forEach>
-					</select>
-					<div class="items">
-						<select id="item" name="items" size="5" multiple>
-							<c:forEach var="item" items="${ items }">
-								<c:set var="id" value="${ item.id }" />
-								<option value="${ id }" ondblclick="addItems()">${ item.name }</option>
-							</c:forEach>
-						</select>
-					</div>
-				</div>
-				<div id="items">
-					<form:form method="post" modelAttribute="stockModel" id="itemForm">
-						<div id="listings">
-							
+				<c:choose>
+					<c:when test="${ empty transExam.items }">
+						<div id="select">
+							<select id="type" name="type" onchange="getItems()">
+								<option value="0">All</option>
+								<c:forEach var="type" items="${ itemTypes }">
+									<option value="${ type.id }">${ type.name }</option>
+								</c:forEach>
+							</select>
+							<div class="items">
+								<select id="item" name="items" size="5" multiple>
+									<c:forEach var="item" items="${ items }">
+										<c:set var="id" value="${ item.id }" />
+										<option value="${ id }" ondblclick="addItems()">${ item.name }</option>
+									</c:forEach>
+								</select>
+							</div>
 						</div>
-					</form:form>
-				</div>
+						<div id="items">
+							<form:form method="post" modelAttribute="stockModel" id="itemForm">
+								<input type="hidden" name="examId" value="${ transExam.id }">
+								<div id="listings">
+									
+								</div>
+								<button type="button" onclick="updateStock()">Save</button>
+							</form:form>
+						</div>
+					</c:when>
+					<c:otherwise>
+						<c:forEach var="i" items="${ transExam.items }">
+							<c:set var="item" value="${ i.item }" />
+							${ item.name }: ${ i.quantity } ${ item.unit } <br>
+						</c:forEach>
+					</c:otherwise>
+				</c:choose>
 			</div>
 		</c:otherwise>
 	</c:choose>

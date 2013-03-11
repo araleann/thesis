@@ -5,7 +5,9 @@
 <script type="text/javascript">
 <!--
 var modulePath = openmrsContextPath + "/module/radiotest";
+var formPath = modulePath + "/itemForm.htm";
 var nullPath = modulePath + "/nullItem.htm";
+var editPath = modulePath + "/editItem.htm";
 
 function post(divId, obj, path, callback){
 	$j.post(path, obj, function(data){
@@ -26,14 +28,8 @@ function saveItem(){
 	var divId = "#items";
 	var $form = $j("#itemForm");
 	var obj = $form.serialize();
-	var path = $form.attr("action");
-	
-	function focus(){
-		$j("input[type=text]")
-			.val("")
-			focus();
-	}
-	
+	var path = $form.attr("action", formPath);
+		
 	post(divId, obj, path, focus);
 }
 
@@ -65,6 +61,15 @@ function deleteItem(id){
 	}
 }
 
+function editItem(id){
+	var formId = "#itemForm";
+	var obj = {
+		iid : id
+	};
+	
+	post(formId, obj, editPath);
+}
+
 $j(function(){	
 	GeneralUtils.addPlaceholderById("itemname", "Enter Item Name");
 	GeneralUtils.addPlaceholderById("unit", "Enter the Unit");
@@ -78,6 +83,7 @@ $j(function(){
 <h2>Items</h2>
 <form:form method="post" modelAttribute="item" id="itemForm">
 	<p>
+	<form:hidden path="id" />
 	<label>Item Type</label>
 	<form:select cssClass="patientinput" path="type">
 		<option value="0"></option>
@@ -95,10 +101,17 @@ $j(function(){
 	
 	<p>
 	<label>Threshold</label>
-	<input type="text" name="limit">
+	<c:set var="t" value="${ item.threshold }" />
+	<c:set var="pt" value="${ item.percentThreshold }" />
+	<c:set var="threshold" value="${ t > pt? t : pt }" />
+	<input type="text" name="limit" value="${ threshold }">
 	<select name="limitType">
 		<option value="1">units</option>
-		<option value="2">%</option>
+		<option value="2" 
+		<c:if test="${ pt > t }">
+			selected
+		</c:if>
+		>%</option>
 	</select>
 	</p>
 	<button class="buttondesign" type="button" onclick="saveItem()">Save</button>
@@ -140,6 +153,7 @@ $j(function(){
 					<button type="button" onclick="voidItem(${ id })"></button>
 					<br>
 					<button type="button" onclick="deleteItem(${ id })">Delete</button>
+					<button type="button" onclick="editItem(${ id })">Edit</button>
 				</div>
 			</c:forEach>
 		</div>

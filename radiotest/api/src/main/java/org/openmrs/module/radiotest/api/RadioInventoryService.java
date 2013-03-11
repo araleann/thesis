@@ -4,10 +4,10 @@ import java.util.List;
 
 import org.openmrs.api.APIException;
 import org.openmrs.api.OpenmrsService;
+import org.openmrs.module.radiotest.RadioExamItem;
 import org.openmrs.module.radiotest.RadioItem;
 import org.openmrs.module.radiotest.RadioItemType;
 import org.openmrs.module.radiotest.RadioStockListing;
-import org.openmrs.module.radiotest.RadioTransItem;
 import org.springframework.transaction.annotation.Transactional;
 
 @Transactional
@@ -42,16 +42,13 @@ public interface RadioInventoryService extends OpenmrsService {
 	public List<RadioItem> getAllItems(boolean includeVoided) throws APIException;
 	
 	public void deleteItem(RadioItem item) throws APIException;
-	
-	
-	public RadioTransItem saveTransItem(RadioTransItem item) throws APIException;
-	
-	@Transactional(readOnly = true)
-	public RadioTransItem getTransItem(Integer id) throws APIException;
-	
+		
 	
 	public List<RadioStockListing> saveListings(List<RadioStockListing> listings) throws APIException;
 	
 	@Transactional(readOnly = true)
 	public List<RadioStockListing> getAllListings() throws APIException;
+	
+	
+	public List<RadioExamItem> saveExamItems(List<RadioExamItem> items) throws APIException;
 }

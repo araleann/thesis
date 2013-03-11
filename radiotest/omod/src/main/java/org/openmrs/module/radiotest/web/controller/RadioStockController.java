@@ -5,15 +5,19 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.openmrs.api.context.Context;
+import org.openmrs.module.radiotest.RadioExamItem;
 import org.openmrs.module.radiotest.RadioItem;
 import org.openmrs.module.radiotest.RadioItemType;
 import org.openmrs.module.radiotest.RadioStockListing;
+import org.openmrs.module.radiotest.RadioTransExam;
 import org.openmrs.module.radiotest.api.RadioInventoryService;
+import org.openmrs.module.radiotest.api.RadioTransactionService;
 import org.openmrs.module.radiotest.model.RadioStockModel;
 import org.openmrs.module.radiotest.propertyeditor.RadioComparator;
 import org.openmrs.module.radiotest.propertyeditor.RadioItemCollectionEditor;
 import org.openmrs.module.radiotest.propertyeditor.RadioItemPropertyEditor;
 import org.openmrs.module.radiotest.propertyeditor.RadioItemTypePropertyEditor;
+import org.openmrs.module.radiotest.propertyeditor.RadioTransExamPropertyEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.WebDataBinder;
@@ -34,6 +38,7 @@ public class RadioStockController {
 	
 	@InitBinder
 	public void initBinder(WebRequest request, WebDataBinder binder){
+		binder.registerCustomEditor(RadioTransExam.class, new RadioTransExamPropertyEditor());
 		binder.registerCustomEditor(RadioItemType.class, new RadioItemTypePropertyEditor());
 		binder.registerCustomEditor(RadioItem.class, new RadioItemPropertyEditor());
 		binder.registerCustomEditor(List.class, "items", new RadioItemCollectionEditor(List.class));
@@ -114,6 +119,25 @@ public class RadioStockController {
 		model.addAttribute("items", sm.getItems());
 		
 		return new ModelAndView("/module/radiotest/ajax/addListing", model);
+	}
+	
+	@RequestMapping(value = "/module/radiotest/updateStock", method = RequestMethod.POST)
+	public ModelAndView updateStock(@ModelAttribute("stockModel") RadioStockModel sm, 
+										@RequestParam("examId") RadioTransExam exam, ModelMap model){
+		RadioInventoryService is = Context.getService(RadioInventoryService.class);
+		RadioTransactionService ts = Context.getService(RadioTransactionService.class);
+		List<RadioExamItem> items = sm.getExamItems();
+		for(RadioExamItem i : items){
+			RadioItem item = i.getItem();
+			item.updateStock(i.getQuantity());
+			is.saveItem(item);
+			
+			i.setExam(exam);
+		}
+		is.saveExamItems(items);
+		model.addAttribute("transExam", ts.updateTransExam(exam));
+		
+		return new ModelAndView("/module/radiotest/resultsForm", model);
 	}
 	
 	private String redirect(String url){

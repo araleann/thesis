@@ -38,13 +38,13 @@
 		RadioCategoryExam.hbm.xml
 		RadioTransaction.hbm.xml
 		RadioTransExam.hbm.xml
+		RadioExamItem.hbm.xml
 		RadioNote.hbm.xml
 		RadioNoteType.hbm.xml
 		RadioResult.hbm.xml
 		RadioCounter.hbm.xml
 		RadioItemType.hbm.xml
 		RadioItem.hbm.xml
-		RadioTransItem.hbm.xml
 		RadioFeeType.hbm.xml
 		RadioFee.hbm.xml
 		RadioStockListing.hbm.xml

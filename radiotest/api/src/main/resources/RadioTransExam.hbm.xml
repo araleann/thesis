@@ -39,5 +39,9 @@
 			<key column="trans_exam_id" />
 			<one-to-many class="RadioResult" />
 		</set>
+		<set name="items" cascade="all">
+			<key column="item_id" />
+			<one-to-many class="RadioExamItem" />
+		</set>
 	</class>
 </hibernate-mapping>

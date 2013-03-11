@@ -161,12 +161,11 @@
 				PRIMARY KEY (id)
 			);
 			
-			CREATE TABLE IF NOT EXISTS radio_trans_item (
+			CREATE TABLE IF NOT EXISTS radio_exam_item (
 				id INT(11) NOT NULL AUTO_INCREMENT,
-				trans_id INT(11) DEFAULT NULL,
+				te_id INT(11) DEFAULT NULL,
 				item_id INT(11) DEFAULT NULL,
 				qty INT DEFAULT 0,
-				logged BOOLEAN DEFAULT FALSE,
 				PRIMARY KEY (id)
 			);
 			

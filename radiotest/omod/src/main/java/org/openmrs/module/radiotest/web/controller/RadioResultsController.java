@@ -73,7 +73,7 @@ public class RadioResultsController {
 		model.addAttribute("exams", trans.getExams());
 		
 		return new ModelAndView("/module/radiotest/ajax/examList", model);
-	}	
+	}
 	
 	@RequestMapping(value = RESULTS_PAGE, method = RequestMethod.POST)
 	public ModelAndView editExamResults(@RequestParam("examId") RadioTransExam e, WebRequest request, ModelMap model){
@@ -84,6 +84,7 @@ public class RadioResultsController {
 			RadioResult result = e.getResult();
 			model.addAttribute("result", result);
 			model.addAttribute("findings", escapeNewline(result.getFindings(), "<br>"));
+			addInventoryModel(Context.getService(RadioInventoryService.class), model);
 		}
 		
 		return new ModelAndView("/module/radiotest/resultsForm", model);
@@ -111,9 +112,7 @@ public class RadioResultsController {
 		
 		if(!result.isDraft()){
 			e.setPending(false);
-			model.addAttribute("itemTypes", is.getAllItemTypes());
-			model.addAttribute("items", is.getAllItems());
-			model.addAttribute("stockModel", new RadioStockModel());
+			addInventoryModel(is, model);
 			model.addAttribute("findings", escapeNewline(result.getFindings(), "<br>"));
 		}
 		
@@ -137,6 +136,12 @@ public class RadioResultsController {
 		model.addAttribute("result", new RadioResult());
 		
 		return new ModelAndView("/module/radiotest/resultsForm", model);
+	}
+	
+	private void addInventoryModel(RadioInventoryService is, ModelMap model){
+		model.addAttribute("itemTypes", is.getAllItemTypes());
+		model.addAttribute("items", is.getAllItems());
+		model.addAttribute("stockModel", new RadioStockModel());
 	}
 	
 	private String escapeNewline(String str, String escapeStr){

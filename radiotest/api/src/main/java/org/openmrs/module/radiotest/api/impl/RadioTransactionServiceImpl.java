@@ -9,6 +9,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.api.APIException;
 import org.openmrs.api.impl.BaseOpenmrsService;
+import org.openmrs.module.radiotest.RadioExamItem;
 import org.openmrs.module.radiotest.RadioFeeType;
 import org.openmrs.module.radiotest.RadioNote;
 import org.openmrs.module.radiotest.RadioNoteType;
@@ -124,7 +125,7 @@ public class RadioTransactionServiceImpl extends BaseOpenmrsService implements R
 		// TODO Auto-generated method stub
 		exam = dao.getTransExam(exam.getId());
 		exam.setFindings(new LinkedHashSet<RadioResult>(exam.getFindings()));
-		
+		exam.setItems(new LinkedHashSet<RadioExamItem>(exam.getItems()));
 		return exam;
 	}
 

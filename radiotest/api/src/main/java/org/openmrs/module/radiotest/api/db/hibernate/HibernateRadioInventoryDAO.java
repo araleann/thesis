@@ -9,10 +9,10 @@ import org.hibernate.SessionFactory;
 import org.hibernate.classic.Session;
 import org.hibernate.criterion.Restrictions;
 import org.openmrs.api.db.DAOException;
+import org.openmrs.module.radiotest.RadioExamItem;
 import org.openmrs.module.radiotest.RadioItem;
 import org.openmrs.module.radiotest.RadioItemType;
 import org.openmrs.module.radiotest.RadioStockListing;
-import org.openmrs.module.radiotest.RadioTransItem;
 import org.openmrs.module.radiotest.api.db.RadioInventoryDAO;
 
 public class HibernateRadioInventoryDAO implements RadioInventoryDAO {
@@ -114,20 +114,6 @@ public class HibernateRadioInventoryDAO implements RadioInventoryDAO {
 		sessionFactory.getCurrentSession().delete(item);
 	}
 
-	@Override
-	public RadioTransItem saveTransItem(RadioTransItem item)
-			throws DAOException {
-		// TODO Auto-generated method stub
-		sessionFactory.getCurrentSession().saveOrUpdate(item);
-		return item;
-	}
-
-	@Override
-	public RadioTransItem getTransItem(Integer id) throws DAOException {
-		// TODO Auto-generated method stub
-		return (RadioTransItem) sessionFactory.getCurrentSession().get(RadioTransItem.class, id);
-	}
-
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<RadioStockListing> getAllListings() throws DAOException {
@@ -145,6 +131,17 @@ public class HibernateRadioInventoryDAO implements RadioInventoryDAO {
 			session.saveOrUpdate(list);
 		}
 		return listings;
+	}
+
+	@Override
+	public List<RadioExamItem> saveExamItems(List<RadioExamItem> items)
+			throws DAOException {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		for(RadioExamItem item : items){
+			session.saveOrUpdate(item);
+		}
+		return items;
 	}
 
 }

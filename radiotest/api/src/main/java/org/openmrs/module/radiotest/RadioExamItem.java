@@ -2,14 +2,14 @@ package org.openmrs.module.radiotest;
 
 import org.openmrs.BaseOpenmrsData;
 
-public class RadioTransItem extends BaseOpenmrsData {
+public class RadioExamItem extends BaseOpenmrsData {
 
 	private Integer id;
-	private RadioTransaction transaction;
+	
+	private RadioTransExam exam;
 	private RadioItem item;
 	
 	private int quantity;
-	private boolean logged;
 	
 	@Override
 	public Integer getId() {
@@ -23,12 +23,12 @@ public class RadioTransItem extends BaseOpenmrsData {
 		this.id = id;
 	}
 
-	public RadioTransaction getTransaction() {
-		return transaction;
+	public RadioTransExam getExam() {
+		return exam;
 	}
 
-	public void setTransaction(RadioTransaction transaction) {
-		this.transaction = transaction;
+	public void setExam(RadioTransExam exam) {
+		this.exam = exam;
 	}
 
 	public RadioItem getItem() {
@@ -47,16 +47,4 @@ public class RadioTransItem extends BaseOpenmrsData {
 		this.quantity = quantity;
 	}
 
-	public boolean isLogged() {
-		return logged;
-	}
-
-	public void setLogged(boolean logged) {
-		this.logged = logged;
-	}
-
-	// CUSTOM FUNCTIONS
-	public void log(){
-		item.updateStock(quantity);
-	}
 }

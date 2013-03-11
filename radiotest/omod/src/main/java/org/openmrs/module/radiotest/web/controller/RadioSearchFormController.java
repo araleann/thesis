@@ -31,11 +31,7 @@ public class RadioSearchFormController {
 	
 	@RequestMapping(value = PATIENT_FORM, method = RequestMethod.GET)
 	public void showPatientForm(HttpSession session){
-		RadioPatient patient = (RadioPatient) session.getAttribute("patient");
-		
-		if (patient != null){
-			session.removeAttribute("patient");
-		}
+		session.removeAttribute("patient");
 	}
 	
 	@RequestMapping(value = "/module/radiotest/searchPatient", method = RequestMethod.POST)

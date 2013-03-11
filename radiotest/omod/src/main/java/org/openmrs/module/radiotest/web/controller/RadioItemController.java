@@ -10,6 +10,7 @@ import org.openmrs.module.radiotest.api.RadioInventoryService;
 import org.openmrs.module.radiotest.propertyeditor.RadioItemPropertyEditor;
 import org.openmrs.module.radiotest.propertyeditor.RadioItemTypePropertyEditor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -71,6 +72,7 @@ public class RadioItemController {
 			break;
 		case 2:
 			item.setPercentThreshold(threshold);
+			item.setThreshold(0);
 			break;
 		default:
 			System.out.println("Threshold not set!");
@@ -93,5 +95,14 @@ public class RadioItemController {
 		}
 		
 		return new ModelAndView(REDIRECT);
+	}
+	
+	@RequestMapping(value = "/module/radiotest/editItem", method = RequestMethod.POST)
+	public ModelAndView editItem(@RequestParam("iid") RadioItem item, ModelMap model){
+		
+		model.addAttribute("itemTypes", Context.getService(RadioInventoryService.class).getAllItemTypes());
+		model.addAttribute("item", item);
+		
+		return new ModelAndView(ITEM_FORM, model);
 	}
 }

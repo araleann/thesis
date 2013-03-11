@@ -21,6 +21,7 @@ public class RadioTransExam extends BaseOpenmrsData {
 	private boolean borrowed = false;
 		
 	private Set<RadioResult> findings;
+	private Set<RadioExamItem> items;
 		
 	private Boolean voided = Boolean.FALSE;
 	
@@ -96,6 +97,14 @@ public class RadioTransExam extends BaseOpenmrsData {
 		this.findings = findings;
 	}
 	
+	public Set<RadioExamItem> getItems() {
+		return items;
+	}
+
+	public void setItems(Set<RadioExamItem> items) {
+		this.items = items;
+	}
+
 	public void addFinding(RadioResult res){
 		if (findings == null){
 			findings = new LinkedHashSet<RadioResult>();

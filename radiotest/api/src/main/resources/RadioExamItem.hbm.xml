@@ -17,19 +17,18 @@
 	</class>
 -->
 
-	<class name="RadioTransItem" table="radio_trans_item">
-		<id name="id" type="java.lang.Integer" unsaved-value="0">
+	<class name="RadioExamItem" table="radio_exam_item">
+		<id name="id" type="java.lang.Integer" column="id" unsaved-value="0">
 			<generator class="native" />
 		</id>
-		<property name="quantity" type="integer" column="qty"
+		<discriminator column="id" insert="false" />
+		<property name="quantity" type="int" column="qty"
 			access="field" />
-		<property name="logged" type="boolean" column="logged"
-			access="field" />
-			
-		<many-to-one name="transaction" column="trans_id" unique="true"
-			class="RadioTransaction" />
+		
+		<many-to-one name="exam" column="te_id" unique="true"
+			class="RadioTransExam" />
 		<many-to-one name="item" column="item_id" unique="true"
 			class="RadioItem" />
+			
 	</class>
-
 </hibernate-mapping>
