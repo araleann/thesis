@@ -6,6 +6,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
+import org.hibernate.classic.Session;
 import org.hibernate.criterion.Conjunction;
 import org.hibernate.criterion.Restrictions;
 import org.openmrs.api.db.DAOException;
@@ -50,7 +51,10 @@ public class HibernateRadioPatientDAO implements RadioPatientDAO {
 	@Override
 	public RadioPatient savePatient(RadioPatient patient) throws DAOException {
 		// TODO Auto-generated method stub
-		sessionFactory.getCurrentSession().saveOrUpdate(patient);
+		Session session = sessionFactory.getCurrentSession();
+		patient = (RadioPatient) session.merge(patient);
+		session.saveOrUpdate(patient);
+		
 		return patient;
 	}
 
@@ -124,7 +128,9 @@ public class HibernateRadioPatientDAO implements RadioPatientDAO {
 	public RadioCategory saveCategory(RadioCategory category)
 			throws DAOException {
 		// TODO Auto-generated method stub
-		sessionFactory.getCurrentSession().saveOrUpdate(category);
+		Session session = sessionFactory.getCurrentSession();
+		session.saveOrUpdate(session.merge(category));
+		
 		return category;
 	}
 

@@ -37,7 +37,8 @@ public class HibernateRadioExamDAO implements RadioExamDAO {
 	public RadioExam saveExam(RadioExam exam) throws DAOException {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
-		session.saveOrUpdate(session.merge(exam));
+		exam = (RadioExam) session.merge(exam);
+		session.saveOrUpdate(exam);
 		
 		return exam;
 	}
@@ -65,7 +66,8 @@ public class HibernateRadioExamDAO implements RadioExamDAO {
 	public RadioExamType saveExamType(RadioExamType type) throws DAOException {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
-		session.saveOrUpdate(session.merge(type));
+		type = (RadioExamType) session.merge(type);
+		session.saveOrUpdate(type);
 		
 		return type;
 	}

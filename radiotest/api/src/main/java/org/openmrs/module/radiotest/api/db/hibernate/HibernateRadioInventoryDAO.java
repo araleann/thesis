@@ -38,7 +38,10 @@ public class HibernateRadioInventoryDAO implements RadioInventoryDAO {
 	@Override
 	public RadioItemType saveItemType(RadioItemType type) throws DAOException {
 		// TODO Auto-generated method stub
-		sessionFactory.getCurrentSession().saveOrUpdate(type);
+		Session session = sessionFactory.getCurrentSession();
+		type = (RadioItemType) session.merge(type);
+		session.saveOrUpdate(type);
+		
 		return type;
 	}
 
@@ -65,7 +68,6 @@ public class HibernateRadioInventoryDAO implements RadioInventoryDAO {
 	@Override
 	public void deleteItemType(RadioItemType type) throws DAOException {
 		// TODO Auto-generated method stub
-		System.out.println(type.getId());
 		sessionFactory.getCurrentSession().delete(type);
 	}
 
@@ -73,7 +75,8 @@ public class HibernateRadioInventoryDAO implements RadioInventoryDAO {
 	public RadioItem saveItem(RadioItem item) throws DAOException {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
-		session.saveOrUpdate(session.merge(item));
+		item = (RadioItem) session.merge(item);
+		session.saveOrUpdate(item);
 		
 		return item;
 	}

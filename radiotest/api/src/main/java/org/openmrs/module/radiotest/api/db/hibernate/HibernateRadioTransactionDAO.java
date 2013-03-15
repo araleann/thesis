@@ -6,6 +6,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
+import org.hibernate.classic.Session;
 import org.hibernate.criterion.Restrictions;
 import org.openmrs.api.db.DAOException;
 import org.openmrs.module.radiotest.RadioFeeType;
@@ -40,7 +41,10 @@ public class HibernateRadioTransactionDAO implements RadioTransactionDAO {
 	public RadioTransaction saveTransaction(RadioTransaction trans)
 			throws DAOException {
 		// TODO Auto-generated method stub
-		sessionFactory.getCurrentSession().saveOrUpdate(trans);
+    	Session session = sessionFactory.getCurrentSession();
+    	trans = (RadioTransaction) session.merge(trans);
+    	session.saveOrUpdate(trans);
+    	
 		return trans;
 	}
 
@@ -54,7 +58,9 @@ public class HibernateRadioTransactionDAO implements RadioTransactionDAO {
 	public RadioNoteType saveNoteType(RadioNoteType noteType)
 			throws DAOException {
 		// TODO Auto-generated method stub
-		sessionFactory.getCurrentSession().saveOrUpdate(noteType);
+		Session session = sessionFactory.getCurrentSession();
+		noteType = (RadioNoteType) session.merge(noteType);
+		session.saveOrUpdate(noteType);
 		return noteType;
 	}
 
@@ -98,7 +104,10 @@ public class HibernateRadioTransactionDAO implements RadioTransactionDAO {
 	public RadioTransExam saveTransExam(RadioTransExam exam)
 			throws DAOException {
 		// TODO Auto-generated method stub
-		sessionFactory.getCurrentSession().saveOrUpdate(exam);
+		Session session = sessionFactory.getCurrentSession();
+		exam = (RadioTransExam) session.merge(exam);
+		session.saveOrUpdate(exam);
+		
 		return exam;
 	}
 
@@ -134,7 +143,10 @@ public class HibernateRadioTransactionDAO implements RadioTransactionDAO {
 	@Override
 	public RadioFeeType saveFeeType(RadioFeeType feeType) throws DAOException {
 		// TODO Auto-generated method stub
-		sessionFactory.getCurrentSession().saveOrUpdate(feeType);
+		Session session = sessionFactory.getCurrentSession();
+		feeType = (RadioFeeType) session.merge(feeType);
+		session.saveOrUpdate(feeType);
+		
 		return feeType;
 	}
 
@@ -167,7 +179,10 @@ public class HibernateRadioTransactionDAO implements RadioTransactionDAO {
 	@Override
 	public RadioResult saveResult(RadioResult result) throws DAOException {
 		// TODO Auto-generated method stub
-		sessionFactory.getCurrentSession().saveOrUpdate(result);
+		Session session = sessionFactory.getCurrentSession();
+		result = (RadioResult) session.merge(result);
+		session.saveOrUpdate(result);
+		
 		return result;
 	}
 }

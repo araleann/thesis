@@ -28,7 +28,7 @@ public class RadioTransExam extends BaseOpenmrsData {
 	// not saved in database
 	private RadioResult result;
 	private HashMap<String, Double> fees;
-	
+		
 	@Override
 	public Integer getId() {
 		// TODO Auto-generated method stub

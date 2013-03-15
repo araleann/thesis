@@ -19,8 +19,7 @@ public class RadioTransaction extends BaseOpenmrsData {
 	private boolean pending = true;
 	private boolean paid = false;
 	
-	private Double readingFee;
-	private Double examFee;
+	private Double total = 0.0;
 	private String purpose;
 	private String orNumber;
 	private Set<RadioNote> notes;
@@ -29,7 +28,6 @@ public class RadioTransaction extends BaseOpenmrsData {
 	private Boolean voided = Boolean.FALSE;
 	
 	// not saved in database
-	private Double total = 0.0;
 	private HashMap<String, Double> fees;
 	
 	@Override
@@ -91,22 +89,6 @@ public class RadioTransaction extends BaseOpenmrsData {
 	public void setPaid(boolean paid) {
 		this.paid = paid;
 	}
-
-	public Double getReadingFee() {
-		return readingFee;
-	}
-
-	public void setReadingFee(Double readingFee) {
-		this.readingFee = readingFee;
-	}
-
-	public Double getExamFee() {
-		return examFee;
-	}
-
-	public void setExamFee(Double examFee) {
-		this.examFee = examFee;
-	}
 	
 	public String getPurpose() {
 		return purpose;
@@ -146,6 +128,14 @@ public class RadioTransaction extends BaseOpenmrsData {
 	public void setClaimed(boolean claimed) {
 		this.claimed = claimed;
 	}
+	
+	public Double getTotal(){
+		return total;
+	}
+
+	public void setTotal(Double total) {
+		this.total = total;
+	}
 
 	public Boolean isVoided() {
 		return voided;
@@ -158,10 +148,6 @@ public class RadioTransaction extends BaseOpenmrsData {
 	// CUSTOM FUNCTIONS
 	public int getNumberOfExams(){
 		return exams.size();
-	}
-	
-	public Double getTotal(){
-		return total;
 	}
 	
 	public void computeFees(){		

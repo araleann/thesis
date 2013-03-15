@@ -12,6 +12,7 @@ import org.openmrs.module.radiotest.RadioAlias;
 import org.openmrs.module.radiotest.RadioCategory;
 import org.openmrs.module.radiotest.RadioCounter;
 import org.openmrs.module.radiotest.RadioPatient;
+import org.openmrs.module.radiotest.RadioTransaction;
 import org.openmrs.module.radiotest.api.RadioPatientService;
 import org.openmrs.module.radiotest.api.db.RadioPatientDAO;
 import org.springframework.transaction.annotation.Transactional;
@@ -104,8 +105,10 @@ public class RadioPatientServiceImpl extends BaseOpenmrsService implements Radio
 		// TODO Auto-generated method stub
 		patient = dao.getPatient(patient.getId());
 		Set<RadioAlias> aliases = new LinkedHashSet<RadioAlias>(patient.getAliases());
+		Set<RadioTransaction> transactions = new LinkedHashSet<RadioTransaction>(patient.getTransactions());
 		
 		patient.setAliases(aliases);
+		patient.setTransactions(transactions);
 		return patient;
 	}
 

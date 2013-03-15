@@ -7,6 +7,7 @@ import org.openmrs.module.radiotest.RadioCategory;
 import org.openmrs.module.radiotest.api.RadioPatientService;
 import org.openmrs.module.radiotest.propertyeditor.RadioCategoryPropertyEditor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -59,5 +60,12 @@ public class RadioCategoryController {
 		}
 		
 		return new ModelAndView("redirect:" + CATEGORY_FORM + ".htm");
+	}
+	
+	@RequestMapping(value = "/module/radiotest/editCategory", method = RequestMethod.POST)
+	public ModelAndView editCategory(@RequestParam("cid") RadioCategory category, ModelMap model){
+		model.addAttribute("category", category);
+		
+		return new ModelAndView(CATEGORY_FORM, model);
 	}
 }

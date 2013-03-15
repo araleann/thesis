@@ -61,6 +61,10 @@
 			<key column="patient_id" />
 			<one-to-many class="RadioAlias" />
 		</set>
+		<set name="transactions" cascade="all">
+			<key column="patient_id" />
+			<one-to-many class="RadioTransaction" />
+		</set>
 	</class>
 
 </hibernate-mapping>

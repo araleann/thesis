@@ -1,101 +1,8 @@
 <%@ include file="/WEB-INF/template/include.jsp"%>
 <%@ include file="/WEB-INF/template/header.jsp"%>
 
-<%@ include file="template/resources.jsp" %>
-
-<script>
-var modulePath = openmrsContextPath + "/module/radiotest";
-var formPath = modulePath + "/examTypeForm.htm";
-var nullPath = modulePath + "/nullExamType.htm";
-var editPath = modulePath + "/editExamType.htm";
-
-function loadExamTypes(){
-	var $form = $j("#typeForm");
-	
-	$j.post(formPath, $form.serialize(), function(data){
-		var $types = $j("#examTypes", $j(data));
-		$j("#examTypes").replaceWith($types);
-		$j("#template").val("");
-		$j("input[type=text]")
-			.val("")
-			.focus();
-	});
-}
-
-function clearForm(){
-	$j("#typeForm")
-		.find(":selected, :checked")
-			.each(function(i){
-				var $this = $j(this);
-				if($this.attr("selected")){
-					$this.attr("selected", false);
-				} else {
-					$this.attr("checked", false);
-				}
-			});
-	
-	$j("#typeForm")
-		.find(":input:not(button)")
-			.each(function(i){
-				var $this = $j(this);
-				switch(this.tagName){
-				case "TEXTAREA":
-					$this.text("");
-					break;
-				case "INPUT":
-					var type = $this.attr("type");
-					if(type == "text" || type == "hidden")
-						$this.val("");
-					break;
-				}
-			});
-}
-
-function editExamType(id){
-	$j.post(editPath, { eid : id }, function(data){
-		var formId = "#typeForm";
-		$j(formId).replaceWith($j(formId, data));
-	});
-}
-
-function voidExamType(id){
-	var obj = {
-		eid : id,
-		action : "void"
-	}
-	post(id, obj);
-}
-
-function deleteExamType(id){
-	var obj = {
-		eid : id,
-		action : "delete"
-	}
-	if(confirm("Are you sure you want to delete?")){
-		post(id, obj);
-	}
-}
-
-function post(id, obj){
-	var typeId = "#type" + id;
-	$j.post(nullPath, obj, function(data){
-		var $type = $j(typeId, $j(data));
-		if($type.length){
-			$j(typeId).replaceWith($type);
-		} else {
-			$j(typeId).remove();
-		}
-	})
-}
-
-$j(function(){
-	var placeholders = {
-		type : "Exam Type",
-		template : "Template for Negative Results"
-	}
-	GeneralUtils.addPlaceholderByName(placeholders);
-});
-</script>
+<openmrs:htmlInclude file="/moduleResources/radiotest/GeneralUtils.js" />
+<openmrs:htmlInclude file="/moduleResources/radiotest/types.js" />
 
 <div class="colmask leftmenu">
 	<div class="colleft">
@@ -104,14 +11,14 @@ $j(function(){
 			<!-- Column 1 end -->
 <br>
 <h2>Add Exam Type</h2>
-<form:form method="post" modelAttribute="examType" id="typeForm">
+<form:form method="post" modelAttribute="examType" id="typeForm" action="javascript:saveExamType()">
 	<form:hidden path="id" />
-	<form:input path="type" cssClass="patientinput" />
+	<form:input path="type" id="examtype" cssClass="patientinput" />
 	<br>
 	<br>
-	<form:textarea cssClass="addressinput" path="template" />
+	<form:textarea cssClass="addressinput" id="template" path="template" />
 	<br>
-	<button type="button" onclick="loadExamTypes()" class="buttondesign">Save</button>
+	<button type="button" onclick="saveExamType()" class="buttondesign">Save</button>
 	<button type="button" onclick="clearForm()" class="buttondesign">Clear</button>
 </form:form>
 <br>

@@ -1,5 +1,6 @@
 <%@ include file="/WEB-INF/template/include.jsp"%>
 <%@ include file="/WEB-INF/template/header.jsp"%>
+<%@ include file="template/resources.jsp" %>
 
 <script>
 var modulePath = openmrsContextPath + "/module/radiotest";
@@ -13,7 +14,7 @@ var examIndexLabel = 2;
 function addNewExam(){
 	examIndex++;
 	
-	var $examDiv = $j("<div id='exams" + examIndex + "'> Exam " + examIndexLabel +"</div><br>");
+	var $examDiv = $j("<div id='exams" + examIndex + "'> Exam " + examIndexLabel +"</div>");
 	var $typeDiv = $j("<div id='type'></div>");
 	var postObj = { index : examIndex };
 	
@@ -105,26 +106,28 @@ function addPayment(){
 		alert("Payment added");
 	});
 }
-
+function load_profile(){
+	GeneralUtils.redirect("patientProfile.htm");
+}
 $j(function(){
 	$j("select").change(getExamsEvent);
 });
+
 </script>
 
 <div class="colmask leftmenu">
 	<div class="colleft">
 		<div class="col1">
 <br>
-<p>
-${ patient.fullName } <br>
-<c:set var ="a" value="${ patient.alias }" />
-${ a.alias } <br>
-${ a.category.category } <br>
-</p>
-
+<c:set var="p" value="${ patient }" />
+<fieldset>
+<legend><h2>${ p.fullName }</h2></legend>
+<div id="details">
 <div class="transaction">
+<br>
+<h3>New Transaction</h3>
+<br>
 <form:form method="post" modelAttribute="transModel" id="transExam">
-	<br>
 	<spring:bind path="transaction.patient">
 		<input type="hidden" name="${ status.expression }" value="${ patient.id }">
 	</spring:bind>
@@ -136,17 +139,21 @@ ${ a.category.category } <br>
 					<option value="0"></option>
 					<form:options items="${ examTypes }" itemLabel="type" itemValue="id" />
 				</form:select>
+				<button class="buttondesignsmall" type="button" id="add" onclick="addNewExam()">+</button>
+				<button class="buttondesignsmall" type="button" id="delete" onclick="deleteExam()" disabled>-</button>
 			</div>
 		</div>
-		<br>
 	</spring:nestedPath>
 </div>
+	<div id="details">
 	<br>
-	<button class="buttondesign" type="button" id="add" onclick="addNewExam()">Add Exam</button>
-	<button class="buttondesign" type="button" id="delete" onclick="deleteExam()" disabled>Delete Exam</button>
-	<button class="buttondesign" type="submit">Done</button>
+	<button class="buttondesignmedium" type="submit" style="padding-left:18px;">Done</button>
+	<button class="buttondesignmedium" type="button" onclick="load_profile()" style="padding-left:18px;">Cancel</button>
+	<br><br>
+	</div>
 </form:form>
-
+</div>
+</fieldset>
 </div>
 <div class="col2">
 			<!-- Column 2 start -->

@@ -24,40 +24,45 @@ function createTransaction(){
 	<div class="colleft">
 		<div class="col1">
 <br>
+<jsp:include page="/WEB-INF/view/topnav.jsp"/>
+<div id="details">
 <p>
-${ patient.fullName } <br>
-<c:set var ="a" value="${ patient.alias }" />
-${ a.alias } <br>
-${ a.category.category } <br>
-</p>
 
 <form id="transaction" method="post">
 	<input type="hidden" name="transId" id="transId">
 </form>
-
-<h2>Transactions</h2>
 <p>
-	<button type="button" class="buttondesignlong" onclick="createTransaction()">Create New Transaction</button>
+	<button type="button" class="buttondesignmedium" onclick="createTransaction()">New Transaction</button>
 </p>
+<h3>Transactions</h3>
+<table id="patient">
+	<tr>
+	<th>Transaction Number</th>
+	<th>Date</th>
+	<th>No. of Exams</th>
+	<th>Status</th>
+	</tr>
 <c:forEach var="trans" items="${ transList }">
 	<c:set var="id" value="${ trans.id }" />
-	Transaction No: ${ id } 
-	<button type="button" onclick="viewTransaction(${ id })"></button>
-	<br>
-	Date: ${ trans.visitDate } <br>
-	No. of Exams: ${ trans.numberOfExams } <br>
-	Status:
-	<c:choose>
-		<c:when test="${ trans.paid }">
-			PAID
-		</c:when>
-		<c:otherwise>
-			NOT PAID
-		</c:otherwise>
-	</c:choose>
-	<br>
-	<br>
+	<tr onclick="viewTransaction(${ id })">
+		<td>${ id }</td>
+		<td>${ trans.visitDate }</td>
+		<td>${ trans.numberOfExams }</td>
+		<td>
+		<c:choose>
+			<c:when test="${ trans.paid }">
+				PAID
+			</c:when>
+			<c:otherwise>
+				NOT PAID
+			</c:otherwise>
+		</c:choose>
+		</td>
+	</tr>
 </c:forEach>
+</table>
+<br><br>
+</div>
 </div>
 <div class="col2">
 			<!-- Column 2 start -->

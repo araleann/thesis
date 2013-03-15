@@ -30,6 +30,7 @@ public class RadioPatient extends BaseOpenmrsData {
 	private Date updateDate;
 	
 	private Set<RadioAlias> aliases = new LinkedHashSet<RadioAlias>();
+	private Set<RadioTransaction> transactions;
 	
 	private Boolean voided = Boolean.FALSE;
 	
@@ -189,6 +190,14 @@ public class RadioPatient extends BaseOpenmrsData {
 		this.aliases = aliases;
 	}
 	
+	public Set<RadioTransaction> getTransactions() {
+		return transactions;
+	}
+
+	public void setTransactions(Set<RadioTransaction> transactions) {
+		this.transactions = transactions;
+	}
+
 	public Boolean getVoided() {
 		return voided;
 	}

@@ -62,4 +62,11 @@ public class RadioFeeTypeController {
 		
 		return new ModelAndView(REDIRECT_FORM);
 	}
+	
+	@RequestMapping(value = "/module/radiotest/editFeeType", method = RequestMethod.POST)
+	public ModelAndView editFeeType(@RequestParam("tid") RadioFeeType type, ModelMap model){
+		model.addAttribute("feeType", type);
+		
+		return new ModelAndView(FEE_TYPE_FORM, model);
+	}
 }

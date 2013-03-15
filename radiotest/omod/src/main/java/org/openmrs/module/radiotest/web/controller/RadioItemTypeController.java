@@ -7,6 +7,7 @@ import org.openmrs.module.radiotest.RadioItemType;
 import org.openmrs.module.radiotest.api.RadioInventoryService;
 import org.openmrs.module.radiotest.propertyeditor.RadioItemTypePropertyEditor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -62,5 +63,12 @@ public class RadioItemTypeController {
 		}
 		
 		return new ModelAndView(REDIRECT);
+	}
+	
+	@RequestMapping(value = "/module/radiotest/editItemType", method = RequestMethod.POST)
+	public ModelAndView editItemType(@RequestParam("tid") RadioItemType type, ModelMap model){
+		model.addAttribute("itemType", type);
+		System.out.println(type.getName());
+		return new ModelAndView(ITEM_TYPE_FORM, model);
 	}
 }

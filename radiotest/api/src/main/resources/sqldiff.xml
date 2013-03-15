@@ -110,6 +110,7 @@
 				or_number VARCHAR(20) DEFAULT NULL,
 				paid BOOLEAN DEFAULT FALSE,
 				pending BOOLEAN DEFAULT TRUE,
+				total DOUBLE(13,2) DEFAULT 0,
 				visit_date DATE DEFAULT NULL,
 				visit_time TIME DEFAULT NULL,
 				claimed BOOLEAN DEFAULT FALSE,

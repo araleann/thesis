@@ -30,6 +30,8 @@
 			access="field" />
 		<property name="paid" type="boolean" column="paid"
 			access="field" />
+		<property name="total" type="double" column="total"
+			access="field" />
 		<property name="purpose" type="string" column="purpose"
 			length="500" access="field" />
 		<property name="orNumber" type="string" column="or_number"

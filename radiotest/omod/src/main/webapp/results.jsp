@@ -34,58 +34,60 @@ function borrow(id){
 //-->
 </script>
 
+<div id="details">
 <p>
 <c:if test="${ empty patient }">
 	<c:set var="patient" value="${ trans.patient }" />
 </c:if>
-${ patient.fullName } <br>
-<c:set var ="a" value="${ patient.alias }" />
-${ a.alias } <br>
-${ a.category.category } <br>
 </p>
 
 <c:choose>
 	<c:when test="${ empty trans }">
-		<h2>Transactions</h2>
+		<h3>Transactions</h3>
+		<table id="patient">
+		<tr>
+		<th>Transaction No</th>
+		<th>Date</th>
+		<th>Exams w/ Results</th>
+		<th>Status</th>
+		</tr>
 		
 		<c:forEach var="trans" items="${ transList }">
-			Transaction No: ${ trans.id }
-			<br>
-			Date: ${ trans.visitDate }
-			<br>
-			Number of Exams w/ Results: ${ trans.doneExams }/${ trans.numberOfExams }
-			<br>
-			Status:
+		<tr>
+			<td> ${ trans.id } </td>
+			<td> ${ trans.visitDate } </td>
+			<td><center>${ trans.doneExams }/${ trans.numberOfExams }</center></td>
+			<td>
 			<c:choose>
 				<c:when test="${ trans.pending }">
 					PENDING
+					<img border="0" src="images/pending.JPG"/>
 				</c:when>
 				<c:otherwise>
 					DONE
+					<img border="0" src="images/done.jpg">
 				</c:otherwise>
 			</c:choose>
-			<br>
-			<br>
+			</td>
+		</tr>
 		</c:forEach>
-		
-		View/Update Results
+		</table>
 		<br>
-		<br>
+		<h3>View/Update Results</h3>
 		<form id="trans" action="javascript:getExams()">
-			Transaction Number: <input type="text" name="transId">
-			<br>
-			<button type="button" onclick="getExams()">View Exams</button>
+			<label>Transaction Number:</label><input class="patientinputshort" type="text" name="transId">
+			
+			<button type="button" class="buttondesignmediumshort" onclick="getExams()">View</button>
 		</form>
 		<br>
 	</c:when>
 	<c:otherwise>
-		<h2>Transaction</h2>
-		
+		<h3>Transaction</h3>		
 		<c:set var="id" value="${ trans.id }" />
-		Transaction No.: ${ id } <br>
-		Date: ${ trans.visitDate } <br>
-		Number of Exams w/ Results: ${ trans.doneExams }/${ trans.numberOfExams } <br>
-		Status: PENDING
+		<label>Transaction No.:</label> ${ id } <br>
+		<label>Date:</label>${ trans.visitDate } <br>
+		<label>Exams w/ Results:</label>${ trans.doneExams }/${ trans.numberOfExams } <br>
+		<label>Status:</label>PENDING
 	</c:otherwise>
 </c:choose>
 
@@ -94,18 +96,18 @@ ${ a.category.category } <br>
 	<input type="hidden" id="count" name="count">
 </form:form>
 
-<h2>Exam List</h2>
+<h3>Exam List</h3>
 <div id="exams">
 	<c:if test="${ not empty trans }">
 		<c:forEach var="transExam" items="${ trans.exams }" varStatus="status">
 			<c:set var="c" value="${ status.count }" />
 			<c:set var="id" value="${ transExam.id }" />
 			<div id="exam${ id }">
-				Exam Number: ${ c }
+				<label>Exam Number:</label>${ c }
 				<button type="button" onclick="result(${ id }, ${ c })"></button>
 				<br>
 				<c:set var="e" value="${ transExam.exam }" />
-				Exam Type: ${ e.type.type }
+				<label>Exam Type:<${ e.type.type }
 				<br>
 				Exam Name: ${ e.name }
 				<br>
@@ -124,5 +126,4 @@ ${ a.category.category } <br>
 		</c:forEach>
 	</c:if>
 </div>
-
-<%@ include file="/WEB-INF/template/footer.jsp"%>
+</div>

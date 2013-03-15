@@ -61,4 +61,11 @@ public class RadioNoteTypeController {
 		
 		return new ModelAndView("redirect:" + NOTE_TYPE_FORM + ".htm");
 	}
+	
+	@RequestMapping(value = "/module/radiotest/editNoteType", method = RequestMethod.POST)
+	public ModelAndView editNoteType(@RequestParam("nid") RadioNoteType type, ModelMap model){
+		model.addAttribute("noteType", type);
+		
+		return new ModelAndView(NOTE_TYPE_FORM, model);
+	}
 }

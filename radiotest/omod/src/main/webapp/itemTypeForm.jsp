@@ -1,71 +1,8 @@
 <%@ include file="/WEB-INF/template/include.jsp"%>
 <%@ include file="/WEB-INF/template/header.jsp"%>
-<%@ include file="template/resources.jsp" %>
 
-<script type="text/javascript">
-<!--
-var modulePath = openmrsContextPath + "/module/radiotest";
-var nullPath = modulePath + "/nullItemType.htm";
-
-function post(divId, obj, path, callback){
-	console.log("post!");
-	$j.post(path, obj, function(data){
-		var $divElem = $j(divId);
-		var $updatedDiv = $j(divId, $j(data));
-		if ($updatedDiv.length){
-			$divElem.replaceWith($updatedDiv);
-		} else {
-			$divElem.remove();
-		}
-		if (callback){
-			callback();
-		}
-	});
-}
-
-function saveItemType(){
-	var divId = "#itemTypes";
-	var $form = $j("#typeForm");
-	var obj = $form.serialize();
-	var path = $form.attr("action");
-	
-	function focus(){
-		$j("input[type=text]")
-			.val("")
-			.focus();
-	}
-	
-	post(divId, obj, path, focus);
-}
-
-function voidItemType(id){
-	var divId = "#type" + id;
-	var obj = {
-		tid : id,
-		action : "void"
-	};
-	
-	post(divId, obj, nullPath);
-}
-
-function deleteItemType(id){
-	console.log("delete!");
-	var divId = "#type" + id;
-	var obj = {
-		tid : id,
-		action : "delete"
-	};
-	
-	if (confirm("Are you sure you want to delete?")){
-		post(divId, obj, nullPath);
-	}
-}
-
-$j(function(){	
-	GeneralUtils.addPlaceholderById("input", "Enter an Item Type");
-});
-//-->
-</script>
+<openmrs:htmlInclude file="/moduleResources/radiotest/GeneralUtils.js" />
+<openmrs:htmlInclude file="/moduleResources/radiotest/types.js" />
 
 <div class="colmask leftmenu">
 	<div class="colleft">
@@ -74,10 +11,12 @@ $j(function(){
 
 <h2>Add Item Type</h2>
 <br>
-<form:form method="post" modelAttribute="itemType" id="typeForm">
-	<form:input id="input" cssClass="patientinput" path="name" />
+<form:form method="post" modelAttribute="itemType" id="typeForm" action="javascript:saveItemType()">
+	<form:hidden path="id" />
+	<form:input id="itemtype" cssClass="patientinput" path="name" />
 	<br><br>
 	<button class="buttondesign" type="button" onclick="saveItemType()">Save</button>
+	<button class="buttondesign" type="button" onclick="clearForm()">Clear</button>
 </form:form>
 <br>
 <hr>
@@ -107,6 +46,7 @@ $j(function(){
 				</c:otherwise>
 			</c:choose>			
 			<button type="button" onclick="deleteItemType(${ id })" class="buttondesignsmall">Delete</button>
+			<button type="button" onclick="editItemType(${ id })" class="buttondesignsmall">Edit</button>
 		</div>
 	</c:forEach>
 </div>

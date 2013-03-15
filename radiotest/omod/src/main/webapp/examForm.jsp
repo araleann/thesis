@@ -109,11 +109,10 @@ function post(id, obj){
 			<c:set var="cind" value="${ status.index }" />
 			<spring:nestedPath path="categoryFees[${ cind }]">
 				<br>
-				<h4>${ cat.category }</h4>
+				<h3>${ cat.category }</h3>
 				<spring:bind path="category">
 					<input type="hidden" name="${ status.expression }" value="${ cat.id }">
 				</spring:bind>
-				<br>
 			</spring:nestedPath>
 			<c:set var="ftind" value="${ cind * numOfFeeTypes }" />
 			<c:forEach var="feeType" items="${ feeTypes }" varStatus="s">
@@ -122,9 +121,10 @@ function post(id, obj){
 					<spring:bind path="type">
 						<input type="hidden" name="${ status.expression }" value="${ feeType.id }">
 					</spring:bind>
-					${ feeType.name }:
-					<form:input path="amount" />
-					<br>
+					<p>
+					<label>${ feeType.name }:</label>
+					<form:input path="amount" cssClass="patientinput"/>
+					</p>
 				</spring:nestedPath>
 			</c:forEach>
 		</c:forEach>
@@ -134,6 +134,8 @@ function post(id, obj){
 	<button type="button" onclick="saveExam()" class="buttondesign">Save Exam</button>
 </div>
 <br>
+<hr>
+<h2>Existing Exams</h2>
 <div id="examList">
 	<c:forEach var="exam" items="${ exams }">
 		<br>
@@ -151,13 +153,13 @@ function post(id, obj){
 					NO
 				</c:otherwise>
 			</c:choose>
+			<br>
 			<button type="button" onclick="voidExam(${ id })" class="buttondesignvoid">Void</button>
-			<br><br>
 			<button type="button" onclick="deleteExam(${ id })" class="buttondesignsmall">Delete</button>
 			<button type="button" onclick="loadExam(${ id })" class="buttondesignsmall">Edit</button>
 		</div>
-		<br> 
 	</c:forEach>
+	<br>
 </div>
 </div>
 <div class="col2">

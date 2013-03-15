@@ -38,10 +38,8 @@ function newPatient(){
 <br>
 <form method="post" id="search" onsubmit="javascript: return search()">
 	<input type="text" class="patientinput" placeholder="Enter Patient Name or ID" name="searchText">
-	<br><br>
 	<button type="button" onclick="search()"class="buttondesign" >Search</button>
 </form>
-<br>
 <br>
 
 <form:form method="post" id="patient">
@@ -57,4 +55,3 @@ function newPatient(){
 			<jsp:include page="/WEB-INF/view/sidemenu.jsp"/>
 		</div>
 </div></div>
-<%@ include file="/WEB-INF/template/footer.jsp"%>

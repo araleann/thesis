@@ -1,59 +1,8 @@
 <%@ include file="/WEB-INF/template/include.jsp"%>
 <%@ include file="/WEB-INF/template/header.jsp"%>
 
-<%@ include file="template/resources.jsp" %>
-
-<script type="text/javascript">
-<!--
-var modulePath = openmrsContextPath + "/module/radiotest";
-var nullPath = modulePath + "/nullNoteType.htm";
-
-function loadNoteTypes(){
-	var $form = $j("#typeForm");
-	$j.post($form.attr("action"), $form.serialize(), function(data){
-		var $types = $j("#noteTypes", $j(data));
-		$j("#noteTypes").replaceWith($types);
-		$j("input[type=text]")
-			.val("")
-			.focus();
-	});
-}
-
-function voidNoteType(id){
-	var obj = {
-		nid : id,
-		action : "void"
-	}
-	post(id, obj);
-}
-
-function deleteNoteType(id){
-	var obj = {
-		nid : id,
-		action : "delete"
-	}
-	if(confirm("Are you sure you want to delete?")){
-		post(id, obj);
-	}
-}
-
-function post(id, obj){
-	var noteId = "#note" + id;
-	$j.post(nullPath, obj, function(data){
-		var $note = $j(noteId, $j(data));
-		if($note.length){
-			$j(noteId).replaceWith($note);
-		} else {
-			$j(noteId).remove();
-		}
-	})
-}
-
-$j(function(){
-	GeneralUtils.addPlaceholderById("notetype", "Enter Note Type");
-});
-//-->
-</script>
+<openmrs:htmlInclude file="/moduleResources/radiotest/GeneralUtils.js" />
+<openmrs:htmlInclude file="/moduleResources/radiotest/types.js" />
 
 <div class="colmask leftmenu">
 	<div class="colleft">
@@ -63,10 +12,11 @@ $j(function(){
 <br>
 <h2>Add Note Type</h2>
 <br>
-<form:form method="post" modelAttribute="noteType" id="typeForm">
+<form:form method="post" modelAttribute="noteType" id="typeForm" action="javascript:saveNoteType()">
 	<form:input id="notetype" path="name" cssClass="patientinput" />
 	<br><br>
-	<button type="button" onclick="loadNoteTypes()" class="buttondesign">Save</button>
+	<button type="button" onclick="saveNoteType()" class="buttondesign">Save</button>
+	<button type="button" onclick="clearForm()" class="buttondesign">Clear</button>
 </form:form>
 <br>
 <hr>
@@ -97,6 +47,7 @@ $j(function(){
 				</c:otherwise>
 			</c:choose>
 			<button type="button" onclick="deleteNoteType(${ id })" class="buttondesignsmall">Delete</button>
+			<button type="button" onclick="editNoteType(${ id })" class="buttondesignsmall">Edit</button>
 		</div>
 		<br>
 	</c:forEach>
