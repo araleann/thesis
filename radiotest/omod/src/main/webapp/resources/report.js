@@ -24,13 +24,15 @@ $j(function(){
 	function addFilter(){
 		$j(this)
 			.parent()
-				.find(":input:not(:checkbox)")
+				.find(".filter")
 				.not(this)
 					.toggle();
 			
 	}
 	
 	// ATTACH TO EVENTS
-	$j(".entity > :checkbox").change(toggleDetails);
-	$j(".filter").click(addFilter);
+	$j(".entity .general").change(toggleDetails);
+	$j(".filterButton").click(addFilter);
+	
+	// MAIN
 });

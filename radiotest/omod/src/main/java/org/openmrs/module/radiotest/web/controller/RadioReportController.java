@@ -1,15 +1,13 @@
 package org.openmrs.module.radiotest.web.controller;
 
-import java.io.PrintWriter;
-import java.util.List;
-
-import javax.swing.JFileChooser;
-
 import org.openmrs.api.context.Context;
 import org.openmrs.module.radiotest.RadioCategory;
+import org.openmrs.module.radiotest.RadioReport;
 import org.openmrs.module.radiotest.api.RadioPatientService;
+import org.openmrs.module.radiotest.api.RadioReportService;
 import org.openmrs.module.radiotest.model.RadioReportModel;
 import org.openmrs.module.radiotest.propertyeditor.RadioCategoryPropertyEditor;
+import org.openmrs.module.radiotest.propertyeditor.RadioStringPropertyEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.WebDataBinder;
@@ -26,6 +24,7 @@ public class RadioReportController {
 	
 	@InitBinder
 	public void initBinder(WebRequest request, WebDataBinder binder){
+		binder.registerCustomEditor(String.class, new RadioStringPropertyEditor());
 		binder.registerCustomEditor(RadioCategory.class, new RadioCategoryPropertyEditor());
 	}
 	
@@ -41,24 +40,9 @@ public class RadioReportController {
 	
 	@RequestMapping(value = REPORT_PAGE, method = RequestMethod.POST)
 	public void getReport(@ModelAttribute("reportModel") RadioReportModel rm){
-		JFileChooser fc = new JFileChooser();
-		try {
-			if(fc.showSaveDialog(null) == JFileChooser.APPROVE_OPTION){
-				PrintWriter out = new PrintWriter(fc.getSelectedFile());
-				List<String> list = rm.getProjectionList();
-				for(String s : list){
-					out.println(s);
-				}
-				out.println();
-				
-				out.println(rm.getReport().getPatient());
-				out.println(rm.getReport().getAlias());
-				out.println(rm.getReport().getCategory());
-				out.close();
-			}
-			
-		} catch (Exception e){
-			e.printStackTrace();
-		}
+		RadioReport report = rm.getReport()
+								.setProjectionList(rm.getProjectionList())
+								.generate();
+		Context.getService(RadioReportService.class).generateReport(report);
 	}
 }
