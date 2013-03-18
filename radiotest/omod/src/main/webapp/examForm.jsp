@@ -123,7 +123,7 @@ function post(id, obj){
 					</spring:bind>
 					<p>
 					<label>${ feeType.name }:</label>
-					<form:input path="amount" cssClass="patientinputsmall"/>
+					<form:input path="amount" cssClass="patientinputshort"/>
 					</p>
 				</spring:nestedPath>
 			</c:forEach>
