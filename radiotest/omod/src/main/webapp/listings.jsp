@@ -1,19 +1,34 @@
 <%@ include file="/WEB-INF/template/include.jsp"%>
 <%@ include file="/WEB-INF/template/header.jsp"%>
 
-<h2>Stock Listings</h2>
-
+<div class="colmask leftmenu">
+	<div class="colleft">
+		<div class="col1">
+<br>
+<h2>Stock History</h2>
 <p>
 Last Update: ${ updateDate }
 </p>
-
+<table id="inventory">
+<tr>
+<th> Date </th>
+<th> Item Type </th>
+<th> Item Name </th>
+<th> Quantity Added </th>
+</tr>
 <c:forEach var="listing" items="${ listings }">
 	<c:set var="item" value="${ listing.item }" />
-	Date: ${ listing.listingDate } <br>
-	Item Type: ${ item.type.name } <br>
-	Item Name: ${ item.name } <br>
-	Quantity added: ${ listing.quantity } ${ item.unit }<br>
-	<br>
+	<tr>
+	<td> ${ listing.listingDate } </td>
+	<td> ${ item.type.name } </td>
+	<td> ${ item.name } </td>
+	<td> ${ listing.quantity } ${ item.unit } </td>
+	</tr>
 </c:forEach>
-
-<%@ include file="/WEB-INF/template/footer.jsp"%>
+</table>
+</div>
+<div class="col2">
+			<!-- Column 2 start -->
+			<jsp:include page="/WEB-INF/view/sidemenu.jsp"/>
+		</div>
+</div></div>

@@ -11,6 +11,7 @@ function getItems(){
 	$j.post(itemPath, $j("#type").serialize(), function(data){
 		var $items = $j(".items", data);
 		$j(".items").replaceWith($items);
+		$j("#items").addClass("patientinputmediummult");;
 	});
 }
 
@@ -34,17 +35,21 @@ function addStock(){
 			.attr("name", list + ".item");
 		$j("input:text", this)
 			.attr("name", list + ".quantity");
+			
 	});
 	
 	$j("#stockForm").submit();
 }
 //-->
 </script>
-
+<div class="colmask leftmenu">
+	<div class="colleft">
+		<div class="col1">
+<br>
 <h2>Add Stock</h2>
 
 <div id="itemDiv">
-	<select id="type" name="type" onchange="getItems()">
+	<select class="patientinputmedium" id="type" name="type" onchange="getItems()">
 		<option value="0">All</option>
 		<c:forEach var="type" items="${ itemTypes }">
 			<option value="${ type.id }">${ type.name }</option>
@@ -52,14 +57,14 @@ function addStock(){
 	</select>
 	<br>
 	<div class="items">
-		<select id="item" name="items" size="5" multiple>
+		<select class="patientinputmediummult" id="item" name="items" size="5" multiple>
 			<c:forEach var="item" items="${ items }">
 				<c:set var="id" value="${ item.id }" />
 				<option value="${ id }" ondblclick="addItems()">${ item.name }</option>
 			</c:forEach>
 		</select>
-	</div>
-	<button type="button" onclick="addItems()">Add Item(s)</button>
+	</div><br>
+	<button type="button" class="buttondesignsmallmedium" onclick="addItems()">Add Item(s)</button>
 </div>
 
 <div id="listingDiv">
@@ -67,8 +72,12 @@ function addStock(){
 		<div id="listings">
 			
 		</div>
-		<button type="button" onclick="addStock()">Add Stock</button>
+		<br><button type="button" class="buttondesignmedium" style="background-color:#f29c22;" onclick="addStock()">Add Stock</button>
 	</form:form>
 </div>
-
-<%@ include file="/WEB-INF/template/footer.jsp"%>
+</div>
+<div class="col2">
+			<!-- Column 2 start -->
+			<jsp:include page="/WEB-INF/view/sidemenu.jsp"/>
+		</div>
+</div></div>

@@ -41,75 +41,86 @@ function claim(id){
 </form:form>
 
 <h2>Pending</h2>
+
+<h3>Payment</h3>
+<table id="patient">
+<tr>
+<th> Transaction Number </th>
+<th> Patient Name </th>
+<th> Date of Visit </th>
+<th> Status </th>
+</tr>
+<c:forEach var="t" items="${ payment }">
+	<c:set var="id" value="${ t.id }" />
+	<tr onclick="viewTransaction(${ id })">
+	<td><center> ${ id } </center></td>
+	<td> ${ t.patient.fullName } </td>
+	<td> ${ t.visitDate } </td>
+	<td> NOT PAID </td>
+	</tr>
+</c:forEach>
+</table>
 <br>
 
-<p>
-	<h2>Payment</h2>
-	<br>
-	
-	<c:forEach var="t" items="${ payment }">
-		<br>
-		<c:set var="id" value="${ t.id }" />
-		Transaction Number: ${ id }
-		<button type="button" onclick="viewTransaction(${ id })"></button><br>
-		Patient Name: ${ t.patient.fullName } <br>
-		Date of Visit: ${ t.visitDate } <br>
-		Status: NOT PAID
-		<br>
-	</c:forEach>
-</p>
+<h3>Result</h3>
+<div id="result">
+<table id="patient">
+<tr>
+<th> Transaction Number </th>
+<th> Patient Name </th>
+<th> Date of Visit </th>
+<th> Exam Count </th>
+<th> Borrowed </th>
+<th> Status </th>
+</tr>
+<c:forEach var="t" items="${ results }">
+	<c:set var="id" value="${ t.id }" />
+	<tr onclick="viewExams(${ id })">
+	<td><center> ${ id } </center></td>
+	<td> ${ t.patient.fullName } </td>
+	<td> ${ t.visitDate } </td>
+	<td><center> ${ t.doneExams }/${ t.numberOfExams } </center></td>
+	<td> 
+	<c:choose>
+		<c:when test="${ t.borrowed }">
+			YES
+		</c:when>
+		<c:otherwise>
+			NO
+		</c:otherwise>
+	</c:choose>
+	</td>
+	<td> PENDING </td>
+	</tr>
+</c:forEach>
+</table>
+</div>
+<br>
 
-<p>
-	<h2>Result</h2>
-	<br>
-	
-	<div id="result">
-	<c:forEach var="t" items="${ results }">
-		<br>
-		<c:set var="id" value="${ t.id }" />
-		Transaction Number: ${ id }
-		<button type="button" onclick="viewExams(${ id })"></button><br>
-		Patient Name: ${ t.patient.fullName } <br>
-		Timestamp: ${ t.visitDate } <br>
-		Count: ${ t.doneExams }/${ t.numberOfExams } <br>
-		Borrowed: 
-		<c:choose>
-			<c:when test="${ t.borrowed }">
-				YES
-			</c:when>
-			<c:otherwise>
-				NO
-			</c:otherwise>
-		</c:choose>
-		<br>
-		Status: PENDING
-		<br>
-	</c:forEach>
-	</div>
-</p>
+<h3>Claiming</h3>
+<div id="claim">
+<table id="patient">
+<tr>
+<th> Transaction Number </th>
+<th> Patient Name </th>
+<th> Date of Visit </th>
+<th> Status </th>
+</tr>
+<c:forEach var="t" items="${ claim }">
+	<c:set var="id" value="${ t.id }" />
+	<tr onclick="claim(${ id })">
+	<td><center> ${ id } </center></td>
+	<td> ${ t.patient.fullName } </td>
+	<td> ${ t.visitDate } </td>
+	<td> NOT CLAIMED </td>
+</c:forEach>
+</table>
+</div>
+<br>
 
-<p>
-	<h2>Claiming</h2>
-	<br>
-	
-	<div id="claim">
-	<c:forEach var="t" items="${ claim }">
-		<br>
-		<c:set var="id" value="${ t.id }" />
-		Transaction Number: ${ id }
-		<button type="button" onclick="claim(${ id })"></button><br>
-		Patient Name: ${ t.patient.fullName } <br>
-		Timestamp: ${ t.visitDate } <br>
-		Status: NOT CLAIMED
-		<br>
-	</c:forEach>
-	</div>
-</p>
 </div>
 <div class="col2">
 			<!-- Column 2 start -->
 			<jsp:include page="/WEB-INF/view/sidemenu.jsp"/>
 		</div>
 </div></div>
-
-<%@ include file="/WEB-INF/template/footer.jsp"%>

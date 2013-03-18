@@ -53,17 +53,29 @@ function load_profile(){
 	<br>
 	<h3>Payment Details</h3>
 	<br>
+	<table id="inventory">
+	<tr>
+	<th>Exam Number</th>
+	<th>Exam Type</th>
+	<th>Exam Name</th>
 	<c:forEach var="transExam" items="${ transaction.exams }" varStatus="status">
-		<label>Exam Number:</label> ${ status.count }
-		<br><label>Exam Type: </label> ${ transExam.exam.type.type }
-		<br><label>Exam Name: </label> ${ transExam.exam.name }
-		<br>
-		<c:forEach var="fee" items="${ transExam.feeMap }">
-			<label>${ fee.key }: </label> ${ fee.value }
-			<br>
-		</c:forEach>
-		<br>
+	<c:forEach var="fee" items="${ transExam.feeMap }">
+		<th>${ fee.key }</th>
 	</c:forEach>
+	</c:forEach>
+	</tr>
+	<c:forEach var="transExam" items="${ transaction.exams }" varStatus="status">
+		<tr>
+		<td> ${ status.count } </td>
+		<td> ${ transExam.exam.type.type } </td>
+		<td> ${ transExam.exam.name } </td>
+		<c:forEach var="fee" items="${ transExam.feeMap }">
+			<td> ${ fee.value } </td>
+		</c:forEach>
+		</tr>
+	</c:forEach>
+	</table>
+	<br>
 	<label style="color:#009d8e;">Total Amount Due:</label> <font style="font-size:18px; color:#009d8e;">${ transaction.total } </font>
 	<br><br>
 	<button type="button" class="buttondesignsmalllong">Print Assessment Form</button>
@@ -75,7 +87,7 @@ function load_profile(){
 			<form:form method="post" id="payment" modelAttribute="transaction">
 				<br><h3>Not yet paid</h3>
 				<input type="hidden" name="transId" value="${ transaction.id }">
-				<br><font style="font-size:17px; color:#009d8e; font-weight:bold;">OR Number: </font><input type="text" name="orNumber">
+				<br><input type="text" class="patientinputmedium" placeholder="OR Number" name="orNumber">
 				<button type="button" class="buttondesignsmalllong" onclick="addPayment()">Add Payment</button>
 			</form:form>
 		</c:when>
@@ -92,16 +104,16 @@ function load_profile(){
 		<c:forEach var="note" items="${ transaction.notes }">
 			<c:choose>
 				<c:when test="${ empty note.type.id }">
-					${ note.description }
+					${ note.description } <br>
 				</c:when>
 				<c:otherwise>
-					${ note.type.name }
+					${ note.type.name } <br>
 				</c:otherwise>
 			</c:choose>
 			${ note.note }
 			<br>
 			${ note.date }
-			<br>
+			<br><br>
 		</c:forEach>
 	</div>	
 	<form:form method="post" modelAttribute="transModel" id="noteForm">
@@ -118,7 +130,7 @@ function load_profile(){
 			<br>
 			<form:textarea path="note" />
 		</spring:nestedPath>
-		<br><button type="button" class="buttondesignsmalllong" onclick="saveNote()">Save Note</button>
+		<br><button type="button" class="buttondesignsmallmedium" onclick="saveNote()">Save Note</button>
 </form:form>
 <br><br>
 <button type="button" class="buttondesignmedium" onclick="load_profile()" style="background-color:#f29c22;">Back to profile</button>

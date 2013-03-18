@@ -34,6 +34,10 @@ function borrow(id){
 //-->
 </script>
 
+<div class="colmask leftmenu">
+	<div class="colleft">
+		<div class="col1">
+<br>
 <div id="details">
 <p>
 <c:if test="${ empty patient }">
@@ -44,7 +48,7 @@ function borrow(id){
 <c:choose>
 	<c:when test="${ empty trans }">
 		<h3>Transactions</h3>
-		<table id="patient">
+		<table id="inventory">
 		<tr>
 		<th>Transaction No</th>
 		<th>Date</th>
@@ -53,23 +57,42 @@ function borrow(id){
 		</tr>
 		
 		<c:forEach var="trans" items="${ transList }">
-		<tr>
-			<td> ${ trans.id } </td>
-			<td> ${ trans.visitDate } </td>
-			<td><center>${ trans.doneExams }/${ trans.numberOfExams }</center></td>
-			<td>
-			<c:choose>
-				<c:when test="${ trans.pending }">
-					PENDING
-					<img border="0" src="images/pending.JPG"/>
-				</c:when>
-				<c:otherwise>
-					DONE
-					<img border="0" src="images/done.jpg">
-				</c:otherwise>
-			</c:choose>
-			</td>
-		</tr>
+		<c:choose>
+			<c:when test="${ trans.pending }">	
+				<tr style="color:red;">
+					<td><center> ${ trans.id } </center></td>
+					<td> ${ trans.visitDate } </td>
+					<td><center>${ trans.doneExams }/${ trans.numberOfExams }</center></td>
+					<td>
+					<c:choose>
+						<c:when test="${ trans.pending }">					
+							<center><img border="0" height="20" width="20" src="/openmrs-standalone/images/img_pending.png"/></center>
+						</c:when>
+						<c:otherwise>
+							<center><img border="0" height="20" width="20" src="/openmrs-standalone/images/img_done.png"></center>
+						</c:otherwise>
+					</c:choose>
+					</td>
+				</tr>
+			</c:when>
+			<c:otherwise>
+				<tr>
+					<td><center> ${ trans.id } </center></td>
+					<td> ${ trans.visitDate } </td>
+					<td><center>${ trans.doneExams }/${ trans.numberOfExams }</center></td>
+					<td>
+					<c:choose>
+						<c:when test="${ trans.pending }">					
+							<center><img border="0" height="20" width="20" src="/openmrs-standalone/images/img_pending.png"/></center>
+						</c:when>
+						<c:otherwise>
+							<center><img border="0" height="20" width="20" src="/openmrs-standalone/images/img_done.png"></center>
+						</c:otherwise>
+					</c:choose>
+					</td>
+				</tr>
+			</c:otherwise>
+		</c:choose>
 		</c:forEach>
 		</table>
 		<br>
@@ -95,23 +118,27 @@ function borrow(id){
 	<input type="hidden" id="examId" name="examId">
 	<input type="hidden" id="count" name="count">
 </form:form>
-
+<br>
 <h3>Exam List</h3>
 <div id="exams">
 	<c:if test="${ not empty trans }">
+		<table id="patient">
+		<tr>
+		<th> Exam Number </th>
+		<th> Exam Type </th>
+		<th> Exam Name </th>
+		<th> Borrowed </th>
+		</tr>
 		<c:forEach var="transExam" items="${ trans.exams }" varStatus="status">
 			<c:set var="c" value="${ status.count }" />
 			<c:set var="id" value="${ transExam.id }" />
 			<div id="exam${ id }">
-				<label>Exam Number:</label>${ c }
-				<button type="button" onclick="result(${ id }, ${ c })"></button>
-				<br>
+				<tr onclick="result(${ id }, ${ c })">
+				<td> ${ c } </td>
 				<c:set var="e" value="${ transExam.exam }" />
-				<label>Exam Type:<${ e.type.type }
-				<br>
-				Exam Name: ${ e.name }
-				<br>
-				Borrowed: 
+				<td> ${ e.type.type } </td>
+				<td> ${ e.name } </td>
+				<td onclick="borrow(${ id })">
 					<c:choose>
 						<c:when test="${ transExam.borrowed }">
 							YES
@@ -119,11 +146,19 @@ function borrow(id){
 						<c:otherwise>
 							NO
 						</c:otherwise>
-					</c:choose>
+					</c:choose>				
 				<button type="button" onclick="borrow(${ id })"></button>
+				</td>
+				</tr>
 			</div>
-			<br>
 		</c:forEach>
+		</table>
 	</c:if>
 </div>
 </div>
+</div>
+<div class="col2">
+			<!-- Column 2 start -->
+			<jsp:include page="/WEB-INF/view/sidemenu.jsp"/>
+		</div>
+</div></div>

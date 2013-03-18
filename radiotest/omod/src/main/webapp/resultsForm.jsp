@@ -89,20 +89,16 @@ function updateStock(){
 }
 //-->
 </script>
-
-<h2>Exam Result Details</h2>
+<div class="colmask leftmenu">
+	<div class="colleft">
+		<div class="col1">
 <br>
-<br>
-
-Exam Number: ${ count }
-<br>
+<h3>Exam Result Details</h3>
+<label> Exam Number: </label> ${ count } <br>
 <c:set var="exam" value="${ transExam.exam }" />
-Exam Type: ${ exam.type.type }
-<br>
-Exam Name: ${ exam.name }
-<br>
-<br>
-
+<label> Exam Type: </label> ${ exam.type.type } <br>
+<label> Exam Name: </label> ${ exam.name }
+<br><br>
 <div id="results">
 	<c:choose>
 		<c:when test="${ result.draft }">
@@ -110,10 +106,10 @@ Exam Name: ${ exam.name }
 				<input type="hidden" name="examId" value="${ transExam.id }">
 				<form:hidden path="id" />
 				<form:hidden path="draft" id="draft" />
-				Result: 
-				<form:radiobutton path="positive" label="Positive" value="true" onclick="writeTemplate()" />
-				<form:radiobutton path="positive" label="Negative" value="false" onclick="writeTemplate()" />
-				<br>
+				<h3> Result </h3>
+				<form:radiobutton cssClass="regular-radio" path="positive" value="true" onclick="writeTemplate()" /><b>Positive</b>
+				<form:radiobutton cssClass="regular-radio" path="positive" value="false" onclick="writeTemplate()" /><b>Negative</b>
+				<br><br>
 				<spring:bind path="findings">
 					<c:choose>
 						<c:when test="${ result.positive }">
@@ -123,44 +119,49 @@ Exam Name: ${ exam.name }
 							<c:set var="res" value="${ exam.type.template }" />
 						</c:otherwise>
 					</c:choose>
-					<textarea id="findings" name="${ status.expression }">${ res }</textarea>
+					<textarea class="addressinput" id="findings" name="${ status.expression }">${ res }</textarea>
 				</spring:bind>
 				<br>
-				<br>
 			</form:form>
-			<button type="button" onclick="save()">Save</button>
-			<button type="button" onclick="saveDraft()">Save As Draft</button>
+			<button type="button" class="buttondesignsmallmedium" onclick="save()">Save</button>
+			<button type="button" class="buttondesignsmalllong" onclick="saveDraft()">Save As Draft</button>
 		</c:when>
-		<c:otherwise>
+		<c:otherwise>		
 			<form id="result">
 				<input type="hidden" name="examId" value="${ transExam.id }">
 			</form>
+		<b><font style="padding-left: 25px">Result:</font></b>
+		<div id="tab">
+			<font style="color:#009d8e">
 			<c:choose>
 				<c:when test="${ result.positive }">
-					POSITIVE
+					<b>POSITIVE</b>
 				</c:when>
 				<c:otherwise>
-					NEGATIVE
+					<b>NEGATIVE</b>
 				</c:otherwise>
 			</c:choose>
-			<br>
+			</font>
 			<br>
 			${ findings }
+			<br><button class="buttondesignsmall" type="button" onclick="edit()">Edit</button>
+			</div>
 			<br>
-			<button type="button" onclick="edit()">Edit</button>
-			<h2>Items Used</h2>
+		
+			<h3>Items Used</h3>
 			<div id="inventory">
+			<div id=tab>
 				<c:choose>
 					<c:when test="${ empty transExam.items }">
 						<div id="select">
-							<select id="type" name="type" onchange="getItems()">
+							<select id="type" class="patientinputmedium" name="type" onchange="getItems()">
 								<option value="0">All</option>
 								<c:forEach var="type" items="${ itemTypes }">
 									<option value="${ type.id }">${ type.name }</option>
 								</c:forEach>
 							</select>
 							<div class="items">
-								<select id="item" name="items" size="5" multiple>
+								<select id="item" class="patientinputmediummult" name="items" size="5" multiple>
 									<c:forEach var="item" items="${ items }">
 										<c:set var="id" value="${ item.id }" />
 										<option value="${ id }" ondblclick="addItems()">${ item.name }</option>
@@ -174,7 +175,7 @@ Exam Name: ${ exam.name }
 								<div id="listings">
 									
 								</div>
-								<button type="button" onclick="updateStock()">Save</button>
+								<button type="button" class="buttondesignsmall" onclick="updateStock()">Save</button>
 							</form:form>
 						</div>
 					</c:when>
@@ -188,9 +189,14 @@ Exam Name: ${ exam.name }
 			</div>
 		</c:otherwise>
 	</c:choose>
+	</div>
 </div>
 <br>
 <br>
-<button type="button">Print Results Form</button>
-
-<%@ include file="/WEB-INF/template/footer.jsp"%>
+<button type="button" class="buttondesignsmalllong">Print Results Form</button><br>
+</div>
+<div class="col2">
+			<!-- Column 2 start -->
+			<jsp:include page="/WEB-INF/view/sidemenu.jsp"/>
+		</div>
+</div></div>

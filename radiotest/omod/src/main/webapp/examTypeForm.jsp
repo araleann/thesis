@@ -18,8 +18,8 @@
 	<br>
 	<form:textarea cssClass="addressinput" id="template" path="template" />
 	<br>
-	<button type="button" onclick="saveExamType()" class="buttondesign">Save</button>
-	<button type="button" onclick="clearForm()" class="buttondesign">Clear</button>
+	<button type="button" onclick="saveExamType()" class="buttondesignshort">Save</button>
+	<button type="button" onclick="clearForm()" class="buttondesignshort">Clear</button>
 </form:form>
 <br>
 <hr>

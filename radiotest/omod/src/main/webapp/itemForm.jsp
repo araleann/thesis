@@ -12,9 +12,8 @@
 <form:form method="post" modelAttribute="item" id="itemForm">
 	<p>
 	<form:hidden path="id" />
-	<label>Item Type</label>
 	<form:select cssClass="patientinput" path="type">
-		<option value="0"></option>
+		<option value="0" selected disabled>Choose Item type</option>
 		<form:options items="${ itemTypes }" itemLabel="name" itemValue="id" />
 	</form:select>
 	</p>
@@ -28,12 +27,12 @@
 	</p>
 	
 	<p>
-	<label>Threshold</label>
+	<b>Threshold:</b><br>
 	<c:set var="t" value="${ item.threshold }" />
 	<c:set var="pt" value="${ item.percentThreshold }" />
 	<c:set var="threshold" value="${ t > pt? t : pt }" />
-	<input type="text" name="limit" value="${ threshold }">
-	<select name="limitType">
+	<input type="text" class="patientinputshort" name="limit" value="${ threshold }">
+	<select name="limitType" class="patientinputshort">
 		<option value="1">units</option>
 		<option value="2" 
 		<c:if test="${ pt > t }">
