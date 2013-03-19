@@ -20,6 +20,7 @@ import org.openmrs.module.radiotest.propertyeditor.RadioExamPropertyEditor;
 import org.openmrs.module.radiotest.propertyeditor.RadioExamTypePropertyEditor;
 import org.openmrs.module.radiotest.propertyeditor.RadioNoteTypePropertyEditor;
 import org.openmrs.module.radiotest.propertyeditor.RadioPatientPropertyEditor;
+import org.openmrs.module.radiotest.propertyeditor.RadioStringPropertyEditor;
 import org.openmrs.module.radiotest.propertyeditor.RadioTransactionPropertyEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -40,6 +41,7 @@ public class RadioTransactionController {
 	
 	@InitBinder
 	public void initBinder(WebRequest request, WebDataBinder binder){
+		binder.registerCustomEditor(String.class, new RadioStringPropertyEditor());
 		binder.registerCustomEditor(RadioExam.class, new RadioExamPropertyEditor());
 		binder.registerCustomEditor(RadioExamType.class, new RadioExamTypePropertyEditor());
 		binder.registerCustomEditor(RadioPatient.class, new RadioPatientPropertyEditor());

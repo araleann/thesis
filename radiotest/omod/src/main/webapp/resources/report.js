@@ -30,9 +30,14 @@ $j(function(){
 			
 	}
 	
+	function toggleFilter(){
+		
+	}
+	
 	// ATTACH TO EVENTS
 	$j(".entity .general").change(toggleDetails);
 	$j(".filterButton").click(addFilter);
 	
 	// MAIN
+	GeneralUtils.addDatepicker($j(".date"));
 });

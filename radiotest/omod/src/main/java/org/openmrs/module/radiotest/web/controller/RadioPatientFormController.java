@@ -11,6 +11,7 @@ import org.openmrs.module.radiotest.RadioPatient;
 import org.openmrs.module.radiotest.api.RadioPatientService;
 import org.openmrs.module.radiotest.model.RadioPatientModel;
 import org.openmrs.module.radiotest.propertyeditor.RadioCategoryPropertyEditor;
+import org.openmrs.module.radiotest.propertyeditor.RadioStringPropertyEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.WebDataBinder;
@@ -29,6 +30,7 @@ public class RadioPatientFormController {
 	
 	@InitBinder
 	public void initBinder(WebRequest request, WebDataBinder binder){
+		binder.registerCustomEditor(String.class, new RadioStringPropertyEditor());
 		binder.registerCustomEditor(RadioCategory.class, new RadioCategoryPropertyEditor());
 	}
 	

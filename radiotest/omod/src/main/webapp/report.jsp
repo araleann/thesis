@@ -1,10 +1,15 @@
 <%@ include file="/WEB-INF/template/include.jsp"%>
 <%@ include file="/WEB-INF/template/header.jsp"%>
 
+<openmrs:htmlInclude file="/moduleResources/radiotest/GeneralUtils.js" />
 <openmrs:htmlInclude file="/moduleResources/radiotest/report.js" />
-
+<div class="colmask leftmenu">
+	<div class="colleft">
+		<div class="col1">
+<br>
 <form:form id="report" modelAttribute="reportModel">
 	<spring:nestedPath path="report">
+		Date from <form:input path="startDate" cssClass="date" /> to <form:input path="endDate" cssClass="date" />
 		<h2>Patient</h2>
 		<div id="patient">
 			<button type="button" class="filterButton">Add Filter</button>
@@ -60,10 +65,27 @@
 				<option value="0"></option>
 				<form:options items="${ categories }" itemLabel="category" itemValue="id" />
 			</form:select><br>
-			
+		</div>
+		<h2>Transaction</h2>
+		<div id="transaction">
+			<button type="button" class="filterButton">Add Filter</button>
+			<input type="checkbox" value="t.visitDate">Visit Date <br>
+			<input type="checkbox" value="t.visitTime">Visit Time <br>
+			<div class="entity">
+				<input type="checkbox" class="general">Paid
+				<div hidden>
+					<input type="radio" value="t.orNumber">w/ OR Number
+					<input type="radio" value="t.orNumber">w/out OR Number
+					<input type="radio" value="t.paid">Not Paid <br>
+				</div>
+			</div>
 		</div>
 	</spring:nestedPath>
 	<button type="button" onclick="processReport()">Generate Report</button>
 </form:form>
-
-<%@ include file="/WEB-INF/template/footer.jsp"%>
+</div>
+<div class="col2">
+			<!-- Column 2 start -->
+			<jsp:include page="/WEB-INF/view/sidemenu.jsp"/>
+		</div>
+</div></div>

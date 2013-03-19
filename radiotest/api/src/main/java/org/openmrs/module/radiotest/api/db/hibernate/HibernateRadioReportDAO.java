@@ -12,7 +12,6 @@ import org.hibernate.SessionFactory;
 import org.openmrs.api.db.DAOException;
 import org.openmrs.module.radiotest.RadioReport;
 import org.openmrs.module.radiotest.api.db.RadioReportDAO;
-import org.openmrs.module.radiotest.propertyeditor.RadioReportResultTransformer;
 
 public class HibernateRadioReportDAO implements RadioReportDAO{
 	
@@ -34,34 +33,34 @@ public class HibernateRadioReportDAO implements RadioReportDAO{
 	    return sessionFactory;
     }
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public String generateReport(RadioReport report) throws DAOException {
 		// TODO Auto-generated method stub
 		StringBuilder csv = new StringBuilder();
 		Criteria criteria = report
 								.getCriteria()
-									.getExecutableCriteria(sessionFactory.getCurrentSession())
-										.setResultTransformer(new RadioReportResultTransformer());
+									.getExecutableCriteria(sessionFactory.getCurrentSession());
 		List<Object[]> table = (List<Object[]>) criteria.list();
 		
+//		csv.append(report.getHeaders());
 		for(Object[] row : table){
-			csv.append(row[0]);
-			for(int i = 1; i < row.length; i++){
-				csv.append("," + row[i]);
+			for(int i = 0; i < row.length; i++){
+				csv.append(row[i] + ",");
 			}
 			csv.append("\n");
 		}
 		
-//		try {
-//			JFileChooser fc = new JFileChooser();
-//			if(fc.showSaveDialog(null) == JFileChooser.APPROVE_OPTION){
-//				PrintWriter out = new PrintWriter(fc.getSelectedFile());
-//				out.print(csv.toString());
-//				out.close();
-//			}
-//		} catch (Exception e){
-//			e.printStackTrace();
-//		}
+		try {
+			JFileChooser fc = new JFileChooser();
+			if(fc.showSaveDialog(null) == JFileChooser.APPROVE_OPTION){
+				PrintWriter out = new PrintWriter(fc.getSelectedFile());
+				out.print(csv.toString());
+				out.close();
+			}
+		} catch (Exception e){
+			e.printStackTrace();
+		}
 		
 		return csv.toString();
 	}

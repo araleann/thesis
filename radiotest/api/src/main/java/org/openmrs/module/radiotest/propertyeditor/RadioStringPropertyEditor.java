@@ -10,4 +10,8 @@ public class RadioStringPropertyEditor extends PropertyEditorSupport {
 		else
 			setValue(text);
 	}
+	
+	public String getAsText() {
+		return (String) (getValue() == null? "" : getValue());
+	}
 }

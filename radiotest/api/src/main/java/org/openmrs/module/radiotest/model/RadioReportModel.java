@@ -9,6 +9,10 @@ public class RadioReportModel {
 	private RadioReport report;
 	private List<String> projectionList;
 	
+	public RadioReportModel(){
+		report = new RadioReport();
+	}
+	
 	public RadioReport getReport() {
 		return report;
 	}
