@@ -15,10 +15,8 @@ $j(function(){
 		$j(this)
 			.siblings()	
 				.toggle()
-				.children()
-					.attr("checked", function(idx, oldAttr){
-						return !oldAttr;
-					});
+				.children(":checkbox")
+					.trigger("change");
 	}
 	
 	function addFilter(){
@@ -31,13 +29,20 @@ $j(function(){
 	}
 	
 	function toggleFilter(){
+		var $this = $j(this);
+		var isChecked = $this.attr("checked");
 		
+		$this
+			.next(".filter")
+				.attr("disabled", !isChecked);
 	}
 	
 	// ATTACH TO EVENTS
 	$j(".entity .general").change(toggleDetails);
 	$j(".filterButton").click(addFilter);
+	$j(":checkbox:not(.general)").change(toggleFilter);
 	
 	// MAIN
 	GeneralUtils.addDatepicker($j(".date"));
+	$j(".filter").attr("disabled", true);
 });

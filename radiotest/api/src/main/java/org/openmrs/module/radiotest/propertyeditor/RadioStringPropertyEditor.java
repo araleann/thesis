@@ -7,6 +7,8 @@ public class RadioStringPropertyEditor extends PropertyEditorSupport {
 	public void setAsText(String text) throws IllegalArgumentException{
 		if(text.isEmpty())
 			setValue(null);
+		else if(text.equals(" "))
+			setValue("");
 		else
 			setValue(text);
 	}

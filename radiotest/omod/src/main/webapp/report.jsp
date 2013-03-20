@@ -61,24 +61,33 @@
 				<form:input path="alias" cssClass="filter" /><br>
 			</spring:nestedPath>
 			<input type="checkbox" value="c.category">Category 
-			<form:select path="category" cssClass="filter">
+			<form:select path="category">
 				<option value="0"></option>
 				<form:options items="${ categories }" itemLabel="category" itemValue="id" />
-			</form:select><br>
+			</form:select>
 		</div>
 		<h2>Transaction</h2>
 		<div id="transaction">
-			<button type="button" class="filterButton">Add Filter</button>
-			<input type="checkbox" value="t.visitDate">Visit Date <br>
-			<input type="checkbox" value="t.visitTime">Visit Time <br>
-			<div class="entity">
-				<input type="checkbox" class="general">Paid
-				<div hidden>
-					<input type="radio" value="t.orNumber">w/ OR Number
-					<input type="radio" value="t.orNumber">w/out OR Number
-					<input type="radio" value="t.paid">Not Paid <br>
-				</div>
+			<button type="button" class="filterButton">Add Filter</button> <br>
+			<spring:nestedPath path="transaction">
+				<input type="checkbox" value="t.visitDate">Visit Date <br>
+				<input type="checkbox" value="t.visitTime">Visit Time <br>
+				<div class="entity">
+					<input type="checkbox" class="general">Paid
+					<div hidden>
+						<spring:bind path="orNumber">	
+							<input type="radio" value="t.orNumber">w/ OR Number
+							<input type="hidden" class="filter" name="${ status.expression }" value="_%">
+							<input type="radio" value="t.orNumber">w/out OR Number
+							<input type="hidden" class="filter" name="${ status.expression }" value=" ">
+						</spring:bind>
+						<spring:bind path="paid">
+							<input type="radio" value="t.paid">Not Paid <br>
+							<input type="hidden" class="filter" name="${ status.expression }" value="false">
+						</spring:bind>
+					</div>
 			</div>
+			</spring:nestedPath>
 		</div>
 	</spring:nestedPath>
 	<button type="button" onclick="processReport()">Generate Report</button>

@@ -43,7 +43,7 @@ public class HibernateRadioReportDAO implements RadioReportDAO{
 									.getExecutableCriteria(sessionFactory.getCurrentSession());
 		List<Object[]> table = (List<Object[]>) criteria.list();
 		
-//		csv.append(report.getHeaders());
+		csv.append(report.getHeaders());
 		for(Object[] row : table){
 			for(int i = 0; i < row.length; i++){
 				csv.append(row[i] + ",");

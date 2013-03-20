@@ -1,23 +1,20 @@
 package org.openmrs.module.radiotest;
 
+import java.lang.reflect.Field;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
-import org.hibernate.criterion.Criterion;
+import org.hibernate.Criteria;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Example;
-import org.hibernate.criterion.Projection;
 import org.hibernate.criterion.ProjectionList;
 import org.hibernate.criterion.Projections;
-import org.hibernate.type.StringType;
-import org.hibernate.type.Type;
 
 public class RadioReport {
 
 	private DetachedCriteria criteria;
 	private ProjectionList projectionList;
-	private HashMap<String, Criterion> restrictionList;
 	private List<String> aliasList;
 	
 	
@@ -33,8 +30,6 @@ public class RadioReport {
 	private RadioTransaction transaction;
 	
 	public RadioReport(){
-		restrictionList = new HashMap<String, Criterion>();
-		
 		headers = new HashMap<String, String>();
 		headers.put("p.firstName", "First Name");
 		headers.put("p.middleInitial", "Middle Initial");
@@ -50,6 +45,11 @@ public class RadioReport {
 		headers.put("p.philhealth", "Philhealth");
 		headers.put("a.alias", "Alias");
 		headers.put("c.category", "Category");
+	
+		headers.put("t.visitDate", "Visit Date");
+		headers.put("t.visitTime", "Visit Time");
+		headers.put("t.paid", "Paid");
+		headers.put("t.orNumber", "OR Number");
 	}
 
 	public DetachedCriteria getCriteria() {
@@ -107,7 +107,7 @@ public class RadioReport {
 	public void setAlias(RadioAlias alias) {
 		this.alias = alias;
 	}
-
+	
 	public RadioCategory getCategory() {
 		return category;
 	}
@@ -115,7 +115,7 @@ public class RadioReport {
 	public void setCategory(RadioCategory category) {
 		this.category = category;
 	}
-	
+
 	public RadioTransaction getTransaction() {
 		return transaction;
 	}
@@ -125,8 +125,21 @@ public class RadioReport {
 	}
 
 	// CUSTOM FUNCTIONS	
-	private Example wrapExample(Example e){
-		return e.ignoreCase().excludeZeroes();
+	private Example getExample(String field){
+		Object e = null;
+		try {
+			Field f = RadioReport.class.getDeclaredField(field);
+			e = f.get(this);
+			
+			if(e == null){
+				e = f.getType().newInstance();
+			}
+			
+		} catch (Exception ex){
+			ex.printStackTrace();
+		}
+		
+		return Example.create(e).ignoreCase().excludeZeroes();
 	}
 	
 	public RadioReport setProjectionList(List<String> list){
@@ -144,12 +157,16 @@ public class RadioReport {
 	
 	public RadioReport generate(){
 		criteria = DetachedCriteria
-						.forClass(RadioPatient.class, "p")
-							.add(wrapExample(Example.create(patient)))
-							.createCriteria("p.aliases", "a")
-								.add(wrapExample(Example.create(alias)))
-								.createCriteria("a.category", "c")
-									.add(wrapExample(Example.create(category)));
+						.forClass(RadioTransExam.class, "te")
+							.createCriteria("te.patient", "p")
+								.add(getExample("patient"))
+								.createCriteria("p.aliases", "a")
+									.add(getExample("alias"))
+									.createCriteria("a.category", "c")
+										.add(getExample("category"))
+							.createCriteria("te.transaction", "t")
+								.add(getExample("transaction").enableLike());
+										
 		
 		criteria.setProjection(projectionList);
 		return this;
@@ -160,7 +177,7 @@ public class RadioReport {
 		for(String alias : aliasList){
 			sb.append(headers.get(alias) + ",");
 		}
-		sb.append("/n");
+		sb.append("\n");
 		
 		return sb.toString();
 	}
