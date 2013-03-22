@@ -24,7 +24,7 @@ public class RadioReportController {
 	
 	@InitBinder
 	public void initBinder(WebRequest request, WebDataBinder binder){
-		binder.registerCustomEditor(String.class, new RadioStringPropertyEditor());
+//		binder.registerCustomEditor(String.class, new RadioStringPropertyEditor());
 		binder.registerCustomEditor(RadioCategory.class, new RadioCategoryPropertyEditor());
 	}
 	

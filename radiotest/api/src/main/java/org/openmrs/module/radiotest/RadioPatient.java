@@ -4,42 +4,43 @@ import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-import org.openmrs.BaseOpenmrsData;
-
-public class RadioPatient extends BaseOpenmrsData {
+public class RadioPatient extends RadioData {
 	
-	private Integer id;
-	private String patientId;
+	protected Integer id;
+	protected String patientId;
 	
-	private String firstName;
-	private String middleInitial;
-	private String lastName;
+	protected String firstName;
+	protected String middleInitial;
+	protected String lastName;
 	
-	private String gender;
-	private String civilStatus;
-	private Date birthday;
-	private String streetAddress;
-	private String region;
-	private String city;
-	private String barangay;
-	private String contactNo;
-	private String institution;
-	private String philhealth;
-	private String caseNumber;
+	protected String gender;
+	protected String civilStatus;
+	protected Date birthday;
+	protected String streetAddress;
+	protected String region;
+	protected String city;
+	protected String barangay;
+	protected String contactNo;
+	protected String institution;
+	protected String philhealth;
+	protected String caseNumber;
 	
-	private Date updateDate;
+	protected Date updateDate;
 	
-	private Set<RadioAlias> aliases = new LinkedHashSet<RadioAlias>();
-	private Set<RadioTransaction> transactions;
+	protected Set<RadioAlias> aliases;
+	protected Set<RadioTransaction> transactions;
 	
-	private Boolean voided = Boolean.FALSE;
+	protected Boolean voided;
 	
 	// not saved to the database
-	private RadioAlias alias;
-	private RadioCategory category;
+	protected RadioAlias alias;
+	protected RadioCategory category;
 	
 	public RadioPatient(){
+		aliases = new LinkedHashSet<RadioAlias>();
+		transactions = new LinkedHashSet<RadioTransaction>();
 		
+		voided = false;
 	}
 	
 	@Override
@@ -183,6 +184,10 @@ public class RadioPatient extends BaseOpenmrsData {
 	}
 
 	public Set<RadioAlias> getAliases() {
+		if(aliases == null){
+			aliases = new LinkedHashSet<RadioAlias>();
+		}
+		
 		return aliases;
 	}
 
@@ -191,6 +196,10 @@ public class RadioPatient extends BaseOpenmrsData {
 	}
 	
 	public Set<RadioTransaction> getTransactions() {
+		if(transactions == null){
+			transactions = new LinkedHashSet<RadioTransaction>();
+		}
+		
 		return transactions;
 	}
 
@@ -252,5 +261,11 @@ public class RadioPatient extends BaseOpenmrsData {
 		if(!c.isValid(caseNumber)){
 			caseNumber = c.getNewCaseNumber();
 		}
+	}
+
+	@Override
+	public String getPrefix() {
+		// TODO Auto-generated method stub
+		return "p";
 	}
 }

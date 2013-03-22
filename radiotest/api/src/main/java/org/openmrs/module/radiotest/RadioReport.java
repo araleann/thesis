@@ -5,11 +5,11 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
-import org.hibernate.Criteria;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Example;
 import org.hibernate.criterion.ProjectionList;
 import org.hibernate.criterion.Projections;
+import org.openmrs.BaseOpenmrsData;
 
 public class RadioReport {
 
@@ -131,7 +131,7 @@ public class RadioReport {
 			Field f = RadioReport.class.getDeclaredField(field);
 			e = f.get(this);
 			
-			if(e == null){
+			if(e == null || e.getClass() != String.class){
 				e = f.getType().newInstance();
 			}
 			
@@ -139,7 +139,9 @@ public class RadioReport {
 			ex.printStackTrace();
 		}
 		
-		return Example.create(e).ignoreCase().excludeZeroes();
+		return Example.create(e)
+					.ignoreCase()
+					.excludeZeroes();
 	}
 	
 	public RadioReport setProjectionList(List<String> list){
@@ -150,6 +152,15 @@ public class RadioReport {
 		
 		for(String prop : list){
 			projectionList.add(Projections.property(prop));
+		}
+		
+		System.out.println("TEST");
+		for(String s : patient.getAliasList()){
+			System.out.println(s);
+		}
+		
+		for(String s : patient.getHeaders()){
+			System.out.println(s);
 		}
 		
 		return this;
@@ -163,9 +174,7 @@ public class RadioReport {
 								.createCriteria("p.aliases", "a")
 									.add(getExample("alias"))
 									.createCriteria("a.category", "c")
-										.add(getExample("category"))
-							.createCriteria("te.transaction", "t")
-								.add(getExample("transaction").enableLike());
+										.add(getExample("category"));
 										
 		
 		criteria.setProjection(projectionList);

@@ -12,6 +12,7 @@ import org.hibernate.SessionFactory;
 import org.openmrs.api.db.DAOException;
 import org.openmrs.module.radiotest.RadioReport;
 import org.openmrs.module.radiotest.api.db.RadioReportDAO;
+import org.springframework.util.StringUtils;
 
 public class HibernateRadioReportDAO implements RadioReportDAO{
 	
@@ -45,9 +46,7 @@ public class HibernateRadioReportDAO implements RadioReportDAO{
 		
 		csv.append(report.getHeaders());
 		for(Object[] row : table){
-			for(int i = 0; i < row.length; i++){
-				csv.append(row[i] + ",");
-			}
+			csv.append(StringUtils.arrayToCommaDelimitedString(row));
 			csv.append("\n");
 		}
 		
