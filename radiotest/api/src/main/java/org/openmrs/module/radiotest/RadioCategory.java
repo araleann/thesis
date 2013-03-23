@@ -7,10 +7,10 @@ public class RadioCategory extends BaseOpenmrsMetadata {
 	private Integer id;
 	private String category;
 	
-	private Boolean voided = Boolean.FALSE;
+	private Boolean voided;
 	
 	public RadioCategory(){
-		
+		voided = false;
 	}
 	
 	@Override

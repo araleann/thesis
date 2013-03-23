@@ -1,22 +1,14 @@
 $j(function(){
-	var funcs = {
-		processReport : function processReport(){
-			$j(":checked:not(.general)")
-				.attr("name", "projectionList");
-			
-			$j("#report").submit();
-		}
-	};
-	
-	$j.extend(window, funcs);
-	
 	// EVENT FUNCTIONS
 	function toggleDetails(){
 		$j(this)
 			.siblings()	
 				.toggle()
 				.children(":checkbox")
-					.trigger("change");
+					.attr("checked", function(idx, oldAttr){
+						return !oldAttr;
+					})
+					.change();
 	}
 	
 	function addFilter(){
@@ -34,7 +26,9 @@ $j(function(){
 		
 		$this
 			.next(".filter")
-				.attr("disabled", !isChecked);
+				.attr("disabled", !isChecked)
+				.find(":input")
+					.attr("disabled", !isChecked);
 	}
 	
 	// ATTACH TO EVENTS
@@ -44,5 +38,8 @@ $j(function(){
 	
 	// MAIN
 	GeneralUtils.addDatepicker($j(".date"));
-	$j(".filter").attr("disabled", true);
+	$j(".filter")
+		.attr("disabled", true)
+		.find(":input")
+			.attr("disabled", true);
 });

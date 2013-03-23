@@ -4,7 +4,9 @@ import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-public class RadioPatient extends RadioData {
+import org.openmrs.BaseOpenmrsData;
+
+public class RadioPatient extends BaseOpenmrsData {
 	
 	protected Integer id;
 	protected String patientId;
@@ -261,11 +263,5 @@ public class RadioPatient extends RadioData {
 		if(!c.isValid(caseNumber)){
 			caseNumber = c.getNewCaseNumber();
 		}
-	}
-
-	@Override
-	public String getPrefix() {
-		// TODO Auto-generated method stub
-		return "p";
 	}
 }

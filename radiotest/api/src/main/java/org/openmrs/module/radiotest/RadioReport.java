@@ -1,24 +1,28 @@
 package org.openmrs.module.radiotest;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
+import org.apache.commons.lang.WordUtils;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Example;
 import org.hibernate.criterion.ProjectionList;
 import org.hibernate.criterion.Projections;
-import org.openmrs.BaseOpenmrsData;
+import org.springframework.util.StringUtils;
 
 public class RadioReport {
 
 	private DetachedCriteria criteria;
 	private ProjectionList projectionList;
-	private List<String> aliasList;
 	
+	private List<String> propList;
+	private List<String> headers;
 	
-	private HashMap<String, String> headers;
+	private HashMap<Class<?>, String> prefix;
 			
 	private Date startDate;
 	private Date endDate;
@@ -27,29 +31,22 @@ public class RadioReport {
 	private RadioAlias alias;
 	private RadioCategory category;
 	
+	private RadioExamType examType;
+	private RadioExam exam;
+	
 	private RadioTransaction transaction;
 	
 	public RadioReport(){
-		headers = new HashMap<String, String>();
-		headers.put("p.firstName", "First Name");
-		headers.put("p.middleInitial", "Middle Initial");
-		headers.put("p.lastName", "Last Name");
-		headers.put("p.streetAddress", "Street Address");
-		headers.put("p.barangay", "Barangay");
-		headers.put("p.city", "City");
-		headers.put("p.region", "Region");
-		headers.put("p.caseNumber", "Case Number");
-		headers.put("p.gender", "Gender");
-		headers.put("p.civilStatus", "Civil Status");
-		headers.put("p.institution", "Institution");
-		headers.put("p.philhealth", "Philhealth");
-		headers.put("a.alias", "Alias");
-		headers.put("c.category", "Category");
-	
-		headers.put("t.visitDate", "Visit Date");
-		headers.put("t.visitTime", "Visit Time");
-		headers.put("t.paid", "Paid");
-		headers.put("t.orNumber", "OR Number");
+		headers = new ArrayList<String>();
+		propList = new ArrayList<String>();
+		
+		prefix = new HashMap<Class<?>, String>();
+		prefix.put(RadioPatient.class, "p");
+		prefix.put(RadioAlias.class, "a");
+		prefix.put(RadioCategory.class, "c");
+		prefix.put(RadioExam.class, "e");
+		prefix.put(RadioExamType.class, "et");
+		prefix.put(RadioTransaction.class, "t");
 	}
 
 	public DetachedCriteria getCriteria() {
@@ -68,12 +65,12 @@ public class RadioReport {
 		this.projectionList = projectionList;
 	}
 
-	public List<String> getAliasList() {
-		return aliasList;
-	}
+	public List<String> getPropList() {
+		return propList;
+}
 
-	public void setAliasList(List<String> aliasList) {
-		this.aliasList = aliasList;
+	public void setPropList(List<String> propList) {
+		this.propList = propList;
 	}
 
 	public Date getStartDate() {
@@ -116,6 +113,22 @@ public class RadioReport {
 		this.category = category;
 	}
 
+	public RadioExamType getExamType() {
+		return examType;
+	}
+
+	public void setExamType(RadioExamType examType) {
+		this.examType = examType;
+	}
+
+	public RadioExam getExam() {
+		return exam;
+	}
+
+	public void setExam(RadioExam exam) {
+		this.exam = exam;
+	}
+
 	public RadioTransaction getTransaction() {
 		return transaction;
 	}
@@ -124,71 +137,97 @@ public class RadioReport {
 		this.transaction = transaction;
 	}
 
-	// CUSTOM FUNCTIONS	
-	private Example getExample(String field){
-		Object e = null;
+	// CUSTOM FUNCTIONS
+	
+	private Example getExample(Class<?> cls, Object obj){
 		try {
-			Field f = RadioReport.class.getDeclaredField(field);
-			e = f.get(this);
+			obj = getDetails(cls, obj);
 			
-			if(e == null || e.getClass() != String.class){
-				e = f.getType().newInstance();
+			if(obj == null){
+				obj = cls.newInstance();
 			}
 			
-		} catch (Exception ex){
-			ex.printStackTrace();
+		} catch (Exception e){
+			e.printStackTrace();
 		}
 		
-		return Example.create(e)
+		return Example.create(obj)
 					.ignoreCase()
 					.excludeZeroes();
 	}
 	
-	public RadioReport setProjectionList(List<String> list){
-		aliasList = list;
-		if(projectionList == null){
-			projectionList = Projections.projectionList();
+	private Object getDetails(Class<?> cls, Object obj){
+		if(obj == null)
+			return obj;
+		
+		try {
+			for(Field fld : cls.getDeclaredFields()){
+				fld.setAccessible(true);
+				
+				String fieldname = fld.getName();
+				if(!(fieldname.equals("id") || fieldname.equals("voided"))){
+					Object value = fld.get(obj);
+					if(value != null){
+						Class<?> cs = fld.getType();
+						if(value instanceof String){
+							String val = (String) value;
+							String newVal = StringUtils.hasText(val)? (val.equals("_")? "" : val) : null;
+							fld.set(obj, newVal);
+						} else if(Collection.class.isAssignableFrom(cs)){
+							fld.set(obj, null);
+							continue;
+						}
+						
+						propList.add(prefix.get(cls) + "." + fld.getName());
+						headers.add(WordUtils.capitalize(fld.getName().replaceAll("(\\p{Ll})(\\p{Lu})", "$1 $2")));
+					}
+				}
+				
+				fld.setAccessible(false);
+			}
+		} catch(Exception e){
+			
 		}
 		
-		for(String prop : list){
-			projectionList.add(Projections.property(prop));
-		}
-		
-		System.out.println("TEST");
-		for(String s : patient.getAliasList()){
+		for(String s : propList){
 			System.out.println(s);
 		}
 		
-		for(String s : patient.getHeaders()){
+		for(String s : headers){
 			System.out.println(s);
 		}
 		
-		return this;
+		return obj;
+	}
+	
+	private ProjectionList createProjectionList(){
+		ProjectionList pl = Projections.projectionList();
+		
+		for(String prop : propList){
+			pl.add(Projections.property(prop));
+		}
+		
+		return pl;
 	}
 	
 	public RadioReport generate(){
 		criteria = DetachedCriteria
 						.forClass(RadioTransExam.class, "te")
 							.createCriteria("te.patient", "p")
-								.add(getExample("patient"))
+								.add(getExample(RadioPatient.class, patient))
 								.createCriteria("p.aliases", "a")
-									.add(getExample("alias"))
+									.add(getExample(RadioAlias.class, alias))
 									.createCriteria("a.category", "c")
-										.add(getExample("category"));
-										
+										.add(getExample(RadioCategory.class, category))
+							.createCriteria("te.exam", "e")
+								.add(getExample(RadioExam.class, exam))
+								.createCriteria("e.type", "et")
+									.add(getExample(RadioExamType.class, examType))
+							.createCriteria("te.transaction", "t")
+								.add(getExample(RadioTransaction.class, transaction));
 		
-		criteria.setProjection(projectionList);
+		criteria.setProjection(createProjectionList());
 		return this;
-	}
-	
-	public String getHeaders(){
-		StringBuilder sb = new StringBuilder();
-		for(String alias : aliasList){
-			sb.append(headers.get(alias) + ",");
-		}
-		sb.append("\n");
-		
-		return sb.toString();
 	}
 
 }

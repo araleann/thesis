@@ -16,15 +16,15 @@ public class RadioTransaction extends BaseOpenmrsData {
 	
 	private Date visitDate;
 	private Date visitTime;
-	private boolean pending = true;
-	private boolean paid = false;
+	private Boolean pending = true;
+	private Boolean paid = false;
 	
 	private Double total = 0.0;
 	private String purpose;
 	private String orNumber;
 	private Set<RadioNote> notes;
 	
-	private boolean claimed = false;
+	private Boolean claimed = false;
 	private Boolean voided = Boolean.FALSE;
 	
 	// not saved in database
@@ -74,22 +74,30 @@ public class RadioTransaction extends BaseOpenmrsData {
 		this.visitTime = visitTime;
 	}
 
-	public boolean isPending() {
+//	public boolean isPending() {
+//		return pending;
+//	}
+//
+//	public void setPending(boolean pending) {
+//		this.pending = pending;
+//	}
+
+	public Boolean getPending() {
 		return pending;
 	}
 
-	public void setPending(boolean pending) {
+	public void setPending(Boolean pending) {
 		this.pending = pending;
 	}
-
-	public boolean isPaid() {
+	
+	public Boolean getPaid() {
 		return paid;
 	}
 
-	public void setPaid(boolean paid) {
+	public void setPaid(Boolean paid) {
 		this.paid = paid;
 	}
-	
+
 	public String getPurpose() {
 		return purpose;
 	}
@@ -120,15 +128,15 @@ public class RadioTransaction extends BaseOpenmrsData {
 		}
 		notes.add(note);
 	}
-
-	public boolean isClaimed() {
+	
+	public Boolean getClaimed() {
 		return claimed;
 	}
 
-	public void setClaimed(boolean claimed) {
+	public void setClaimed(Boolean claimed) {
 		this.claimed = claimed;
 	}
-	
+
 	public Double getTotal(){
 		return total;
 	}
