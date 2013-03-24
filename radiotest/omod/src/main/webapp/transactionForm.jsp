@@ -7,6 +7,7 @@
 var modulePath = openmrsContextPath + "/module/radiotest";
 var saveNotePath = modulePath + "/saveNote.htm"
 var transPath = modulePath + "/transactionForm.htm";
+var pdfPath = modulePath + "/sample.htm";
 
 function saveNote(){
 	$j.post(saveNotePath, $j("#noteForm").serialize(), function(data){
@@ -35,6 +36,10 @@ function noteTypesEvent(){
 }
 function load_profile(){
 	GeneralUtils.redirect("patientProfile.htm");
+}
+function load_assessment(){
+	var win=window.open(pdfPath, '_blank');
+	win.focus();
 }
 //-->
 </script>
@@ -78,7 +83,7 @@ function load_profile(){
 	<br>
 	<label style="color:#009d8e;">Total Amount Due:</label> <font style="font-size:18px; color:#009d8e;">${ transaction.total } </font>
 	<br><br>
-	<button type="button" class="buttondesignsmalllong">Print Assessment Form</button>
+	<button type="button" class="buttondesignsmalllong" onclick="load_assessment()">Print Assessment</button>
 	<br>
 	<br>
 	<hr>
