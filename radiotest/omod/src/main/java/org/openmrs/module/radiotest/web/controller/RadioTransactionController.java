@@ -38,6 +38,7 @@ public class RadioTransactionController {
 
 	private final String TRANS_EXAM_FORM = "/module/radiotest/transExamForm";
 	private final String TRANSACTION_FORM = "/module/radiotest/transactionForm";
+	private final String SAMPLE_PDF = "/module/radiotest/sample";
 	
 	@InitBinder
 	public void initBinder(WebRequest request, WebDataBinder binder){
@@ -64,7 +65,7 @@ public class RadioTransactionController {
 		return Context.getService(RadioTransactionService.class).getAllNoteTypes();
 	}
 	
-	@RequestMapping(value = {TRANSACTION_FORM, TRANS_EXAM_FORM}, method = RequestMethod.GET)
+	@RequestMapping(value = {TRANSACTION_FORM, TRANS_EXAM_FORM, SAMPLE_PDF}, method = RequestMethod.GET)
 	public void showTransaction(HttpSession session, ModelMap model){
 		RadioPatient patient = (RadioPatient) session.getAttribute("patient");
 		RadioTransaction trans = (RadioTransaction) session.getAttribute("transaction");
@@ -78,7 +79,7 @@ public class RadioTransactionController {
 			trans = Context.getService(RadioTransactionService.class).updateTransaction(trans);
 //			trans.computeFees();
 			model.addAttribute("transaction", trans);
-			session.removeAttribute("transaction");
+			//session.removeAttribute("transaction");
 		}
 	}
 	
@@ -124,7 +125,7 @@ public class RadioTransactionController {
 		return new ModelAndView("/module/radiotest/ajax/editNote", model);
 	}
 	
-	@RequestMapping(value = TRANSACTION_FORM, method = RequestMethod.POST)
+	@RequestMapping(value = {TRANSACTION_FORM, SAMPLE_PDF}, method = RequestMethod.POST)
 	public void savePayment(@RequestParam("transId") RadioTransaction trans, 
 								WebRequest request, ModelMap model){
 		trans = Context.getService(RadioTransactionService.class).updateTransaction(trans);
