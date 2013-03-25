@@ -1,6 +1,8 @@
 <%@ include file="/WEB-INF/template/include.jsp"%>
 <%@ include file="/WEB-INF/template/header.jsp"%>
 
+<%@ include file="template/resources.jsp" %>
+
 <script type="text/javascript">
 <!--
 var modulePath = openmrsContextPath + "/module/radiotest";
@@ -87,13 +89,19 @@ function updateStock(){
 		$j("#inventory").replaceWith($inventory);
 	});
 }
+function load_profile(){
+	GeneralUtils.redirect("patientProfile.htm");
+}
 //-->
 </script>
 <div class="colmask leftmenu">
 	<div class="colleft">
 		<div class="col1">
 <br>
-<h3>Exam Result Details</h3>
+<fieldset>
+<legend><h2>${ p.fullName }</h2></legend>
+<div id="details">
+<br>
 <label> Exam Number: </label> ${ count } <br>
 <c:set var="exam" value="${ transExam.exam }" />
 <label> Exam Type: </label> ${ exam.type.type } <br>
@@ -125,6 +133,7 @@ function updateStock(){
 			</form:form>
 			<button type="button" class="buttondesignsmallmedium" onclick="save()">Save</button>
 			<button type="button" class="buttondesignsmalllong" onclick="saveDraft()">Save As Draft</button>
+			<br><br>
 		</c:when>
 		<c:otherwise>		
 			<form id="result">
@@ -147,7 +156,7 @@ function updateStock(){
 			<br><button class="buttondesignsmall" type="button" onclick="edit()">Edit</button>
 			</div>
 			<br>
-		
+			<button type="button" class="buttondesignsmalllong">Print Results Form</button><br><br>
 			<h3>Items Used</h3>
 			<div id="inventory">
 			<div id=tab>
@@ -190,10 +199,10 @@ function updateStock(){
 		</c:otherwise>
 	</c:choose>
 	</div>
-</div>
-<br>
-<br>
-<button type="button" class="buttondesignsmalllong">Print Results Form</button><br>
+	<br>	
+	<button type="button" class="buttondesignmedium" onclick="load_profile()" style="background-color:#f29c22;">Back to profile</button>
+	<br><br>
+</fieldset>
 </div>
 <div class="col2">
 			<!-- Column 2 start -->

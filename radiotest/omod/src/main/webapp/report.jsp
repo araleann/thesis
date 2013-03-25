@@ -73,6 +73,7 @@
 			<form:options items="${ categories }" itemLabel="category" itemValue="id" />
 		</form:select>
 	</div>
+	
 	<h2>Exam</h2>
 	<div id="exam">
 		<button type="button" class="filterButton">Add Filter</button> <br>
@@ -88,37 +89,43 @@
 			<form:options items="${ exams }" itemLabel="name" itemValue="id" />
 		</form:select>
 		<br>
+		<spring:nestedPath path="result">
+			<input type="checkbox" name="fieldList" value="r.positive">Result
+			<div class="filter">
+				<spring:bind path="positive">
+					<input type="radio" name="${ status.expression }" value="" checked>All
+				</spring:bind>
+				<form:radiobutton path="positive" value="true" />Positive
+				<form:radiobutton path="positive" value="false" />Negative
+			</div>
+			<br>
+			<input type="checkbox">Findings
+			<form:input path="findings" cssClass="filter" /><br>
+		</spring:nestedPath>
 	</div>
+	
 	<h2>Transaction</h2>
 	<div id="transaction">
 		<button type="button" class="filterButton">Add Filter</button> <br>
 		<spring:nestedPath path="transaction">
-			<input type="checkbox">Visit Date <br>
-			<input type="checkbox">Visit Time <br>
+			<input type="checkbox" name="fieldList" value="t.visitDate">Visit Date <br>
+			<input type="checkbox" name="fieldList" value="t.visitTime">Visit Time <br>
 			<input type="checkbox">Purpose
 			<form:input path="purpose" cssClass="filter" /><br>
-			<input type="checkbox">Paid
+			<input type="checkbox" name="fieldList" value="t.paid">Paid
 			<div class="filter">
+				<spring:bind path="paid">
+					<input type="radio" name="${ status.expression }" value="" checked>All
+				</spring:bind>
 				<form:radiobutton path="paid" value="true" />Paid
 				<form:select path="orNumber">
-					<option value=""></option>
+					<option value="*"></option>
 					<option value="_%">w/ OR Number</option>
 					<option value="_">w/out OR Number</option>
 				</form:select>
-				<form:radiobutton path="paid" value="false" />Not Paid
-				<form:radiobutton path="paid" value="" />All
 			</div>
 			<br>
-			<input type="checkbox">Pending
-			<div class="filter">
-				<form:select path="pending">
-					<option value=""></option>
-					<option value="false">Done</option>
-					<option value="true">Pending</option>
-				</form:select>
-			</div>
-			<br>
-			<input type="checkbox">Claimed
+			<input type="checkbox" name="fieldList" value="t.claimed">Claimed
 			<div class="filter">
 				<form:select path="claimed">
 					<option value=""></option>
@@ -126,11 +133,10 @@
 					<option value="false">Not Claimed</option>
 				</form:select>
 			</div>
-			<input type="checkbox">Total
-			
-			<br>
+			<input type="checkbox" name="fieldList" value="t.total">Total <br>
 		</spring:nestedPath>
 	</div>
+	
 	<button type="submit">Generate Report</button>
 </form:form>
 </div>

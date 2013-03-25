@@ -43,7 +43,7 @@ public class RadioResultsController {
 	
 	@ModelAttribute("result")
 	public RadioResult getResult(){
-		return new RadioResult();
+		return new RadioResult(true);
 	}
 	
 	@ModelAttribute("transList")
@@ -110,7 +110,7 @@ public class RadioResultsController {
 		RadioTransactionService ts = Context.getService(RadioTransactionService.class);
 		RadioInventoryService is = Context.getService(RadioInventoryService.class);
 		
-		if(!result.isDraft()){
+		if(!result.getDraft()){
 			e.setPending(false);
 			addInventoryModel(is, model);
 			model.addAttribute("findings", escapeNewline(result.getFindings(), "<br>"));
@@ -133,7 +133,7 @@ public class RadioResultsController {
 	@RequestMapping(value = "/module/radiotest/editResultForm", method = RequestMethod.POST)
 	public ModelAndView editResult(@RequestParam("examId") RadioTransExam exam, ModelMap model){
 		model.addAttribute("transExam", exam);
-		model.addAttribute("result", new RadioResult());
+		model.addAttribute("result", new RadioResult(true));
 		
 		return new ModelAndView("/module/radiotest/resultsForm", model);
 	}
