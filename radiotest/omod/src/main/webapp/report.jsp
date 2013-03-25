@@ -41,11 +41,11 @@
 			<form:input path="caseNumber" cssClass="filter" /><br>
 			<input type="checkbox">Gender 
 			<div class="filter">
-				<form:select path="gender">
-					<option value=""></option>
-					<option value="M">Male</option>
-					<option value="F">Female</option>
-				</form:select>
+				<spring:bind path="gender">
+					<input type="radio" name="${ status.expression }" value="" checked>Both
+				</spring:bind>
+				<form:radiobutton path="gender" value="M" />Male
+				<form:radiobutton path="gender" value="F" />Female
 			</div>
 			<br>
 			<input type="checkbox">Civil Status 
@@ -114,24 +114,20 @@
 			<form:input path="purpose" cssClass="filter" /><br>
 			<input type="checkbox" name="fieldList" value="t.paid">Paid
 			<div class="filter">
-				<spring:bind path="paid">
-					<input type="radio" name="${ status.expression }" value="" checked>All
-				</spring:bind>
-				<form:radiobutton path="paid" value="true" />Paid
-				<form:select path="orNumber">
-					<option value="*"></option>
-					<option value="_%">w/ OR Number</option>
-					<option value="_">w/out OR Number</option>
-				</form:select>
+				<spring:bind path="orNumber">
+					<input type="radio" name="${ status.expression }" value="*" checked>All
+				</spring:bind>	
+				<form:radiobutton path="orNumber" value="_%" />w/ OR Number
+				<form:radiobutton path="orNumber" value="_" /> w/out OR Number
 			</div>
 			<br>
 			<input type="checkbox" name="fieldList" value="t.claimed">Claimed
 			<div class="filter">
-				<form:select path="claimed">
-					<option value=""></option>
-					<option value="true">Claimed</option>
-					<option value="false">Not Claimed</option>
-				</form:select>
+				<spring:bind path="claimed">
+					<input type="radio" name="${ status.expression }" value="" checked>All
+				</spring:bind>
+				<form:radiobutton path="claimed" value="true" />Claimed
+				<form:radiobutton path="claimed" value="false" />Not Claimed
 			</div>
 			<input type="checkbox" name="fieldList" value="t.total">Total <br>
 		</spring:nestedPath>

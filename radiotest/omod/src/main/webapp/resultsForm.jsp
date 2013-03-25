@@ -99,7 +99,7 @@ function load_profile(){
 		<div class="col1">
 <br>
 <fieldset>
-<legend><h2>${ p.fullName }</h2></legend>
+<legend><h2>${ patient.fullName }</h2></legend>
 <div id="details">
 <br>
 <label> Exam Number: </label> ${ count } <br>

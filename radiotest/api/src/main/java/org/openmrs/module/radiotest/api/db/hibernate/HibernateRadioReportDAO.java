@@ -74,8 +74,7 @@ public class HibernateRadioReportDAO implements RadioReportDAO{
     		prefix.put(RadioExam.class, "e");
     		prefix.put(RadioExamType.class, "et");
     		prefix.put(RadioTransaction.class, "t");
-    		prefix.put(RadioNote.class, "n");
-    		prefix.put(RadioNoteType.class, "nt");
+    		prefix.put(RadioResult.class, "r");
     	}
 		
 		return prefix.get(cls);
@@ -88,6 +87,7 @@ public class HibernateRadioReportDAO implements RadioReportDAO{
     		specialHeaders.put("e.name", "Exam Name");
     		specialHeaders.put("et.type", "Exam Type");
     		specialHeaders.put("nt.name", "Note Type");
+    		specialHeaders.put("r.positive", "Result");
     		
     	}
     	
@@ -101,18 +101,19 @@ public class HibernateRadioReportDAO implements RadioReportDAO{
     		specialProjections = new HashMap<String, Projection>();
     		String[] yn = { "'Y'", "'N'" };
     		
-    		specialProjections.put("t.paid", booleanProjection("t6_.paid", yn));
-    		specialProjections.put("t.pending", booleanProjection("t6_.pending", yn));
-    		specialProjections.put("t.claimed", booleanProjection("t6_.claimed", yn));
+    		specialProjections.put("t.paid", booleanProjection("t6_.paid", yn, "paid"));
+    		specialProjections.put("t.claimed", booleanProjection("t6_.claimed", yn, "claimed"));
+    		specialProjections.put("r.positive", booleanProjection("r7_.positive", new String[]{ "'P'", "'N'" }, "result"));
+    		specialProjections.put("r.findings", booleanProjection("r7_.positive", new String[]{ "r7_.findings", "''"}, "findings"));
     	}
     	Projection special = specialProjections.get(prop);
     	
     	return special != null? special : Projections.property(prop);
     }
     
-    private Projection booleanProjection(String prop, String[] tf){
-    	String sql = String.format("IF(%s, %s, %s) as '%1$s'", prop, tf[0], tf[1]);
-    	return Projections.sqlProjection(sql, new String[]{ prop }, new Type[]{ new StringType() });
+    private Projection booleanProjection(String prop, String[] tf, String alias){
+    	String sql = String.format("IF(%s, %s, %s) as '%s'", prop, tf[0], tf[1], alias);
+    	return Projections.sqlProjection(sql, new String[]{ alias }, new Type[]{ new StringType() });
     }
     
     private Object getDetails(Class<?> cls, Object obj){
@@ -122,7 +123,7 @@ public class HibernateRadioReportDAO implements RadioReportDAO{
 				
 				String fieldname = fld.getName();
 				String prop = getPrefix(cls) + "." + fieldname;
-				
+								
 				if(!(fieldname.equals("id") || fieldname.equals("voided"))){
 					Object value = obj == null? null : fld.get(obj);
 					if(value != null || fieldList.contains(prop)){

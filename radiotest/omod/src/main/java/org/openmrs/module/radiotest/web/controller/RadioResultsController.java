@@ -6,6 +6,8 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.openmrs.api.context.Context;
+import org.openmrs.module.radiotest.RadioExamItem;
+import org.openmrs.module.radiotest.RadioItem;
 import org.openmrs.module.radiotest.RadioPatient;
 import org.openmrs.module.radiotest.RadioResult;
 import org.openmrs.module.radiotest.RadioTransExam;
@@ -77,6 +79,8 @@ public class RadioResultsController {
 	
 	@RequestMapping(value = RESULTS_PAGE, method = RequestMethod.POST)
 	public ModelAndView editExamResults(@RequestParam("examId") RadioTransExam e, WebRequest request, ModelMap model){
+		e = Context.getService(RadioTransactionService.class).updateTransExam(e);
+		
 		model.addAttribute("transExam", e);
 		model.addAttribute("count", request.getParameter("count"));
 		model.addAttribute("template", escapeNewline(e.getExam().getType().getTemplate(), "\\n"));
