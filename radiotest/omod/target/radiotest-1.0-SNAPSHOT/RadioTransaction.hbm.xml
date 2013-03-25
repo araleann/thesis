@@ -30,9 +30,7 @@
 			access="field" />
 		<property name="paid" type="boolean" column="paid"
 			access="field" />
-		<property name="readingFee" type="double" column="rf"
-			access="field" />
-		<property name="examFee" type="double" column="exam_fee"
+		<property name="total" type="double" column="total"
 			access="field" />
 		<property name="purpose" type="string" column="purpose"
 			length="500" access="field" />

@@ -62,6 +62,7 @@
 			CREATE TABLE IF NOT EXISTS radio_exam_type (
 				id INT(11) NOT NULL AUTO_INCREMENT,
 				type VARCHAR(20) DEFAULT NULL,
+				template VARCHAR(500) DEFAULT NULL,
 				voided BOOLEAN DEFAULT FALSE,
 				PRIMARY KEY (id)
 			);
@@ -78,8 +79,6 @@
 				id INT(11) NOT NULL AUTO_INCREMENT,
 				exam_id INT(11) DEFAULT NULL,
 				category_id INT(11) DEFAULT NULL,
-				exam_fee DOUBLE(13,2) DEFAULT 0,
-				reading_fee DOUBLE(13,2) DEFAULT 0,
 				PRIMARY KEY (id)
 			);
 			
@@ -107,12 +106,11 @@
 			CREATE TABLE IF NOT EXISTS radio_transaction (
 				id INT(11) NOT NULL AUTO_INCREMENT,
 				patient_id INT(11) DEFAULT NULL,
-				rf DOUBLE(13,2) DEFAULT 0,
-				exam_fee DOUBLE(13,2) DEFAULT 0,
 				purpose VARCHAR(500) DEFAULT NULL,
 				or_number VARCHAR(20) DEFAULT NULL,
 				paid BOOLEAN DEFAULT FALSE,
 				pending BOOLEAN DEFAULT TRUE,
+				total DOUBLE(13,2) DEFAULT 0,
 				visit_date DATE DEFAULT NULL,
 				visit_time TIME DEFAULT NULL,
 				claimed BOOLEAN DEFAULT FALSE,
@@ -136,11 +134,62 @@
 				voided BOOLEAN DEFAULT FALSE,
 				PRIMARY KEY (id)
 			);
-			
+						
 			CREATE TABLE IF NOT EXISTS radio_counter (
 				id INT NOT NULL AUTO_INCREMENT,
 				next_year TIMESTAMP,
 				count INT(6) DEFAULT NULL,
+				PRIMARY KEY (id)
+			);
+			
+			CREATE TABLE IF NOT EXISTS radio_item_type (
+				id INT(11) NULL AUTO_INCREMENT,
+				name VARCHAR(20) DEFAULT NULL,
+				voided BOOLEAN DEFAULT FALSE,
+				PRIMARY KEY (id)
+			);
+			
+			CREATE TABLE IF NOT EXISTS radio_item (
+				id INT(11) NOT NULL AUTO_INCREMENT,
+				type_id INT(11) DEFAULT NULL,
+				name VARCHAR(30) DEFAULT NULL,
+				unit VARCHAR(10) DEFAULT NULL,
+				at_limit BOOLEAN DEFAULT FALSE,
+				qty INT DEFAULT 0,
+				threshold INT DEFAULT 0,
+				percent INT DEFAULT 0,
+				voided BOOLEAN DEFAULT FALSE,
+				PRIMARY KEY (id)
+			);
+			
+			CREATE TABLE IF NOT EXISTS radio_exam_item (
+				id INT(11) NOT NULL AUTO_INCREMENT,
+				te_id INT(11) DEFAULT NULL,
+				item_id INT(11) DEFAULT NULL,
+				qty INT DEFAULT 0,
+				PRIMARY KEY (id)
+			);
+			
+			CREATE TABLE IF NOT EXISTS radio_fee_type (
+				id INT(11) NOT NULL AUTO_INCREMENT,
+				name VARCHAR(20) DEFAULT NULL,
+				voided BOOLEAN DEFAULT FALSE,
+				PRIMARY KEY (id)
+			);
+			
+			CREATE TABLE IF NOT EXISTS radio_fee (
+				id INT(11) NOT NULL AUTO_INCREMENT,
+				type_id INT(11) DEFAULT NULL,
+				ce_id INT(11) DEFAULT NULL,
+				amount DOUBLE(13,2) DEFAULT 0,
+				PRIMARY KEY (id)
+			);
+			
+			CREATE TABLE IF NOT EXISTS radio_stock_listing (
+				id INT(11) NOT NULL AUTO_INCREMENT,
+				item_id	INT(11) DEFAULT NULL,
+				list_date DATE DEFAULT NULL,
+				qty INT DEFAULT 0,
 				PRIMARY KEY (id)
 			);
 		</sql>		

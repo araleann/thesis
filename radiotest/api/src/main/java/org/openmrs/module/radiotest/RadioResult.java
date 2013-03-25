@@ -6,11 +6,22 @@ public class RadioResult extends BaseOpenmrsData {
 	
 	private Integer id;
 	
-	private boolean positive = false;
+	private Boolean positive;
 	private String findings;
-	private boolean draft = true;
+	private Boolean draft;
 	
 	private Boolean voided = false;
+	
+	public RadioResult(){
+		
+	}
+	
+	public RadioResult(boolean isInitialized){
+		if(isInitialized){
+			positive = false;
+			draft = true;
+		}
+	}
 
 	@Override
 	public Integer getId() {
@@ -24,11 +35,11 @@ public class RadioResult extends BaseOpenmrsData {
 		this.id = id;
 	}
 
-	public boolean isPositive() {
+	public Boolean getPositive() {
 		return positive;
 	}
 
-	public void setPositive(boolean positive) {
+	public void setPositive(Boolean positive) {
 		this.positive = positive;
 	}
 
@@ -40,11 +51,11 @@ public class RadioResult extends BaseOpenmrsData {
 		this.findings = findings;
 	}
 
-	public boolean isDraft() {
+	public Boolean getDraft() {
 		return draft;
 	}
 
-	public void setDraft(boolean draft) {
+	public void setDraft(Boolean draft) {
 		this.draft = draft;
 	}
 

@@ -16,19 +16,36 @@ public class RadioTransaction extends BaseOpenmrsData {
 	
 	private Date visitDate;
 	private Date visitTime;
-	private Boolean pending = true;
-	private Boolean paid = false;
+	private Boolean pending;
+	private Boolean paid;
 	
-	private Double total = 0.0;
+	private Double total;
 	private String purpose;
 	private String orNumber;
 	private Set<RadioNote> notes;
 	
-	private Boolean claimed = false;
+	private Boolean claimed;
 	private Boolean voided = Boolean.FALSE;
 	
 	// not saved in database
 	private HashMap<String, Double> fees;
+	
+	public RadioTransaction(){
+		
+	}
+	
+	public RadioTransaction(boolean isInitialized){
+		if(isInitialized){
+			initialize();
+		}
+	}
+	
+	private void initialize(){
+		pending = true;
+		paid = false;
+		total = 0.0;
+		claimed = false;
+	}
 	
 	@Override
 	public Integer getId() {

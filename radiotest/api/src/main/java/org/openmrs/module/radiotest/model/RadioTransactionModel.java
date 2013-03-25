@@ -18,7 +18,7 @@ public class RadioTransactionModel {
 	private RadioNote note;
 	
 	public RadioTransactionModel() {
-		transaction = new RadioTransaction();
+		transaction = new RadioTransaction(true);
 		exams = new AutoPopulatingList<RadioTransExam>(RadioTransExam.class);
 		note = new RadioNote();
 	}
