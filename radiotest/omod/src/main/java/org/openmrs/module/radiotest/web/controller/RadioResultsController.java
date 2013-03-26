@@ -36,6 +36,7 @@ public class RadioResultsController {
 	private final String RESULTS_PAGE = "/module/radiotest/results";
 	private final String RESULTS_FORM = "/module/radiotest/resultsForm";
 	private final String TRANSACTION_PAGE = "/module/radiotest/transactions";
+	private final String RESULT_PDF = "/module/radiotest/printResult";
 	
 	@InitBinder
 	public void initBinder(WebRequest request, WebDataBinder binder){
@@ -60,7 +61,7 @@ public class RadioResultsController {
 		return transList;
 	}
 	
-	@RequestMapping(value = {RESULTS_PAGE, TRANSACTION_PAGE}, method = RequestMethod.GET)
+	@RequestMapping(value = {RESULTS_PAGE, RESULTS_FORM, RESULT_PDF, TRANSACTION_PAGE}, method = RequestMethod.GET)
 	public void showTransactions(HttpSession session, ModelMap model){
 		RadioPatient patient = (RadioPatient) session.getAttribute("patient");
 		
@@ -108,11 +109,12 @@ public class RadioResultsController {
 		return new ModelAndView("/module/radiotest/ajax/examList", model);
 	}
 	
-	@RequestMapping(value = RESULTS_FORM, method = RequestMethod.POST)
+	@RequestMapping(value = {RESULTS_FORM, RESULT_PDF}, method = RequestMethod.POST)
 	public ModelAndView saveResult(@ModelAttribute("result") RadioResult result, @RequestParam("examId") RadioTransExam e, 
-								ModelMap model){
+								ModelMap model, HttpSession session){
 		RadioTransactionService ts = Context.getService(RadioTransactionService.class);
 		RadioInventoryService is = Context.getService(RadioInventoryService.class);
+		RadioPatient patient = (RadioPatient) session.getAttribute("patient");
 		
 		if(!result.getDraft()){
 			e.setPending(false);
@@ -128,8 +130,14 @@ public class RadioResultsController {
 			ts.saveTransExam(e);
 		}
 		
+		if(patient != null){
+			patient = Context.getService(RadioPatientService.class).updatePatient(patient);
+			model.addAttribute("patient", patient);
+		}
+		
 		model.addAttribute("transExam", ts.updateTransExam(e));
 		model.addAttribute("result", result);
+		model.addAttribute("patient", patient);
 		
 		return new ModelAndView("/module/radiotest/resultsForm", model);
 	}
