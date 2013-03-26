@@ -192,6 +192,14 @@
 				qty INT DEFAULT 0,
 				PRIMARY KEY (id)
 			);
+			
+			CREATE TABLE IF NOT EXISTS radio_signature (
+				id INT(11) NOT NULL AUTO_INCREMENT,
+				name VARCHAR(50) DEFAULT NULL,
+				position VARCHAR(50) DEFAULT NULL,
+				voided BOOLEAN DEFAULT FALSE,
+				PRIMARY KEY (id)
+			);
 		</sql>		
 	</diff>
 	

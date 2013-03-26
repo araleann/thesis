@@ -20,6 +20,7 @@ import org.hibernate.criterion.Example;
 import org.hibernate.criterion.Projection;
 import org.hibernate.criterion.ProjectionList;
 import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Restrictions;
 import org.hibernate.type.StringType;
 import org.hibernate.type.Type;
 import org.openmrs.api.db.DAOException;
@@ -77,7 +78,6 @@ public class HibernateRadioReportDAO implements RadioReportDAO{
     		prefix.put(RadioTransaction.class, "t");
     		prefix.put(RadioResult.class, "r");
     		prefix.put(RadioNote.class, "n");
-    		prefix.put(RadioNoteType.class, "nt");
     	}
 		
 		return prefix.get(cls);
@@ -91,6 +91,7 @@ public class HibernateRadioReportDAO implements RadioReportDAO{
     		specialHeaders.put("et.type", "Exam Type");
     		specialHeaders.put("nt.name", "Note Type");
     		specialHeaders.put("r.positive", "Result");
+    		specialHeaders.put("n.type", "Note Type");
     		
     	}
     	
@@ -104,10 +105,13 @@ public class HibernateRadioReportDAO implements RadioReportDAO{
     		specialProjections = new HashMap<String, Projection>();
     		String[] yn = { "'Y'", "'N'" };
     		
+    		specialProjections.put("p.philhealth", booleanProjection("ISNULL(p1_.philhealth)", new String[]{ "''", "p1_.philhealth"}, "philhealth"));
     		specialProjections.put("t.paid", booleanProjection("t6_.paid", yn, "paid"));
     		specialProjections.put("t.claimed", booleanProjection("t6_.claimed", yn, "claimed"));
-    		specialProjections.put("r.positive", booleanProjection("r7_.positive", new String[]{ "'P'", "'N'" }, "result"));
-    		specialProjections.put("r.findings", booleanProjection("r7_.positive", new String[]{ "r7_.findings", "''"}, "findings"));
+    		specialProjections.put("r.positive", booleanProjection("r9_.positive", new String[]{ "'P'", "'N'" }, "result"));
+    		specialProjections.put("r.findings", booleanProjection("r9_.positive", new String[]{ "r9_.findings", "''"}, "findings"));
+    		specialProjections.put("n.type", booleanProjection("ISNULL(n7_.description)", new String[]{ "IFNULL(nt8_.name, '')", "n7_.description"}, "noteType"));
+    		specialProjections.put("n.note", booleanProjection("ISNULL(n7_.note)", new String[]{ "''", "n7_.note"}, "note"));
     	}
     	Projection special = specialProjections.get(prop);
     	
@@ -168,8 +172,7 @@ public class HibernateRadioReportDAO implements RadioReportDAO{
 		
 		return Example.create(obj)
 					.ignoreCase()
-					.excludeZeroes()
-					.excludeProperty("id");
+					.excludeZeroes();
 	}
     
     private ProjectionList createProjectionList(){
@@ -192,25 +195,33 @@ public class HibernateRadioReportDAO implements RadioReportDAO{
 				
 		Criteria criteria = sessionFactory.getCurrentSession()
 								.createCriteria(RadioTransExam.class, "te")
-									.createCriteria("te.patient", "p", CriteriaSpecification.LEFT_JOIN)
+									.createCriteria("te.patient", "p")
 										.add(getCriterion(RadioPatient.class, report.getPatient()))
 										.createCriteria("p.aliases", "a")
 											.add(getCriterion(RadioAlias.class, report.getAlias()))
 											.createCriteria("a.category", "c")
 												.add(getCriterion(RadioCategory.class, report.getCategory()))
-									.createCriteria("te.exam", "e")
-										.add(getCriterion(RadioExam.class, report.getExam()))
-										.createCriteria("e.type", "et")
-											.add(getCriterion(RadioExamType.class, report.getExamType()))
-									.createCriteria("te.transaction", "t", CriteriaSpecification.LEFT_JOIN)
-										.add(getCriterion(RadioTransaction.class, report.getTransaction()))
-										.createCriteria("t.notes", "n", CriteriaSpecification.LEFT_JOIN)
-											.add(getCriterion(RadioNote.class, report.getNote()))
-											.createCriteria("n.type", "nt", CriteriaSpecification.LEFT_JOIN)
-												.add(getCriterion(RadioNoteType.class, report.getNoteType()))
-									.createCriteria("te.findings", "r", CriteriaSpecification.LEFT_JOIN)
-										.add(getCriterion(RadioResult.class, report.getResult()))
+								.createCriteria("te.exam", "e")
+									.add(getCriterion(RadioExam.class, report.getExam()))
+									.createCriteria("e.type", "et")
+										.add(getCriterion(RadioExamType.class, report.getExamType()))
+								.createCriteria("te.transaction", "t")
+									.add(getCriterion(RadioTransaction.class, report.getTransaction()))
+									.createCriteria("t.notes", "n", CriteriaSpecification.LEFT_JOIN)
+										.add(getCriterion(RadioNote.class, report.getNote()))
+										.createCriteria("n.type", "nt", CriteriaSpecification.LEFT_JOIN)
+								.createCriteria("te.findings", "r")
+									.add(getCriterion(RadioResult.class, report.getResult()))
 									;
+		
+		RadioNoteType noteType = report.getNoteType();
+		if(noteType != null){
+			if(noteType.getId() == 0){
+				criteria.add(Restrictions.isNotNull("n.description"));
+			} else {
+				criteria.add(Restrictions.eq("nt.name", noteType.getName()));
+			}
+		}
 		
 		criteria.setProjection(createProjectionList());
 		List<Object[]> results = (List<Object[]>) criteria.list();

@@ -15,6 +15,7 @@ import org.openmrs.module.radiotest.RadioNote;
 import org.openmrs.module.radiotest.RadioNoteType;
 import org.openmrs.module.radiotest.RadioPatient;
 import org.openmrs.module.radiotest.RadioResult;
+import org.openmrs.module.radiotest.RadioSignature;
 import org.openmrs.module.radiotest.RadioTransExam;
 import org.openmrs.module.radiotest.RadioTransaction;
 import org.openmrs.module.radiotest.api.RadioTransactionService;
@@ -178,5 +179,40 @@ public class RadioTransactionServiceImpl extends BaseOpenmrsService implements R
 	public RadioResult saveResult(RadioResult result) throws APIException {
 		// TODO Auto-generated method stub
 		return dao.saveResult(result);
+	}
+
+	@Override
+	public RadioSignature saveSignature(RadioSignature sign)
+			throws APIException {
+		// TODO Auto-generated method stub
+		return dao.saveSignature(sign);
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public RadioSignature getSignature(Integer signId) throws APIException {
+		// TODO Auto-generated method stub
+		return dao.getSignature(signId);
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public List<RadioSignature> getAllSignatures() throws APIException {
+		// TODO Auto-generated method stub
+		return dao.getAllSignatures(false);
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public List<RadioSignature> getAllSignatures(boolean includeVoided)
+			throws APIException {
+		// TODO Auto-generated method stub
+		return dao.getAllSignatures(includeVoided);
+	}
+
+	@Override
+	public void deleteSignature(RadioSignature sign) throws APIException {
+		// TODO Auto-generated method stub
+		dao.deleteSignature(sign);
 	}
 }

@@ -13,6 +13,7 @@ import org.openmrs.module.radiotest.RadioFeeType;
 import org.openmrs.module.radiotest.RadioNoteType;
 import org.openmrs.module.radiotest.RadioPatient;
 import org.openmrs.module.radiotest.RadioResult;
+import org.openmrs.module.radiotest.RadioSignature;
 import org.openmrs.module.radiotest.RadioTransExam;
 import org.openmrs.module.radiotest.RadioTransaction;
 import org.openmrs.module.radiotest.api.db.RadioTransactionDAO;
@@ -184,5 +185,42 @@ public class HibernateRadioTransactionDAO implements RadioTransactionDAO {
 		session.saveOrUpdate(result);
 		
 		return result;
+	}
+
+	@Override
+	public RadioSignature saveSignature(RadioSignature sign)
+			throws DAOException {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		sign = (RadioSignature) session.merge(sign);
+		session.saveOrUpdate(sign);
+		
+		return sign;
+	}
+
+	@Override
+	public RadioSignature getSignature(Integer signId) throws DAOException {
+		// TODO Auto-generated method stub
+		return (RadioSignature) sessionFactory.getCurrentSession().get(RadioSignature.class, signId);
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<RadioSignature> getAllSignatures(boolean includeVoided)
+			throws DAOException {
+		// TODO Auto-generated method stub
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(RadioSignature.class);
+		
+		if(!includeVoided){
+			criteria.add(Restrictions.eq("voided", false));
+		}
+		
+		return (List<RadioSignature>) criteria.list();
+	}
+
+	@Override
+	public void deleteSignature(RadioSignature sign) throws DAOException {
+		// TODO Auto-generated method stub
+		sessionFactory.getCurrentSession().delete(sign);
 	}
 }

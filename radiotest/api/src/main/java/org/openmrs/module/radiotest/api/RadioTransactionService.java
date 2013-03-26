@@ -8,6 +8,7 @@ import org.openmrs.module.radiotest.RadioFeeType;
 import org.openmrs.module.radiotest.RadioNoteType;
 import org.openmrs.module.radiotest.RadioPatient;
 import org.openmrs.module.radiotest.RadioResult;
+import org.openmrs.module.radiotest.RadioSignature;
 import org.openmrs.module.radiotest.RadioTransExam;
 import org.openmrs.module.radiotest.RadioTransaction;
 import org.springframework.transaction.annotation.Transactional;
@@ -65,4 +66,18 @@ public interface RadioTransactionService extends OpenmrsService {
 	
 	
 	public RadioResult saveResult(RadioResult result) throws APIException;
+	
+	
+	public RadioSignature saveSignature(RadioSignature sign) throws APIException;
+	
+	@Transactional(readOnly = true)
+	public RadioSignature getSignature(Integer signId) throws APIException;
+	
+	@Transactional(readOnly = true)
+	public List<RadioSignature> getAllSignatures() throws APIException;
+	
+	@Transactional(readOnly = true)
+	public List<RadioSignature> getAllSignatures(boolean includeVoided) throws APIException;
+	
+	public void deleteSignature(RadioSignature sign) throws APIException;
 }
