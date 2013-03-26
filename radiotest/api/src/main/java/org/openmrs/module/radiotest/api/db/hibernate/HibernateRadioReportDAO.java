@@ -14,6 +14,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Example;
 import org.hibernate.criterion.Projection;
@@ -75,6 +76,8 @@ public class HibernateRadioReportDAO implements RadioReportDAO{
     		prefix.put(RadioExamType.class, "et");
     		prefix.put(RadioTransaction.class, "t");
     		prefix.put(RadioResult.class, "r");
+    		prefix.put(RadioNote.class, "n");
+    		prefix.put(RadioNoteType.class, "nt");
     	}
 		
 		return prefix.get(cls);
@@ -189,20 +192,24 @@ public class HibernateRadioReportDAO implements RadioReportDAO{
 				
 		Criteria criteria = sessionFactory.getCurrentSession()
 								.createCriteria(RadioTransExam.class, "te")
-									.createCriteria("te.patient", "p")
+									.createCriteria("te.patient", "p", CriteriaSpecification.LEFT_JOIN)
 										.add(getCriterion(RadioPatient.class, report.getPatient()))
 										.createCriteria("p.aliases", "a")
 											.add(getCriterion(RadioAlias.class, report.getAlias()))
 											.createCriteria("a.category", "c")
 												.add(getCriterion(RadioCategory.class, report.getCategory()))
-								.createCriteria("te.exam", "e")
-									.add(getCriterion(RadioExam.class, report.getExam()))
-									.createCriteria("e.type", "et")
-										.add(getCriterion(RadioExamType.class, report.getExamType()))
-								.createCriteria("te.transaction", "t")
-									.add(getCriterion(RadioTransaction.class, report.getTransaction()))
-								.createCriteria("te.findings", "r")
-									.add(getCriterion(RadioResult.class, report.getResult()))
+									.createCriteria("te.exam", "e")
+										.add(getCriterion(RadioExam.class, report.getExam()))
+										.createCriteria("e.type", "et")
+											.add(getCriterion(RadioExamType.class, report.getExamType()))
+									.createCriteria("te.transaction", "t", CriteriaSpecification.LEFT_JOIN)
+										.add(getCriterion(RadioTransaction.class, report.getTransaction()))
+										.createCriteria("t.notes", "n", CriteriaSpecification.LEFT_JOIN)
+											.add(getCriterion(RadioNote.class, report.getNote()))
+											.createCriteria("n.type", "nt", CriteriaSpecification.LEFT_JOIN)
+												.add(getCriterion(RadioNoteType.class, report.getNoteType()))
+									.createCriteria("te.findings", "r", CriteriaSpecification.LEFT_JOIN)
+										.add(getCriterion(RadioResult.class, report.getResult()))
 									;
 		
 		criteria.setProjection(createProjectionList());

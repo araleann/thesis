@@ -19,6 +19,8 @@ public class RadioReport {
 	private RadioResult result;
 	
 	private RadioTransaction transaction;
+	private RadioNoteType noteType;
+	private RadioNote note;
 	
 	public RadioReport(){
 		
@@ -102,5 +104,21 @@ public class RadioReport {
 
 	public void setTransaction(RadioTransaction transaction) {
 		this.transaction = transaction;
+	}
+
+	public RadioNoteType getNoteType() {
+		return noteType;
+	}
+
+	public void setNoteType(RadioNoteType noteType) {
+		this.noteType = noteType;
+	}
+
+	public RadioNote getNote() {
+		return note;
+	}
+
+	public void setNote(RadioNote note) {
+		this.note = note;
 	}
 }
