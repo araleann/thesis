@@ -130,6 +130,18 @@
 				<form:radiobutton path="claimed" value="false" />Not Claimed
 			</div>
 			<input type="checkbox" name="fieldList" value="t.total">Total <br>
+			<br>
+		</spring:nestedPath>
+		<input type="checkbox" name="fieldList" value="nt.name">Note Type
+		<form:select path="noteType" cssClass="filter">
+			<option value=""></option>
+			<form:options items="${ noteTypes }" itemLabel="name" itemValue="id" />
+			<option value="0">Others</option>
+		</form:select>
+		<br>
+		<spring:nestedPath path="note">
+			<input type="checkbox">Note
+			<form:input path="note" cssClass="filter" /> <br>
 		</spring:nestedPath>
 	</div>
 	
