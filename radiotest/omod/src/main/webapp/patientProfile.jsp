@@ -38,13 +38,13 @@ function editPatient(){
 	});
 }
 function load_transaction(){
-	$("#details").load("${pageContext.request.contextPath}/module/radiotest/transactions.htm #details");
+	$j("#details").load("${pageContext.request.contextPath}/module/radiotest/transactions.htm #details");
 }
 function load_profile(){
-	$("#details").load("${pageContext.request.contextPath}/module/radiotest/patientProfile.htm #details");
+	$j("#details").load("${pageContext.request.contextPath}/module/radiotest/patientProfile.htm #details");
 }
 function load_results(){
-	$("#details").load("${pageContext.request.contextPath}/module/radiotest/results.htm #details");
+	$j("#details").load("${pageContext.request.contextPath}/module/radiotest/results.htm #details");
 }
 var modulePath = openmrsContextPath + "/module/radiotest";
 var viewPath = modulePath + "/viewTransaction.htm";

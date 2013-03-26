@@ -3,6 +3,7 @@ $j(function(){
 	var funcs = {
 		clearForm : function clearForm(){
 			GeneralUtils.clearForm();
+			addPlaceholders();
 		},
 		
 		saveCategory : function saveCategory(){
@@ -198,22 +199,65 @@ $j(function(){
 					"#typeForm");
 			
 			GeneralUtils.post(postConfig);
+		},
+		
+		saveSignature : function saveSignature(){
+			var postConfig = GeneralUtils.postConfig(
+					GeneralUtils.modulePath("/signForm.htm"),
+					$j("#signForm").serialize(),
+					"#signatures",
+					clearForm);
+			
+			GeneralUtils.post(postConfig);
+		},
+		
+		voidSignature : function voidSignature(id){
+			var postConfig = GeneralUtils.postConfig(
+					GeneralUtils.modulePath("/nullSignature.htm"),
+					GeneralUtils.voidObj("sid", id),
+					"#sign" + id);
+			
+			GeneralUtils.post(postConfig);
+		},
+		
+		deleteSignature : function deleteSignature(id){
+			var postConfig = GeneralUtils.postConfig(
+					GeneralUtils.modulePath("/nullSignature.htm"),
+					GeneralUtils.deleteObj("sid", id),
+					"#sign" + id);
+			
+			if(confirm("Are you sure you want to delete?")){
+				GeneralUtils.post(postConfig);
+			}
+		},
+		
+		editSignature : function editSignature(id){
+			var postConfig = GeneralUtils.postConfig(
+					GeneralUtils.modulePath("/editSignature.htm"),
+					{ sid : id },
+					"#signForm");
+			
+			GeneralUtils.post(postConfig);
 		}
 	};
 	
-	GeneralUtils.addPlaceholderById("category", "Enter a category");
-	
-	var examPh = {
-		examtype : "Exam Type",
-		template : "Template for Negative Results"
+	function addPlaceholders(){
+		GeneralUtils.addPlaceholderById("category", "Enter a category");
+		
+		var examPh = {
+			examtype : "Exam Type",
+			template : "Template for Negative Results"
+		}
+		GeneralUtils.addPlaceholderById(examPh);
+		
+		GeneralUtils.addPlaceholderById("notetype", "Enter Note Type");
+		
+		GeneralUtils.addPlaceholderById("feetype", "Enter Fee Type");
+		
+		GeneralUtils.addPlaceholderById("itemtype", "Enter an Item Type");
 	}
-	GeneralUtils.addPlaceholderById(examPh);
-	
-	GeneralUtils.addPlaceholderById("notetype", "Enter Note Type");
-	
-	GeneralUtils.addPlaceholderById("feetype", "Enter Fee Type");
-	
-	GeneralUtils.addPlaceholderById("itemtype", "Enter an Item Type");
 	
 	$j.extend(window, funcs);
+	
+	addPlaceholders();
 });

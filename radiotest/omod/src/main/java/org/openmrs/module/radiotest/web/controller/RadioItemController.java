@@ -63,6 +63,10 @@ public class RadioItemController {
 	@RequestMapping(value = ITEM_FORM, method = RequestMethod.POST)
 	public ModelAndView saveItem(@ModelAttribute("item") RadioItem item, WebRequest request){
 		RadioInventoryService is = Context.getService(RadioInventoryService.class);
+		if(item.getId() != null){
+			item = is.updateItem(item);
+		}
+		
 		Integer threshold = Integer.valueOf(request.getParameter("limit"));
 		Integer type = Integer.valueOf(request.getParameter("limitType"));
 		
@@ -72,7 +76,8 @@ public class RadioItemController {
 			item.setPercentThreshold(0);
 			break;
 		case 2:
-			item.setThreshold(0);
+			int qty = item.getQuantity();
+			item.setThreshold(qty == 0? 0 : (qty * threshold / 100));
 			item.setPercentThreshold(threshold);
 			break;
 		default:

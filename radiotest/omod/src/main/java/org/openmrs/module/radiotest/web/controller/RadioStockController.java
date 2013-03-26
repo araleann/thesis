@@ -91,7 +91,15 @@ public class RadioStockController {
 		
 		for(RadioStockListing list : listings){
 			RadioItem item = list.getItem();
-			item.addStock(list.getQuantity());
+			int qty = list.getQuantity();
+			int total = qty + item.getQuantity();
+			int percent = item.getPercentThreshold();
+			
+			if(percent != 0){
+				item.setThreshold((total * percent) / 100);
+			}
+			
+			item.addStock(qty);
 			is.saveItem(item);
 		}
 		

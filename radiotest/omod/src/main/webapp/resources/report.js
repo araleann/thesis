@@ -42,4 +42,8 @@ $j(function(){
 		.attr("disabled", true)
 		.find(":input")
 			.attr("disabled", true);
+	$j(".default")
+		.click()
+		.change();
+	$j(".filterButton").click();
 });

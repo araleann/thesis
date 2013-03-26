@@ -14,7 +14,7 @@
 		<button type="button" class="filterButton">Add Filter</button>
 		<spring:nestedPath path="patient">
 			<div class="entity">
-				<input type="checkbox" class="general">Full Name <br>
+				<input type="checkbox" class="general default">Full Name <br>
 				<div hidden>
 					<input type="checkbox">First Name 
 					<form:input path="firstName" cssClass="filter" /><br>
@@ -37,7 +37,7 @@
 					<form:input path="region" cssClass="filter" /><br>
 				</div>
 			</div>
-			<input type="checkbox">Case Number 
+			<input type="checkbox" class="default">Case Number 
 			<form:input path="caseNumber" cssClass="filter" /><br>
 			<input type="checkbox">Gender 
 			<div class="filter">
@@ -60,14 +60,14 @@
 			<br>
 			<input type="checkbox">Institution 
 			<form:input path="institution" cssClass="filter" /><br>
-			<input type="checkbox">Philhealth 
+			<input type="checkbox" class="default">Philhealth 
 			<form:input path="philhealth" cssClass="filter" /><br>
 		</spring:nestedPath>
 		<spring:nestedPath path="alias">
-			<input type="checkbox">Alias 
+			<input type="checkbox" class="default">Alias 
 			<form:input path="alias" cssClass="filter" /><br>
 		</spring:nestedPath>
-		<input type="checkbox">Category 
+		<input type="checkbox" class="default">Category 
 		<form:select path="category" cssClass="filter">
 			<option value="0"></option>
 			<form:options items="${ categories }" itemLabel="category" itemValue="id" />
@@ -77,20 +77,20 @@
 	<h2>Exam</h2>
 	<div id="exam">
 		<button type="button" class="filterButton">Add Filter</button> <br>
-		<input type="checkbox">Exam Type
+		<input type="checkbox" class="default">Exam Type
 		<form:select path="examType" cssClass="filter">
 			<option value="0"></option>
 			<form:options items="${ examTypes }" itemLabel="type" itemValue="id" />
 		</form:select>
 		<br>
-		<input type="checkbox">Exam Name
+		<input type="checkbox" class="default">Exam Name
 		<form:select path="exam" cssClass="filter">
 			<option value="0"></option>
 			<form:options items="${ exams }" itemLabel="name" itemValue="id" />
 		</form:select>
 		<br>
 		<spring:nestedPath path="result">
-			<input type="checkbox" name="fieldList" value="r.positive">Result
+			<input type="checkbox" name="fieldList" value="r.positive" class="default">Result
 			<div class="filter">
 				<spring:bind path="positive">
 					<input type="radio" name="${ status.expression }" value="" checked>All
@@ -99,7 +99,7 @@
 				<form:radiobutton path="positive" value="false" />Negative
 			</div>
 			<br>
-			<input type="checkbox">Findings
+			<input type="checkbox" class="default">Findings
 			<form:input path="findings" cssClass="filter" /><br>
 		</spring:nestedPath>
 	</div>
@@ -108,7 +108,7 @@
 	<div id="transaction">
 		<button type="button" class="filterButton">Add Filter</button> <br>
 		<spring:nestedPath path="transaction">
-			<input type="checkbox" name="fieldList" value="t.visitDate">Visit Date <br>
+			<input type="checkbox" name="fieldList" value="t.visitDate" class="default">Visit Date <br>
 			<input type="checkbox" name="fieldList" value="t.visitTime">Visit Time <br>
 			<input type="checkbox">Purpose
 			<form:input path="purpose" cssClass="filter" /><br>
@@ -129,10 +129,10 @@
 				<form:radiobutton path="claimed" value="true" />Claimed
 				<form:radiobutton path="claimed" value="false" />Not Claimed
 			</div>
-			<input type="checkbox" name="fieldList" value="t.total">Total <br>
-			<br>
+			<input type="checkbox" name="fieldList" value="t.total" class="default">Total <br>
 		</spring:nestedPath>
-		<input type="checkbox" name="fieldList" value="nt.name">Note Type
+		<br>
+		<input type="checkbox" name="fieldList" value="n.type">Note Type
 		<form:select path="noteType" cssClass="filter">
 			<option value=""></option>
 			<form:options items="${ noteTypes }" itemLabel="name" itemValue="id" />
@@ -141,7 +141,7 @@
 		<br>
 		<spring:nestedPath path="note">
 			<input type="checkbox">Note
-			<form:input path="note" cssClass="filter" /> <br>
+			<form:input path="note" cssClass="filter" />
 		</spring:nestedPath>
 	</div>
 	

@@ -8,6 +8,7 @@ $j(function(){
 	var funcs = {
 		clearForm : function clearForm(){
 			GeneralUtils.clearForm();
+			addPlaceholders();
 		},
 
 		saveItem : function saveItem(){	
@@ -62,8 +63,12 @@ $j(function(){
 	}
 	
 	// MAIN
-	GeneralUtils.addPlaceholderById("itemname", "Enter Item Name");
-	GeneralUtils.addPlaceholderById("unit", "Enter the Unit");
+	function addPlaceholders(){
+		GeneralUtils.addPlaceholderById("itemname", "Enter Item Name");
+		GeneralUtils.addPlaceholderById("unit", "Enter the Unit");
+	}
 	
 	$j.extend(window, funcs);
+	
+	addPlaceholders();
 });

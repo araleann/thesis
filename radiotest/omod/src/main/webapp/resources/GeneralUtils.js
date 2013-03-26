@@ -75,7 +75,7 @@ $j(function(){
 		 * Format: /<page name>.htm
 		 */
 		modulePath : function modulePath(url){
-			return openmrsContextPath + "/module/radiotest/" + url;
+			return openmrsContextPath + "/module/radiotest" + url;
 		},
 		
 		/**
@@ -103,17 +103,7 @@ $j(function(){
 			$j(formSelector)
 				.find(":input:not(button)")
 					.each(function(i){
-						var $this = $j(this);
-						switch(this.tagName){
-						case "TEXTAREA":
-							$this.text("");
-							break;
-						case "INPUT":
-							var type = $this.attr("type");
-							if(type == "text" || type == "hidden")
-								$this.val("");
-							break;
-						}
+						$j(this).val("");
 					});
 			
 			$j(":text:first").focus();
