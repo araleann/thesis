@@ -6,8 +6,6 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.openmrs.api.context.Context;
-import org.openmrs.module.radiotest.RadioExamItem;
-import org.openmrs.module.radiotest.RadioItem;
 import org.openmrs.module.radiotest.RadioPatient;
 import org.openmrs.module.radiotest.RadioResult;
 import org.openmrs.module.radiotest.RadioTransExam;

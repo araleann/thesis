@@ -172,7 +172,8 @@ public class HibernateRadioReportDAO implements RadioReportDAO{
 		
 		return Example.create(obj)
 					.ignoreCase()
-					.excludeZeroes();
+					.excludeZeroes()
+					.enableLike();
 	}
     
     private ProjectionList createProjectionList(){
@@ -207,6 +208,8 @@ public class HibernateRadioReportDAO implements RadioReportDAO{
 										.add(getCriterion(RadioExamType.class, report.getExamType()))
 								.createCriteria("te.transaction", "t")
 									.add(getCriterion(RadioTransaction.class, report.getTransaction()))
+									.add(Restrictions.ge("t.visitDate", report.getStartDate()))
+									.add(Restrictions.lt("t.visitDate", report.getEndDate()))
 									.createCriteria("t.notes", "n", CriteriaSpecification.LEFT_JOIN)
 										.add(getCriterion(RadioNote.class, report.getNote()))
 										.createCriteria("n.type", "nt", CriteriaSpecification.LEFT_JOIN)

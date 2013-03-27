@@ -129,6 +129,7 @@
 				<form:radiobutton path="claimed" value="true" />Claimed
 				<form:radiobutton path="claimed" value="false" />Not Claimed
 			</div>
+			<br>
 			<input type="checkbox" name="fieldList" value="t.total" class="default">Total <br>
 		</spring:nestedPath>
 		<br>

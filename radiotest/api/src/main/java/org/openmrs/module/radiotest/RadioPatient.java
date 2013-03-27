@@ -5,8 +5,6 @@ import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-import net.sourceforge.jtds.jdbc.DateTime;
-
 import org.openmrs.BaseOpenmrsData;
 
 public class RadioPatient extends BaseOpenmrsData {
