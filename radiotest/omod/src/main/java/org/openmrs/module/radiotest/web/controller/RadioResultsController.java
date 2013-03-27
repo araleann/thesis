@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.radiotest.RadioPatient;
 import org.openmrs.module.radiotest.RadioResult;
+import org.openmrs.module.radiotest.RadioSignature;
 import org.openmrs.module.radiotest.RadioTransExam;
 import org.openmrs.module.radiotest.RadioTransaction;
 import org.openmrs.module.radiotest.api.RadioInventoryService;
@@ -15,6 +16,7 @@ import org.openmrs.module.radiotest.api.RadioPatientService;
 import org.openmrs.module.radiotest.api.RadioTransactionService;
 import org.openmrs.module.radiotest.model.RadioStockModel;
 import org.openmrs.module.radiotest.propertyeditor.RadioComparator;
+import org.openmrs.module.radiotest.propertyeditor.RadioSignaturePropertyEditor;
 import org.openmrs.module.radiotest.propertyeditor.RadioTransExamPropertyEditor;
 import org.openmrs.module.radiotest.propertyeditor.RadioTransactionPropertyEditor;
 import org.springframework.stereotype.Controller;
@@ -40,6 +42,7 @@ public class RadioResultsController {
 	public void initBinder(WebRequest request, WebDataBinder binder){
 		binder.registerCustomEditor(RadioTransaction.class, new RadioTransactionPropertyEditor());
 		binder.registerCustomEditor(RadioTransExam.class, new RadioTransExamPropertyEditor());
+		binder.registerCustomEditor(RadioSignature.class, new RadioSignaturePropertyEditor());
 	}
 	
 	@ModelAttribute("result")
@@ -57,6 +60,11 @@ public class RadioResultsController {
 		}
 		
 		return transList;
+	}
+	
+	@ModelAttribute("signatures")
+	public List<RadioSignature> getAllSignatures(){
+		return Context.getService(RadioTransactionService.class).getAllSignatures();
 	}
 	
 	@RequestMapping(value = {RESULTS_PAGE, RESULTS_FORM, RESULT_PDF, TRANSACTION_PAGE}, method = RequestMethod.GET)
@@ -146,6 +154,17 @@ public class RadioResultsController {
 		model.addAttribute("result", new RadioResult(true));
 		
 		return new ModelAndView("/module/radiotest/resultsForm", model);
+	}
+	
+	@RequestMapping(value = "/module/radiotest/prtRes", method = RequestMethod.POST)
+	public ModelAndView printResult(@RequestParam("examId") RadioTransExam exam, @RequestParam("sign") RadioSignature sign, ModelMap model){
+		
+		model.addAttribute("transExam", exam);
+		model.addAttribute("patient", exam.getPatient());
+		model.addAttribute("result", exam.getResult());
+		model.addAttribute("signature", sign);
+		
+		return new ModelAndView("/module/radiotest/printResult", model);
 	}
 	
 	private void addInventoryModel(RadioInventoryService is, ModelMap model){

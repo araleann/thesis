@@ -92,6 +92,12 @@ function updateStock(){
 function load_profile(){
 	GeneralUtils.redirect("patientProfile.htm");
 }
+
+function printResult(){
+	$j("#result")
+		.attr("action", GeneralUtils.modulePath("/prtRes.htm"))
+		.submit();
+}
 //-->
 </script>
 <div class="colmask leftmenu">
@@ -136,9 +142,6 @@ function load_profile(){
 			<br><br>
 		</c:when>
 		<c:otherwise>		
-			<form id="result">
-				<input type="hidden" name="examId" value="${ transExam.id }">
-			</form>
 		<b><font style="padding-left: 25px">Result:</font></b>
 		<div id="tab">
 			<font style="color:#009d8e">
@@ -156,7 +159,16 @@ function load_profile(){
 			<br><button class="buttondesignsmall" type="button" onclick="edit()">Edit</button>
 			</div>
 			<br>
-			<button type="button" class="buttondesignsmalllong">Print Results Form</button><br><br>
+			<form id="result" method="post">
+				<input type="hidden" name="examId" value="${ transExam.id }">
+				<select name="sign">
+					<option value="0"></option>
+					<c:forEach var="sign" items="${ signatures }">
+						<option value="${ sign.id }">${ sign.name }, ${ sign.position }</option>
+					</c:forEach>
+				</select>
+			</form>
+			<button type="button" class="buttondesignsmalllong" onclick="printResult()">Print Results Form</button><br><br>
 			<h3>Items Used</h3>
 			<div id="inventory">
 			<div id=tab>

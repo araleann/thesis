@@ -10,6 +10,8 @@
 	RadioPatient patient = (RadioPatient) request.getAttribute("patient");
 	RadioTransExam transExam = (RadioTransExam) request.getAttribute("transExam");
 	RadioResult result = (RadioResult) request.getAttribute("result");
+	RadioSignature signature = (RadioSignature) request.getAttribute("signature");
+	RadioCategory category = patient.getCategory();
 		
 	PdfPTable table = new PdfPTable(8);
 	table.setWidthPercentage(100);
@@ -20,7 +22,10 @@
 	Font bigFont = FontFactory.getFont("Arial", 25);
 	Font smallFont = FontFactory.getFont("Arial", 10);
 	Font mediumFont = FontFactory.getFont("Arial", 20);
-	PdfPCell headerCell, caseWord, caseNumber, radioCell, dateWord, dateVal, name, age;
+	Font resultFont = FontFactory.getFont("Arial", 16);
+	
+	PdfPCell headerCell, caseWord, caseNumber, radioCell, dateWord, dateVal, name, age, sex;
+	PdfPCell examCell, room, categoryCell, purpose, resHeadCell, resContentCell, blank;
 	
 	//Generating PDF
 	response.setContentType("application/pdf");
@@ -71,19 +76,21 @@
     dateVal.setColspan(2);
     table.addCell(dateVal);
 	
+	String fullName = patient.getLastName() + ", " + patient.getFirstName() + " " + patient.getMiddleInitial() + ".\n";
 	Paragraph nameWord = new Paragraph("Name", smallFont);
-	Paragraph nameVal = new Paragraph("Jaymalin, Jean Dominique B.\n", mediumFont);
+	Paragraph nameVal = new Paragraph(fullName, mediumFont);
 	Paragraph namePar = new Paragraph();
 	namePar.add(nameVal);
-	namePar.add(nameWord);
-	
+	namePar.add(nameWord);	
 	name = new PdfPCell(namePar); 
-	name.setColspan(7); 
+	name.setColspan(6); 
 	name.setHorizontalAlignment(Element.ALIGN_CENTER);
 	table.addCell(name);
 	
+	int ageNum = patient.getAge();
+	String ageStr = String.valueOf(ageNum);
 	Paragraph ageWord = new Paragraph("Age", smallFont);
-	Paragraph ageVal = new Paragraph("19\n", mediumFont);
+	Paragraph ageVal = new Paragraph(ageStr + "\n", mediumFont);
 	Paragraph agePar = new Paragraph();
 	agePar.add(ageVal);
 	agePar.add(ageWord);
@@ -92,6 +99,88 @@
 	age.setHorizontalAlignment(Element.ALIGN_CENTER);
 	table.addCell(age);
 	
+	Paragraph sexWord = new Paragraph("Sex", smallFont);
+	Paragraph sexVal = new Paragraph(patient.getGender() + "\n", mediumFont);
+	Paragraph sexPar = new Paragraph();
+	sexPar.add(sexVal);
+	sexPar.add(sexWord);
+	sex = new PdfPCell(sexPar); 
+	sex.setColspan(1); 
+	sex.setHorizontalAlignment(Element.ALIGN_CENTER);
+	table.addCell(sex);
+	
+	RadioExam exam = transExam.getExam();
+	Paragraph examWord = new Paragraph("Examination", smallFont);
+	Paragraph examVal = new Paragraph(exam.getName(), mediumFont);
+	Paragraph examPar = new Paragraph();
+	examPar.add(examVal);
+	examPar.add(examWord);
+	examCell = new PdfPCell(examPar); 
+	examCell.setColspan(6); 
+	examCell.setHorizontalAlignment(Element.ALIGN_CENTER);
+	table.addCell(examCell);
+	
+	Paragraph roomWord = new Paragraph("Room No.", smallFont);
+	Paragraph roomVal = new Paragraph("OP\n", mediumFont);
+	Paragraph roomPar = new Paragraph();
+	roomPar.add(examVal);
+	roomPar.add(examWord);
+	room = new PdfPCell(roomPar); 
+	room.setColspan(2); 
+	room.setHorizontalAlignment(Element.ALIGN_CENTER);
+	table.addCell(room);
+	
+	String catName = category.getCategory() + "\n";
+	Paragraph catWord = new Paragraph("Category", smallFont);
+	Paragraph catVal = new Paragraph( catName, mediumFont);
+	Paragraph catPar = new Paragraph();
+	catPar.add(catVal);
+	catPar.add(catWord);
+	categoryCell = new PdfPCell(catPar); 
+	categoryCell.setColspan(2); 
+	categoryCell.setHorizontalAlignment(Element.ALIGN_CENTER);
+	table.addCell(categoryCell);
+	
+	Paragraph purposeWord = new Paragraph("Purpose", smallFont);
+	Paragraph purposeVal = new Paragraph( "Wala pa\n", mediumFont);
+	Paragraph purposePar = new Paragraph();
+	purposePar.add(purposeVal);
+	purposePar.add(purposeWord);
+	purpose = new PdfPCell(purposePar); 
+	purpose.setColspan(6); 
+	purpose.setHorizontalAlignment(Element.ALIGN_CENTER);
+	table.addCell(purpose);
+	
+	blank = new PdfPCell(new Paragraph(""));
+    blank.setColspan(1);
+	
+	Paragraph resHead = new Paragraph( "\n( ) Roentgenological Report");
+	resHeadCell = new PdfPCell(resHead); 
+	resHeadCell.setColspan(8); 
+	//resHeadCell.setHorizontalAlignment(Element.ALIGN_CENTER);
+	resHeadCell.setBorder(Rectangle.NO_BORDER);
+	table.addCell(resHeadCell);
+	
+	Paragraph resContent = new Paragraph(
+											"\n\nLung Fields are clear\n" +
+											"Lung Fields are clear\n" +
+											"Lung Fields are clear\n" +
+											"Lung Fields are clear\n"
+										);
+	
+	resContentCell = new PdfPCell(resContent); 
+	resContentCell.setColspan(8); 
+	//resHeadCell.setHorizontalAlignment(Element.ALIGN_CENTER);
+	resContentCell.setBorder(Rectangle.NO_BORDER);
+	table.addCell(resContentCell);
+	
+	Paragraph sign = new Paragraph(signature.getName() + "\n" + signature.getPosition());
 	document.add(table);
+	document.add(new Paragraph(""));
+
+	document.add(Chunk.NEWLINE);
+	document.add(Chunk.NEWLINE);
+	document.add(sign);
+	
 	document.close();
 %>
