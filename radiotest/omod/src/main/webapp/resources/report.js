@@ -1,4 +1,35 @@
 $j(function(){
+	var funcs = {
+		generateReport : function generateReport(){
+			$j.post(
+				GeneralUtils.modulePath("/report.htm"),
+				$j("#report").serialize(),
+				function(csv){
+					var tableArr = $j.csv.toArrays(csv);
+					var headerArr = tableArr.shift();
+					
+					var tableConfig = TableUtils.initObj;
+					tableConfig["aoColumns"] = TableUtils.fixHeaderArray(headerArr);
+					tableConfig["aaData"] = tableArr;
+					
+					var tableDiv = $j("<div><table id='table'></table></div>");
+					$j("#table", tableDiv).dataTable(tableConfig);
+					
+					var dialogConfig = {
+						modal : true,
+						title : "Generated Report",
+						zIndex : 1,
+						width : "auto",
+						resizable : false
+					}
+					
+					tableDiv.dialog(dialogConfig);
+				});
+		}
+	}
+	
+	$j.extend(window, funcs);
+	
 	// EVENT FUNCTIONS
 	function toggleDetails(){
 		$j(this)

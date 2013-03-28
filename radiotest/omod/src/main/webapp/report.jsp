@@ -3,6 +3,9 @@
 
 <openmrs:htmlInclude file="/moduleResources/radiotest/GeneralUtils.js" />
 <openmrs:htmlInclude file="/moduleResources/radiotest/report.js" />
+
+<%@ include file="template/tables.jsp" %>
+
 <div class="colmask leftmenu">
 	<div class="colleft">
 		<div class="col1">
@@ -146,7 +149,7 @@
 		</spring:nestedPath>
 	</div>
 	
-	<button type="submit">Generate Report</button>
+	<button type="button" onclick="generateReport()">Generate Report</button>
 </form:form>
 </div>
 <div class="col2">

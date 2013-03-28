@@ -1,13 +1,10 @@
 package org.openmrs.module.radiotest.api.db.hibernate;
 
-import java.io.PrintWriter;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
-
-import javax.swing.JFileChooser;
 
 import org.apache.commons.lang.WordUtils;
 import org.apache.commons.logging.Log;
@@ -236,20 +233,6 @@ public class HibernateRadioReportDAO implements RadioReportDAO{
 		for(Object[] row : results){
 			csv.append(StringUtils.arrayToCommaDelimitedString(row));
 			csv.append("\n");
-		}
-		
-		try {
-			JFileChooser fc = new JFileChooser();
-			
-			if(fc.showSaveDialog(null) == JFileChooser.APPROVE_OPTION){
-				PrintWriter out = new PrintWriter(fc.getSelectedFile());
-				
-				out.print(csv.toString());
-				
-				out.close();
-			}
-		} catch (Exception e){
-			e.printStackTrace();
 		}
 		
 		return csv.toString();

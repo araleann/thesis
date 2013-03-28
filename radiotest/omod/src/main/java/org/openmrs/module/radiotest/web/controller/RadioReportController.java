@@ -1,5 +1,7 @@
 package org.openmrs.module.radiotest.web.controller;
 
+import java.util.List;
+
 import org.openmrs.api.context.Context;
 import org.openmrs.module.radiotest.RadioCategory;
 import org.openmrs.module.radiotest.RadioExam;
@@ -17,12 +19,12 @@ import org.openmrs.module.radiotest.propertyeditor.RadioExamTypePropertyEditor;
 import org.openmrs.module.radiotest.propertyeditor.RadioNoteTypePropertyEditor;
 import org.openmrs.module.radiotest.propertyeditor.RadioStringPropertyEditor;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.WebRequest;
 
 @Controller
@@ -45,17 +47,34 @@ public class RadioReportController {
 		return new RadioReport();
 	}
 	
+	@ModelAttribute("categories")
+	public List<RadioCategory> getCategories(){
+		return Context.getService(RadioPatientService.class).getAllCategories();
+	}
+	
+	@ModelAttribute("examTypes")
+	public List<RadioExamType> getExamTypes(){
+		return Context.getService(RadioExamService.class).getAllExamTypes();
+	}
+	
+	@ModelAttribute("exams")
+	public List<RadioExam> getExams(){
+		return Context.getService(RadioExamService.class).getAllExams();
+	}
+	
+	@ModelAttribute("noteTypes")
+	public List<RadioNoteType> getNoteTypes(){
+		return Context.getService(RadioTransactionService.class).getAllNoteTypes();
+	}
+	
 	@RequestMapping(value = REPORT_PAGE, method = RequestMethod.GET)
-	public void showPage(ModelMap model){
-		RadioExamService es = Context.getService(RadioExamService.class);
-		model.addAttribute("categories", Context.getService(RadioPatientService.class).getAllCategories());
-		model.addAttribute("examTypes", es.getAllExamTypes());
-		model.addAttribute("exams", es.getAllExams());
-		model.addAttribute("noteTypes", Context.getService(RadioTransactionService.class).getAllNoteTypes());
+	public void showPage(){
+
 	}
 	
 	@RequestMapping(value = REPORT_PAGE, method = RequestMethod.POST)
-	public void getReport(@ModelAttribute("report") RadioReport report){
-		Context.getService(RadioReportService.class).generateReport(report);
+	public @ResponseBody String getReport(@ModelAttribute("report") RadioReport report){
+		
+		return Context.getService(RadioReportService.class).generateReport(report);
 	}
 }
