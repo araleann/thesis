@@ -65,10 +65,14 @@ public class RadioPatientFormController {
 	@RequestMapping(value = PATIENT_FORM, method = RequestMethod.POST)
 	public ModelAndView getPatientFromForm(@ModelAttribute("patientModel") RadioPatientModel pm, 
 												WebRequest request, HttpSession session, ModelMap model){
+		RadioPatientService ps = Context.getService(RadioPatientService.class);
 		RadioPatient patient = pm.getFullPatient();
 		try {
 			patient.setUpdateDate(new Date());
-			session.setAttribute("patient", Context.getService(RadioPatientService.class).savePatient(patient));
+			if(patient.getId() != null){
+				patient = ps.updatePatient(patient);
+			}
+			session.setAttribute("patient", ps.savePatient(patient));
 		} catch (Exception ex) {
 			System.out.println("Exception!");
 		}
