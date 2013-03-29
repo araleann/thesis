@@ -51,7 +51,7 @@ public class RadioTransactionModel {
 		if (!exams.isEmpty()){
 			linkExams();
 			transaction.setExams(new LinkedHashSet<RadioTransExam>(exams));
-			transaction.computeFees();
+			transaction.setTotal(transaction.computeFees());
 		}
 		
 		RadioNoteType type = note.getType();

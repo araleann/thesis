@@ -91,14 +91,6 @@ public class RadioTransaction extends BaseOpenmrsData {
 		this.visitTime = visitTime;
 	}
 
-//	public boolean isPending() {
-//		return pending;
-//	}
-//
-//	public void setPending(boolean pending) {
-//		this.pending = pending;
-//	}
-
 	public Boolean getPending() {
 		return pending;
 	}
@@ -175,8 +167,9 @@ public class RadioTransaction extends BaseOpenmrsData {
 		return exams.size();
 	}
 	
-	public void computeFees(){		
+	public Double computeFees(){		
 		RadioCategory category = patient.getCategory();
+		Double total = 0.0;
 		
 		initializeMap();
 		for(RadioTransExam exam : exams){
@@ -197,6 +190,8 @@ public class RadioTransaction extends BaseOpenmrsData {
 		for(String key : fees.keySet()){
 			total = total + fees.get(key);
 		}
+		
+		return total;
 	}
 	
 	private void initializeMap(){
