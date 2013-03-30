@@ -1,36 +1,14 @@
 <%@ include file="/WEB-INF/template/include.jsp"%>
 <%@ include file="/WEB-INF/template/header.jsp"%>
 
+<%@ include file="template/resources.jsp" %>
 <%@ include file="template/tables.jsp" %>
-<openmrs:htmlInclude file="/moduleResources/radiotest/GeneralUtils.js" />
+<openmrs:htmlInclude file="/moduleResources/radiotest/pages/transaction.js" />
 
-<script type="text/javascript">
-<!--
-var modulePath = openmrsContextPath + "/module/radiotest";
-var viewPath = modulePath + "/viewTransaction.htm";
-
-function viewTransaction(id){
-	$j("#transId").val(id);
-	$j("#transaction")
-		.attr("action", viewPath)
-		.submit();
-}
-function createTransaction(){
-	GeneralUtils.redirect("transExamForm.htm");
-}
-function load_transaction(){
-	GeneralUtils.redirect("transactions.htm");
-}
-function load_profile(){
-	GeneralUtils.redirect("patientProfile.htm");
-}
-function load_results(){
-	GeneralUtils.redirect("results.htm");
-}
-$(document).ready( function () {
-    $j("#tran").dataTable();
-});
-//-->
+<script>
+$j(function(){
+	$j("#tran").dataTable();
+})
 </script>
 <div class="colmask leftmenu">
 	<div class="colleft">

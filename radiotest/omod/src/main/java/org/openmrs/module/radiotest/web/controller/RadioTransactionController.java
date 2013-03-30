@@ -79,8 +79,7 @@ public class RadioTransactionController {
 		if(session.getAttribute("transaction") != null){
 			RadioTransactionService ts = Context.getService(RadioTransactionService.class);
 			RadioTransaction trans = ts.updateTransaction((RadioTransaction) session.getAttribute("transaction"));
-			Double total = trans.computeFees();
-			System.out.println(total);
+			trans.computeFees();
 			model.addAttribute("transaction", trans);
 //			model.addAttribute("patient", trans.getPatient());
 //			session.removeAttribute("transaction");
@@ -118,6 +117,8 @@ public class RadioTransactionController {
 		trans.setVisitTime(d);
 		
 		trans = Context.getService(RadioTransactionService.class).saveTransaction(trans);
+		
+		trans.computeFees();
 		model.addAttribute("transaction", trans);
 		session.setAttribute("transaction", trans);
 		

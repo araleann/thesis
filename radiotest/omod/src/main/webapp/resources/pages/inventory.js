@@ -59,6 +59,63 @@ $j(function(){
 			}
 			
 			GeneralUtils.post(postConfig);
+		},
+		
+		getItems : function getItems(){
+			$j.post(GeneralUtils.modulePath("/getItems.htm"), $j("#type").serialize(), function(data){
+				var $items = $j(".items", data);
+				$j(".items").replaceWith($items);
+				$j("#items").addClass("patientinputmediummult");
+			});
+		},
+
+		deleteListItem : function deleteListItem(buttonElem){
+			$j(buttonElem)
+				.parent()
+					.remove();
+		},
+
+
+		addItems : function addItems(){
+			$j.post(GeneralUtils.modulePath("/addListing.htm"), $j("#item").serialize(), function(data){
+				var $listings = $j(".listings", data);
+				$listings
+					.find("input:text")
+						.val("1")
+						.focus(function(){
+							$(this).select();
+						});
+				$j("#listings").append($listings.children());
+			});
+		},
+
+		updateStock : function updateStock(){
+			$j("#listings .item").each(function(i){
+				var item = "examItems[" + i + "]";
+				$j("input:hidden", this)
+					.attr("name", item + ".item");
+				$j("input:text", this)
+					.attr("name", item + ".quantity");
+			});
+			
+			$j.post(GeneralUtils.modulePath("/updateStock.htm"), $j("#itemForm").serialize(), function(data){
+				console.log(data);
+				var $inventory = $j("#inventory", data);
+				$j("#inventory").replaceWith($inventory);
+			});
+		},
+		
+		addStock : function addStock(){
+			$j("#listings .item").each(function(i){
+				var list = "listings[" + i + "]";
+				$j("input:hidden", this)
+					.attr("name", list + ".item");
+				$j("input:text", this)
+					.attr("name", list + ".quantity");
+					
+			});
+			
+			$j("#stockForm").submit();
 		}
 	}
 	

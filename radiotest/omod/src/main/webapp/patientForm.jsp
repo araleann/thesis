@@ -1,33 +1,13 @@
 <%@ include file="/WEB-INF/template/include.jsp"%>
 <%@ include file="/WEB-INF/template/header.jsp"%>
+
 <%@ include file="template/resources.jsp" %>
 
+<openmrs:htmlInclude file="/moduleResources/radiotest/pages/patient.js" />
 
 <html lang="en">
 <head>
-  <script>
-	$j(function(){
-		var inputPlaceholders = {
-			firstname: "First Name",
-			midname: "Middle Initial",
-			lastname: "Last Name",
-			alias: "Alias",
-			type: "Type",
-			philhealth: "Philhealth Number",
-			birthday: "Birthday",
-			institution: "Institution",
-			contactno: "Contact Number",
-			region: "Region",
-			city: "City",
-			barangay: "Barangay/Municipality",
-			street: "Street Address"
-		};
-		
-		GeneralUtils.addPlaceholderById(inputPlaceholders);
-		GeneralUtils.addDatepicker($j("#birthday"));
-	});
-</script>
-  
+
 </head>
 
 <body>
@@ -38,15 +18,10 @@
 		<div class="cont">		
 
 <div id="patient">			
-<form:form method="post" modelAttribute="patientModel">
+<form:form method="post" modelAttribute="patientModel" id="patientForm">
 	
 	<spring:nestedPath path="patient">
-	<c:set var="id" value="${ patient.id }" />
-	<c:if test="${ not empty id }">
-		<spring:bind path="id">
-			<input type="hidden" name="${ status.expression }" value="${ id }">
-		</spring:bind>
-	</c:if>
+	<form:hidden path="id" />
 	
 	<p>
 	<form:input id="firstname" cssClass="patientinput" path="firstName" />
@@ -61,6 +36,7 @@
 	
 	<spring:nestedPath path="alias">
 	<form:select id="type" cssClass="patientinput" path="category">
+		<option value></option>
 		<form:options items="${ categories }" itemLabel="category" itemValue="id" />
 	</form:select>
 	<form:input id="alias" cssClass="patientinput" path="alias" />

@@ -79,6 +79,17 @@ $j(function(){
 		},
 		
 		/**
+		 * @param url: String. Url to wrap -- resource url
+		 * 
+		 * Convenience method: wrapper for resource paths
+		 * To use with $.getScript
+		 * Format: /<page url>.htm
+		 */
+		resourcePath : function resourcePath(url){
+			return openmrsContextPath + "/moduleResources/radiotest" + url;
+		},
+		
+		/**
 		 * @param formSelector: String. (Optional) Selector for form 
 		 * 							(see jQuery API for selectors)
 		 * 
@@ -125,12 +136,14 @@ $j(function(){
 			var destSel = config["destSel"]? config["destSel"] : sourceSel;
 			var callback = config["callback"];
 			$j.post(config["path"], config["postObj"], function(data){
-				var $destElem = $j(destSel);
-				var $sourceElem = $j(sourceSel, data);
-				if($sourceElem.length){
-					$destElem.replaceWith($sourceElem);
-				} else {
-					$destElem.remove();
+				if(sourceSel){
+					var $destElem = $j(destSel);
+					var $sourceElem = $j(sourceSel, data);
+					if($sourceElem.length){
+						$destElem.replaceWith($sourceElem);
+					} else {
+						$destElem.remove();
+					}
 				}
 				
 				if (callback){

@@ -1,56 +1,16 @@
 <%@ include file="/WEB-INF/template/include.jsp"%>
 <%@ include file="/WEB-INF/template/header.jsp"%>
+
 <%@ include file="template/resources.jsp" %>
+<openmrs:htmlInclude file="/moduleResources/radiotest/pages/transaction.js" />
+<openmrs:htmlInclude file="/moduleResources/radiotest/pages/redirect.js" />
 
-<openmrs:htmlInclude file="/moduleResources/radiotest/GeneralUtils.js" />
-
-<script type="text/javascript">
-<!--
-var modulePath = openmrsContextPath + "/module/radiotest";
-var saveNotePath = modulePath + "/saveNote.htm"
-var transPath = modulePath + "/transactionForm.htm";
-var pdfPath = modulePath + "/sample.htm";
-
-function saveNote(){
-	$j.post(saveNotePath, $j("#noteForm").serialize(), function(data){
-		var $note = $j("#note", $j(data));
-		$note.unwrap();
-		$j("#notes").prepend($note);
-	});
-}
-function addPayment(){
-	$j.post(transPath, $j("#payment").serialize(), function(data){
-		alert("Payment added");
-	});
-}
-function noteTypesEvent(){
-	var $desc = $j("#desc");
-	var isHidden = $desc.attr("hidden");
-	var others = $j("#noteType").val() === "0";
-	
-	if (others == isHidden){
-		if (isHidden){
-			$desc.removeAttr("hidden");
-			$desc.addClass("patientinput")
-		} else {
-			$desc.attr("hidden", "hidden");
-		}
-	}
-}
-function load_profile(){
-	GeneralUtils.redirect("patientProfile.htm");
-}
-
-function load_assessment(){
-	var win=window.open(pdfPath, '_blank');
-	win.focus();
-}
+<script>
 function printAssessment(){
 	$j("#transaction")
 		.attr("action", GeneralUtils.modulePath("/prntAssmnt.htm"))
 		.submit();
 }
-//-->
 </script>
 <div class="colmask leftmenu">
 	<div class="colleft">

@@ -1,53 +1,15 @@
 <%@ include file="/WEB-INF/template/include.jsp"%>
 <%@ include file="/WEB-INF/template/header.jsp"%>
+
 <%@ include file="template/resources.jsp" %>
 <%@ include file="template/tables.jsp" %>
 
-<openmrs:htmlInclude file="/moduleResources/radiotest/GeneralUtils.js" />
+<openmrs:htmlInclude file="/moduleResources/radiotest/pages/result.js" />
 
-<script type="text/javascript">
-<!--
-var modulePath = openmrsContextPath + "/module/radiotest";
-var getExamsPath = modulePath + "/getExamList.htm";
-var borrowPath = modulePath + "/borrowResults.htm";
-var resultPath = modulePath + "/results.htm";
-
-function getExams(){
-	console.log($j("#trans").serialize());
-	$j.post(getExamsPath, $j("#trans").serialize(), function(data){
-		var $list = $j("div#exams", $j(data));
-		$j("#exams").replaceWith($list);
-	});
-}
-
-function result(id, count){
-	$j("#examId").val(id);
-	$j("#count").val(count);
-	$j("#exam")
-		.attr("action", resultPath)
-		.submit();
-}
-
-function borrow(id){
-	var examId = "#exam" + id;
-	$j.post(borrowPath, { examId: id }, function(data){
-		var $updatedDiv = $j(examId, data);
-		$j(examId).replaceWith($updatedDiv);
-	});
-}
-function load_transaction(){
-	GeneralUtils.redirect("transactions.htm");
-}
-function load_profile(){
-	GeneralUtils.redirect("patientProfile.htm");
-}
-function load_results(){
-	GeneralUtils.redirect("results.htm");
-}
-$(document).ready( function () {
-    $j("#res").dataTable();
+<script>
+$j(function(){
+	$j("#res").dataTable();
 });
-//-->
 </script>
 
 <div class="colmask leftmenu">

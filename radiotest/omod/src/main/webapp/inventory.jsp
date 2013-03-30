@@ -5,10 +5,9 @@
 
 
 <script type="text/javascript">
-
-	$(document).ready( function () {
-		$j("#inv").dataTable();
-	});
+$j(function(){
+	$j("#inv").dataTable();
+});
 </script>
 <div class="colmask leftmenu">
 	<div class="colleft">

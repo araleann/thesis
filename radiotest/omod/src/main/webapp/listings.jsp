@@ -5,10 +5,9 @@
 
 
 <script type="text/javascript">
-
-	$(document).ready( function () {
-		$j("#history").dataTable();
-	});
+$j(function(){
+	$j("#history").dataTable();
+});
 </script>
 
 <div class="colmask leftmenu">

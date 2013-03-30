@@ -13,8 +13,7 @@ $j(function(){
 					tableConfig["aaData"] = tableArr;
 					
 					var tableDiv = $j("<div><table id='table'></table></div>");
-					$j("#table", tableDiv).dataTable(tableConfig)
-						.addClass("tbldesign");
+					$j("#table", tableDiv).dataTable(tableConfig);
 					
 					var dialogConfig = {
 						modal : true,
@@ -69,14 +68,11 @@ $j(function(){
 	$j(":checkbox:not(.general)").change(toggleFilter);
 	
 	// MAIN
-	GeneralUtils.addDatepicker($j("#sdate"));
-	GeneralUtils.addDatepicker($j("#edate"));
+	GeneralUtils.addDatepicker($j(".date"));
 	$j(".filter")
 		.attr("disabled", true)
-		.css("backgroundColor","#FCF4DC")
 		.find(":input")
-			.attr("disabled", true)
-			.css("backgroundColor","#FCF4DC");
+			.attr("disabled", true);
 	$j(".default")
 		.click()
 		.change();

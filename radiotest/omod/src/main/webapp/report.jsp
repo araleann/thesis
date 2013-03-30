@@ -1,8 +1,8 @@
 <%@ include file="/WEB-INF/template/include.jsp"%>
 <%@ include file="/WEB-INF/template/header.jsp"%>
 
-<openmrs:htmlInclude file="/moduleResources/radiotest/GeneralUtils.js" />
-<openmrs:htmlInclude file="/moduleResources/radiotest/report.js" />
+<%@ include file="template/resources.jsp" %>
+<openmrs:htmlInclude file="/moduleResources/radiotest/pages/report.js" />
 
 <%@ include file="template/tables.jsp" %>
 

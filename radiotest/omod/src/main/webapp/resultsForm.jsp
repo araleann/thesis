@@ -2,105 +2,11 @@
 <%@ include file="/WEB-INF/template/header.jsp"%>
 
 <%@ include file="template/resources.jsp" %>
-<openmrs:htmlInclude file="/moduleResources/radiotest/GeneralUtils.js" />
 
-<script type="text/javascript">
-<!--
-var modulePath = openmrsContextPath + "/module/radiotest";
-var savePath = modulePath + "/resultsForm.htm";
-var editPath = modulePath + "/editResultForm.htm";
-var template = "${ template }";
+<openmrs:htmlInclude file="/moduleResources/radiotest/pages/result.js" />
+<openmrs:htmlInclude file="/moduleResources/radiotest/pages/inventory.js" />
+<openmrs:htmlInclude file="/moduleResources/radiotest/pages/redirect.js" />
 
-var itemPath = modulePath + "/getItems.htm";
-var stockPath = modulePath + "/addListing.htm";
-var updatePath = modulePath + "/updateStock.htm";
-
-function saveDraft(){
-	$j.post(savePath, $j("#result").serialize(), function(data){
-		alert("Saved as draft!");
-	});
-}
-
-function save(){
-	$j("#draft").val(false);
-	$j.post(savePath, $j("#result").serialize(), function(data){
-		alert("Saved!");
-		var $results = $j("#results", $j(data));
-		$j("#results").replaceWith($results);
-	});
-}
-
-function edit(){
-	if(confirm("Are you sure you want to edit?")){
-		$j.post(editPath, $j("#result").serialize(), function(data){
-			var $results = $j("#results", $j(data));
-			$j("#results").replaceWith($results);
-		});	
-	}
-}
-
-function writeTemplate(){
-	var isNegative = $j("#positive2").attr("checked");
-	var $findings = $j("#findings");
-	
-	if (isNegative){
-		$findings.val(template);
-	} else {
-		$findings.val("");
-	}
-}
-
-
-function getItems(){
-	$j.post(itemPath, $j("#type").serialize(), function(data){
-		var $items = $j(".items", data);
-		$j(".items").replaceWith($items);
-	});
-}
-
-function deleteItem(buttonElem){
-	$j(buttonElem)
-		.parent()
-			.remove();
-}
-
-
-function addItems(){
-	$j.post(stockPath, $j("#item").serialize(), function(data){
-		var $listings = $j(".listings", data);
-		$listings
-			.find("input:text")
-				.val("1");
-		$j("#listings").append($listings.children());
-	});
-}
-
-function updateStock(){
-	$j("#listings .item").each(function(i){
-		var item = "examItems[" + i + "]";
-		$j("input:hidden", this)
-			.attr("name", item + ".item");
-		$j("input:text", this)
-			.attr("name", item + ".quantity");
-	});
-	
-	$j.post(updatePath, $j("#itemForm").serialize(), function(data){
-		console.log(data);
-		var $inventory = $j("#inventory", data);
-		$j("#inventory").replaceWith($inventory);
-	});
-}
-function load_profile(){
-	GeneralUtils.redirect("patientProfile.htm");
-}
-
-function printResult(){
-	$j("#result")
-		.attr("action", GeneralUtils.modulePath("/prtRes.htm"))
-		.submit();
-}
-//-->
-</script>
 <div class="colmask leftmenu">
 	<div class="colleft">
 		<div class="col1">

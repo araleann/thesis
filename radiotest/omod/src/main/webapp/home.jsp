@@ -1,40 +1,13 @@
 <%@ include file="/WEB-INF/template/include.jsp"%>
 <%@ include file="/WEB-INF/template/header.jsp"%>
 
+<%@ include file="template/resources.jsp" %>
 <%@ include file="template/tables.jsp" %>
-<openmrs:htmlInclude file="/moduleResources/radiotest/TableUtils.js" />
+<openmrs:htmlInclude file="/moduleResources/radiotest/pages/transaction.js" />
 
 <script type="text/javascript">
-<!--
-var modulePath = openmrsContextPath + "/module/radiotest";
-var transactionPath = modulePath + "/viewTransaction.htm";
-var resultPath = modulePath + "/viewExams.htm";
-var claimPath = modulePath + "/claimResults.htm";
-
-function viewTransaction(id){
-	$j("#transId").val(id);
-	$j("#transaction")
-		.attr("action", transactionPath)
-		.submit();
-}
-
-function viewExams(id){
-	$j("#transId").val(id);
-	$j("#transaction")
-		.attr("action", resultPath)
-		.submit();
-}
-
-function claim(id){
-	$j("#transId").val(id);
-	$j.post(claimPath, $j("#transaction").serialize(), function(data){
-		$unclaimed = $j("#claim", $j(data));
-		$j("#claim").replaceWith($unclaimed);
-	});
-}
-
-$(document).ready( function () {
-    $j("#payment").dataTable();
+$j(function(){
+	$j("#payment").dataTable();
     $j("#result").dataTable();
     $j("#claim").dataTable();
 });
@@ -115,6 +88,7 @@ $(document).ready( function () {
 <br>
 <br>
 <hr>
+<div id="claimDiv">
 <h3>Claiming</h3>
 <table id="claim" class="tbldesign">
 	<thead>
@@ -137,6 +111,7 @@ $(document).ready( function () {
 	</c:forEach>
 	</tbody>
 </table>
+</div>
 <br>
 </div>
 </div>

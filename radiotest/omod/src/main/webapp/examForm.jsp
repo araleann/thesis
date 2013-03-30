@@ -2,85 +2,8 @@
 <%@ include file="/WEB-INF/template/header.jsp"%>
 
 <%@ include file="template/resources.jsp" %>
+<openmrs:htmlInclude file="/moduleResources/radiotest/pages/exam.js" />
 
-<script>
-var modulePath = openmrsContextPath + "/module/radiotest";
-var savePath = modulePath + "/examForm.htm";
-var loadPath = modulePath + "/loadExam.htm";
-var nullPath = modulePath + "/nullExam.htm";
-
-function loadExam(id){
-	$j.post(loadPath, { examId : id }, function(data){
-		var $form = $j("#examForm", $j(data));
-		$j("#examForm").replaceWith($form);
-	});
-}
-
-function saveExam(){
-	$j("#form")
-		.attr("action", savePath)
-		.submit();
-}
-
-function clearForm(){
-	$j("#form")
-		.find(":selected, :checked")
-			.each(function(i){
-				var $this = $j(this);
-				if($this.attr("selected")){
-					$this.attr("selected", false);
-				} else {
-					$this.attr("checked", false);
-				}
-			});
-	
-	$j("#form")
-		.find(":input:not(button)")
-			.each(function(i){
-				var $this = $j(this);
-				switch(this.tagName){
-				case "TEXTAREA":
-					$this.text("");
-					break;
-				case "INPUT":
-					var type = $this.attr("type");
-					if(type == "text" || type == "hidden")
-						$this.val("");
-					break;
-				}
-			});
-}
-
-function voidExam(id){
-	var obj = {
-		eid : id,
-		action : "void"
-	}
-	post(id, obj);
-}
-
-function deleteExam(id){
-	var obj = {
-		eid : id,
-		action : "delete"
-	}
-	if(confirm("Are you sure you want to delete?")){
-		post(id, obj);
-	}
-}
-
-function post(id, obj){
-	var examId = "#exam" + id;
-	$j.post(nullPath, obj, function(data){
-		var $exam = $j(examId, $j(data));
-		if($exam.length){
-			$j(examId).replaceWith($exam);
-		} else {
-			$j(examId).remove();
-		}
-	})
-}
-</script>
 <div class="colmask leftmenu">
 	<div class="colleft">
 		<div class="col1">

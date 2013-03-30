@@ -1,8 +1,8 @@
 <%@ include file="/WEB-INF/template/include.jsp"%>
 <%@ include file="/WEB-INF/template/header.jsp"%>
 
-<openmrs:htmlInclude file="/moduleResources/radiotest/GeneralUtils.js" />
-<openmrs:htmlInclude file="/moduleResources/radiotest/types.js" />
+<%@ include file="template/resources.jsp" %>
+<openmrs:htmlInclude file="/moduleResources/radiotest/pages/types.js" />
 
 <div class="colmask leftmenu">
 	<div class="colleft">

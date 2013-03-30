@@ -8,4 +8,4 @@
 <openmrs:htmlInclude file="/moduleResources/radiotest/TableTools-2.1.5/media/css/TableTools.css" />
 <openmrs:htmlInclude file="/moduleResources/radiotest/ColReorder-1.0.8/media/css/ColReorder.css" />
 
-<openmrs:htmlInclude file="/moduleResources/radiotest/TableUtils.js" />
+<openmrs:htmlInclude file="/moduleResources/radiotest/Utils/TableUtils.js" />

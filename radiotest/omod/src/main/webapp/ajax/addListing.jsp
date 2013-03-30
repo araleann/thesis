@@ -15,7 +15,7 @@
 		<div class="item">
 			<input type="hidden" value="${ item.id }">
 			<label> ${ item.name } : </label> <input type="text" class="patientinputmedium" placeholder="Qty (${ item.unit })">
-			<button type="button" class="buttondesignsmall" onclick="deleteItem(this)">Delete</button>
+			<button type="button" class="buttondesignsmall" onclick="deleteListItem(this)">Delete</button>
 		<br><br>
 		</div>
 	</c:forEach>

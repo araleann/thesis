@@ -1,1 +1,2 @@
-<openmrs:htmlInclude file="/moduleResources/radiotest/GeneralUtils.js" />
+<openmrs:htmlInclude file="/moduleResources/radiotest/Utils/GeneralUtils.js" />
+<%@ include file="validation.jsp" %>

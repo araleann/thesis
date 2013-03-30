@@ -1,8 +1,8 @@
 <%@ include file="/WEB-INF/template/include.jsp"%>
 <%@ include file="/WEB-INF/template/header.jsp"%>
 
-<openmrs:htmlInclude file="/moduleResources/radiotest/GeneralUtils.js" />
-<openmrs:htmlInclude file="/moduleResources/radiotest/inventory.js" />
+<%@ include file="template/resources.jsp" %>
+<openmrs:htmlInclude file="/moduleResources/radiotest/pages/inventory.js" />
 
 <div class="colmask leftmenu">
 	<div class="colleft">
@@ -81,13 +81,13 @@
 					</c:choose>
 					<br>
 					<c:choose>
-				<c:when test="${ i.voided }">
-					<button type="button" onclick="voidItem(${ id })" class="buttondesignvoid">Unvoid</button>
-				</c:when>
-				<c:otherwise>
-					<button type="button" onclick="voidItem(${ id })" class="buttondesignvoid">Void</button>
-				</c:otherwise>
-			</c:choose>
+						<c:when test="${ i.voided }">
+							<button type="button" onclick="voidItem(${ id })" class="buttondesignvoid">Unvoid</button>
+						</c:when>
+						<c:otherwise>
+							<button type="button" onclick="voidItem(${ id })" class="buttondesignvoid">Void</button>
+						</c:otherwise>
+					</c:choose>
 					<button type="button" onclick="deleteItem(${ id })" class="buttondesignsmall">Delete</button>
 					<button type="button" onclick="editItem(${ id })" class="buttondesignsmall">Edit</button>
 				</div>

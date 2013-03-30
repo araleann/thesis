@@ -1,107 +1,12 @@
 <%@ include file="/WEB-INF/template/include.jsp"%>
 <%@ include file="/WEB-INF/template/header.jsp"%>
+
 <%@ include file="template/resources.jsp" %>
 <%@ include file="template/tables.jsp" %>
 
-<openmrs:htmlInclude file="/moduleResources/radiotest/GeneralUtils.js" />
-
-<script type="text/javascript">
-<!--
-var modulePath = openmrsContextPath + "/module/radiotest";
-var editPatientPath = modulePath + "/editPatient.htm";
-
-function newTransaction(){
-	GeneralUtils.redirect("transExamForm.htm");
-	//$("#details").load("${pageContext.request.contextPath}/module/radiotest/transExamForm.htm #details");
-}
-
-function editPatient(){
-	$j.get(editPatientPath, function(data){
-		var $form = $j("#patient", $j(data));
-		$j("#patient").replaceWith($form);
-		var dialogConfig = {
-						modal : true,
-						title : "Edit Profile",
-						width : 800,
-						height: 600,
-						resizable : false,
-						close: function() {
-							location.reload(true);
-							},
-					}					
-		$j("#patient").dialog(dialogConfig);
-		
-		var inputPlaceholders = {
-			firstname: "First Name",
-			midname: "Middle Initial",
-			lastname: "Last Name",
-			alias: "Alias",
-			type: "Type",
-			philhealth: "Philhealth Number",
-			birthday: "Birthday",
-			institution: "Institution",
-			contactno: "Contact Number",
-			region: "Region",
-			city: "City",
-			barangay: "Barangay/Municipality",
-			street: "Street Address"
-		};
-		GeneralUtils.addPlaceholderById(inputPlaceholders);
-		GeneralUtils.addDatepicker($j("#birthday"));
-		
-	});
-}
-function load_transaction(){
-	GeneralUtils.redirect("transactions.htm");
-}
-function load_profile(){
-	GeneralUtils.redirect("patientProfile.htm");
-}
-function load_results(){
-	GeneralUtils.redirect("results.htm");
-}
-var modulePath = openmrsContextPath + "/module/radiotest";
-var viewPath = modulePath + "/viewTransaction.htm";
-
-function viewTransaction(id){
-	$j("#transId").val(id);
-	$j("#transaction")
-		.attr("action", viewPath)
-		.submit();
-}
-function createTransaction(){
-	GeneralUtils.redirect("transExamForm.htm");
-}
-var modulePath = openmrsContextPath + "/module/radiotest";
-var getExamsPath = modulePath + "/getExamList.htm";
-var borrowPath = modulePath + "/borrowResults.htm";
-var resultPath = modulePath + "/results.htm";
-
-function getExams(){
-	console.log($j("#trans").serialize());
-	$j.post(getExamsPath, $j("#trans").serialize(), function(data){
-		var $list = $j("div#exams", $j(data));
-		$j("#exams").replaceWith($list);
-	});
-}
-
-function result(id, count){
-	$j("#examId").val(id);
-	$j("#count").val(count);
-	$j("#exam")
-		.attr("action", resultPath)
-		.submit();
-}
-
-function borrow(id){
-	var examId = "#exam" + id;
-	$j.post(borrowPath, { examId: id }, function(data){
-		var $updatedDiv = $j(examId, data);
-		$j(examId).replaceWith($updatedDiv);
-	});
-}
-//-->
-</script>
+<openmrs:htmlInclude file="/moduleResources/radiotest/pages/patient.js" />
+<openmrs:htmlInclude file="/moduleResources/radiotest/pages/transaction.js" />
+<openmrs:htmlInclude file="/moduleResources/radiotest/pages/result.js" />
 
 <div class="colmask leftmenu">
 	<div class="colleft">
