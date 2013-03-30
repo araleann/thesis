@@ -33,6 +33,7 @@ function newPatient(){
 <div class="colmask leftmenu">
 	<div class="colleft">
 		<div class="col1">
+		<div class="cont">
 <br>	
 <h2>Search Patient</h2>
 <br>
@@ -49,9 +50,15 @@ function newPatient(){
 <div id="patientList">
 
 </div>
+
+</div>
 </div>
 <div class="col2">
+<div class="sideholder">
 			<!-- Column 2 start -->
 			<jsp:include page="/WEB-INF/view/sidemenu.jsp"/>
-		</div>
+</div>
+</div>
+</div>
+</div>
 </div></div>

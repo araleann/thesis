@@ -7,8 +7,7 @@
 <div class="colmask leftmenu">
 	<div class="colleft">
 		<div class="col1">
-			<!-- Column 1 start -->
-			<!-- Column 1 end -->
+		<div class="cont">
 <br>
 <h2>Add Exam Type</h2>
 <form:form method="post" modelAttribute="examType" id="typeForm" action="javascript:saveExamType()">
@@ -16,10 +15,10 @@
 	<form:input path="type" id="examtype" cssClass="patientinput" />
 	<br>
 	<br>
-	<form:textarea cssClass="addressinput" id="template" path="template" />
+	<form:textarea id="template" path="template" cssClass="patientinputtextarea1"/>
 	<br>
-	<button type="button" onclick="saveExamType()" class="buttondesignshort">Save</button>
-	<button type="button" onclick="clearForm()" class="buttondesignshort">Clear</button>
+	<button type="button" onclick="saveExamType()" class="buttondesign">Save</button>
+	<button type="button" onclick="clearForm()" class="buttondesign">Clear</button>
 </form:form>
 <br>
 <hr>
@@ -60,9 +59,14 @@
 		<br>
 	</c:forEach>
 </div>
+
+</div>
 </div>
 <div class="col2">
+<div class="sideholder">
 			<!-- Column 2 start -->
 			<jsp:include page="/WEB-INF/view/sidemenu.jsp"/>
-		</div>
-</div></div>
+</div>
+</div>
+</div>
+</div>

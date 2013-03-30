@@ -45,6 +45,7 @@ function addStock(){
 <div class="colmask leftmenu">
 	<div class="colleft">
 		<div class="col1">
+		<div class="cont">
 <br>
 <h2>Add Stock</h2>
 
@@ -55,7 +56,7 @@ function addStock(){
 			<option value="${ type.id }">${ type.name }</option>
 		</c:forEach>
 	</select>
-	<br>
+	<br><br>
 	<div class="items">
 		<select class="patientinputmediummult" id="item" name="items" size="5" multiple>
 			<c:forEach var="item" items="${ items }">
@@ -63,21 +64,26 @@ function addStock(){
 				<option value="${ id }" ondblclick="addItems()">${ item.name }</option>
 			</c:forEach>
 		</select>
-	</div><br>
-	<button type="button" class="buttondesignsmallmedium" onclick="addItems()">Add Item(s)</button>
+	</div>
+	<button type="button" class="buttondesign1" onclick="addItems()">Add Item(s)</button>
 </div>
-
+<br>
 <div id="listingDiv">
 	<form:form method="post" modelAttribute="stockModel" id="stockForm">
 		<div id="listings">
 			
 		</div>
-		<br><button type="button" class="buttondesignmedium" style="background-color:#f29c22;" onclick="addStock()">Add Stock</button>
+		<br><button type="button" class="buttondesign" style="width:120px;" onclick="addStock()">Add Stock</button>
 	</form:form>
+</div>
+
 </div>
 </div>
 <div class="col2">
+<div class="sideholder">
 			<!-- Column 2 start -->
 			<jsp:include page="/WEB-INF/view/sidemenu.jsp"/>
-		</div>
-</div></div>
+</div>
+</div>
+</div>
+</div>

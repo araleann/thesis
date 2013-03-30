@@ -1,6 +1,9 @@
 <%@ include file="/WEB-INF/template/include.jsp"%>
 <%@ include file="/WEB-INF/template/header.jsp"%>
 <%@ include file="template/resources.jsp" %>
+<%@ include file="template/tables.jsp" %>
+
+<openmrs:htmlInclude file="/moduleResources/radiotest/GeneralUtils.js" />
 
 <script type="text/javascript">
 <!--
@@ -16,6 +19,17 @@ function editPatient(){
 	$j.get(editPatientPath, function(data){
 		var $form = $j("#patient", $j(data));
 		$j("#patient").replaceWith($form);
+		var dialogConfig = {
+						modal : true,
+						title : "Edit Profile",
+						width : 800,
+						height: 600,
+						resizable : false,
+						close: function() {
+							location.reload(true);
+							},
+					}					
+		$j("#patient").dialog(dialogConfig);
 		
 		var inputPlaceholders = {
 			firstname: "First Name",
@@ -38,13 +52,13 @@ function editPatient(){
 	});
 }
 function load_transaction(){
-	$j("#details").load("${pageContext.request.contextPath}/module/radiotest/transactions.htm #details");
+	GeneralUtils.redirect("transactions.htm");
 }
 function load_profile(){
-	$j("#details").load("${pageContext.request.contextPath}/module/radiotest/patientProfile.htm #details");
+	GeneralUtils.redirect("patientProfile.htm");
 }
 function load_results(){
-	$j("#details").load("${pageContext.request.contextPath}/module/radiotest/results.htm #details");
+	GeneralUtils.redirect("results.htm");
 }
 var modulePath = openmrsContextPath + "/module/radiotest";
 var viewPath = modulePath + "/viewTransaction.htm";
@@ -92,6 +106,7 @@ function borrow(id){
 <div class="colmask leftmenu">
 	<div class="colleft">
 		<div class="col1">
+		<div class="cont">
 <br>
 <c:set var="p" value="${ patient }" />
 <fieldset>
@@ -132,9 +147,14 @@ function borrow(id){
 </div>
 </div>
 </fieldset>
+
+</div>
 </div>
 <div class="col2">
+<div class="sideholder">
 			<!-- Column 2 start -->
 			<jsp:include page="/WEB-INF/view/sidemenu.jsp"/>
-		</div>
-</div></div>
+</div>
+</div>
+</div>
+</div>

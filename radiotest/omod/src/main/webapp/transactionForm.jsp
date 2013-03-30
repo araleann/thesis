@@ -2,6 +2,8 @@
 <%@ include file="/WEB-INF/template/header.jsp"%>
 <%@ include file="template/resources.jsp" %>
 
+<openmrs:htmlInclude file="/moduleResources/radiotest/GeneralUtils.js" />
+
 <script type="text/javascript">
 <!--
 var modulePath = openmrsContextPath + "/module/radiotest";
@@ -29,6 +31,7 @@ function noteTypesEvent(){
 	if (others == isHidden){
 		if (isHidden){
 			$desc.removeAttr("hidden");
+			$desc.addClass("patientinput")
 		} else {
 			$desc.attr("hidden", "hidden");
 		}
@@ -37,20 +40,28 @@ function noteTypesEvent(){
 function load_profile(){
 	GeneralUtils.redirect("patientProfile.htm");
 }
+
 function load_assessment(){
 	var win=window.open(pdfPath, '_blank');
 	win.focus();
+}
+function printAssessment(){
+	$j("#transaction")
+		.attr("action", GeneralUtils.modulePath("/prntAssmnt.htm"))
+		.submit();
 }
 //-->
 </script>
 <div class="colmask leftmenu">
 	<div class="colleft">
 		<div class="col1">
+		<div class="cont">
 <br>
-<div id="details">
+
 <c:set var="p" value="${ patient }" />
 <fieldset>
 <legend><h2>${ p.fullName }</h2></legend>
+<div id="details">
 <div id="transaction">
 	<h2>Transaction Summary</h2>
 	<label>Total No. of Exams:</label>${ transaction.numberOfExams }
@@ -83,9 +94,10 @@ function load_assessment(){
 	<br>
 	<label style="color:#009d8e;">Total Amount Due:</label> <font style="font-size:18px; color:#009d8e;">${ transaction.total } </font>
 	<br><br>
-	<button type="button" class="buttondesignsmalllong" onclick="load_assessment()">Print Assessment</button>
+	<button type="button" class="buttondesign" style="width: 180px;" onclick="load_assessment()">Print Assessment</button>
 	<br>
 	<br>
+
 	<hr>
 	<c:choose>
 		<c:when test="${ empty transaction.orNumber }">
@@ -93,7 +105,7 @@ function load_assessment(){
 				<br><h3>Not yet paid</h3>
 				<input type="hidden" name="transId" value="${ transaction.id }">
 				<br><input type="text" class="patientinputmedium" placeholder="OR Number" name="orNumber">
-				<button type="button" class="buttondesignsmalllong" onclick="addPayment()">Add Payment</button>
+				<button type="button" class="buttondesign" style="width: 145px;" onclick="addPayment()">Add Payment</button>
 			</form:form>
 		</c:when>
 		<c:otherwise>
@@ -124,7 +136,7 @@ function load_assessment(){
 	<form:form method="post" modelAttribute="transModel" id="noteForm">
 		<input type="hidden" name="transId" value="${ transaction.id }">
 		<spring:nestedPath path="note">
-			<form:select path="type" onchange="noteTypesEvent()" id="noteType">
+			<form:select path="type" onchange="noteTypesEvent()" cssClass="patientinput" id="noteType">
 				<option value=" "></option>
 				<form:options items="${ noteTypes }" itemLabel="name" itemValue="id" />
 				<option value="0">Others</option>
@@ -132,20 +144,24 @@ function load_assessment(){
 			<spring:bind path="description">
 				<input type="text" id="desc" name="${ status.expression }" hidden>
 			</spring:bind>
-			<br>
-			<form:textarea path="note" />
+			<br><br>
+			<form:textarea path="note" cssClass="patientinputtextarea" />
 		</spring:nestedPath>
-		<br><button type="button" class="buttondesignsmallmedium" onclick="saveNote()">Save Note</button>
+		<br><button type="button" class="searchbutton" onclick="saveNote()">Save Note</button>
 </form:form>
 <br><br>
-<button type="button" class="buttondesignmedium" onclick="load_profile()" style="background-color:#f29c22;">Back to profile</button>
-<br><br>
 </div>
 </div>
+
 </fieldset>
+
+</div>
 </div>
 <div class="col2">
+<div class="sideholder">
 			<!-- Column 2 start -->
 			<jsp:include page="/WEB-INF/view/sidemenu.jsp"/>
-		</div>
-</div></div>
+</div>
+</div>
+</div>
+</div>

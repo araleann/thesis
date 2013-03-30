@@ -7,6 +7,7 @@
 <div class="colmask leftmenu">
 	<div class="colleft">
 		<div class="col1">
+		<div class="cont">
 		
 <br>
 <h2>Add Fee Type</h2>
@@ -53,9 +54,12 @@
 </div>
 
 </div>
+</div>
 <div class="col2">
+<div class="sideholder">
 			<!-- Column 2 start -->
 			<jsp:include page="/WEB-INF/view/sidemenu.jsp"/>
-		</div>
+</div>
+</div>
 </div>
 </div>

@@ -84,6 +84,7 @@ function post(id, obj){
 <div class="colmask leftmenu">
 	<div class="colleft">
 		<div class="col1">
+		<div class="cont">
 <br>
 <h2>Exams</h2>
 <div id="examForm">
@@ -142,7 +143,7 @@ function post(id, obj){
 		<c:set var="id" value="${ exam.id }" />
 		<div id="exam${ id }">
 			Type : ${ exam.type.type } <br>
-			Name: ${ exam.name }
+			Name: <b> ${ exam.name } </b>
 			<br>
 			Voided:
 			<c:choose>
@@ -154,7 +155,14 @@ function post(id, obj){
 				</c:otherwise>
 			</c:choose>
 			<br>
-			<button type="button" onclick="voidExam(${ id })" class="buttondesignvoid">Void</button>
+			<c:choose>
+				<c:when test="${ exam.voided }">
+					<button type="button" onclick="voidExam(${ id })" class="buttondesignvoid">Unvoid</button>
+				</c:when>
+				<c:otherwise>
+					<button type="button" onclick="voidExam(${ id })" class="buttondesignvoid">Void</button>
+				</c:otherwise>
+			</c:choose>
 			<button type="button" onclick="deleteExam(${ id })" class="buttondesignsmall">Delete</button>
 			<button type="button" onclick="loadExam(${ id })" class="buttondesignsmall">Edit</button>
 		</div>
@@ -162,8 +170,12 @@ function post(id, obj){
 	<br>
 </div>
 </div>
+</div>
 <div class="col2">
+<div class="sideholder">
 			<!-- Column 2 start -->
 			<jsp:include page="/WEB-INF/view/sidemenu.jsp"/>
-		</div>
-</div></div>
+</div>
+</div>
+</div>
+</div>

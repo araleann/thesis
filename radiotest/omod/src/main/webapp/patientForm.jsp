@@ -1,7 +1,7 @@
 <%@ include file="/WEB-INF/template/include.jsp"%>
 <%@ include file="/WEB-INF/template/header.jsp"%>
-
 <%@ include file="template/resources.jsp" %>
+
 
 <html lang="en">
 <head>
@@ -31,12 +31,11 @@
 </head>
 
 <body>
+
 <div class="colmask leftmenu">
 	<div class="colleft">
 		<div class="col1">
-			<!-- Column 1 start -->
-			<!-- Column 1 end -->
-			
+		<div class="cont">		
 
 <div id="patient">			
 <form:form method="post" modelAttribute="patientModel">
@@ -117,11 +116,17 @@
 	<input class="buttondesign" type="submit" value="Save" />
 </form:form>
 </div>
+
+</div>
 </div>
 <div class="col2">
+<div class="sideholder">
 			<!-- Column 2 start -->
 			<jsp:include page="/WEB-INF/view/sidemenu.jsp"/>
-		</div>
-</div></div>
+</div>
+</div>
+</div>
+</div>
+
 </body>
 </html>

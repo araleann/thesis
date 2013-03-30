@@ -7,8 +7,7 @@
 <div class="colmask leftmenu">
 	<div class="colleft">
 		<div class="col1">
-			<!-- Column 1 start -->
-			<!-- Column 1 end -->
+		<div class="cont">
 <br>
 <h2>Add Note Type</h2>
 <br>
@@ -53,8 +52,12 @@
 	</c:forEach>
 </div>
 </div>
+</div>
 <div class="col2">
+<div class="sideholder">
 			<!-- Column 2 start -->
 			<jsp:include page="/WEB-INF/view/sidemenu.jsp"/>
-		</div>
-</div></div>
+</div>
+</div>
+</div>
+</div>

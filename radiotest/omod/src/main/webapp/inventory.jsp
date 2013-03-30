@@ -1,44 +1,62 @@
 <%@ include file="/WEB-INF/template/include.jsp"%>
 <%@ include file="/WEB-INF/template/header.jsp"%>
 
+<%@ include file="template/tables.jsp"%>
+
+
+<script type="text/javascript">
+
+	$(document).ready( function () {
+		$j("#inv").dataTable();
+	});
+</script>
 <div class="colmask leftmenu">
 	<div class="colleft">
 		<div class="col1">
+		<div class="cont">
 <br>
 <h2>Inventory</h2>
 <c:forEach var="itemMap" items="${ items }">
 	<c:set var="type" value="${ itemMap.key }" />
 	<c:set var="list" value="${ itemMap.value }" />
 	<h3>${ type.name }</h3>
-	<table id="inventory">
-	<tr>
-	<th> Name </th>
-	<th> Quantity </th>
-	<th> At Threshold? </th>
-	<tr>
-	<c:forEach var="i" items="${ list }">
+	<table id="inv" class="tbldesign">
+	<thead>
 		<tr>
-		<td> ${ i.name } </td>
-		<td> ${ i.quantity } ${ i.unit } </td>
-		<td><center>
-		<c:choose>
-			<c:when test="${ i.atLimit }">
-				YES
-			</c:when>
-			<c:otherwise>
-				NO
-			</c:otherwise>
-		</c:choose>
-		</center>
-		</td>
+		<th> Name </th>
+		<th> Quantity </th>
+		<th> At Threshold? </th>
 		</tr>
-	</c:forEach>
+	</thead>
+	<tbody>
+		<c:forEach var="i" items="${ list }">
+			<tr onclick="">
+			<td> ${ i.name } </td>
+			<td> ${ i.quantity } ${ i.unit } </td>
+			<td>
+			<c:choose>
+				<c:when test="${ i.atLimit }">
+					YES
+				</c:when>
+				<c:otherwise>
+					NO
+				</c:otherwise>
+			</c:choose>
+			</td>
+			</tr>
+		</c:forEach>
+	</tbody>
 	</table>
 	<br>
 </c:forEach>
+
+</div>
 </div>
 <div class="col2">
+<div class="sideholder">
 			<!-- Column 2 start -->
 			<jsp:include page="/WEB-INF/view/sidemenu.jsp"/>
-		</div>
-</div></div>
+</div>
+</div>
+</div>
+</div>

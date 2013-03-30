@@ -115,7 +115,7 @@ public class RadioResultsController {
 		return new ModelAndView("/module/radiotest/ajax/examList", model);
 	}
 	
-	@RequestMapping(value = {RESULTS_FORM, RESULT_PDF}, method = RequestMethod.POST)
+	@RequestMapping(value = RESULTS_FORM, method = RequestMethod.POST)
 	public ModelAndView saveResult(@ModelAttribute("result") RadioResult result, @RequestParam("examId") RadioTransExam e, 
 								ModelMap model, HttpSession session){
 		RadioTransactionService ts = Context.getService(RadioTransactionService.class);
@@ -161,7 +161,11 @@ public class RadioResultsController {
 		
 		model.addAttribute("transExam", exam);
 		model.addAttribute("patient", exam.getPatient());
-		model.addAttribute("result", exam.getResult());
+		
+		if (exam.hasResult()){
+			model.addAttribute("result", exam.getResult());
+		}
+		
 		model.addAttribute("signature", sign);
 		
 		return new ModelAndView("/module/radiotest/printResult", model);

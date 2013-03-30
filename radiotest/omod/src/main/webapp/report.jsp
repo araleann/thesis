@@ -9,27 +9,32 @@
 <div class="colmask leftmenu">
 	<div class="colleft">
 		<div class="col1">
+		<div class="cont">
 <br>
 <form:form id="report" modelAttribute="report">
-	Date from <form:input path="startDate" cssClass="date" /> to <form:input path="endDate" cssClass="date" />
+	Date from <form:input path="startDate" cssClass="patientinputmedium" id="sdate" /> to <form:input path="endDate" cssClass="patientinputmedium" id="edate" />
+	<br><br>
+	<div class="holder">
+	<div id="patient" class="left">
 	<h2>Patient</h2>
-	<div id="patient">
-		<button type="button" class="filterButton">Add Filter</button>
+		<button type="button" id="buttondesignsmall" style="width:100px;" class="filterButton">Add Filter</button><br><br>
 		<spring:nestedPath path="patient">
 			<div class="entity">
 				<input type="checkbox" class="general default">Full Name <br>
-				<div hidden>
+				<div hidden id="tab">
+					
 					<input type="checkbox">First Name 
 					<form:input path="firstName" cssClass="filter" /><br>
 					<input type="checkbox">Middle Initial 
 					<form:input path="middleInitial" cssClass="filter" /><br>
 					<input type="checkbox">Last Name 
 					<form:input path="lastName" cssClass="filter" /><br>
+					
 				</div>
 			</div>
 			<div class="entity">
 				<input type="checkbox" class="general">Address <br>
-				<div hidden>
+				<div hidden id="tab">
 					<input type="checkbox">Street Address 
 					<form:input path="streetAddress" cssClass="filter" /><br>
 					<input type="checkbox">Barangay 
@@ -53,7 +58,7 @@
 			<br>
 			<input type="checkbox">Civil Status 
 			<div class="filter">
-				<form:select path="civilStatus">
+				<form:select path="civilStatus" cssClass="patientinputmedium">
 					<option value=""></option>
 					<option value="Single">Single</option>
 					<option value="Married">Married</option>
@@ -77,9 +82,10 @@
 		</form:select>
 	</div>
 	
+	
+	<div id="exam" class="left">
 	<h2>Exam</h2>
-	<div id="exam">
-		<button type="button" class="filterButton">Add Filter</button> <br>
+		<button type="button" id="buttondesignsmall" style="width:100px;" class="filterButton">Add Filter</button> <br><br>
 		<input type="checkbox" class="default">Exam Type
 		<form:select path="examType" cssClass="filter">
 			<option value="0"></option>
@@ -107,9 +113,9 @@
 		</spring:nestedPath>
 	</div>
 	
+	<div id="transaction" class="left">
 	<h2>Transaction</h2>
-	<div id="transaction">
-		<button type="button" class="filterButton">Add Filter</button> <br>
+		<button type="button" id="buttondesignsmall" style="width:100px;" class="filterButton">Add Filter</button> <br><br>
 		<spring:nestedPath path="transaction">
 			<input type="checkbox" name="fieldList" value="t.visitDate" class="default">Visit Date <br>
 			<input type="checkbox" name="fieldList" value="t.visitTime">Visit Time <br>
@@ -148,12 +154,18 @@
 			<form:input path="note" cssClass="filter" />
 		</spring:nestedPath>
 	</div>
-	
-	<button type="button" onclick="generateReport()">Generate Report</button>
+	</div>
+	<br style="clear: left;" />
+	<button type="button" class="buttondesign" style="width:180px;"onclick="generateReport()">Generate Report</button>
 </form:form>
+
+</div>
 </div>
 <div class="col2">
+<div class="sideholder">
 			<!-- Column 2 start -->
 			<jsp:include page="/WEB-INF/view/sidemenu.jsp"/>
-		</div>
-</div></div>
+</div>
+</div>
+</div>
+</div>

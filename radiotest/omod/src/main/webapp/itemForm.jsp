@@ -7,6 +7,7 @@
 <div class="colmask leftmenu">
 	<div class="colleft">
 		<div class="col1">
+		<div class="cont">
 <br>
 <h2>Items</h2>
 <form:form method="post" modelAttribute="item" id="itemForm">
@@ -57,9 +58,9 @@
 			<c:forEach var="i" items="${ list }">
 				<c:set var="id" value="${ i.id }" />
 				<div id="item${ id }">
-					Name: ${ i.name } <br>
+					Name: <b> ${ i.name } </b><br>
 					Unit: ${ i.unit } <br>
-					Threshold:
+					Threshold: 
 					<c:choose>
 						<c:when test="${ i.percentThreshold == 0 }">
 							${ i.threshold } ${ i.unit }
@@ -69,7 +70,7 @@
 						</c:otherwise>
 					</c:choose>
 					<br>
-					Voided:
+					Voided: 
 					<c:choose>
 						<c:when test="${ i.voided }">
 							YES
@@ -78,18 +79,29 @@
 							NO
 						</c:otherwise>
 					</c:choose>
-					<button type="button" onclick="voidItem(${ id })"></button>
 					<br>
-					<button type="button" onclick="deleteItem(${ id })">Delete</button>
-					<button type="button" onclick="editItem(${ id })">Edit</button>
+					<c:choose>
+				<c:when test="${ i.voided }">
+					<button type="button" onclick="voidItem(${ id })" class="buttondesignvoid">Unvoid</button>
+				</c:when>
+				<c:otherwise>
+					<button type="button" onclick="voidItem(${ id })" class="buttondesignvoid">Void</button>
+				</c:otherwise>
+			</c:choose>
+					<button type="button" onclick="deleteItem(${ id })" class="buttondesignsmall">Delete</button>
+					<button type="button" onclick="editItem(${ id })" class="buttondesignsmall">Edit</button>
 				</div>
 			</c:forEach>
 		</div>
 	</c:forEach>
 </div>
 </div>
+</div>
 <div class="col2">
+<div class="sideholder">
 			<!-- Column 2 start -->
 			<jsp:include page="/WEB-INF/view/sidemenu.jsp"/>
-		</div>
-</div></div>
+</div>
+</div>
+</div>
+</div>

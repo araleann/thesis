@@ -1,5 +1,9 @@
 <%@ include file="/WEB-INF/template/include.jsp"%>
 <%@ include file="/WEB-INF/template/header.jsp"%>
+<%@ include file="template/resources.jsp" %>
+<%@ include file="template/tables.jsp" %>
+
+<openmrs:htmlInclude file="/moduleResources/radiotest/GeneralUtils.js" />
 
 <script type="text/javascript">
 <!--
@@ -31,14 +35,31 @@ function borrow(id){
 		$j(examId).replaceWith($updatedDiv);
 	});
 }
+function load_transaction(){
+	GeneralUtils.redirect("transactions.htm");
+}
+function load_profile(){
+	GeneralUtils.redirect("patientProfile.htm");
+}
+function load_results(){
+	GeneralUtils.redirect("results.htm");
+}
+$(document).ready( function () {
+    $j("#res").dataTable();
+});
 //-->
 </script>
 
 <div class="colmask leftmenu">
 	<div class="colleft">
 		<div class="col1">
+		<div class="cont">
 <br>
-<div id="details">
+<c:set var="p" value="${ patient }" />
+<fieldset>
+<legend><h2>${ p.fullName }</h2></legend>
+	
+
 <p>
 <c:if test="${ empty patient }">
 	<c:set var="patient" value="${ trans.patient }" />
@@ -47,53 +68,58 @@ function borrow(id){
 
 <c:choose>
 	<c:when test="${ empty trans }">
+		<jsp:include page="/WEB-INF/view/topnav.jsp"/>
+		<div id="details">
 		<h3>Transactions</h3>
-		<table id="inventory">
-		<tr>
-		<th>Transaction No</th>
-		<th>Date</th>
-		<th>Exams w/ Results</th>
-		<th>Status</th>
-		</tr>
-		
-		<c:forEach var="trans" items="${ transList }">
-		<c:choose>
-			<c:when test="${ trans.pending }">	
-				<tr style="color:red;">
-					<td><center> ${ trans.id } </center></td>
-					<td> ${ trans.visitDate } </td>
-					<td><center>${ trans.doneExams }/${ trans.numberOfExams }</center></td>
-					<td>
-					<c:choose>
-						<c:when test="${ trans.pending }">					
-							<center><img border="0" height="20" width="20" src="/openmrs-standalone/images/img_pending.png"/></center>
-						</c:when>
-						<c:otherwise>
-							<center><img border="0" height="20" width="20" src="/openmrs-standalone/images/img_done.png"></center>
-						</c:otherwise>
-					</c:choose>
-					</td>
-				</tr>
-			</c:when>
-			<c:otherwise>
+		<table id="res" class="tbldesign">
+			<thead>
 				<tr>
-					<td><center> ${ trans.id } </center></td>
-					<td> ${ trans.visitDate } </td>
-					<td><center>${ trans.doneExams }/${ trans.numberOfExams }</center></td>
-					<td>
-					<c:choose>
-						<c:when test="${ trans.pending }">					
-							<center><img border="0" height="20" width="20" src="/openmrs-standalone/images/img_pending.png"/></center>
-						</c:when>
-						<c:otherwise>
-							<center><img border="0" height="20" width="20" src="/openmrs-standalone/images/img_done.png"></center>
-						</c:otherwise>
-					</c:choose>
-					</td>
+					<th>Transaction No</th>
+					<th>Date</th>
+					<th>Exams w/ Results</th>
+					<th>Status</th>
 				</tr>
-			</c:otherwise>
-		</c:choose>
-		</c:forEach>
+			</thead>
+		<tbody>
+			<c:forEach var="trans" items="${ transList }">
+			<c:choose>
+				<c:when test="${ trans.pending }">	
+					<tr style="color:red;">
+						<td><center> ${ trans.id } </center></td>
+						<td> ${ trans.visitDate } </td>
+						<td><center>${ trans.doneExams }/${ trans.numberOfExams }</center></td>
+						<td>
+						<c:choose>
+							<c:when test="${ trans.pending }">					
+								PENDING
+							</c:when>
+							<c:otherwise>
+								DONE
+							</c:otherwise>
+						</c:choose>
+						</td>
+					</tr>
+				</c:when>
+				<c:otherwise>
+					<tr>
+						<td><center> ${ trans.id } </center></td>
+						<td> ${ trans.visitDate } </td>
+						<td><center>${ trans.doneExams }/${ trans.numberOfExams }</center></td>
+						<td>
+						<c:choose>
+							<c:when test="${ trans.pending }">					
+								PENDING
+							</c:when>
+							<c:otherwise>
+								DONE
+							</c:otherwise>
+						</c:choose>
+						</td>
+					</tr>
+				</c:otherwise>
+			</c:choose>
+			</c:forEach>
+		</tbody>
 		</table>
 		<br>
 		<h3>View/Update Results</h3>
@@ -103,14 +129,17 @@ function borrow(id){
 			<button type="button" class="buttondesignmediumshort" onclick="getExams()">View</button>
 		</form>
 		<br>
+		</div>
 	</c:when>
 	<c:otherwise>
+		<div id="details">
 		<h3>Transaction</h3>		
 		<c:set var="id" value="${ trans.id }" />
 		<label>Transaction No.:</label> ${ id } <br>
 		<label>Date:</label>${ trans.visitDate } <br>
 		<label>Exams w/ Results:</label>${ trans.doneExams }/${ trans.numberOfExams } <br>
 		<label>Status:</label>PENDING
+		</div>
 	</c:otherwise>
 </c:choose>
 
@@ -119,6 +148,7 @@ function borrow(id){
 	<input type="hidden" id="count" name="count">
 </form:form>
 <br>
+<div id="details">
 <h3>Exam List</h3>
 <div id="exams">
 	<c:if test="${ not empty trans }">
@@ -153,12 +183,17 @@ function borrow(id){
 			</div>
 		</c:forEach>
 		</table>
+		<br>
 	</c:if>
 </div>
 </div>
 </div>
+</div>
 <div class="col2">
+<div class="sideholder">
 			<!-- Column 2 start -->
 			<jsp:include page="/WEB-INF/view/sidemenu.jsp"/>
-		</div>
-</div></div>
+</div>
+</div>
+</div>
+</div>

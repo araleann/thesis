@@ -2,6 +2,8 @@
 <%@ include file="/WEB-INF/template/header.jsp"%>
 <%@ include file="template/resources.jsp" %>
 
+<openmrs:htmlInclude file="/moduleResources/radiotest/GeneralUtils.js" />
+
 <script>
 var modulePath = openmrsContextPath + "/module/radiotest";
 var addExamPath = modulePath + "/addExam.htm select:first-child";
@@ -118,6 +120,7 @@ $j(function(){
 <div class="colmask leftmenu">
 	<div class="colleft">
 		<div class="col1">
+		<div class="cont">
 <br>
 <c:set var="p" value="${ patient }" />
 <fieldset>
@@ -139,24 +142,29 @@ $j(function(){
 					<option value="0"></option>
 					<form:options items="${ examTypes }" itemLabel="type" itemValue="id" />
 				</form:select>
-				<button class="buttondesignsmall" type="button" id="add" onclick="addNewExam()">+</button>
-				<button class="buttondesignsmall" type="button" id="delete" onclick="deleteExam()" disabled>-</button>
+				<button class="adddesignsmall" type="button" id="add" onclick="addNewExam()">+</button>
+				<button class="adddesignsmall" type="button" id="delete" onclick="deleteExam()" disabled>-</button>
 			</div>
 		</div>
 	</spring:nestedPath>
 </div>
-	<div id="details">
+	
 	<br>
-	<button class="buttondesignmedium" type="submit" style="padding-left:18px;">Done</button>
-	<button class="buttondesignmedium" type="button" onclick="load_profile()" style="padding-left:18px;">Cancel</button>
+	<button class="searchbutton" type="submit">Done</button>
+	<button class="searchbutton" type="button" onclick="load_profile()">Cancel</button>
 	<br><br>
-	</div>
+	
 </form:form>
 </div>
 </fieldset>
+
+</div>
 </div>
 <div class="col2">
+<div class="sideholder">
 			<!-- Column 2 start -->
 			<jsp:include page="/WEB-INF/view/sidemenu.jsp"/>
-		</div>
-</div></div>
+</div>
+</div>
+</div>
+</div>

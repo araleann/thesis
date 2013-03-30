@@ -7,8 +7,8 @@
 
 <%
 	//Accessing the beans
-	RadioPatient patient = (RadioPatient) request.getAttribute("patient");
 	RadioTransaction transaction = (RadioTransaction) request.getAttribute("transaction");
+	RadioPatient patient = transaction.getPatient();
 	RadioCategory category = patient.getCategory();
 	Set<RadioTransExam> exams = transaction.getExams();
 	Double totalAmount = 0.0;

@@ -2,6 +2,7 @@
 <%@ include file="/WEB-INF/template/header.jsp"%>
 
 <%@ include file="template/resources.jsp" %>
+<openmrs:htmlInclude file="/moduleResources/radiotest/GeneralUtils.js" />
 
 <script type="text/javascript">
 <!--
@@ -103,6 +104,7 @@ function printResult(){
 <div class="colmask leftmenu">
 	<div class="colleft">
 		<div class="col1">
+		<div class="cont">
 <br>
 <fieldset>
 <legend><h2>${ patient.fullName }</h2></legend>
@@ -168,7 +170,8 @@ function printResult(){
 					</c:forEach>
 				</select>
 			</form>
-			<button type="button" class="buttondesignsmalllong" onclick="printResult()">Print Results Form</button><br><br>
+			<button type="button" class="buttondesignsmalllong" onclick="printResult()">Print Results Form</button>
+			<br><br>
 			<h3>Items Used</h3>
 			<div id="inventory">
 			<div id=tab>
@@ -215,9 +218,14 @@ function printResult(){
 	<button type="button" class="buttondesignmedium" onclick="load_profile()" style="background-color:#f29c22;">Back to profile</button>
 	<br><br>
 </fieldset>
+
+</div>
 </div>
 <div class="col2">
+<div class="sideholder">
 			<!-- Column 2 start -->
 			<jsp:include page="/WEB-INF/view/sidemenu.jsp"/>
-		</div>
-</div></div>
+</div>
+</div>
+</div>
+</div>
