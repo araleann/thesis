@@ -80,7 +80,7 @@ public class RadioTransactionController {
 			RadioTransactionService ts = Context.getService(RadioTransactionService.class);
 			RadioTransaction trans = ts.updateTransaction((RadioTransaction) session.getAttribute("transaction"));
 			trans.computeFees();
-			model.addAttribute("transaction", trans);
+			model.addAttribute("transaction", trans);			
 //			model.addAttribute("patient", trans.getPatient());
 //			session.removeAttribute("transaction");
 		}

@@ -22,7 +22,7 @@
 			<generator class="native" />
 		</id>
 		<discriminator column="id" insert="false" />
-		<property name="alias" type="java.lang.String" column="alias"
+		<property name="alias" type="org.openmrs.module.radiotest.utils.EncryptValue" column="alias"
 			length="20" access="field" />
 		<property name="startDate" type="java.util.Date" column="start_date"
 			access="field" />

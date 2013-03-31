@@ -54,15 +54,15 @@ $j(function(){
 		},
 		
 		load_transaction : function loadTransaction(){
-			$j("#details").load(GeneralUtils.modulePath("/transactions.htm") + " #details");
+			GeneralUtils.redirect("transactions.htm");
 		},
 		
 		load_profile : function loadProfile(){
-			$j("#details").load(GeneralUtils.modulePath("/patientProfile.htm") + " #details");
+			GeneralUtils.redirect("patientProfile.htm");
 		},
 		
 		load_results : function loadResults(){
-			$j("#details").load(GeneralUtils.modulePath("/results.htm") + " #details");
+			GeneralUtils.redirect("results.htm");
 			
 		}, 
 		
@@ -70,6 +70,18 @@ $j(function(){
 			$j.get(GeneralUtils.modulePath("/editPatient.htm"), function(data){
 				var $form = $j("#patient", data);
 				$j("#patient").replaceWith($form);
+				var dialogConfig = {
+						modal : true,
+						title : "Generated Report",
+						width : "auto",
+						height: 600,
+						resizable : false,
+						close: function() {
+							location.reload(true);
+					    }
+				}
+				
+				$j("#patient").dialog(dialogConfig);
 				
 				addPlaceholders();
 				addValidation();

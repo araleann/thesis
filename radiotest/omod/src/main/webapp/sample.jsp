@@ -76,8 +76,10 @@
 			typeCell = new PdfPCell(new Paragraph(type));
 			typeCell.setColspan(1);
 			
-			feeCell = new PdfPCell(new Paragraph(amountStr));
+			feeCell = new PdfPCell(new Paragraph("Php " + amountStr + "0"));
 			feeCell.setColspan(1);
+			feeCell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+			
 			table.addCell(typeCell);
 			table.addCell(feeCell);
 		}	
@@ -88,8 +90,9 @@
     table.addCell(totalHead);
 	
 	String totalStr = String.valueOf(totalAmount);
-	totalAmt = new PdfPCell(new Paragraph(totalStr, fontbold));
+	totalAmt = new PdfPCell(new Paragraph("Php " + totalStr + "0", fontbold));
     totalAmt.setColspan(2);
+	totalAmt.setHorizontalAlignment(Element.ALIGN_RIGHT);
     table.addCell(totalAmt);
 	
 	document.add(table);

@@ -29,7 +29,7 @@ function printAssessment(){
 	<br>
 	<h3>Payment Details</h3>
 	<br>
-	<table id="inventory">
+	<table class="tbldesign">
 	<tr>
 	<th>Exam Number</th>
 	<th>Exam Type</th>
@@ -46,13 +46,13 @@ function printAssessment(){
 		<td> ${ transExam.exam.type.type } </td>
 		<td> ${ transExam.exam.name } </td>
 		<c:forEach var="fee" items="${ transExam.feeMap }">
-			<td> ${ fee.value } </td>
+			<td align="right"> Php ${ fee.value }0 </td>
 		</c:forEach>
 		</tr>
 	</c:forEach>
 	</table>
 	<br>
-	<label style="color:#009d8e;">Total Amount Due:</label> <font style="font-size:18px; color:#009d8e;">${ transaction.total } </font>
+	<label style="color:#009d8e;">Total Amount Due:</label> <font style="font-size:18px; color:#009d8e;">Php ${ transaction.total }0 </font>
 	<br><br>
 	<button type="button" class="buttondesign" style="width: 180px;" onclick="load_assessment()">Print Assessment</button>
 	<br>

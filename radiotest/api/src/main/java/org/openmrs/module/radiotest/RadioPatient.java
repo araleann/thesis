@@ -6,6 +6,7 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 import org.openmrs.BaseOpenmrsData;
+import org.openmrs.module.radiotest.utils.RadioSecurity;
 
 public class RadioPatient extends BaseOpenmrsData {
 	
@@ -69,7 +70,7 @@ public class RadioPatient extends BaseOpenmrsData {
 	public String getFirstName() {
 		return firstName;
 	}
-
+	
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
@@ -291,5 +292,15 @@ public class RadioPatient extends BaseOpenmrsData {
 	    }
 
 	    return age;
+	}
+	
+	public void decryptName(){
+		try {
+			String decName = RadioSecurity.decrypt(firstName);
+			firstName = decName;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }

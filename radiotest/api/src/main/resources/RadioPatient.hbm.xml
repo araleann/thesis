@@ -24,7 +24,7 @@
 		<discriminator column="id" insert="false" />
 		<property name="patientId" type="java.lang.String" column="patient_id"
 			length="20" access="field" />
-		<property name="firstName" type="java.lang.String" column="first_name"
+		<property name="firstName" type="org.openmrs.module.radiotest.utils.EncryptValue" column="first_name"
 			length="20" access="field" />
 		<property name="middleInitial" type="java.lang.String" column="mi"
 			length="20" access="field" />

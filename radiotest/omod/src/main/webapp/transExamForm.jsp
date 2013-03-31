@@ -19,6 +19,8 @@
 <h3>New Transaction</h3>
 <br>
 <form:form method="post" modelAttribute="transModel" id="transExam">
+Prupose: <br>
+<form:textarea id="purpose" path="transaction.purpose" cssClass="patientinputtextarea1"/><br><br>
 	<spring:bind path="transaction.patient">
 		<input type="hidden" name="${ status.expression }" value="${ patient.id }">
 	</spring:bind>

@@ -134,6 +134,19 @@ $j(function(){
 			if(confirm("Confirm claim")){
 				GeneralUtils.post(postConfig);
 			}
+		},
+		
+		load_transaction : function loadTransaction(){
+			GeneralUtils.redirect("transactions.htm");
+		},
+		
+		load_profile : function loadProfile(){
+			GeneralUtils.redirect("patientProfile.htm");
+		},
+		
+		load_results : function loadResults(){
+			GeneralUtils.redirect("results.htm");
+			
 		}
 	};
 	

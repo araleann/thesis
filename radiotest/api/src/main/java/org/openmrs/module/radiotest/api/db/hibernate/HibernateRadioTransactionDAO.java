@@ -52,7 +52,9 @@ public class HibernateRadioTransactionDAO implements RadioTransactionDAO {
 	@Override
 	public RadioTransaction getTransaction(Integer transId) throws DAOException {
 		// TODO Auto-generated method stub
-		return (RadioTransaction) sessionFactory.getCurrentSession().get(RadioTransaction.class, transId);
+		RadioTransaction transaction = (RadioTransaction) sessionFactory.getCurrentSession().get(RadioTransaction.class, transId);
+		transaction.getPatient().decryptName();	
+		return transaction;
 	}
 
 	@Override
