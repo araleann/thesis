@@ -14,7 +14,7 @@
 	<p>
 	<form:hidden path="id" />
 	<form:select cssClass="patientinput" path="type">
-		<option value="0" selected disabled>Choose Item type</option>
+		<option value>Choose Item type</option>
 		<form:options items="${ itemTypes }" itemLabel="name" itemValue="id" />
 	</form:select>
 	</p>

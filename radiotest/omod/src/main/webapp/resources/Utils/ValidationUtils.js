@@ -3,6 +3,7 @@ $j(function(){
 		integer : "custom[integer]",
 		number : "custom[number]",
 		phone : "custom[phone]",
+		amount : "custom[amount]",
 		past : "past[now]",
 		future : "future[now]"
 	}
@@ -65,6 +66,22 @@ $j(function(){
 				
 				$j(fieldName).addClass(validClass);
 			}
+		},
+		
+		attachSubmit : function attachSubmit(formSel){
+			$j(formSel)
+				.validationEngine({ promptPosition : "bottomRight" })
+				.validationEngine("attach");
+		},
+		
+		requireForm : function requireForm(formSel){
+			$j(formSel)
+				.find(":input:not(:button)")
+				.each(function(){
+					$j(this).addClass("validate[required]");
+				});
+			
+			this.attachSubmit(formSel);
 		}
 	}
 });

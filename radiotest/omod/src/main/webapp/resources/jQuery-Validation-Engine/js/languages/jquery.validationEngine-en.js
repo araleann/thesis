@@ -94,6 +94,10 @@
                     "regex": /^[\-\+]?((([0-9]{1,3})([,][0-9]{3})*)|([0-9]+))?([\.]([0-9]+))?$/,
                     "alertText": "* Invalid floating decimal number"
                 },
+                "amount":{
+                	"regex": /^\$?([0-9]{1,3},([0-9]{3},)*[0-9]{3}|[0-9]+)(.[0-9][0-9])?$/,
+                	"alertText": "* Invalid amount"
+                },
                 "date": {                    
                     //	Check if date is valid by leap year
 			"func": function (field) {

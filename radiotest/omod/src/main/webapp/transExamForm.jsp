@@ -19,7 +19,7 @@
 <h3>New Transaction</h3>
 <br>
 <form:form method="post" modelAttribute="transModel" id="transExam">
-Prupose: <br>
+Purpose: <br>
 <form:textarea id="purpose" path="transaction.purpose" cssClass="patientinputtextarea1"/><br><br>
 	<spring:bind path="transaction.patient">
 		<input type="hidden" name="${ status.expression }" value="${ patient.id }">
@@ -29,7 +29,7 @@ Prupose: <br>
 			Exam 1
 			<div id="type">
 				<form:select cssClass="patientinput" path="exam.type">
-					<option value="0"></option>
+					<option value></option>
 					<form:options items="${ examTypes }" itemLabel="type" itemValue="id" />
 				</form:select>
 				<button class="adddesignsmall" type="button" id="add" onclick="addNewExam()">+</button>

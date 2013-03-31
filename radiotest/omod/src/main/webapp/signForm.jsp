@@ -3,16 +3,6 @@
 
 <%@ include file="template/resources.jsp" %>
 <openmrs:htmlInclude file="/moduleResources/radiotest/pages/types.js" />
-<script>
-	$j(function(){
-		var inputPlaceholders = {
-			name: "Doctor's Name",
-			position: "Position",
-		};
-		
-		GeneralUtils.addPlaceholderById(inputPlaceholders);
-	});
-</script>
 
 <div class="colmask leftmenu">
 	<div class="colleft">

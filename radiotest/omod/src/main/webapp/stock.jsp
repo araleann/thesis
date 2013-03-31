@@ -12,22 +12,24 @@
 <h2>Add Stock</h2>
 
 <div id="itemDiv">
-	<select class="patientinputmedium" id="type" name="type" onchange="getItems()">
-		<option value="0">All</option>
-		<c:forEach var="type" items="${ itemTypes }">
-			<option value="${ type.id }">${ type.name }</option>
-		</c:forEach>
-	</select>
-	<br><br>
-	<div class="items">
-		<select class="patientinputmediummult" id="item" name="items" size="5" multiple>
-			<c:forEach var="item" items="${ items }">
-				<c:set var="id" value="${ item.id }" />
-				<option value="${ id }" ondblclick="addItems()">${ item.name }</option>
+	<form id="itemsForm">
+		<select class="patientinputmedium" id="type" name="type" onchange="getItems()">
+			<option value="0">All</option>
+			<c:forEach var="type" items="${ itemTypes }">
+				<option value="${ type.id }">${ type.name }</option>
 			</c:forEach>
 		</select>
-	</div>
-	<button type="button" class="buttondesign1" onclick="addItems()">Add Item(s)</button>
+		<br><br>
+		<div class="items">
+			<select class="patientinputmediummult" id="items" name="items" size="5" multiple>
+				<c:forEach var="item" items="${ items }">
+					<c:set var="id" value="${ item.id }" />
+					<option value="${ id }" ondblclick="addItems()">${ item.name }</option>
+				</c:forEach>
+			</select>
+		</div>
+		<button type="button" class="buttondesign1" onclick="addItems()">Add Item(s)</button>
+	</form>
 </div>
 <br>
 <div id="listingDiv">

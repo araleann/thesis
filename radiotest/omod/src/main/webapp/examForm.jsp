@@ -20,7 +20,7 @@
 			<form:hidden path="id" />
 			<label>Exam Type</label>
 			<form:select path="type" cssClass="patientinput">
-				<option value="0"></option>
+				<option value></option>
 				<form:options items="${ types }" itemLabel="type" itemValue="id" />
 			</form:select>
 			<br>

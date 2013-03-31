@@ -14,7 +14,9 @@ $j(function(){
 		$examDiv.load(getExamsPath, postObj, function(data){
 			var $exam = $j("div#exams" + currIndex);
 			var $existing = $j("div#exam", $exam);
-			$j("select", $examDiv).addClass("patientinput");
+			$j("select", $examDiv)
+				.addClass("patientinput")
+				.addClass("validate[required]");
 			if($existing.size()){
 				$existing.replaceWith($examDiv);
 			} else {
@@ -44,8 +46,13 @@ $j(function(){
 			
 			var addExamPath = GeneralUtils.modulePath("/addExam.htm") + " select:first-child";
 			$typeDiv.load(addExamPath, postObj, function(data){
-				$j("select", $typeDiv).addClass("patientinput");
-				$typeDiv.children('select').change(getExamsEvent);
+				$j("select", $typeDiv)
+					.addClass("patientinput")
+					.addClass("validate[required]");
+				
+				$typeDiv
+					.children('select')
+						.change(getExamsEvent);
 				$typeDiv.appendTo($examDiv);
 				$examDiv.appendTo("#transExam");
 				updateDeleteButton();
@@ -75,26 +82,28 @@ $j(function(){
 			}
 		},
 		
-		summarize : function summarize(){
-			$j.post(GeneralUtils.modulePath("/transExamForm.htm"), $j("#transExam").serialize(), function(data){
-				$trans = $j("#transaction", $j(data));
-				$j("#transaction").replaceWith($trans);
-				$j("#transExam *").attr("disabled", "disabled");
-			});
-		},
-		
 		saveNote : function saveNote(){
-			$j.post(GeneralUtils.modulePath("/saveNote.htm"), $j("#noteForm").serialize(), function(data){
-				var $note = $j("#note", $j(data));
-				$note.unwrap();
-				$j("#notes").prepend($note);
-			});
+			if($j("#noteForm").validationEngine("validate")){
+				$j.post(GeneralUtils.modulePath("/saveNote.htm"), $j("#noteForm").serialize(), function(data){
+					var $note = $j("#note", $j(data));
+					$note.unwrap();
+					$j("#notes").prepend($note);
+				});
+			}
 		}, 
 		
 		addPayment : function addPayment(){
-			$j.post(GeneralUtils.modulePath("/transactionForm.htm"), $j("#payment").serialize(), function(data){
+			function alertPayment(){
 				alert("Payment added");
-			});
+			}
+			
+			var postConfig = GeneralUtils.postConfig(
+								GeneralUtils.modulePath("/transactionForm.htm"),
+								$j("#payment").serialize(),
+								"#paymentDiv",
+								alertPayment);
+			
+			GeneralUtils.post(postConfig);
 		}, 
 		
 		noteTypesEvent : function noteTypesEvent(){
@@ -104,9 +113,11 @@ $j(function(){
 			
 			if (others == isHidden){
 				if (isHidden){
-					$desc.removeAttr("hidden");
+					$desc
+						.removeAttr("hidden");
 				} else {
-					$desc.attr("hidden", "hidden");
+					$desc
+						.attr("hidden", true);
 				}
 			}
 		},
@@ -134,25 +145,15 @@ $j(function(){
 			if(confirm("Confirm claim")){
 				GeneralUtils.post(postConfig);
 			}
-		},
-		
-		load_transaction : function loadTransaction(){
-			GeneralUtils.redirect("transactions.htm");
-		},
-		
-		load_profile : function loadProfile(){
-			GeneralUtils.redirect("patientProfile.htm");
-		},
-		
-		load_results : function loadResults(){
-			GeneralUtils.redirect("results.htm");
-			
 		}
 	};
 	
 	$j.extend(window, funcs);
-	
-	if(document.URL.indexOf("transExamForm") > -1){
+		
+	if(GeneralUtils.atPage("transExamForm")){
 		$j("select").change(getExamsEvent);
+		ValidationUtils.requireForm("#transExam");
+	} else if(GeneralUtils.atPage("transactionForm")){
+		ValidationUtils.requireForm("#noteForm");
 	}
 });

@@ -13,7 +13,9 @@ $j(function(){
 					"#categories",
 					clearForm);
 			
-			GeneralUtils.post(postConfig);
+			if($j("#catForm").validationEngine("validate")){
+				GeneralUtils.post(postConfig);
+			}
 		},
 		
 		voidCategory : function voidCategory(id){
@@ -40,7 +42,8 @@ $j(function(){
 			var postConfig = GeneralUtils.postConfig(
 					GeneralUtils.modulePath("/editCategory.htm"),
 					{ cid : id },
-					"#catForm");
+					"#catForm",
+					loadPage);
 			
 			GeneralUtils.post(postConfig);
 		},
@@ -52,14 +55,17 @@ $j(function(){
 					"#examTypes",
 					clearForm);
 			
-			GeneralUtils.post(postConfig);
+			if($j("#typeForm").validationEngine("validate")){
+				GeneralUtils.post(postConfig);
+			}
 		},
 		
 		editExamType : function editExamType(id){
 			var postConfig = GeneralUtils.postConfig(
 					GeneralUtils.modulePath("/editExamType.htm"),
 					{ eid : id },
-					"#typeForm");
+					"#typeForm",
+					loadPage);
 			
 			GeneralUtils.post(postConfig);
 		},
@@ -91,7 +97,9 @@ $j(function(){
 					"#noteTypes",
 					clearForm);
 			
-			GeneralUtils.post(postConfig);
+			if($j("#typeForm").validationEngine("validate")){
+				GeneralUtils.post(postConfig);
+			}
 		},
 		
 		voidNoteType : function voidNoteType(id){
@@ -118,7 +126,8 @@ $j(function(){
 			var postConfig = GeneralUtils.postConfig(
 					GeneralUtils.modulePath("/editNoteType.htm"),
 					{ nid : id },
-					"#typeForm");
+					"#typeForm",
+					loadPage);
 			
 			GeneralUtils.post(postConfig);
 		},
@@ -130,7 +139,9 @@ $j(function(){
 					"#feeTypes",
 					clearForm);
 			
-			GeneralUtils.post(postConfig);
+			if($j("#feeForm").validationEngine("validate")){
+				GeneralUtils.post(postConfig);
+			}
 		},
 		
 		voidFeeType : function voidFeeType(id){
@@ -157,7 +168,8 @@ $j(function(){
 			var postConfig = GeneralUtils.postConfig(
 					GeneralUtils.modulePath("/editFeeType.htm"),
 					{ tid : id },
-					"#feeForm");
+					"#feeForm",
+					loadPage);
 			
 			GeneralUtils.post(postConfig);
 		},
@@ -169,7 +181,9 @@ $j(function(){
 					"#itemTypes",
 					clearForm);
 			
-			GeneralUtils.post(postConfig);
+			if($j("#typeForm").validationEngine("validate")){
+				GeneralUtils.post(postConfig);
+			}
 		},
 		
 		voidItemType : function voidItemType(id){
@@ -196,7 +210,8 @@ $j(function(){
 			var postConfig = GeneralUtils.postConfig(
 					GeneralUtils.modulePath("/editItemType.htm"),
 					{ tid : id },
-					"#typeForm");
+					"#typeForm",
+					loadPage);
 			
 			GeneralUtils.post(postConfig);
 		},
@@ -208,7 +223,9 @@ $j(function(){
 					"#signatures",
 					clearForm);
 			
-			GeneralUtils.post(postConfig);
+			if($j("#signForm").validationEngine("validate")){
+				GeneralUtils.post(postConfig);
+			}
 		},
 		
 		voidSignature : function voidSignature(id){
@@ -235,29 +252,53 @@ $j(function(){
 			var postConfig = GeneralUtils.postConfig(
 					GeneralUtils.modulePath("/editSignature.htm"),
 					{ sid : id },
-					"#signForm");
+					"#signForm",
+					loadPage);
 			
 			GeneralUtils.post(postConfig);
 		}
 	};
 	
 	function addPlaceholders(){
-		GeneralUtils.addPlaceholderById("category", "Enter a category");
-		
-		var examPh = {
-			examtype : "Exam Type",
-			template : "Template for Negative Results"
+		if(GeneralUtils.atPage("categoryForm")){
+			GeneralUtils.addPlaceholderById("category", "Enter a category");
+		} else if(GeneralUtils.atPage("examTypeForm")){
+			var examPh = {
+				examtype : "Enter Exam Type",
+				template : "Template for Negative Results"
+			}
+			GeneralUtils.addPlaceholderById(examPh);
+		} else if(GeneralUtils.atPage("noteTypeForm")){
+			GeneralUtils.addPlaceholderById("notetype", "Enter Note Type");
+		} else if(GeneralUtils.atPage("feeTypeForm")){
+			GeneralUtils.addPlaceholderById("feetype", "Enter Fee Type");
+		} else if(GeneralUtils.atPage("itemTypeForm")){
+			GeneralUtils.addPlaceholderById("itemtype", "Enter Item Type");
+		} else if(GeneralUtils.atPage("signForm")){
+			var signPh = {
+				name : "Enter Name of Doctor",
+				position : "Enter Position"
+			}
+			GeneralUtils.addPlaceholderById(signPh);
 		}
-		GeneralUtils.addPlaceholderById(examPh);
-		
-		GeneralUtils.addPlaceholderById("notetype", "Enter Note Type");
-		
-		GeneralUtils.addPlaceholderById("feetype", "Enter Fee Type");
-		
-		GeneralUtils.addPlaceholderById("itemtype", "Enter an Item Type");
+	}
+	
+	function addValidation(){
+		ValidationUtils.requireForm("form");
+		ValidationUtils.attachSubmit("form");
+	}
+	
+	function loadPage(){
+		addPlaceholders();
+		if(GeneralUtils.atPage("examTypeForm")){
+			ValidationUtils.attachSubmit("form");
+		} else {
+			addValidation();
+		}
 	}
 	
 	$j.extend(window, funcs);
 	
-	addPlaceholders();
+	// MAIN
+	loadPage();
 });

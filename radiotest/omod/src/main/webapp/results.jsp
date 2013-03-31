@@ -86,7 +86,7 @@ $j(function(){
 		<br>
 		<h3>View/Update Results</h3>
 		<form id="trans" action="javascript:getExams()">
-			<label>Transaction Number:</label><input class="patientinputshort" type="text" name="transId">
+			<label>Transaction Number:</label><input class="patientinputshort validate[custom[integer]]" type="text" name="transId">
 			
 			<button type="button" class="buttondesignmediumshort" onclick="getExams()">View</button>
 		</form>
@@ -105,13 +105,15 @@ $j(function(){
 	</c:otherwise>
 </c:choose>
 
+<br>
+<div id="details">
+<h3>Exam List</h3>
+
 <form:form method="post" id="exam">
 	<input type="hidden" id="examId" name="examId">
 	<input type="hidden" id="count" name="count">
 </form:form>
-<br>
-<div id="details">
-<h3>Exam List</h3>
+
 <div id="exams">
 	<c:if test="${ not empty trans }">
 		<table id="patient">

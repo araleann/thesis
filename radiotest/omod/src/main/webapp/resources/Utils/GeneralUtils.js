@@ -201,6 +201,21 @@ $j(function(){
 			obj[idName] = id;
 			
 			return obj;
+		},
+		
+		/**
+		 * @param page: String. Name of page to 'compare' to
+		 * 
+		 * Convenience method for checking current page is the specified page param
+		 */
+		atPage : function atPage(page){
+			var currPage = document.URL
+								.split("/")
+								.pop()
+									.split(".")
+									.shift();
+			
+			return currPage == page;
 		}
 	}
 });

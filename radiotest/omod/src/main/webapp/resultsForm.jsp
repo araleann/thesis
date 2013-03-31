@@ -70,7 +70,7 @@
 			<form id="result" method="post">
 				<input type="hidden" name="examId" value="${ transExam.id }">
 				<select name="sign">
-					<option value="0"></option>
+					<option value></option>
 					<c:forEach var="sign" items="${ signatures }">
 						<option value="${ sign.id }">${ sign.name }, ${ sign.position }</option>
 					</c:forEach>
@@ -91,7 +91,7 @@
 								</c:forEach>
 							</select>
 							<div class="items">
-								<select id="item" class="patientinputmediummult" name="items" size="5" multiple>
+								<select id="items" class="patientinputmediummult validate[required]" name="items" size="5" multiple>
 									<c:forEach var="item" items="${ items }">
 										<c:set var="id" value="${ item.id }" />
 										<option value="${ id }" ondblclick="addItems()">${ item.name }</option>

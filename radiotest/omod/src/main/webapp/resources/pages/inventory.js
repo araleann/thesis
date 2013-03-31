@@ -12,37 +12,38 @@ $j(function(){
 		},
 
 		saveItem : function saveItem(){	
-			var postConfig = {
-				path : savePath,
-				postObj : $j("#itemForm").serialize(),
-				sourceSel : "#items",
-				callback : clearForm
-			}
+			var postConfig = GeneralUtils.postConfig(
+								savePath,
+								$j("#itemForm").serialize(),
+								"#items",
+								clearForm);
 			
-			GeneralUtils.post(postConfig);
+			if($j("#itemForm").validationEngine("validate")){
+				GeneralUtils.post(postConfig);
+			}
 		},
 
 		voidItem : function voidItem(id){	
-			var postConfig = {
-				path : nullPath,
-				postObj : GeneralUtils.voidObj("iid", id),
-				sourceSel : "#item" + id
-			}
+			var postConfig = GeneralUtils.postConfig(
+								nullPath,
+								GeneralUtils.voidObj("iid", id),
+								"#item" + id);
 			
 			GeneralUtils.post(postConfig);
 		},
 
 		deleteItem : function deleteItem(id){	
-			var postConfig = {
-				path : nullPath,
-				postObj : GeneralUtils.deleteObj("iid", id),
-				sourceSel : "#item" + id,
-				callback : function clean(){
-					$j("div h4:only-child")
-						.parent()
-						.remove();
-				}
+			function clean(){
+				$j("div h4:only-child")
+					.parent()
+					.remove();
 			}
+			
+			var postConfig = GeneralUtils.postConfig(
+								nullPath,
+								GeneralUtils.deleteObj("iid", id),
+								"#item" + id,
+								clean);
 			
 			if (confirm("Are you sure you want to delete?")){
 				GeneralUtils.post(postConfig);
@@ -50,23 +51,29 @@ $j(function(){
 		},
 
 		editItem : function editItem(id){
-			var postConfig = {
-				path : editPath,
-				postObj : {
-					iid : id
-				},
-				sourceSel : "#itemForm"
-			}
+			var postConfig = GeneralUtils.postConfig(
+								editPath,
+								{ iid : id },
+								"#itemForm",
+								loadForm);
 			
 			GeneralUtils.post(postConfig);
 		},
 		
 		getItems : function getItems(){
-			$j.post(GeneralUtils.modulePath("/getItems.htm"), $j("#type").serialize(), function(data){
-				var $items = $j(".items", data);
-				$j(".items").replaceWith($items);
-				$j("#items").addClass("patientinputmediummult");
-			});
+			function addClass(){
+				$j("#items")
+					.addClass("patientinputmediummult")
+					.addClass("validate[required]");
+			}
+			
+			var postConfig = GeneralUtils.postConfig(
+								GeneralUtils.modulePath("/getItems.htm"),
+								$j("#type").serialize(),
+								".items",
+								addClass);
+			
+			GeneralUtils.post(postConfig);
 		},
 
 		deleteListItem : function deleteListItem(buttonElem){
@@ -77,16 +84,19 @@ $j(function(){
 
 
 		addItems : function addItems(){
-			$j.post(GeneralUtils.modulePath("/addListing.htm"), $j("#item").serialize(), function(data){
-				var $listings = $j(".listings", data);
-				$listings
-					.find("input:text")
-						.val("1")
-						.focus(function(){
-							$(this).select();
-						});
-				$j("#listings").append($listings.children());
-			});
+			if($j("#itemsForm").validationEngine("validate")){
+				$j.post(GeneralUtils.modulePath("/addListing.htm"), $j("#items").serialize(), function(data){
+					var $listings = $j(".listings", data);
+					$listings
+						.find("input:text")
+							.val("1")
+							.focus(function(){
+								$j(this).select();
+							})
+							.addClass("validate[required,custom[integer]]");
+					$j("#listings").append($listings.children());
+				});
+			}
 		},
 
 		updateStock : function updateStock(){
@@ -98,11 +108,14 @@ $j(function(){
 					.attr("name", item + ".quantity");
 			});
 			
-			$j.post(GeneralUtils.modulePath("/updateStock.htm"), $j("#itemForm").serialize(), function(data){
-				console.log(data);
-				var $inventory = $j("#inventory", data);
-				$j("#inventory").replaceWith($inventory);
-			});
+			var postConfig = GeneralUtils.postConfig(
+								GeneralUtils.modulePath("/updateStock.htm"),
+								$j("#itemForm").serialize(),
+								"#inventory");
+			
+			if($j("#itemForm").validationEngine("validate")){
+				GeneralUtils.post(postConfig);
+			}
 		},
 		
 		addStock : function addStock(){
@@ -112,7 +125,6 @@ $j(function(){
 					.attr("name", list + ".item");
 				$j("input:text", this)
 					.attr("name", list + ".quantity");
-					
 			});
 			
 			$j("#stockForm").submit();
@@ -125,7 +137,19 @@ $j(function(){
 		GeneralUtils.addPlaceholderById("unit", "Enter the Unit");
 	}
 	
+	function loadForm(){
+		addPlaceholders();
+		ValidationUtils.requireForm("#itemForm");
+	}
+	
 	$j.extend(window, funcs);
 	
-	addPlaceholders();
+	if(GeneralUtils.atPage("itemForm")){
+		loadForm();
+	} else if(GeneralUtils.atPage("resultsForm")){
+		ValidationUtils.attachSubmit("#itemForm");
+	} else if(GeneralUtils.atPage("stock")){
+		ValidationUtils.requireForm("#itemsForm");
+		ValidationUtils.attachSubmit("#stockForm");
+	}
 });

@@ -19,7 +19,7 @@ public class EncryptValue
     public int[] sqlTypes() {
         return SQL_TYPES;
     }
-    public Class returnedClass() {
+    public Class<?> returnedClass() {
         return  java.lang.String.class;
     }
 

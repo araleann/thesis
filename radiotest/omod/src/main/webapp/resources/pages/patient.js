@@ -40,12 +40,10 @@ $j(function(){
 	}
 	
 	function addValidation(){
-		var $form = $j("#patientForm");
 		var ruleList = ValidationUtils.initRules(validObj);
 		ValidationUtils.attachByName(ruleList);
 		
-		$form.validationEngine({ promptPosition : "bottomRight" });
-		$form.validationEngine("attach");
+		ValidationUtils.attachSubmit("#patientForm");
 	}
 	
 	var funcs = {
@@ -54,15 +52,17 @@ $j(function(){
 		},
 		
 		load_transaction : function loadTransaction(){
-			GeneralUtils.redirect("transactions.htm");
+			$j("#details").load(GeneralUtils.modulePath("/transactions.htm") + " #details");
 		},
 		
 		load_profile : function loadProfile(){
-			GeneralUtils.redirect("patientProfile.htm");
+			$j("#details").load(GeneralUtils.modulePath("/patientProfile.htm") + " #details");
 		},
 		
 		load_results : function loadResults(){
-			GeneralUtils.redirect("results.htm");
+			$j("#details").load(GeneralUtils.modulePath("/results.htm") + " #details", function(){
+				ValidationUtils.requireForm("#trans");
+			});
 			
 		}, 
 		
@@ -72,7 +72,7 @@ $j(function(){
 				$j("#patient").replaceWith($form);
 				var dialogConfig = {
 						modal : true,
-						title : "Generated Report",
+						title : "Update Patient",
 						width : "auto",
 						height: 600,
 						resizable : false,
@@ -89,15 +89,17 @@ $j(function(){
 		},
 		
 		search : function search(){
-			$j.post(GeneralUtils.modulePath("/searchPatient.htm"), $j("#search").serialize(), function(data){
-				var url = data.url;
-				if(url){
-					window.location = openmrsContextPath + url;
-				} else {
-					var $list = $j("#patientList", $j(data));
-					$j("#patientList").replaceWith($list);	
-				}
-			});
+			if($j("#search").validationEngine("validate")){
+				$j.post(GeneralUtils.modulePath("/searchPatient.htm"), $j("#search").serialize(), function(data){
+					var url = data.url;
+					if(url){
+						window.location = openmrsContextPath + url;
+					} else {
+						var $list = $j("#patientList", $j(data));
+						$j("#patientList").replaceWith($list);	
+					}
+				});
+			}
 			return false;
 		},
 
@@ -114,8 +116,10 @@ $j(function(){
 	$j.extend(window, funcs);
 	
 	// MAIN
-	if(document.URL.indexOf("patientForm") > -1){
+	if(GeneralUtils.atPage("patientForm")){
 		addPlaceholders();
 		addValidation();
+	} else if(GeneralUtils.atPage("searchPatientForm")){
+		ValidationUtils.requireForm("#search");
 	}
 });

@@ -17,6 +17,7 @@
 	<form:input id="feetype" cssClass="patientinput" path="name" />
 	<br><br>
 	<button class="buttondesign" type="button" onclick="saveFeeType()">Save</button>
+	<button class="buttondesign" type="button" onclick="clearForm()">Clear</button>
 </form:form>
 
 <br>

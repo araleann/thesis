@@ -2,9 +2,8 @@
 <%@ include file="/WEB-INF/template/header.jsp"%>
 
 <%@ include file="template/resources.jsp" %>
-<openmrs:htmlInclude file="/moduleResources/radiotest/pages/report.js" />
-
 <%@ include file="template/tables.jsp" %>
+<openmrs:htmlInclude file="/moduleResources/radiotest/pages/report.js" />
 
 <div class="colmask leftmenu">
 	<div class="colleft">
@@ -12,7 +11,7 @@
 		<div class="cont">
 <br>
 <form:form id="report" modelAttribute="report">
-	Date from <form:input path="startDate" cssClass="patientinputmedium" id="sdate" /> to <form:input path="endDate" cssClass="patientinputmedium" id="edate" />
+	Date from <form:input path="startDate" cssClass="date patientinputmedium" id="sdate" /> to <form:input path="endDate" cssClass="date patientinputmedium" id="edate" />
 	<br><br>
 	<div class="holder">
 	<div id="patient" class="left">

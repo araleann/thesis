@@ -59,10 +59,12 @@ function printAssessment(){
 	<br>
 
 	<hr>
+	<div id="paymentDiv">
 	<c:choose>
 		<c:when test="${ empty transaction.orNumber }">
-			<form:form method="post" id="payment" modelAttribute="transaction">
-				<br><h3>Not yet paid</h3>
+			<form:form method="post" id="payment" modelAttribute="transaction" action="javascript:addPayment()">
+				<c:set var="paid" value="${ transaction.paid? 'Paid' : 'Not yet paid' }" />
+				<br><h3>${ paid }</h3>
 				<input type="hidden" name="transId" value="${ transaction.id }">
 				<br><input type="text" class="patientinputmedium" placeholder="OR Number" name="orNumber">
 				<button type="button" class="buttondesign" style="width: 145px;" onclick="addPayment()">Add Payment</button>
@@ -74,6 +76,7 @@ function printAssessment(){
 			<font style="font-size:17px; color:#009d8e; font-weight:bold;">OR Number: ${ transaction.orNumber }</font>
 		</c:otherwise>
 	</c:choose>
+	</div>
 	<br>
 	<br>
 	<h3>Notes</h3>

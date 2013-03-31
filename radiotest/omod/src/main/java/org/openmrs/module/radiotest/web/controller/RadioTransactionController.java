@@ -76,18 +76,24 @@ public class RadioTransactionController {
 	
 	@RequestMapping(value = {TRANSACTION_FORM, SAMPLE_PDF}, method = RequestMethod.GET)
 	public void showTransaction(HttpSession session, ModelMap model){
+		RadioPatient patient;
+		
 		if(session.getAttribute("transaction") != null){
 			RadioTransactionService ts = Context.getService(RadioTransactionService.class);
 			RadioTransaction trans = ts.updateTransaction((RadioTransaction) session.getAttribute("transaction"));
 			trans.computeFees();
-			model.addAttribute("transaction", trans);			
-//			model.addAttribute("patient", trans.getPatient());
-//			session.removeAttribute("transaction");
+			model.addAttribute("transaction", trans);
+			
+			patient = trans.getPatient();
+			model.addAttribute("patient", patient);
+			if(session.getAttribute("patient") == null){
+				session.setAttribute("patient", patient);
+			}
 		}
 		
 		if(session.getAttribute("patient") != null){
 			RadioPatientService ps = Context.getService(RadioPatientService.class);
-			RadioPatient patient = ps.updatePatient((RadioPatient) session.getAttribute("patient"));
+			patient = ps.updatePatient((RadioPatient) session.getAttribute("patient"));
 			model.addAttribute("patient", patient);
 		}
 		
@@ -139,15 +145,19 @@ public class RadioTransactionController {
 		return new ModelAndView("/module/radiotest/ajax/editNote", model);
 	}
 	
-	@RequestMapping(value = {TRANSACTION_FORM, SAMPLE_PDF}, method = RequestMethod.POST)
-	public void savePayment(@RequestParam("transId") RadioTransaction trans, 
+	@RequestMapping(value = TRANSACTION_FORM, method = RequestMethod.POST)
+	public ModelAndView savePayment(@RequestParam("transId") RadioTransaction trans, 
 								WebRequest request, ModelMap model){
-		trans = Context.getService(RadioTransactionService.class).updateTransaction(trans);
+		RadioTransactionService ts = Context.getService(RadioTransactionService.class);
+		trans = ts.updateTransaction(trans);
 		
 		trans.setOrNumber(request.getParameter("orNumber"));
 		trans.setPaid(true);
 		trans.getPatient().updateCaseNumber();
 		
-		Context.getService(RadioTransactionService.class).saveTransaction(trans);
+		ts.saveTransaction(trans);
+		model.addAttribute("transaction", trans);
+		
+		return new ModelAndView(TRANSACTION_FORM, model);
 	}
 }

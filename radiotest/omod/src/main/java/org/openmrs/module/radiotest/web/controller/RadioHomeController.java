@@ -57,12 +57,13 @@ public class RadioHomeController {
 	}
 	
 	@RequestMapping(value = "/module/radiotest/viewExams", method = RequestMethod.POST)
-	public ModelAndView viewExams(@RequestParam("transId") RadioTransaction trans, ModelMap model){
+	public ModelAndView viewExams(@RequestParam("transId") RadioTransaction trans, HttpSession session, ModelMap model){
 		System.out.println("viewExams");
 		trans = Context.getService(RadioTransactionService.class).updateTransaction(trans);
 		System.out.println(trans.getId());
 		model.addAttribute("trans", trans);
 		
+		session.setAttribute("patient", trans.getPatient());
 		return new ModelAndView("/module/radiotest/results", model);
 	}
 	

@@ -1,20 +1,5 @@
 $j(function() {
-	var $form = $j("#trans");
 	var template = "${ template }";
-
-	var validObj = {
-		transId : [ "integer" ]
-	};
-
-	function addValidation() {
-		var ruleList = ValidationUtils.initRules(validObj);
-		ValidationUtils.attachByName(ruleList);
-
-		$form.validationEngine({
-			promptPosition : "bottomRight"
-		});
-		$form.validationEngine("attach");
-	}
 
 	var funcs = {
 		getExams : function getExams() {
@@ -23,7 +8,7 @@ $j(function() {
 								$j("#trans").serialize(),
 								"#exams");
 
-			if ($form.validationEngine("validate")) {
+			if ($j("#trans").validationEngine("validate")) {
 				GeneralUtils.post(postConfig);
 			}
 		},
@@ -31,8 +16,9 @@ $j(function() {
 		result : function result(id, count) {
 			$j("#examId").val(id);
 			$j("#count").val(count);
-			$j("#exam").attr("action", GeneralUtils.modulePath("/results.htm"))
-					.submit();
+			$j("#exam")
+				.attr("action", GeneralUtils.modulePath("/results.htm"))
+				.submit();
 		},
 
 		borrow : function borrow(id) {
@@ -53,12 +39,20 @@ $j(function() {
 
 		save : function save() {
 			$j("#draft").val(false);
-			$j.post(GeneralUtils.modulePath("/resultsForm.htm"), $j("#result").serialize(),
-					function(data) {
-						alert("Saved!");
-						var $results = $j("#results", $j(data));
-						$j("#results").replaceWith($results);
-					});
+			
+			function alertSave(){
+				alert("Saved result!");
+			}
+			
+			var postConfig = GeneralUtils.postConfig(
+								GeneralUtils.modulePath("/resultsForm.htm"),
+								$j("#result").serialize(),
+								"#results",
+								alertSave);
+			
+			if($j("#result").validationEngine("validate")){
+				GeneralUtils.post(postConfig);
+			}
 		},
 
 		edit : function edit() {
@@ -93,5 +87,10 @@ $j(function() {
 	$j.extend(window, funcs);
 
 	// MAIN
-	addValidation();
+	if(GeneralUtils.atPage("resultsForm")){
+		ValidationUtils.requireForm("#result");
+		ValidationUtils.attachSubmit("#result");
+	} else if(GeneralUtils.atPage("patientProfile")){
+		ValidationUtils.attachSubmit("#trans");
+	}
 });

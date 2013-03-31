@@ -12,7 +12,7 @@
 <h2>Add Exam Type</h2>
 <form:form method="post" modelAttribute="examType" id="typeForm" action="javascript:saveExamType()">
 	<form:hidden path="id" />
-	<form:input path="type" id="examtype" cssClass="patientinput" />
+	<form:input path="type" id="examtype" cssClass="patientinput validate[required]" />
 	<br>
 	<br>
 	<form:textarea id="template" path="template" cssClass="patientinputtextarea1"/>

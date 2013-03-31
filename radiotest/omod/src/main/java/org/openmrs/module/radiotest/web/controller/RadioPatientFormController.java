@@ -36,11 +36,7 @@ public class RadioPatientFormController {
 	
 	@RequestMapping(value = PATIENT_FORM, method = RequestMethod.GET)
 	public void showForm(HttpSession session, ModelMap model){
-		RadioPatient patient = (RadioPatient) session.getAttribute("patient");
-		if (patient != null){
-			patient = Context.getService(RadioPatientService.class).updatePatient(patient);
-			model.addAttribute("patientModel", new RadioPatientModel(patient));
-		}
+		session.removeAttribute("patient");
 	}
 	
 	@ModelAttribute("categories")
@@ -57,6 +53,7 @@ public class RadioPatientFormController {
 	public void showProfile(HttpSession session, ModelMap model){
 		RadioPatient patient = (RadioPatient) session.getAttribute("patient");
 		patient = Context.getService(RadioPatientService.class).updatePatient(patient);
+		
 		model.addAttribute("patient", patient);
 	}
 	
@@ -79,8 +76,12 @@ public class RadioPatientFormController {
 	}
 	
 	@RequestMapping(value = "/module/radiotest/editPatient", method = RequestMethod.GET)
-	public ModelAndView editPatient(){
-		return new ModelAndView("redirect:" + PATIENT_FORM + ".htm");
+	public ModelAndView editPatient(HttpSession session, ModelMap model){
+		RadioPatient patient = (RadioPatient) session.getAttribute("patient");
+		patient = Context.getService(RadioPatientService.class).updatePatient(patient);
+		model.addAttribute("patientModel", new RadioPatientModel(patient));
+		
+		return new ModelAndView(PATIENT_FORM, model);
 	}
 }
  
