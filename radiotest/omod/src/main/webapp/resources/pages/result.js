@@ -3,10 +3,15 @@ $j(function() {
 
 	var funcs = {
 		getExams : function getExams() {
+			function formatTable(){
+				$j("#ex").dataTable();
+			}
+			
 			var postConfig = GeneralUtils.postConfig(
 								GeneralUtils.modulePath("/getExamList.htm"), 
 								$j("#trans").serialize(),
-								"#exams");
+								"#exams",
+								formatTable);
 
 			if ($j("#trans").validationEngine("validate")) {
 				GeneralUtils.post(postConfig);

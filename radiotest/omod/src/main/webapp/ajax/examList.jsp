@@ -1,15 +1,5 @@
 <%@ include file="/WEB-INF/template/include.jsp"%>
 <%@ include file="/WEB-INF/template/header.jsp"%>
-<%@ include file="../template/resources.jsp" %>
-<%@ include file="../template/tables.jsp" %>
-
-<openmrs:htmlInclude file="/moduleResources/radiotest/radiotest.css" />
-
-<script type="text/javascript">
-$j(function(){
-	$j("#ex").dataTable();
-});
-</script>
 
 <div id="exams">
 	<c:forEach var="transExam" items="${ exams }" varStatus="status">
