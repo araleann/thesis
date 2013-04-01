@@ -52,24 +52,41 @@ $j(function(){
 		},
 		
 		load_transaction : function loadTransaction(){
-			$j("#details").load(GeneralUtils.modulePath("/transactions.htm") + " #details");
+			GeneralUtils.startLoading();
+			$j("#details").load(GeneralUtils.modulePath("/transactions.htm") + " #details", function(){
+				GeneralUtils.stopLoading();
+				GeneralUtils.onSubmit();
+			});
 		},
 		
 		load_profile : function loadProfile(){
-			$j("#details").load(GeneralUtils.modulePath("/patientProfile.htm") + " #details");
+			GeneralUtils.startLoading();
+			$j("#details").load(GeneralUtils.modulePath("/patientProfile.htm") + " #details", function(){
+				GeneralUtils.stopLoading();
+				GeneralUtils.onSubmit();
+			});
 		},
 		
 		load_results : function loadResults(){
+			GeneralUtils.startLoading();
 			$j("#details").load(GeneralUtils.modulePath("/results.htm") + " #details", function(){
 				ValidationUtils.requireForm("#trans");
+				GeneralUtils.stopLoading();
+				GeneralUtils.onSubmit("#exam");
 			});
 			
 		}, 
 		
 		editPatient : function editPatient(){
+			GeneralUtils.startLoading();
 			$j.get(GeneralUtils.modulePath("/editPatient.htm"), function(data){
 				var $form = $j("#patient", data);
-				$j("#patient").replaceWith($form);
+				var $update = $j("#update");
+				$update.append($form);
+				
+				addPlaceholders();
+				addValidation();
+				
 				var dialogConfig = {
 						modal : true,
 						title : "Update Patient",
@@ -81,15 +98,17 @@ $j(function(){
 					    }
 				}
 				
-				$j("#patient").dialog(dialogConfig);
-				
-				addPlaceholders();
-				addValidation();
+				GeneralUtils.stopLoading();
+				$update
+					.children()
+						.detach()
+						.dialog(dialogConfig);
 			});
 		},
 		
 		search : function search(){
 			if($j("#search").validationEngine("validate")){
+				GeneralUtils.startLoading();
 				$j.post(GeneralUtils.modulePath("/searchPatient.htm"), $j("#search").serialize(), function(data){
 					var url = data.url;
 					if(url){
@@ -98,6 +117,7 @@ $j(function(){
 						var $list = $j("#patientList", $j(data));
 						$j("#patientList").replaceWith($list);	
 					}
+					GeneralUtils.stopLoading();
 				});
 			}
 			return false;

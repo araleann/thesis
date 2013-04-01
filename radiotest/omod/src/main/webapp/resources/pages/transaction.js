@@ -11,6 +11,7 @@ $j(function(){
 		};
 		
 		var getExamsPath = GeneralUtils.modulePath("/getExams.htm") + " select:last-child";
+		GeneralUtils.startLoading();
 		$examDiv.load(getExamsPath, postObj, function(data){
 			var $exam = $j("div#exams" + currIndex);
 			var $existing = $j("div#exam", $exam);
@@ -22,6 +23,8 @@ $j(function(){
 			} else {
 				$exam.append($examDiv);
 			}
+			
+			GeneralUtils.stopLoading();
 		});
 	}
 	
@@ -45,6 +48,7 @@ $j(function(){
 			var postObj = { index : examIndex };
 			
 			var addExamPath = GeneralUtils.modulePath("/addExam.htm") + " select:first-child";
+			GeneralUtils.startLoading();
 			$typeDiv.load(addExamPath, postObj, function(data){
 				$j("select", $typeDiv)
 					.addClass("patientinput")
@@ -56,6 +60,8 @@ $j(function(){
 				$typeDiv.appendTo($examDiv);
 				$examDiv.appendTo("#transExam");
 				updateDeleteButton();
+				
+				GeneralUtils.stopLoading();
 			});
 			
 			examIndexLabel++;
@@ -84,10 +90,13 @@ $j(function(){
 		
 		saveNote : function saveNote(){
 			if($j("#noteForm").validationEngine("validate")){
+				GeneralUtils.startLoading();
 				$j.post(GeneralUtils.modulePath("/saveNote.htm"), $j("#noteForm").serialize(), function(data){
 					var $note = $j("#note", $j(data));
 					$note.unwrap();
 					$j("#notes").prepend($note);
+					
+					GeneralUtils.stopLoading();
 				});
 			}
 		}, 

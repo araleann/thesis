@@ -37,7 +37,9 @@ $j(function() {
 		},
 
 		saveDraft : function saveDraft() {
+			GeneralUtils.startLoading();
 			$j.post(GeneralUtils.modulePath("/resultsForm.htm"), $j("#result").serialize(), function(data) {
+				GeneralUtils.stopLoading();
 				alert("Saved as draft!");
 			});
 		},

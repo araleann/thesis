@@ -2,6 +2,7 @@ $j(function(){
 	var funcs = {
 		generateReport : function generateReport(){
 			if($j("#report").validationEngine("validate")){
+				GeneralUtils.startLoading();
 				$j.post(
 					GeneralUtils.modulePath("/report.htm"),
 					$j("#report").serialize(),
@@ -23,6 +24,8 @@ $j(function(){
 							width : "auto",
 							resizable : false
 						}
+						
+						GeneralUtils.stopLoading();
 						
 						tableDiv.dialog(dialogConfig);
 					});

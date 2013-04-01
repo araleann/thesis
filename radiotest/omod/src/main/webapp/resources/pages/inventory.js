@@ -85,6 +85,7 @@ $j(function(){
 
 		addItems : function addItems(){
 			if($j("#itemsForm").validationEngine("validate")){
+				GeneralUtils.startLoading();
 				$j.post(GeneralUtils.modulePath("/addListing.htm"), $j("#items").serialize(), function(data){
 					var $listings = $j(".listings", data);
 					$listings
@@ -95,6 +96,7 @@ $j(function(){
 							})
 							.addClass("validate[required,custom[integer]]");
 					$j("#listings").append($listings.children());
+					GeneralUtils.stopLoading();
 				});
 			}
 		},
