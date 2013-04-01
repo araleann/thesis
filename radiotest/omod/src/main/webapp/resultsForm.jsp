@@ -3,6 +3,10 @@
 
 <%@ include file="template/resources.jsp" %>
 
+<script type="text/javascript">
+	var template = "${ template }";
+</script>
+
 <openmrs:htmlInclude file="/moduleResources/radiotest/pages/result.js" />
 <openmrs:htmlInclude file="/moduleResources/radiotest/pages/inventory.js" />
 <openmrs:htmlInclude file="/moduleResources/radiotest/pages/redirect.js" />

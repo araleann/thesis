@@ -90,7 +90,11 @@ public class RadioResultsController {
 		
 		model.addAttribute("transExam", e);
 		model.addAttribute("count", request.getParameter("count"));
-		model.addAttribute("template", escapeNewline(e.getExam().getType().getTemplate(), "\\n"));
+		
+		String template = escapeNewline(e.getExam().getType().getTemplate(), "\\\\n");
+		System.out.println(template);
+		model.addAttribute("template", template);
+		
 		if(e.hasResult()){
 			RadioResult result = e.getResult();
 			model.addAttribute("result", result);
@@ -178,6 +182,6 @@ public class RadioResultsController {
 	}
 	
 	private String escapeNewline(String str, String escapeStr){
-		return str.replace("\n", escapeStr);
+		return str.replaceAll("(\r\n|\n)", escapeStr);
 	}
 }

@@ -1,6 +1,4 @@
 $j(function() {
-	var template = "${ template }";
-
 	var funcs = {
 		getExams : function getExams() {
 			function formatTable(){
