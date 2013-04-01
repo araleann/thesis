@@ -3,6 +3,7 @@ package org.openmrs.module.radiotest.web.controller;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.openmrs.api.context.Context;
@@ -27,6 +28,7 @@ public class RadioPatientFormController {
 
 	private final String PATIENT_FORM = "/module/radiotest/patientForm";
 	private final String PATIENT_PROFILE = "/module/radiotest/patientProfile";
+	private final String EDIT_PATIENT = "/module/radiotest/editPatient";
 	
 	@InitBinder
 	public void initBinder(WebRequest request, WebDataBinder binder){
@@ -57,9 +59,9 @@ public class RadioPatientFormController {
 		model.addAttribute("patient", patient);
 	}
 	
-	@RequestMapping(value = PATIENT_FORM, method = RequestMethod.POST)
+	@RequestMapping(value = {PATIENT_FORM, EDIT_PATIENT}, method = RequestMethod.POST)
 	public ModelAndView getPatientFromForm(@ModelAttribute("patientModel") RadioPatientModel pm, 
-												WebRequest request, HttpSession session, ModelMap model){
+												HttpServletRequest request, HttpSession session, ModelMap model){
 		RadioPatientService ps = Context.getService(RadioPatientService.class);
 		RadioPatient patient = pm.getFullPatient();
 		try {
@@ -72,10 +74,19 @@ public class RadioPatientFormController {
 			System.out.println("Exception!");
 		}
 		
-		return new ModelAndView("redirect:/module/radiotest/transExamForm.htm");
+		ModelAndView page;
+		String currPage = request.getServletPath();
+		
+		if(currPage.contains(EDIT_PATIENT)){
+			page = new ModelAndView("redirect:/module/radiotest/patientProfile.htm");
+		} else {
+			page = new ModelAndView("redirect:/module/radiotest/transExamForm.htm");
+		}
+		
+		return page;
 	}
 	
-	@RequestMapping(value = "/module/radiotest/editPatient", method = RequestMethod.GET)
+	@RequestMapping(value = EDIT_PATIENT, method = RequestMethod.GET)
 	public ModelAndView editPatient(HttpSession session, ModelMap model){
 		RadioPatient patient = (RadioPatient) session.getAttribute("patient");
 		patient = Context.getService(RadioPatientService.class).updatePatient(patient);

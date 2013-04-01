@@ -50,6 +50,9 @@
 	<button type="button" class="buttondesignmedium" onclick="editPatient()">Edit Profile</button>
 	<br><br>
 </div>
+<div id="update">
+
+</div>
 </div>
 </fieldset>
 
