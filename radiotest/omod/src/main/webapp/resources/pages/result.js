@@ -86,6 +86,10 @@ $j(function() {
 			$j("#result")
 					.attr("action", GeneralUtils.modulePath("/prtRes.htm"))
 					.submit();
+		},
+		
+		writeId : function writeId(id){
+			$j("#transId").val(id);
 		}
 	};
 

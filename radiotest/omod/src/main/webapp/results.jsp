@@ -44,49 +44,29 @@ $j(function(){
 			</thead>
 		<tbody>
 			<c:forEach var="trans" items="${ transList }">
-			<c:choose>
-				<c:when test="${ trans.pending }">	
-					<tr style="color:red;">
-						<td><center> ${ trans.id } </center></td>
-						<td> ${ trans.visitDate } </td>
-						<td><center>${ trans.doneExams }/${ trans.numberOfExams }</center></td>
-						<td>
-						<c:choose>
-							<c:when test="${ trans.pending }">					
-								PENDING
-							</c:when>
-							<c:otherwise>
-								DONE
-							</c:otherwise>
-						</c:choose>
-						</td>
-					</tr>
-				</c:when>
-				<c:otherwise>
-					<tr>
-						<td><center> ${ trans.id } </center></td>
-						<td> ${ trans.visitDate } </td>
-						<td><center>${ trans.doneExams }/${ trans.numberOfExams }</center></td>
-						<td>
-						<c:choose>
-							<c:when test="${ trans.pending }">					
-								PENDING
-							</c:when>
-							<c:otherwise>
-								DONE
-							</c:otherwise>
-						</c:choose>
-						</td>
-					</tr>
-				</c:otherwise>
-			</c:choose>
+				<c:set var="id" value="${ trans.id }" />
+				<tr <c:if test="${ trans.pending }">style="color:red;" </c:if>onclick="writeId(${ id })">
+					<td><center> ${ id } </center></td>
+					<td> ${ trans.visitDate } </td>
+					<td><center>${ trans.doneExams }/${ trans.numberOfExams }</center></td>
+					<td>
+					<c:choose>
+						<c:when test="${ trans.pending }">					
+							PENDING
+						</c:when>
+						<c:otherwise>
+							DONE
+						</c:otherwise>
+					</c:choose>
+					</td>
+				</tr>
 			</c:forEach>
 		</tbody>
 		</table>
 		<br>
 		<h3>View/Update Results</h3>
 		<form id="trans" action="javascript:getExams()">
-			<label>Transaction Number:</label><input class="patientinputshort validate[custom[integer]]" type="text" name="transId">
+			<label>Transaction Number:</label><input class="patientinputshort validate[custom[integer]]" type="text" name="transId" id="transId">
 			
 			<button type="button" class="buttondesignmediumshort" onclick="getExams()">View</button>
 		</form>
