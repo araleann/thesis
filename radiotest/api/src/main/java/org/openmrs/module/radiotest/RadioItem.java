@@ -11,7 +11,7 @@ public class RadioItem extends BaseOpenmrsData {
 	
 	private String name;
 	private String unit;
-	private boolean atLimit = false;
+	private boolean atLimit = true;
 	
 	private int quantity;
 	private int threshold;

@@ -19,11 +19,19 @@
 <h3>New Transaction</h3>
 <br>
 <form:form method="post" modelAttribute="transModel" id="transExam">
-Purpose: <br>
-<form:textarea id="purpose" path="transaction.purpose" cssClass="patientinputtextarea1"/><br><br>
 	<spring:bind path="transaction.patient">
 		<input type="hidden" name="${ status.expression }" value="${ patient.id }">
 	</spring:bind>
+	<spring:nestedPath path="transaction">
+		Patient Type:
+		<form:select path="patientType" cssClass="patientinput">
+			<option value></option>
+			<option value="OP">OP</option>
+			<option value="IN-P">IN-P</option>
+		</form:select> <br><br>
+		Purpose: <br>
+		<form:textarea id="purpose" path="purpose" cssClass="patientinputtextarea1"/><br><br>
+	</spring:nestedPath>
 	<spring:nestedPath path="exams[0]">
 		<div id="exams0">
 			Exam 1

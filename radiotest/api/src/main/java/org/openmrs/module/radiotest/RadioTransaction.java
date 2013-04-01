@@ -14,6 +14,8 @@ public class RadioTransaction extends BaseOpenmrsData {
 	private RadioPatient patient;
 	private Set<RadioTransExam> exams;
 	
+	private String patientType;
+	
 	private Date visitDate;
 	private Date visitTime;
 	private Boolean pending;
@@ -25,7 +27,7 @@ public class RadioTransaction extends BaseOpenmrsData {
 	private Set<RadioNote> notes;
 	
 	private Boolean claimed;
-	private Boolean voided = Boolean.FALSE;
+	private Boolean voided = false;
 	
 	// not saved in database
 	private HashMap<String, Double> fees;
@@ -73,6 +75,14 @@ public class RadioTransaction extends BaseOpenmrsData {
 
 	public void setExams(Set<RadioTransExam> exams) {
 		this.exams = exams;
+	}
+
+	public String getPatientType() {
+		return patientType;
+	}
+
+	public void setPatientType(String patientType) {
+		this.patientType = patientType;
 	}
 
 	public Date getVisitDate() {
@@ -154,14 +164,14 @@ public class RadioTransaction extends BaseOpenmrsData {
 		this.total = total;
 	}
 
-	public Boolean isVoided() {
+	public Boolean getVoided() {
 		return voided;
 	}
 
 	public void setVoided(Boolean voided) {
 		this.voided = voided;
 	}
-	
+
 	// CUSTOM FUNCTIONS
 	public int getNumberOfExams(){
 		return exams.size();

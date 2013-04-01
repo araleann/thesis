@@ -118,6 +118,13 @@
 		<spring:nestedPath path="transaction">
 			<input type="checkbox" name="fieldList" value="t.visitDate" class="default">Visit Date <br>
 			<input type="checkbox" name="fieldList" value="t.visitTime">Visit Time <br>
+			<input type="checkbox">Patient Type
+			<form:select path="patientType" cssClass="filter">
+				<option value=""></option>
+				<option value="OP">OP</option>
+				<option value="IN-P">IN-P</option>
+			</form:select>
+			<br>
 			<input type="checkbox">Purpose
 			<form:input path="purpose" cssClass="filter" /><br>
 			<input type="checkbox" name="fieldList" value="t.paid">Paid

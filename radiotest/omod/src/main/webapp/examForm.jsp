@@ -54,8 +54,8 @@
 		</c:forEach>
 	</form:form>
 	<br>
-	<button type="button" onclick="clearForm()" class="buttondesign">Clear Form</button>
-	<button type="button" onclick="saveExam()" class="buttondesign">Save Exam</button>
+	<button type="button" onclick="saveExam()" class="buttondesign">Save</button>
+	<button type="button" onclick="clearForm()" class="buttondesign">Clear</button>
 </div>
 <br>
 <hr>

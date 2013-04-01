@@ -106,6 +106,7 @@
 			CREATE TABLE IF NOT EXISTS radio_transaction (
 				id INT(11) NOT NULL AUTO_INCREMENT,
 				patient_id INT(11) DEFAULT NULL,
+				patient_type VARCHAR(10) DEFAULT NULL,
 				purpose VARCHAR(500) DEFAULT NULL,
 				or_number VARCHAR(20) DEFAULT NULL,
 				paid BOOLEAN DEFAULT FALSE,
