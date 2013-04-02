@@ -18,6 +18,7 @@ $j(function() {
 		},
 
 		result : function result(id, count) {
+			GeneralUtils.startLoading();
 			$j("#examId").val(id);
 			$j("#count").val(count);
 			$j("#exam")
@@ -90,6 +91,7 @@ $j(function() {
 		},
 		
 		printResult : function printResult() {
+			GeneralUtils.startLoading();
 			$j("#result")
 					.attr("action", GeneralUtils.modulePath("/prtRes.htm"))
 					.submit();

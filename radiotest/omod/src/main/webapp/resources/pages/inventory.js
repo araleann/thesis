@@ -121,6 +121,7 @@ $j(function(){
 		},
 		
 		addStock : function addStock(){
+			GeneralUtils.startLoading();
 			$j("#listings .item").each(function(i){
 				var list = "listings[" + i + "]";
 				$j("input:hidden", this)

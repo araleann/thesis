@@ -11,6 +11,7 @@ $j(function(){
 		},
 		
 		saveExam : function saveExam(){
+			GeneralUtils.startLoading();
 			$j("#form")
 				.attr("action", GeneralUtils.modulePath("/examForm.htm"))
 				.submit();

@@ -55,7 +55,6 @@ $j(function(){
 			GeneralUtils.startLoading();
 			$j("#details").load(GeneralUtils.modulePath("/transactions.htm") + " #details", function(){
 				GeneralUtils.stopLoading();
-				GeneralUtils.onSubmit();
 			});
 		},
 		
@@ -63,7 +62,6 @@ $j(function(){
 			GeneralUtils.startLoading();
 			$j("#details").load(GeneralUtils.modulePath("/patientProfile.htm") + " #details", function(){
 				GeneralUtils.stopLoading();
-				GeneralUtils.onSubmit();
 			});
 		},
 		
@@ -72,7 +70,6 @@ $j(function(){
 			$j("#details").load(GeneralUtils.modulePath("/results.htm") + " #details", function(){
 				ValidationUtils.requireForm("#trans");
 				GeneralUtils.stopLoading();
-				GeneralUtils.onSubmit("#exam");
 			});
 			
 		}, 
@@ -124,6 +121,7 @@ $j(function(){
 		},
 
 		getPatient : function getPatient(pid){
+			GeneralUtils.startLoading();
 			$j("#patientId").val(pid);
 			$j("#patient").submit();
 		},

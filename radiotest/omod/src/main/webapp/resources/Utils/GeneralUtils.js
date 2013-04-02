@@ -262,17 +262,6 @@ $j(function(){
 			load.dialog("close");
 		},
 		
-		onSubmit : function onSubmit(formSel){
-			var $form = formSel? $j(formSel) : $j("form");
-			$form.submit(function(){
-				var $this = $j(this);
-				if($this.validationEngine("validate")){
-					GeneralUtils.startLoading();
-					$this.submit();
-				}
-			})
-		},
-		
 		stopPropagation : function stopPropagation(elemSel, context){
 			var $elems = context? $j(elemSel, context) : $j(elemSel);
 			
@@ -281,6 +270,4 @@ $j(function(){
 			});
 		}
 	}
-	
-	GeneralUtils.onSubmit();
 });

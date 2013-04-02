@@ -68,9 +68,18 @@ $j(function(){
 			}
 		},
 		
-		attachSubmit : function attachSubmit(formSel){
+		attachSubmit : function attachSubmit(formSel, config){
+			conf = {
+				promptPosition : "bottomRight",
+				validationEventTrigger : "submit"
+			}
+			
+			if(config){
+				$j.extend(conf, config);
+			}
+			
 			$j(formSel)
-				.validationEngine({ promptPosition : "bottomRight" })
+				.validationEngine(conf)
 				.validationEngine("attach");
 		},
 		
