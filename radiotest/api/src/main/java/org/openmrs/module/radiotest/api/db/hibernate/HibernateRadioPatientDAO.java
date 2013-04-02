@@ -51,7 +51,11 @@ public class HibernateRadioPatientDAO implements RadioPatientDAO {
 	@Override
 	public RadioPatient savePatient(RadioPatient patient) throws DAOException {
 		// TODO Auto-generated method stub
+		patient.processIndex();
+		
 		Session session = sessionFactory.getCurrentSession();
+		session.saveOrUpdate(patient.getIndex());
+		
 		patient = (RadioPatient) session.merge(patient);
 		session.saveOrUpdate(patient);
 		
@@ -73,6 +77,7 @@ public class HibernateRadioPatientDAO implements RadioPatientDAO {
 		if(!includeVoided){
 			criteria.add(Restrictions.eq("voided", false));
 		}
+		
 		return (List<RadioPatient>) criteria.list();
 	}
 
@@ -109,14 +114,15 @@ public class HibernateRadioPatientDAO implements RadioPatientDAO {
 		String[] searchString = format(text);
 		Criteria criteria = sessionFactory.getCurrentSession()
 								.createCriteria(RadioPatient.class)
-								.createAlias("aliases", "a");
+								.createAlias("index", "i");
+		
 		Conjunction conj = Restrictions.conjunction();
 		for(String t : searchString){
 			conj.add(Restrictions.disjunction()
-					.add(Restrictions.like("firstName", t))
-					.add(Restrictions.like("lastName", t))
-					.add(Restrictions.like("a.alias", t)));
+					.add(Restrictions.like("i.name", t))
+					.add(Restrictions.like("i.alias", t)));
 		}
+		
 		criteria
 			.add(conj)
 			.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);

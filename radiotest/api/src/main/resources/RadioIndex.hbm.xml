@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping package="org.openmrs.module.radiotest">
+
+<!--
+	<class name="RadioTest"
+		table="${project.parent.artifactId}_RadioTest">
+		<id name="id" type="int" column="id" unsaved-value="0">
+			<generator class="native" />
+		</id>
+		<discriminator column="id" insert="false" />
+		<property name="uuid" type="java.lang.String" column="uuid"
+			length="38" unique="true" />
+	</class>
+-->
+
+	<class name="RadioIndex" table="radio_index">
+		<id name="id" type="java.lang.Integer" column="id" unsaved-value="0">
+			<generator class="native" />
+		</id>
+		<discriminator column="id" insert="false" />
+		<property name="name" type="string" column="name"
+			length="100" access="field" />
+		<property name="alias" type="string" column="alias"
+			length="50" access="field" />
+	</class>
+
+</hibernate-mapping>

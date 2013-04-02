@@ -21,6 +21,7 @@
 		<sql>
 			CREATE TABLE IF NOT EXISTS radio_patient (
 				id INT(11) NOT NULL AUTO_INCREMENT,
+				sid INT(11) DEFAULT NULL,
 				patient_id VARCHAR(20) DEFAULT NULL,
 				last_name VARCHAR(50) DEFAULT NULL,
 				first_name VARCHAR(50) DEFAULT NULL,
@@ -199,6 +200,13 @@
 				name VARCHAR(50) DEFAULT NULL,
 				position VARCHAR(50) DEFAULT NULL,
 				voided BOOLEAN DEFAULT FALSE,
+				PRIMARY KEY (id)
+			);
+			
+			CREATE TABLE IF NOT EXISTS radio_index (
+				id INT(11) NOT NULL AUTO_INCREMENT,
+				name VARCHAR(100) DEFAULT NULL,
+				alias VARCHAR(50) DEFAULT NULL,
 				PRIMARY KEY (id)
 			);
 		</sql>		

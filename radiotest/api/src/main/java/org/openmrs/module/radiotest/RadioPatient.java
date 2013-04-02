@@ -34,6 +34,8 @@ public class RadioPatient extends BaseOpenmrsData {
 	private Set<RadioAlias> aliases;
 	private Set<RadioTransaction> transactions;
 	
+	private RadioIndex index;
+	
 	private Boolean voided;
 	
 	// not saved to the database
@@ -211,6 +213,14 @@ public class RadioPatient extends BaseOpenmrsData {
 		this.transactions = transactions;
 	}
 
+	public RadioIndex getIndex() {
+		return index;
+	}
+
+	public void setIndex(RadioIndex index) {
+		this.index = index;
+	}
+
 	public Boolean getVoided() {
 		return voided;
 	}
@@ -302,5 +312,14 @@ public class RadioPatient extends BaseOpenmrsData {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	public void processIndex(){
+		if(index == null){
+			index = new RadioIndex();
+		}
+		
+		index.setName(this.getFullName());
+		index.setAlias(this.getAlias().getAlias());
 	}
 }

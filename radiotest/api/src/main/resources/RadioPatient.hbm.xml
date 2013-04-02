@@ -65,6 +65,8 @@
 			<key column="patient_id" />
 			<one-to-many class="RadioTransaction" />
 		</set>
+		<many-to-one name="index"  column="sid" unique="true"
+			class="RadioIndex" />
 	</class>
 
 </hibernate-mapping>
