@@ -54,6 +54,7 @@ $j(function(){
 		load_transaction : function loadTransaction(){
 			GeneralUtils.startLoading();
 			$j("#details").load(GeneralUtils.modulePath("/transactions.htm") + " #details", function(){
+				$j("#tran").dataTable();
 				GeneralUtils.stopLoading();
 			});
 		},
@@ -69,6 +70,8 @@ $j(function(){
 			GeneralUtils.startLoading();
 			$j("#details").load(GeneralUtils.modulePath("/results.htm") + " #details", function(){
 				ValidationUtils.requireForm("#trans");
+				ValidationUtils.attachSubmit("#trans");
+				$j("#res").dataTable();
 				GeneralUtils.stopLoading();
 			});
 			
@@ -114,6 +117,8 @@ $j(function(){
 						var $list = $j("#patientList", $j(data));
 						$j("#patientList").replaceWith($list);	
 					}
+					
+					$j("#patientSearch").dataTable();
 					GeneralUtils.stopLoading();
 				});
 			}

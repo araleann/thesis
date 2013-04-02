@@ -108,7 +108,7 @@ $j(function() {
 	if(GeneralUtils.atPage("resultsForm")){
 		ValidationUtils.requireForm("#result");
 		ValidationUtils.attachSubmit("#result");
-	} else if(GeneralUtils.atPage("patientProfile")){
-		ValidationUtils.attachSubmit("#trans");
+	} else if(GeneralUtils.atPage("results")){
+		GeneralUtils.stopPropagation("button", "#exams");
 	}
 });

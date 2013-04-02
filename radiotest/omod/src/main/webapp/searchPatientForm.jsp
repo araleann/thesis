@@ -2,6 +2,7 @@
 <%@ include file="/WEB-INF/template/header.jsp"%>
 
 <%@ include file="template/resources.jsp" %>
+<%@ include file="template/tables.jsp" %>
 <openmrs:htmlInclude file="/moduleResources/radiotest/pages/patient.js" />
 
 <div class="colmask leftmenu">

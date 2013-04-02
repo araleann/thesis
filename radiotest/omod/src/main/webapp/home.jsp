@@ -34,6 +34,7 @@ $j(function(){
 			<th> Patient Name </th>
 			<th> Date of Visit </th>
 			<th> Status </th>
+			<th> Void </th>
 		</tr>
 	</thead>
 	<tbody>
@@ -44,6 +45,7 @@ $j(function(){
 			<td> ${ t.patient.fullName } </td>
 			<td> ${ t.visitDate } </td>
 			<td> NOT PAID </td>
+			<td> <button type="button" class="void" onclick="voidTransaction(${ id })">Void</button> </td>
 		</tr>
 	</c:forEach>
 	</tbody>
@@ -61,6 +63,7 @@ $j(function(){
 			<th> Exam Count </th>
 			<th> Borrowed </th>
 			<th> Status </th>
+			<th> Void </th>
 		</tr>
 	</thead>
 	<tbody>
@@ -82,6 +85,7 @@ $j(function(){
 				</c:choose>
 				</td>
 				<td> PENDING </td>
+				<td> <button type="button" class="void" onclick="voidTransaction(${ id })">Void</button> </td>
 			</tr>
 		</c:forEach>
 	</tbody>
@@ -98,6 +102,7 @@ $j(function(){
 			<th> Patient Name </th>
 			<th> Date of Visit </th>
 			<th> Status </th>
+			<th> Void </th>
 		</tr>
 	</thead>
 	<tbody>
@@ -108,6 +113,7 @@ $j(function(){
 			<td> ${ t.patient.fullName } </td>
 			<td> ${ t.visitDate } </td>
 			<td> NOT CLAIMED </td>
+			<td> <button type="button" class="void" onclick="voidTransaction(${ id })">Void</button> </td>
 		</tr>
 	</c:forEach>
 	</tbody>
@@ -135,7 +141,7 @@ $j(function(){
 				<td> ${ t.patient.fullName } </td>
 				<td> ${ t.visitDate } </td>
 				<td> ${ type } </td>
-				<td> <button type="button" onclick="voidTransaction(${ id })">Void</button> </td>
+				<td> <button type="button" class="void" onclick="voidTransaction(${ id })">Void</button> </td>
 			</tr>
 		</c:forEach>
 	</tbody>

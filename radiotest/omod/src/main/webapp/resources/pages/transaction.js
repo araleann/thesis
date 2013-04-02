@@ -166,15 +166,15 @@ $j(function(){
 		voidTransaction : function voidTransaction(id){
 			$j("#transId").val(id);
 			
-			function formatTable(){
-				$j("#expired", "#expiredDiv").dataTable();
+			function redirect(){
+				GeneralUtils.redirect("home.htm");
 			}
 			
 			var postConfig = GeneralUtils.postConfig(
 								GeneralUtils.modulePath("/voidTransaction.htm"),
 								$j("#transaction").serialize(),
-								"#expiredDiv",
-								formatTable);
+								"",
+								redirect);
 			
 			if(confirm("Confirm void of transaction. (Warning: action is irreversible)")){
 				GeneralUtils.post(postConfig);
@@ -189,5 +189,7 @@ $j(function(){
 		ValidationUtils.requireForm("#transExam");
 	} else if(GeneralUtils.atPage("transactionForm")){
 		ValidationUtils.requireForm("#noteForm");
+	} else if(GeneralUtils.atPage("home")){
+		GeneralUtils.stopPropagation(".void")
 	}
 });
