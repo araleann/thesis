@@ -146,12 +146,35 @@ $j(function(){
 		claim : function claim(id){
 			$j("#transId").val(id);
 			
+			function formatTable(){
+				$j("#claim", "#claimDiv").dataTable();
+			}
+			
 			var postConfig = GeneralUtils.postConfig(
 								GeneralUtils.modulePath("/claimResults.htm"),
 								$j("#transaction").serialize(),
-								"#claimDiv");
+								"#claimDiv",
+								formatTable);
 			
 			if(confirm("Confirm claim")){
+				GeneralUtils.post(postConfig);
+			}
+		},
+		
+		voidTransaction : function voidTransaction(id){
+			$j("#transId").val(id);
+			
+			function formatTable(){
+				$j("#expired", "#expiredDiv").dataTable();
+			}
+			
+			var postConfig = GeneralUtils.postConfig(
+								GeneralUtils.modulePath("/voidTransaction.htm"),
+								$j("#transaction").serialize(),
+								"#expiredDiv",
+								formatTable);
+			
+			if(confirm("Confirm void of transaction. (Warning: action is irreversible)")){
 				GeneralUtils.post(postConfig);
 			}
 		}

@@ -1,6 +1,8 @@
 package org.openmrs.module.radiotest;
 
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -238,5 +240,32 @@ public class RadioTransaction extends BaseOpenmrsData {
 			}
 		}
 		return false;
+	}
+	
+	public boolean isExpired(Calendar currDate){
+		Calendar visitDate = new GregorianCalendar();
+		visitDate.setTime(this.visitDate);
+		
+		final int YEAR = Calendar.YEAR;
+		final int MONTH = Calendar.MONTH;
+		final int DAY = Calendar.DAY_OF_MONTH;
+		
+		double monthsBetween = 0;
+		monthsBetween = (currDate.get(YEAR) - visitDate.get(YEAR)) * 12;
+		
+        //difference in month for months
+        monthsBetween += currDate.get(MONTH) - visitDate.get(MONTH);
+        
+        //difference in month for days
+        if(currDate.get(DAY) != currDate.getActualMaximum(DAY)
+                && currDate.get(DAY) != currDate.getActualMaximum(DAY) ){
+            monthsBetween += ((currDate.get(DAY) - visitDate.get(DAY))/31d);
+        }
+        
+        if(monthsBetween > 3d){
+        	return true;
+        } else {
+        	return false;
+        }
 	}
 }

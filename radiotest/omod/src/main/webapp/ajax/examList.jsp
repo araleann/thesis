@@ -15,7 +15,6 @@
 	<c:forEach var="transExam" items="${ exams }" varStatus="status">
 		<c:set var="c" value="${ status.count }" />
 		<c:set var="id" value="${ transExam.id }" />
-		<div id="exam${ id }">
 			<tr onclick="result(${ id }, ${ c })">
 				<td> ${ c } </td>
 				<td> 
@@ -23,7 +22,7 @@
 					${ e.type.type }
 				</td>
 				<td> ${ e.name } </td>
-				<td> 
+				<td id="borrow${ id }"> 
 					<c:choose>
 						<c:when test="${ transExam.borrowed }">
 							YES
@@ -35,7 +34,6 @@
 					<button type="button" onclick="borrow(${ id })"></button>
 				</td>
 			</tr>
-		</div>
 		<br>
 	</c:forEach>
 	</tbody>			

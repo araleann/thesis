@@ -3,6 +3,7 @@ $j(function() {
 		getExams : function getExams() {
 			function formatTable(){
 				$j("#ex").dataTable();
+				GeneralUtils.stopPropagation("button", "#ex");
 			}
 			
 			var postConfig = GeneralUtils.postConfig(
@@ -25,11 +26,17 @@ $j(function() {
 		},
 
 		borrow : function borrow(id) {
-			var examId = "#exam" + id;
+			var borrowId = "#borrow" + id;
+			
+			function initButton(){
+				GeneralUtils.stopPropagation("button", borrowId);
+			}
+			
 			var postConfig = GeneralUtils.postConfig(
 								GeneralUtils.modulePath("/borrowResults.htm"),
 								{ examId : id },
-								examId);
+								borrowId,
+								initButton);
 
 			GeneralUtils.post(postConfig);
 		},

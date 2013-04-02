@@ -56,14 +56,12 @@
 			</div>
 			<br>
 			<input type="checkbox">Civil Status 
-			<div class="filter">
-				<form:select path="civilStatus" cssClass="patientinputmedium">
+				<form:select path="civilStatus" cssClass="patientinputmedium filter">
 					<option value=""></option>
 					<option value="Single">Single</option>
 					<option value="Married">Married</option>
 					<option value="Widowed">Widowed</option>
 				</form:select>
-			</div>
 			<br>
 			<input type="checkbox">Institution 
 			<form:input path="institution" cssClass="filter" /><br>
@@ -143,6 +141,12 @@
 				</spring:bind>
 				<form:radiobutton path="claimed" value="true" />Claimed
 				<form:radiobutton path="claimed" value="false" />Not Claimed
+			</div>
+			<br>
+			<input type="checkbox">Voided
+			<div class="filter">
+				<form:radiobutton path="voided" value="true" />Is voided
+				<form:radiobutton path="voided" value="false" />Is NOT voided
 			</div>
 			<br>
 			<input type="checkbox" name="fieldList" value="t.total" class="default">Total <br>

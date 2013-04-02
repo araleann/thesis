@@ -1,5 +1,6 @@
 package org.openmrs.module.radiotest.web.controller;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -79,7 +80,10 @@ public class RadioResultsController {
 	
 	@RequestMapping(value = "/module/radiotest/getExamList", method = RequestMethod.POST)
 	public ModelAndView getExamList(@RequestParam("transId") RadioTransaction trans, ModelMap model){
-		model.addAttribute("exams", trans.getExams());
+		List<RadioTransExam> exams = new ArrayList<RadioTransExam>(trans.getExams());
+		Collections.sort(exams, new RadioComparator());
+		
+		model.addAttribute("exams", exams);
 		
 		return new ModelAndView("/module/radiotest/ajax/examList", model);
 	}

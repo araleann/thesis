@@ -10,35 +10,35 @@ import org.openmrs.module.radiotest.utils.RadioSecurity;
 
 public class RadioPatient extends BaseOpenmrsData {
 	
-	protected Integer id;
-	protected String patientId;
+	private Integer id;
+	private String patientId;
 	
-	protected String firstName;
-	protected String middleInitial;
-	protected String lastName;
+	private String firstName;
+	private String middleInitial;
+	private String lastName;
 	
-	protected String gender;
-	protected String civilStatus;
-	protected Date birthday;
-	protected String streetAddress;
-	protected String region;
-	protected String city;
-	protected String barangay;
-	protected String contactNo;
-	protected String institution;
-	protected String philhealth;
-	protected String caseNumber;
+	private String gender;
+	private String civilStatus;
+	private Date birthday;
+	private String streetAddress;
+	private String region;
+	private String city;
+	private String barangay;
+	private String contactNo;
+	private String institution;
+	private String philhealth;
+	private String caseNumber;
 	
-	protected Date updateDate;
+	private Date updateDate;
 	
-	protected Set<RadioAlias> aliases;
-	protected Set<RadioTransaction> transactions;
+	private Set<RadioAlias> aliases;
+	private Set<RadioTransaction> transactions;
 	
-	protected Boolean voided;
+	private Boolean voided;
 	
 	// not saved to the database
-	protected RadioAlias alias;
-	protected RadioCategory category;
+	private RadioAlias alias;
+	private RadioCategory category;
 	
 	public RadioPatient(){
 		aliases = new LinkedHashSet<RadioAlias>();

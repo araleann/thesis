@@ -271,6 +271,14 @@ $j(function(){
 					$this.submit();
 				}
 			})
+		},
+		
+		stopPropagation : function stopPropagation(elemSel, context){
+			var $elems = context? $j(elemSel, context) : $j(elemSel);
+			
+			$elems.click(function(e){
+				e.stopPropagation();
+			});
 		}
 	}
 	

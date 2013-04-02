@@ -10,6 +10,7 @@ $j(function(){
 	$j("#payment").dataTable();
     $j("#result").dataTable();
     $j("#claim").dataTable();
+    $j("#expired").dataTable();
 });
 //-->
 </script>
@@ -109,6 +110,34 @@ $j(function(){
 			<td> NOT CLAIMED </td>
 		</tr>
 	</c:forEach>
+	</tbody>
+</table>
+</div>
+<br>
+<br>
+<hr>
+<div id="expiredDiv">
+<h3>Expired</h3>
+<table id="expired" class="tbldesign">
+	<thead>
+		<th> Transaction Number </th>
+		<th> Patient Name </th>
+		<th> Date of Visit </th>
+		<th> Status </th>
+		<th> Void </th>
+	</thead>
+	<tbody>
+		<c:forEach var="t" items="${ expired }">
+			<c:set var="id" value="${ t.id }" />
+			<c:set var="type" value="${ t.paid? ( t.pending? 'PENDING' : 'NOT CLAIMED' ) : 'NOT PAID' }" />
+			<tr>
+				<td><center> ${ id } </center></td>
+				<td> ${ t.patient.fullName } </td>
+				<td> ${ t.visitDate } </td>
+				<td> ${ type } </td>
+				<td> <button type="button" onclick="voidTransaction(${ id })">Void</button> </td>
+			</tr>
+		</c:forEach>
 	</tbody>
 </table>
 </div>
