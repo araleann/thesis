@@ -22,9 +22,9 @@
 			CREATE TABLE IF NOT EXISTS radio_patient (
 				id INT(11) NOT NULL AUTO_INCREMENT,
 				patient_id VARCHAR(20) DEFAULT NULL,
-				last_name VARCHAR(20) DEFAULT NULL,
-				first_name VARCHAR(20) DEFAULT NULL,
-				mi VARCHAR(10) DEFAULT NULL,
+				last_name VARCHAR(50) DEFAULT NULL,
+				first_name VARCHAR(50) DEFAULT NULL,
+				mi VARCHAR(50) DEFAULT NULL,
 				gender CHAR(1) DEFAULT NULL,
 				civil_status VARCHAR(10) DEFAULT NULL,
 				birthday DATE DEFAULT NULL,
@@ -52,7 +52,7 @@
 				id INT(11) NOT NULL AUTO_INCREMENT,
 				patient_id INT(11) DEFAULT NULL,
 				category_id INT(11) DEFAULT NULL, 
-				alias VARCHAR(20) DEFAULT NULL,
+				alias VARCHAR(50) DEFAULT NULL,
 				start_date DATE DEFAULT NULL,
 				end_date DATE DEFAULT NULL,
 				voided BOOLEAN DEFAULT FALSE,
@@ -106,6 +106,7 @@
 			CREATE TABLE IF NOT EXISTS radio_transaction (
 				id INT(11) NOT NULL AUTO_INCREMENT,
 				patient_id INT(11) DEFAULT NULL,
+				patient_type VARCHAR(10) DEFAULT NULL,
 				purpose VARCHAR(500) DEFAULT NULL,
 				or_number VARCHAR(20) DEFAULT NULL,
 				paid BOOLEAN DEFAULT FALSE,
@@ -190,6 +191,22 @@
 				item_id	INT(11) DEFAULT NULL,
 				list_date DATE DEFAULT NULL,
 				qty INT DEFAULT 0,
+				PRIMARY KEY (id)
+			);
+			
+			CREATE TABLE IF NOT EXISTS radio_signature (
+				id INT(11) NOT NULL AUTO_INCREMENT,
+				name VARCHAR(50) DEFAULT NULL,
+				position VARCHAR(50) DEFAULT NULL,
+				voided BOOLEAN DEFAULT FALSE,
+				PRIMARY KEY (id)
+			);
+			
+			CREATE TABLE IF NOT EXISTS radio_index (
+				id INT(11) NOT NULL AUTO_INCREMENT,
+				pid VARCHAR(50) DEFAULT NULL,
+				name VARCHAR(100) DEFAULT NULL,
+				alias VARCHAR(50) DEFAULT NULL,
 				PRIMARY KEY (id)
 			);
 		</sql>		

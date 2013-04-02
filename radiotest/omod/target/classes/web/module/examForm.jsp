@@ -2,88 +2,12 @@
 <%@ include file="/WEB-INF/template/header.jsp"%>
 
 <%@ include file="template/resources.jsp" %>
+<openmrs:htmlInclude file="/moduleResources/radiotest/pages/exam.js" />
 
-<script>
-var modulePath = openmrsContextPath + "/module/radiotest";
-var savePath = modulePath + "/examForm.htm";
-var loadPath = modulePath + "/loadExam.htm";
-var nullPath = modulePath + "/nullExam.htm";
-
-function loadExam(id){
-	$j.post(loadPath, { examId : id }, function(data){
-		var $form = $j("#examForm", $j(data));
-		$j("#examForm").replaceWith($form);
-	});
-}
-
-function saveExam(){
-	$j("#form")
-		.attr("action", savePath)
-		.submit();
-}
-
-function clearForm(){
-	$j("#form")
-		.find(":selected, :checked")
-			.each(function(i){
-				var $this = $j(this);
-				if($this.attr("selected")){
-					$this.attr("selected", false);
-				} else {
-					$this.attr("checked", false);
-				}
-			});
-	
-	$j("#form")
-		.find(":input:not(button)")
-			.each(function(i){
-				var $this = $j(this);
-				switch(this.tagName){
-				case "TEXTAREA":
-					$this.text("");
-					break;
-				case "INPUT":
-					var type = $this.attr("type");
-					if(type == "text" || type == "hidden")
-						$this.val("");
-					break;
-				}
-			});
-}
-
-function voidExam(id){
-	var obj = {
-		eid : id,
-		action : "void"
-	}
-	post(id, obj);
-}
-
-function deleteExam(id){
-	var obj = {
-		eid : id,
-		action : "delete"
-	}
-	if(confirm("Are you sure you want to delete?")){
-		post(id, obj);
-	}
-}
-
-function post(id, obj){
-	var examId = "#exam" + id;
-	$j.post(nullPath, obj, function(data){
-		var $exam = $j(examId, $j(data));
-		if($exam.length){
-			$j(examId).replaceWith($exam);
-		} else {
-			$j(examId).remove();
-		}
-	})
-}
-</script>
 <div class="colmask leftmenu">
 	<div class="colleft">
 		<div class="col1">
+		<div class="cont">
 <br>
 <h2>Exams</h2>
 <div id="examForm">
@@ -96,7 +20,7 @@ function post(id, obj){
 			<form:hidden path="id" />
 			<label>Exam Type</label>
 			<form:select path="type" cssClass="patientinput">
-				<option value="0"></option>
+				<option value></option>
 				<form:options items="${ types }" itemLabel="type" itemValue="id" />
 			</form:select>
 			<br>
@@ -130,8 +54,8 @@ function post(id, obj){
 		</c:forEach>
 	</form:form>
 	<br>
-	<button type="button" onclick="clearForm()" class="buttondesign">Clear Form</button>
-	<button type="button" onclick="saveExam()" class="buttondesign">Save Exam</button>
+	<button type="button" onclick="saveExam()" class="buttondesign">Save</button>
+	<button type="button" onclick="clearForm()" class="buttondesign">Clear</button>
 </div>
 <br>
 <hr>
@@ -142,7 +66,7 @@ function post(id, obj){
 		<c:set var="id" value="${ exam.id }" />
 		<div id="exam${ id }">
 			Type : ${ exam.type.type } <br>
-			Name: ${ exam.name }
+			Name: <b> ${ exam.name } </b>
 			<br>
 			Voided:
 			<c:choose>
@@ -154,7 +78,14 @@ function post(id, obj){
 				</c:otherwise>
 			</c:choose>
 			<br>
-			<button type="button" onclick="voidExam(${ id })" class="buttondesignvoid">Void</button>
+			<c:choose>
+				<c:when test="${ exam.voided }">
+					<button type="button" onclick="voidExam(${ id })" class="buttondesignvoid">Unvoid</button>
+				</c:when>
+				<c:otherwise>
+					<button type="button" onclick="voidExam(${ id })" class="buttondesignvoid">Void</button>
+				</c:otherwise>
+			</c:choose>
 			<button type="button" onclick="deleteExam(${ id })" class="buttondesignsmall">Delete</button>
 			<button type="button" onclick="loadExam(${ id })" class="buttondesignsmall">Edit</button>
 		</div>
@@ -162,8 +93,12 @@ function post(id, obj){
 	<br>
 </div>
 </div>
+</div>
 <div class="col2">
+<div class="sideholder">
 			<!-- Column 2 start -->
 			<jsp:include page="/WEB-INF/view/sidemenu.jsp"/>
-		</div>
-</div></div>
+</div>
+</div>
+</div>
+</div>

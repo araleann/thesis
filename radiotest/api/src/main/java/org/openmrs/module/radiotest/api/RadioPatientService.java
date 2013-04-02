@@ -48,4 +48,6 @@ public interface RadioPatientService extends OpenmrsService {
 	
 	public RadioCounter saveCounter(RadioCounter counter) throws APIException;
 
+	
+	public void test(Integer pid) throws APIException;
 }

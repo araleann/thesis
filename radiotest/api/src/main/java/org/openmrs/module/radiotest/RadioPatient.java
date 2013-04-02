@@ -306,8 +306,9 @@ public class RadioPatient extends BaseOpenmrsData {
 	
 	public void decryptName(){
 		try {
-			String decName = RadioSecurity.decrypt(firstName);
-			firstName = decName;
+			firstName = RadioSecurity.decrypt(firstName);
+			middleInitial = RadioSecurity.decrypt(middleInitial);
+			lastName = RadioSecurity.decrypt(lastName);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -319,6 +320,7 @@ public class RadioPatient extends BaseOpenmrsData {
 			index = new RadioIndex();
 		}
 		
+		index.setPatientId(id.toString());
 		index.setName(this.getFullName());
 		index.setAlias(this.getAlias().getAlias());
 	}

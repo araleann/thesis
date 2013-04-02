@@ -1,5 +1,6 @@
 package org.openmrs.module.radiotest.api.impl;
 
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -11,6 +12,7 @@ import org.openmrs.api.impl.BaseOpenmrsService;
 import org.openmrs.module.radiotest.RadioAlias;
 import org.openmrs.module.radiotest.RadioCategory;
 import org.openmrs.module.radiotest.RadioCounter;
+import org.openmrs.module.radiotest.RadioIndex;
 import org.openmrs.module.radiotest.RadioPatient;
 import org.openmrs.module.radiotest.RadioTransaction;
 import org.openmrs.module.radiotest.api.RadioPatientService;
@@ -40,14 +42,23 @@ public class RadioPatientServiceImpl extends BaseOpenmrsService implements Radio
 	@Override
 	public RadioPatient savePatient(RadioPatient patient) throws APIException {
 		// TODO Auto-generated method stub
-		return dao.savePatient(patient);
+		patient = dao.savePatient(patient);
+		
+		patient.processIndex();
+		dao.saveIndex(patient.getIndex());
+		
+		return patient;
 	}
 
 	@Override
 	@Transactional(readOnly = true)
 	public RadioPatient getPatient(Integer patientId) throws APIException {
 		// TODO Auto-generated method stub
-		return dao.getPatient(patientId);
+		RadioPatient patient = dao.getPatient(patientId);
+		RadioIndex index = dao.getIndex(patient.getId());
+		
+		patient.setIndex(index);
+		return patient;
 	}
 
 	@Override
@@ -89,7 +100,14 @@ public class RadioPatientServiceImpl extends BaseOpenmrsService implements Radio
 	@Transactional(readOnly = true)
 	public List<RadioPatient> search(String text) throws APIException {
 		// TODO Auto-generated method stub
-		return dao.search(text);
+		List<RadioIndex> indexes = dao.search(text);
+		List<RadioPatient> patients = new ArrayList<RadioPatient>();
+		
+		for(RadioIndex i : indexes){
+			patients.add(dao.getPatient(new Integer(i.getPatientId())));
+		}
+		
+		return patients;
 	}
 
 	@Override
@@ -129,6 +147,12 @@ public class RadioPatientServiceImpl extends BaseOpenmrsService implements Radio
 	public void deleteCategory(RadioCategory category) throws APIException {
 		// TODO Auto-generated method stub
 		dao.deleteCategory(category);
+	}
+
+	@Override
+	public void test(Integer pid) throws APIException {
+		// TODO Auto-generated method stub
+		dao.test(pid);
 	}
 
 }

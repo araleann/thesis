@@ -22,6 +22,8 @@
 			<generator class="native" />
 		</id>
 		<discriminator column="id" insert="false" />
+		<property name="patientId" type="org.openmrs.module.radiotest.utils.EncryptValue" column="pid"
+			length="20" access="field" />
 		<property name="name" type="string" column="name"
 			length="100" access="field" />
 		<property name="alias" type="string" column="alias"

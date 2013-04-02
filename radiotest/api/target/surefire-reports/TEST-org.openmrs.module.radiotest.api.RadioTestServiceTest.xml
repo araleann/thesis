@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite failures="0" time="17.153" errors="0" skipped="0" tests="1" name="org.openmrs.module.radiotest.api.RadioTestServiceTest">
+<testsuite failures="0" time="12.519" errors="0" skipped="0" tests="1" name="org.openmrs.module.radiotest.api.RadioTestServiceTest">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jre6\bin"/>
@@ -25,7 +25,7 @@
     <property name="java.vm.specification.vendor" value="Sun Microsystems Inc."/>
     <property name="user.variant" value=""/>
     <property name="os.name" value="Windows NT (unknown)"/>
-    <property name="classworlds.conf" value="C:\Users\Nica\workspace\.metadata\.plugins\org.eclipse.m2e.core\launches\m2conf7832873954226987551.tmp"/>
+    <property name="classworlds.conf" value="C:\Users\Nica\workspace\.metadata\.plugins\org.eclipse.m2e.core\launches\m2conf6324284767525178328.tmp"/>
     <property name="sun.jnu.encoding" value="Cp1252"/>
     <property name="java.library.path" value="C:\Program Files\Java\jre6\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:/Program Files/Java/jre6/bin/client;C:/Program Files/Java/jre6/bin;C:/Program Files/Java/jre6/lib/i386;C:\Program Files\PC Connectivity Solution\;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;c:\Program Files\Microsoft SQL Server\100\Tools\Binn\;c:\Program Files\Microsoft SQL Server\100\DTS\Binn\;C:\Program Files\Windows Live\Shared;C:\Program Files\MySQL\MySQL Server 5.5\bin;C:\Program Files\Java\jdk1.6.0_35\bin;D:\Nica&apos;s folder\apache-maven-3.0.4\bin;D:\Nica&apos;s folder\eclipse;;."/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
@@ -59,5 +59,5 @@
     <property name="sun.desktop" value="windows"/>
     <property name="sun.cpu.isalist" value="pentium_pro+mmx pentium_pro pentium+mmx pentium i486 i386 i86"/>
   </properties>
-  <testcase time="16.096" classname="org.openmrs.module.radiotest.api.RadioTestServiceTest" name="shouldSetupContext"/>
+  <testcase time="11.987" classname="org.openmrs.module.radiotest.api.RadioTestServiceTest" name="shouldSetupContext"/>
 </testsuite>

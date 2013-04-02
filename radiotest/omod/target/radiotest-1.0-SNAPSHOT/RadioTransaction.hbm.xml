@@ -22,6 +22,8 @@
 			<generator class="native" />
 		</id>
 		<discriminator column="id" insert="false" />
+		<property name="patientType" type="string" column="patient_type"
+			length="10" access="field" />
 		<property name="visitDate" type="date" column="visit_date"
 			access="field" />
 		<property name="visitTime" type="time" column="visit_time"

@@ -13,6 +13,7 @@ import org.openmrs.api.db.DAOException;
 import org.openmrs.module.radiotest.RadioAlias;
 import org.openmrs.module.radiotest.RadioCategory;
 import org.openmrs.module.radiotest.RadioCounter;
+import org.openmrs.module.radiotest.RadioIndex;
 import org.openmrs.module.radiotest.RadioPatient;
 import org.openmrs.module.radiotest.api.db.RadioPatientDAO;
 
@@ -51,11 +52,7 @@ public class HibernateRadioPatientDAO implements RadioPatientDAO {
 	@Override
 	public RadioPatient savePatient(RadioPatient patient) throws DAOException {
 		// TODO Auto-generated method stub
-		patient.processIndex();
-		
 		Session session = sessionFactory.getCurrentSession();
-		session.saveOrUpdate(patient.getIndex());
-		
 		patient = (RadioPatient) session.merge(patient);
 		session.saveOrUpdate(patient);
 		
@@ -109,23 +106,20 @@ public class HibernateRadioPatientDAO implements RadioPatientDAO {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<RadioPatient> search(String text) throws DAOException {
+	public List<RadioIndex> search(String text) throws DAOException {
 		// TODO Auto-generated method stub
 		String[] searchString = format(text);
 		Criteria criteria = sessionFactory.getCurrentSession()
-								.createCriteria(RadioPatient.class)
-								.createAlias("index", "i");
+								.createCriteria(RadioIndex.class);
 		
 		Conjunction conj = Restrictions.conjunction();
 		for(String t : searchString){
 			conj.add(Restrictions.disjunction()
-					.add(Restrictions.like("i.name", t))
-					.add(Restrictions.like("i.alias", t)));
+					.add(Restrictions.like("name", t))
+					.add(Restrictions.like("alias", t)));
 		}
 		
-		criteria
-			.add(conj)
-			.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+		criteria.add(conj);
 		
 		return criteria.list();
 	}
@@ -135,7 +129,8 @@ public class HibernateRadioPatientDAO implements RadioPatientDAO {
 			throws DAOException {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
-		session.saveOrUpdate(session.merge(category));
+		category = (RadioCategory) session.merge(category);
+		session.saveOrUpdate(category);
 		
 		return category;
 	}
@@ -157,5 +152,40 @@ public class HibernateRadioPatientDAO implements RadioPatientDAO {
 	public void deleteCategory(RadioCategory category) throws DAOException {
 		// TODO Auto-generated method stub
 		sessionFactory.getCurrentSession().delete(category);
+	}
+
+	@Override
+	public RadioIndex saveIndex(RadioIndex index) throws DAOException {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		index = (RadioIndex) session.merge(index);
+		session.saveOrUpdate(index);
+		
+		return index;
+	}
+
+	@Override
+	public RadioIndex getIndex(Integer patientId) throws DAOException {
+		// TODO Auto-generated method stub
+		return (RadioIndex) sessionFactory.getCurrentSession()
+								.createCriteria(RadioIndex.class)
+									.add(Restrictions.eq("patientId", patientId.toString()))
+									.uniqueResult();
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public void test(Integer pid) throws DAOException {
+		// TODO Auto-generated method stub
+		System.out.println("TEST START");
+		Criteria criteria = sessionFactory.getCurrentSession()
+								.createCriteria(RadioIndex.class)
+									.add(Restrictions.eq("patientId", pid.toString()));
+		
+		List<RadioIndex> list = criteria.list();
+		for(RadioIndex i : list){
+			System.out.println(i.getName());
+		}
+		System.out.println("TEST END");
 	}
 }

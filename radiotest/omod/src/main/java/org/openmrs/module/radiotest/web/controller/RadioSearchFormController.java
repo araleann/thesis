@@ -32,7 +32,6 @@ public class RadioSearchFormController {
 	@RequestMapping(value = PATIENT_FORM, method = RequestMethod.GET)
 	public void showPatientForm(HttpSession session){
 		session.removeAttribute("patient");
-		List<RadioPatient> allPatients = Context.getService(RadioPatientService.class).getAllPatients(false);
 	}
 	
 	@RequestMapping(value = "/module/radiotest/searchPatient", method = RequestMethod.POST)

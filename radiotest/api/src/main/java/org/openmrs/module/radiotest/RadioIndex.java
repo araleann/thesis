@@ -6,6 +6,7 @@ public class RadioIndex extends BaseOpenmrsMetadata {
 
 	private Integer id;
 	
+	private String patientId;
 	private String name;
 	private String alias;
 		
@@ -19,6 +20,14 @@ public class RadioIndex extends BaseOpenmrsMetadata {
 	public void setId(Integer id) {
 		// TODO Auto-generated method stub
 		this.id = id;
+	}
+
+	public String getPatientId() {
+		return patientId;
+	}
+
+	public void setPatientId(String patientId) {
+		this.patientId = patientId;
 	}
 
 	public String getName() {

@@ -48,6 +48,8 @@
 		RadioFeeType.hbm.xml
 		RadioFee.hbm.xml
 		RadioStockListing.hbm.xml
+		RadioSignature.hbm.xml
+		RadioIndex.hbm.xml
 		
 	</mappingFiles>
 
