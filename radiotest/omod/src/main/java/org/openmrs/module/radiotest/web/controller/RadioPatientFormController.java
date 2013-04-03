@@ -66,9 +66,6 @@ public class RadioPatientFormController {
 		RadioPatient patient = pm.getFullPatient();
 		try {
 			patient.setUpdateDate(new Date());
-			if(patient.getId() != null){
-				patient = ps.updatePatient(patient);
-			}
 			session.setAttribute("patient", ps.savePatient(patient));
 		} catch (Exception ex) {
 			System.out.println("Exception!");

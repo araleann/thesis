@@ -18,12 +18,11 @@ $j(function() {
 		},
 
 		result : function result(id, count) {
-			GeneralUtils.startLoading();
 			$j("#examId").val(id);
 			$j("#count").val(count);
-			$j("#exam")
-				.attr("action", GeneralUtils.modulePath("/results.htm"))
-				.submit();
+			var form = $j("#exam").attr("action", GeneralUtils.modulePath("/results.htm"));
+			
+			ValidationUtils.submit(form);
 		},
 
 		borrow : function borrow(id) {
@@ -91,10 +90,8 @@ $j(function() {
 		},
 		
 		printResult : function printResult() {
-			GeneralUtils.startLoading();
-			$j("#result")
-					.attr("action", GeneralUtils.modulePath("/prtRes.htm"))
-					.submit();
+			var form = $j("#result").attr("action", GeneralUtils.modulePath("/prtRes.htm"));
+			ValidationUtils.submit(form);
 		},
 		
 		writeId : function writeId(id){

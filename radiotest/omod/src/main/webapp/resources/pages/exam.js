@@ -11,10 +11,8 @@ $j(function(){
 		},
 		
 		saveExam : function saveExam(){
-			GeneralUtils.startLoading();
-			$j("#form")
-				.attr("action", GeneralUtils.modulePath("/examForm.htm"))
-				.submit();
+			var form = $j("#form").attr("action", GeneralUtils.modulePath("/examForm.htm"));
+			ValidationUtils.submit(form);
 		},
 		
 		voidExam : function voidExam(id){

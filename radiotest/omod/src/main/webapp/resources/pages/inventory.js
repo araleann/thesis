@@ -121,7 +121,6 @@ $j(function(){
 		},
 		
 		addStock : function addStock(){
-			GeneralUtils.startLoading();
 			$j("#listings .item").each(function(i){
 				var list = "listings[" + i + "]";
 				$j("input:hidden", this)
@@ -130,7 +129,7 @@ $j(function(){
 					.attr("name", list + ".quantity");
 			});
 			
-			$j("#stockForm").submit();
+			ValidationUtils.submit("#stockForm");
 		}
 	}
 	

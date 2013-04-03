@@ -34,11 +34,9 @@ $j(function(){
 		},
 		
 		viewTransaction : function viewTransaction(id){
-			GeneralUtils.startLoading();
 			$j("#transId").val(id);
-			$j("#transaction")
-				.attr("action", GeneralUtils.modulePath("/viewTransaction.htm"))
-				.submit();
+			var form = $j("#transaction").attr("action", GeneralUtils.modulePath("/viewTransaction.htm"));
+			ValidationUtils.submit(form);
 		},
 		
 		addNewExam : function addNewExam(){
@@ -140,9 +138,8 @@ $j(function(){
 		viewExams : function viewExams(id){
 			GeneralUtils.startLoading();
 			$j("#transId").val(id);
-			$j("#transaction")
-				.attr("action", GeneralUtils.modulePath("/viewExams.htm"))
-				.submit();
+			var form = $j("#transaction").attr("action", GeneralUtils.modulePath("/viewExams.htm"));
+			ValidationUtils.submit(form);
 		},
 
 		claim : function claim(id){

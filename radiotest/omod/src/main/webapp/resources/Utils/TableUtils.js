@@ -6,7 +6,21 @@ $j(function(){
 		initObj : {
 			sDom : 'RT<"clear">lfrtip',
 			oTableTools : {
-				sSwfPath : "/openmrs-standalone/moduleResources/radiotest/TableTools-2.1.5/media/swf/copy_csv_xls_pdf.swf"
+				sSwfPath : "/openmrs-standalone/moduleResources/radiotest/TableTools-2.1.5/media/swf/copy_csv_xls_pdf.swf",
+				aButtons : [ 
+				            	{
+				            		sExtends : "csv",
+				            		sFileName : "*.csv"
+				            	},
+				            	{
+				            		sExtends : "xls",
+				            		sFileName : "*.xls"
+				            	},
+				            	{
+				            		sExtends : "pdf",
+				            		sPdfOrientation : "landscape"
+				            	}
+				           ]
 			},
 			bDestroy : true,
 			aaSorting : []

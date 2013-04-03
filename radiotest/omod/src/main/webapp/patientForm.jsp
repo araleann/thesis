@@ -60,7 +60,7 @@
 	</p>
 	
 	<p>
-	<form:input id="birthday" cssClass="patientinput" path="birthday" />
+	<form:input id="birthday" cssClass="patientinput datepicker" path="birthday" />
 	</p>
 	
 	<br>

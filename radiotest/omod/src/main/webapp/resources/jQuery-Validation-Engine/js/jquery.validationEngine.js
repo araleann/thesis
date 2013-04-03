@@ -1489,7 +1489,7 @@
 		* @param {Object} date
 		*/
 		_dateToString: function(date) {
-			return date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate();
+			return date.getDate()+"-"+(date.getMonth()+1)+"-"+date.getFullYear();
 		},
 		/**
 		* Parses an ISO date
@@ -1504,7 +1504,7 @@
 				dateParts = d.split(".");
 				return new Date(dateParts[2], (dateParts[1] - 1), dateParts[0]);
 			}
-			return new Date(dateParts[0], (dateParts[1] - 1) ,dateParts[2]);
+			return new Date(dateParts[2], (dateParts[1] - 1) ,dateParts[0]);
 		},
 		/**
 		* Builds or updates a prompt with the given information

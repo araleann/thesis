@@ -45,6 +45,8 @@ public class RadioPatientServiceImpl extends BaseOpenmrsService implements Radio
 		patient = dao.savePatient(patient);
 		
 		patient.processIndex();
+		System.out.println(patient.getIndex().getId());
+		System.out.println(patient.getIndex().getAlias());
 		dao.saveIndex(patient.getIndex());
 		
 		return patient;
@@ -121,10 +123,11 @@ public class RadioPatientServiceImpl extends BaseOpenmrsService implements Radio
 	@Transactional(readOnly = true)
 	public RadioPatient updatePatient(RadioPatient patient) throws APIException {
 		// TODO Auto-generated method stub
-		RadioPatient p = dao.getPatient(patient.getId());
+		RadioPatient p = this.getPatient(patient.getId());
 		Set<RadioAlias> aliases = new LinkedHashSet<RadioAlias>(p.getAliases());
 		Set<RadioTransaction> transactions = new LinkedHashSet<RadioTransaction>(p.getTransactions());
 		
+		patient.setIndex(p.getIndex());
 		patient.setAliases(aliases);
 		patient.setTransactions(transactions);
 		return patient;

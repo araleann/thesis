@@ -47,7 +47,9 @@
 					</spring:bind>
 					<p>
 					<label>${ feeType.name }:</label>
-					<form:input path="amount" cssClass="patientinputshort"/>
+					<spring:bind path="amount">
+						<input type="text" class="patientinputshort" name="${ status.expression }" value="0">
+					</spring:bind>
 					</p>
 				</spring:nestedPath>
 			</c:forEach>

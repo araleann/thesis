@@ -91,6 +91,15 @@ $j(function(){
 				});
 			
 			this.attachSubmit(formSel);
+		},
+		
+		submit : function submit(form){
+			var $form = form instanceof jQuery? form : $j(form);
+			
+			if($form.validationEngine("validate")){
+				GeneralUtils.startLoading();
+				$form.submit();
+			}
 		}
 	}
 });

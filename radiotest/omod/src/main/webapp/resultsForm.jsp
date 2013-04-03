@@ -114,6 +114,7 @@
 								<button type="button" class="buttondesignsmall" onclick="updateStock()">Save</button>
 							</form:form>
 						</div>
+						<button type="button" class="buttondesign1" onclick="addItems()">Add Item(s)</button>
 					</c:when>
 					<c:otherwise>
 						<c:forEach var="i" items="${ transExam.items }">

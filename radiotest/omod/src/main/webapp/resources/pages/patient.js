@@ -126,9 +126,8 @@ $j(function(){
 		},
 
 		getPatient : function getPatient(pid){
-			GeneralUtils.startLoading();
 			$j("#patientId").val(pid);
-			$j("#patient").submit();
+			ValidationUtils.submit("#patient");
 		},
 
 		newPatient : function newPatient(){
