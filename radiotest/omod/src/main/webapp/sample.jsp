@@ -33,7 +33,7 @@
 	document.add(uphs);
 	document.add(Chunk.NEWLINE);
 	
-	String fullName = patient.getLastName() + ", " + patient.getFirstName() + " " + patient.getMiddleInitial() + ".";
+	String fullName = patient.getLastName() + ", " + patient.getFirstName() + " " + patient.getMiddleInitial();
 	row1 = new PdfPCell(new Phrase(fullName)); 
 	row1.setColspan(2); 
 	table.addCell(row1);

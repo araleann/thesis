@@ -81,7 +81,7 @@
     dateVal.setColspan(2);
     table.addCell(dateVal);
 	
-	String fullName = patient.getLastName() + ", " + patient.getFirstName() + " " + patient.getMiddleInitial() + ".\n";
+	String fullName = patient.getLastName() + ", " + patient.getFirstName() + " " + patient.getMiddleInitial() + "\n";
 	Paragraph nameWord = new Paragraph("Name", smallFont);
 	Paragraph nameVal = new Paragraph(fullName, mediumFont);
 	Paragraph namePar = new Paragraph();
