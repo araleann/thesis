@@ -45,12 +45,12 @@
 							<c:set var="res" value="${ exam.type.template }" />
 						</c:otherwise>
 					</c:choose>
-					<textarea class="addressinput" id="findings" name="${ status.expression }">${ res }</textarea>
+					<textarea class="patientinputtemplate" id="findings" name="${ status.expression }">${ res }</textarea>
 				</spring:bind>
 				<br>
 			</form:form>
-			<button type="button" class="buttondesignsmallmedium" onclick="save()">Save</button>
-			<button type="button" class="buttondesignsmalllong" onclick="saveDraft()">Save As Draft</button>
+			<button type="button" class="buttondesign" onclick="save()">Save</button>
+			<button type="button" class="buttondesign" style="width:150px;" onclick="saveDraft()">Save As Draft</button>
 			<br><br>
 		</c:when>
 		<c:otherwise>		
@@ -73,14 +73,15 @@
 			<br>
 			<form id="result" method="post">
 				<input type="hidden" name="examId" value="${ transExam.id }">
-				<select name="sign">
+				<select class="patientinput" style="width:300px;" name="sign">
 					<option value></option>
 					<c:forEach var="sign" items="${ signatures }">
 						<option value="${ sign.id }">${ sign.name }, ${ sign.position }</option>
 					</c:forEach>
 				</select>
 			</form>
-			<button type="button" class="buttondesignsmalllong" onclick="printResult()">Print Results Form</button>
+			<br>
+			<button type="button" class="buttondesign" style="width:200px" onclick="printResult()">Print Results Form</button>
 			<br><br>
 			<h3>Items Used</h3>
 			<div id="inventory">
@@ -106,6 +107,7 @@
 						<div id="items">
 							<form:form method="post" modelAttribute="stockModel" id="itemForm">
 								<input type="hidden" name="examId" value="${ transExam.id }">
+								<br>
 								<div id="listings">
 									
 								</div>
@@ -122,10 +124,10 @@
 				</c:choose>
 			</div>
 		</c:otherwise>
-	</c:choose>
-	</div>
+	</c:choose>	
 	<br>	
-	<button type="button" class="buttondesignmedium" onclick="load_profile()" style="background-color:#f29c22;">Back to profile</button>
+	<button type="button" class="buttondesignmedium" onclick="load_profile()" style="background-color:#f29c22;">Back to profile</button>	
+	</div>
 	<br><br>
 </fieldset>
 

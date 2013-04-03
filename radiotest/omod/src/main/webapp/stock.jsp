@@ -10,7 +10,20 @@
 		<div class="cont">
 <br>
 <h2>Add Stock</h2>
-
+<div id="notif">
+		<c:forEach var="i" items="${ items }">
+			<c:choose>
+				<c:when test="${ i.atLimit }">
+					<div class="notif">
+						<div id="tab">
+						<b> WARNING! </b> ${ i.name }  is at threshold.
+						</div>
+					</div>
+				</c:when>
+			</c:choose>
+		</c:forEach>
+</div>
+<br>
 <div id="itemDiv">
 	<form id="itemsForm">
 		<select class="patientinputmedium" id="type" name="type" onchange="getItems()">

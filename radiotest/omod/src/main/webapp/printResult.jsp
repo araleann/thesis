@@ -126,7 +126,7 @@
 	table.addCell(examCell);
 	
 	Paragraph roomWord = new Paragraph("Room No.", smallFont);
-	Paragraph roomVal = new Paragraph("OP\n", mediumFont);
+	Paragraph roomVal = new Paragraph(transaction.getPatientType() + "\n" , mediumFont);
 	Paragraph roomPar = new Paragraph();
 	roomPar.add(roomVal);
 	roomPar.add(roomWord);

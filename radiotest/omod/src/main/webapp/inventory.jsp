@@ -14,10 +14,25 @@ $j(function(){
 		<div class="col1">
 		<div class="cont">
 <br>
+<br>
 <h2>Inventory</h2>
 <c:forEach var="itemMap" items="${ items }">
 	<c:set var="type" value="${ itemMap.key }" />
 	<c:set var="list" value="${ itemMap.value }" />
+	<div id="notif">
+		<c:forEach var="i" items="${ list }">
+			<c:choose>
+				<c:when test="${ i.atLimit }">
+					<div class="notif">
+						<div id="tab">
+						<b> WARNING! </b> ${ i.name }  is at threshold.
+						</div>
+					</div>
+				</c:when>
+			</c:choose>
+		</c:forEach>
+	</div>
+	<br>
 	<h3>${ type.name }</h3>
 	<table id="inv" class="tbldesign">
 	<thead>

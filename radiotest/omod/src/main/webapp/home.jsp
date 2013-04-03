@@ -23,7 +23,19 @@ $j(function(){
 <form:form id="transaction">
 	<input type="hidden" name="transId" id="transId">
 </form:form>
-
+<div id="notif">
+	<c:forEach var="i" items="${ items }">
+		<c:choose>
+			<c:when test="${ i.atLimit }">
+				<div class="notif">
+					<div id="tab">
+					<b> WARNING! </b> ${ i.name }  is at threshold.
+					</div>
+				</div>
+			</c:when>
+		</c:choose>
+	</c:forEach>
+</div>
 <h2>Pending</h2>
 
 <h3>Payment</h3>

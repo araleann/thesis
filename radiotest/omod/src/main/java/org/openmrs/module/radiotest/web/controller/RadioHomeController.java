@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 
 import org.openmrs.api.context.Context;
 import org.openmrs.module.radiotest.RadioTransaction;
+import org.openmrs.module.radiotest.api.RadioInventoryService;
 import org.openmrs.module.radiotest.api.RadioTransactionService;
 import org.openmrs.module.radiotest.propertyeditor.RadioTransactionPropertyEditor;
 import org.springframework.stereotype.Controller;
@@ -63,7 +64,8 @@ public class RadioHomeController {
 		unpaid.removeAll(expired);
 		pending.removeAll(expired);
 		unclaimed.removeAll(expired);
-		
+	
+		model.addAttribute("items", Context.getService(RadioInventoryService.class).getAllItems());
 		model.addAttribute("payment", unpaid);
 		model.addAttribute("results", pending);
 		model.addAttribute("claim", unclaimed);

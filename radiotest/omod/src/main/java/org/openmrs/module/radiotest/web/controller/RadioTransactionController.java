@@ -83,6 +83,7 @@ public class RadioTransactionController {
 			RadioTransaction trans = ts.updateTransaction((RadioTransaction) session.getAttribute("transaction"));
 			trans.computeFees();
 			model.addAttribute("transaction", trans);
+			model.addAttribute("feeType",  Context.getService(RadioTransactionService.class).getAllFeeTypes());
 			
 			patient = trans.getPatient();
 			model.addAttribute("patient", patient);
@@ -123,8 +124,9 @@ public class RadioTransactionController {
 		trans.setVisitTime(d);
 		
 		trans = Context.getService(RadioTransactionService.class).saveTransaction(trans);
-		
 		trans.computeFees();
+		
+		model.addAttribute("feeType",  Context.getService(RadioTransactionService.class).getAllFeeTypes());		
 		model.addAttribute("transaction", trans);
 		session.setAttribute("transaction", trans);
 		

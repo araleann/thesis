@@ -34,10 +34,8 @@ function printAssessment(){
 	<th>Exam Number</th>
 	<th>Exam Type</th>
 	<th>Exam Name</th>
-	<c:forEach var="transExam" items="${ transaction.exams }" varStatus="status">
-	<c:forEach var="fee" items="${ transExam.feeMap }">
-		<th>${ fee.key }</th>
-	</c:forEach>
+	<c:forEach var="fee" items="${ feeType }">
+		<th>${ fee.name }</th>
 	</c:forEach>
 	</tr>
 	<c:forEach var="transExam" items="${ transaction.exams }" varStatus="status">
@@ -112,6 +110,8 @@ function printAssessment(){
 		</spring:nestedPath>
 		<br><button type="button" class="searchbutton" onclick="saveNote()">Save Note</button>
 </form:form>
+<br><br>
+<button type="button" class="buttondesign" style="width:150px;background-color:#f29c22;" onclick="load_profile()">Back to Profile</button>
 <br><br>
 </div>
 </div>

@@ -1,5 +1,6 @@
 <%@ include file="/WEB-INF/template/include.jsp"%>
 <%@ include file="/WEB-INF/template/header.jsp"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <%@ include file="template/resources.jsp" %>
 <%@ include file="template/tables.jsp" %>
@@ -33,7 +34,9 @@
 	<br><label>Philhealth: </label> ${ p.philhealth }
 	<br><label>Sex: </label> ${ p.gender }
 	<br><label>Civil Status: </label> ${ p.civilStatus }
-	<br><label id="patient">Birthday: </label> ${ p.birthday }
+
+	<br><label id="patient">Birthday: </label> <fmt:formatDate type="date" 
+            value="${ p.birthday }" />
 	
 	<br><br>
 	<h3>Contact Details</h3>

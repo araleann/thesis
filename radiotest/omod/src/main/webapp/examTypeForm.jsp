@@ -15,7 +15,7 @@
 	<form:input path="type" id="examtype" cssClass="patientinput validate[required]" />
 	<br>
 	<br>
-	<form:textarea id="template" path="template" cssClass="patientinputtextarea1"/>
+	<form:textarea id="template" path="template" cssClass="patientinputtemplate"/>
 	<br>
 	<button type="button" onclick="saveExamType()" class="buttondesign">Save</button>
 	<button type="button" onclick="clearForm()" class="buttondesign">Clear</button>
