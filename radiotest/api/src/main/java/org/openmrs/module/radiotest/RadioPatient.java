@@ -231,9 +231,9 @@ public class RadioPatient extends BaseOpenmrsData {
 	
 	// CUSTOM FUNCTIONS
 	public String getFullName(){
-		return firstName + " " +
-				middleInitial + " " +
-				lastName;
+		return lastName + ", " +
+			   firstName+ " " +
+			   middleInitial;
 	}
 	
 	public boolean addAlias(RadioAlias alias){

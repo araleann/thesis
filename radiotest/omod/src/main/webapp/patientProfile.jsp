@@ -26,6 +26,8 @@
 	<h3>Basic Information</h3>
 	<br><label>Full Name:</label>${ p.fullName }
 	<br>
+	<br><label>Case No:</label>${ p.caseNumber }
+	<br>
 	<c:set var="c" value="${ p.category }" />
 	<label>Category:</label>${ c.category }
 	<br>
