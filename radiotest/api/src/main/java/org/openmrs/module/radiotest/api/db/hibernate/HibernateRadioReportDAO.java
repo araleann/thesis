@@ -206,7 +206,7 @@ public class HibernateRadioReportDAO implements RadioReportDAO{
 								.createCriteria("te.transaction", "t")
 									.add(getCriterion(RadioTransaction.class, report.getTransaction()))
 									.add(Restrictions.ge("t.visitDate", report.getStartDate()))
-									.add(Restrictions.lt("t.visitDate", report.getEndDate()))
+									.add(Restrictions.le("t.visitDate", report.getEndDate()))
 									.createCriteria("t.notes", "n", CriteriaSpecification.LEFT_JOIN)
 										.add(getCriterion(RadioNote.class, report.getNote()))
 										.createCriteria("n.type", "nt", CriteriaSpecification.LEFT_JOIN)

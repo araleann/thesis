@@ -4,7 +4,6 @@ import java.util.Date;
 
 import org.openmrs.api.context.Context;
 import org.openmrs.module.radiotest.RadioAlias;
-import org.openmrs.module.radiotest.RadioIndex;
 import org.openmrs.module.radiotest.RadioPatient;
 import org.openmrs.module.radiotest.api.RadioPatientService;
 

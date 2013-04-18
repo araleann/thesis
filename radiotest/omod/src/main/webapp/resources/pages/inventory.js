@@ -153,5 +153,12 @@ $j(function(){
 	} else if(GeneralUtils.atPage("stock")){
 		ValidationUtils.requireForm("#itemsForm");
 		ValidationUtils.attachSubmit("#stockForm");
+	} else if(GeneralUtils.atPage("inventory")){
+		var today = new Date();
+		var dateToday = today.getDate() + "-" + (today.getMonth() + 1) + "-" + today.getFullYear();
+		
+		var filename = "inventory_" + dateToday;
+		var tableConfig = TableUtils.initialize(filename);
+		$j("#inv").dataTable(tableConfig);
 	}
 });

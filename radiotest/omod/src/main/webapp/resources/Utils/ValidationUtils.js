@@ -3,6 +3,7 @@ $j(function(){
 		integer : "custom[integer]",
 		number : "custom[number]",
 		phone : "custom[phone]",
+		email : "custom[email]",
 		amount : "custom[amount]",
 		past : "past[now]",
 		future : "future[now]"

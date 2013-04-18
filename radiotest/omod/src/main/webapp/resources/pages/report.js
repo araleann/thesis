@@ -1,4 +1,11 @@
 $j(function(){
+	function formatDate(date){
+		if(date instanceof jQuery){
+			date = date.val();
+		}
+		return date.replace(/\//g, "-");
+	}
+	
 	var funcs = {
 		generateReport : function generateReport(){
 			if($j("#report").validationEngine("validate")){
@@ -10,7 +17,8 @@ $j(function(){
 						var tableArr = $j.csv.toArrays(csv);
 						var headerArr = tableArr.shift();
 						
-						var tableConfig = TableUtils.initObj;
+						var filename = "report_" + formatDate($j("#sdate")) + "_" + formatDate($j("#edate"));
+						var tableConfig = TableUtils.initialize(filename);
 						tableConfig["aoColumns"] = TableUtils.fixHeaderArray(headerArr);
 						tableConfig["aaData"] = tableArr;
 						
@@ -28,6 +36,7 @@ $j(function(){
 						GeneralUtils.stopLoading();
 						
 						tableDiv.dialog(dialogConfig);
+						TableUtils.redraw();
 					});
 			}
 		}
