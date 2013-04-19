@@ -14,7 +14,6 @@ public class RadioExamTypePropertyEditor extends PropertyEditorSupport{
 		if(tid == 0){
 			type = new RadioExamType();
 			type.setType("");
-			type.setTemplate(null);
 		} else {
 			type = Context.getService(RadioExamService.class).getExamType(tid);
 		}

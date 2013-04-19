@@ -95,8 +95,7 @@ public class RadioResultsController {
 		model.addAttribute("transExam", e);
 		model.addAttribute("count", request.getParameter("count"));
 		
-		String template = escapeNewline(e.getExam().getType().getTemplate(), "\\\\n");
-		System.out.println(template);
+		String template = escapeNewline(e.getExam().getResultTemplate(), "\\\\n");
 		model.addAttribute("template", template);
 		
 		if(e.hasResult()){

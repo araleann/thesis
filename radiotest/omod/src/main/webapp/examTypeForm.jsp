@@ -15,8 +15,6 @@
 	<form:input path="type" id="examtype" cssClass="patientinput validate[required]" />
 	<br>
 	<br>
-	<form:textarea id="template" path="template" cssClass="patientinputtemplate"/>
-	<br>
 	<button type="button" onclick="saveExamType()" class="buttondesign">Save</button>
 	<button type="button" onclick="clearForm()" class="buttondesign">Clear</button>
 </form:form>
@@ -28,12 +26,7 @@
 	<c:forEach var="type" items="${ examTypes }">
 		<c:set var="id" value="${ type.id }" />
 		<div id="type${ id }">
-			${ type.type } <br>
-			<c:if test="${ not empty type.template }">
-				<div id="template${ id }" class="template">
-					<i>"${ type.template }"</i>
-				</div>
-			</c:if>
+			<b><font size=4>${ type.type }</font></b><br>
 			Voided:
 			<c:choose>
 				<c:when test="${ type.voided }">

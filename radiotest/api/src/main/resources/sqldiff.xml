@@ -62,7 +62,6 @@
 			CREATE TABLE IF NOT EXISTS radio_exam_type (
 				id INT(11) NOT NULL AUTO_INCREMENT,
 				type VARCHAR(20) DEFAULT NULL,
-				template VARCHAR(500) DEFAULT NULL,
 				voided BOOLEAN DEFAULT FALSE,
 				PRIMARY KEY (id)
 			);
@@ -71,6 +70,7 @@
 				id INT(11) NOT NULL AUTO_INCREMENT,
 				type_id INT(11) DEFAULT NULL,
 				name VARCHAR(50) DEFAULT NULL,
+				template VARCHAR(500) DEFAULT NULL,
 				voided BOOLEAN DEFAULT FALSE,
 				PRIMARY KEY (id)
 			);

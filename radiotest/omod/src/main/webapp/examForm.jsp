@@ -28,6 +28,10 @@
 			<label>Exam Name</label>
 			<form:input path="name" cssClass="patientinput"/>
 			<br>
+			<br>
+			<label>Template for Result</label>
+			<form:textarea id="template" path="resultTemplate" cssClass="patientinputtemplate"/>
+			<br>
 		</spring:nestedPath>
 		<c:forEach var="cat" items="${ categories }" varStatus="status">
 			<c:set var="cind" value="${ status.index }" />
@@ -67,9 +71,15 @@
 		<br>
 		<c:set var="id" value="${ exam.id }" />
 		<div id="exam${ id }">
-			Type : ${ exam.type.type } <br>
+			Type: ${ exam.type.type } <br>
 			Name: <b> ${ exam.name } </b>
 			<br>
+			<c:if test="${ not empty exam.resultTemplate }">
+			Result Template:
+			<br> 
+			<i>${ exam.resultTemplate }</i>
+			<br>
+			</c:if>
 			Voided:
 			<c:choose>
 				<c:when test="${ exam.voided }">

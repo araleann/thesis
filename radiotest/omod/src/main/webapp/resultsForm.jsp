@@ -42,7 +42,7 @@
 							<c:set var="res" value="${ result.findings }" />
 						</c:when>
 						<c:otherwise>
-							<c:set var="res" value="${ exam.type.template }" />
+							<c:set var="res" value="${ exam.resultTemplate }" />
 						</c:otherwise>
 					</c:choose>
 					<textarea class="patientinputtemplate" id="findings" name="${ status.expression }">${ res }</textarea>

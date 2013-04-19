@@ -14,9 +14,15 @@
 package org.openmrs.module.radiotest;
 
 
-import org.apache.commons.logging.Log; 
+import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.openmrs.Role;
+import org.openmrs.api.UserService;
+import org.openmrs.api.context.Context;
 import org.openmrs.module.ModuleActivator;
+import org.openmrs.module.radiotest.api.RadioPatientService;
+import org.openmrs.module.radiotest.utils.RadioConstants;
+import org.openmrs.util.PrivilegeConstants;
 
 /**
  * This class contains the logic that is run every time this module is either started or stopped.
@@ -51,6 +57,29 @@ public class RadioTestActivator implements ModuleActivator {
 	 */
 	public void started() {
 		log.info("Radio Test Module started");
+		
+		UserService us = Context.getUserService();
+		Context.addProxyPrivilege(PrivilegeConstants.MANAGE_ROLES);
+		
+		if(us.getRole(RadioConstants.HEAD_ROLE) == null){
+			Role deptHead = new Role(RadioConstants.HEAD_ROLE, "Head/Admin for the Radiology Module");
+			deptHead.addPrivilege(us.getPrivilege(PrivilegeConstants.ADD_USERS));
+			deptHead.addPrivilege(us.getPrivilege(PrivilegeConstants.VIEW_USERS));
+			deptHead.addPrivilege(us.getPrivilege(RadioConstants.EDIT_SETTINGS_PRIVILEGE));
+			us.saveRole(deptHead);
+		}
+		
+		if(us.getRole(RadioConstants.EMPLOYEE_ROLE) == null){
+			Role deptEmployee = new Role(RadioConstants.EMPLOYEE_ROLE, "Employee for the Radiology Module");
+			us.saveRole(deptEmployee);
+		}
+		
+		Context.removeProxyPrivilege(PrivilegeConstants.MANAGE_ROLES);
+		
+		RadioPatientService ps = Context.getService(RadioPatientService.class);
+		if(ps.getCounter() == null){
+			RadioCounter.initialize();
+		}
 	}
 	
 	/**

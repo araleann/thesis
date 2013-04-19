@@ -15,6 +15,7 @@ public class RadioExamPropertyEditor extends PropertyEditorSupport{
 		if(eid == 0){
 			exam = new RadioExam();
 			exam.setName("");
+			exam.setResultTemplate(null);
 		} else {
 			exam = Context.getService(RadioExamService.class).getExam(eid);
 		}

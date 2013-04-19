@@ -141,7 +141,9 @@
 				</spring:bind>
 				<form:radiobutton path="claimed" value="true" />Claimed
 				<form:radiobutton path="claimed" value="false" />Not Claimed
-			</div>
+			</div>		
+			<br>
+			<input type="checkbox" name="fieldList" value="t.total" class="default">Total
 			<br>
 			<input type="checkbox">Voided
 			<div class="filter">
@@ -149,7 +151,6 @@
 				<form:radiobutton path="voided" value="false" />Is NOT voided
 			</div>
 			<br>
-			<input type="checkbox" name="fieldList" value="t.total" class="default">Total <br>
 		</spring:nestedPath>
 		<br>
 		<input type="checkbox" name="fieldList" value="n.type">Note Type

@@ -268,6 +268,7 @@ $j(function(){
 				template : "Template for Negative Results"
 			}
 			GeneralUtils.addPlaceholderById(examPh);
+			GeneralUtils.addPlaceholderById("examtype", "Enter Exam Type");
 		} else if(GeneralUtils.atPage("noteTypeForm")){
 			GeneralUtils.addPlaceholderById("notetype", "Enter Note Type");
 		} else if(GeneralUtils.atPage("feeTypeForm")){

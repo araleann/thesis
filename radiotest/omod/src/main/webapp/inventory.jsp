@@ -1,14 +1,10 @@
 <%@ include file="/WEB-INF/template/include.jsp"%>
 <%@ include file="/WEB-INF/template/header.jsp"%>
 
+<%@ include file="template/resources.jsp" %>
 <%@ include file="template/tables.jsp"%>
+<openmrs:htmlInclude file="/moduleResources/radiotest/pages/inventory.js" />
 
-
-<script type="text/javascript">
-$j(function(){
-	$j("#inv").dataTable();
-});
-</script>
 <div class="colmask leftmenu">
 	<div class="colleft">
 		<div class="col1">
@@ -40,6 +36,7 @@ $j(function(){
 		<th> Name </th>
 		<th> Quantity </th>
 		<th> At Threshold? </th>
+		<th> Threshold </th>
 		</tr>
 	</thead>
 	<tbody>
@@ -56,6 +53,9 @@ $j(function(){
 					NO
 				</c:otherwise>
 			</c:choose>
+			</td>
+			<td>
+			<c:if test="${ not empty i.percentThreshold }">${ i.percentThreshold }% -- </c:if>${ i.threshold } ${ i.unit }
 			</td>
 			</tr>
 		</c:forEach>

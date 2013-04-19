@@ -24,6 +24,8 @@
 		<discriminator column="id" insert="false" />
 		<property name="name" type="string" column="name"
 			length="50" access="field" />
+		<property name="resultTemplate" type="string" column="template"
+			length="500" access="field" />
 		<property name="voided" type="boolean" column="voided"
 			access="field" />
 			

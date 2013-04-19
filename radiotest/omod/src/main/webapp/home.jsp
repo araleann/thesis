@@ -5,6 +5,8 @@
 <%@ include file="template/tables.jsp" %>
 <openmrs:htmlInclude file="/moduleResources/radiotest/pages/transaction.js" />
 
+<openmrs:require privilege="Authenticated" otherwise="/login.htm" redirect="/module/radiotest/home.htm" />
+
 <script type="text/javascript">
 $j(function(){
 	$j("#payment").dataTable();

@@ -10,6 +10,7 @@ public class RadioExam extends BaseOpenmrsData {
 	
 	private RadioExamType type;
 	private String name;
+	private String resultTemplate;
 	
 	private Set<RadioCategoryExam> categoryFees;
 	
@@ -41,6 +42,14 @@ public class RadioExam extends BaseOpenmrsData {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getResultTemplate() {
+		return resultTemplate;
+	}
+
+	public void setResultTemplate(String resultTemplate) {
+		this.resultTemplate = resultTemplate;
 	}
 
 	public Set<RadioCategoryExam> getCategoryFees() {

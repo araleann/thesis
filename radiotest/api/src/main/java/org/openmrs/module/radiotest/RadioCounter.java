@@ -23,13 +23,14 @@ public class RadioCounter {
 	private RadioCounter(){
 		reset();
 	}
+	
+	public static void initialize(){
+		instance = Context.getService(RadioPatientService.class).saveCounter(new RadioCounter());
+	}
 
 	public static RadioCounter getInstance(){
-		RadioPatientService ps = Context.getService(RadioPatientService.class);
-		instance = instance == null? ps.getCounter() : instance;
-		
 		if(instance == null){
-			instance = ps.saveCounter(new RadioCounter());
+			instance = Context.getService(RadioPatientService.class).getCounter();
 		}
 		
 		return instance;
@@ -71,6 +72,10 @@ public class RadioCounter {
 	}
 	
 	public boolean isValid(String caseNumber){
+		if(caseNumber == null){
+			return false;
+		}
+		
 		if(caseNumber.isEmpty())
 			return false;
 		
